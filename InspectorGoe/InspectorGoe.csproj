@@ -58,4 +58,8 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\GameComponents\GameComponents.csproj" />
+	</ItemGroup>
+
 </Project>
