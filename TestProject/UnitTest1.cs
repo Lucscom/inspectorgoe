@@ -1,11 +1,16 @@
 namespace TestProject
 {
-    public class UnitTest1
+    public class ControllerTests
     {
-        [Fact]
-        public void Test1()
+        public ControllerTests()
         {
+            Initialize();
+        }
 
+        [Fact]
+        public void Initialize()
+        {
+            //var controller = GameComponents.Controller.GetInstance();
         }
     }
 }
