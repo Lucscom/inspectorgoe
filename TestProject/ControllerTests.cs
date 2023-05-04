@@ -6,16 +6,24 @@ namespace TestProject
     {
         public ControllerTests()
         {
-            Initialize();
         }
 
         [Fact]
-        public void Initialize()
+        public void NoTicketsNoMovement()
         {
             var controller = Controller.GetInstance();
             controller.Initialize(6);
 
-            //Assert.True(controller.MovePlayer(,))
+            var pois = controller.PointsOfInterest;
+            var X = controller.MisterX;
+
+            X.ScooterTicket = 0;
+            X.BikeTicket = 0;
+            X.BusTicket = 0;
+
+            controller.MovePlayer(X, pois.First(), TicketTypeEnum.Scooter);
+
+            Assert.True(X.Position != pois.First());
         }
     }
 }
