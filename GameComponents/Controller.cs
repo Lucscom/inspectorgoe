@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameComponents
 {
+    /// <summary>
+    /// Controlls the game and validates the game state
+    /// </summary>
     internal class Controller
     {
 
@@ -13,11 +16,19 @@ namespace GameComponents
         private Controller() { }
 
         private static Controller _instance;
+        /// <summary>
+        /// Creates one instance of controller or returns it
+        /// </summary>
+        /// <returns>Unique controller instance</returns>
         public static Controller GetInstance() { return _instance ??= new Controller(); }
         #endregion
 
         private GameState _gameState;
 
+        /// <summary>
+        /// Initializes the game state with given number of players
+        /// </summary>
+        /// <param name="playerNumber">number of players</param>
         public void Initialize(int playerNumber) 
         {
             _gameState = new GameState();
@@ -27,8 +38,10 @@ namespace GameComponents
 
             _gameState.ActivePlayer = _gameState.MisterX;
         }
-
-        public void InitPois()
+        /// <summary>
+        /// Initializes points of interest from game config
+        /// </summary>
+        private void InitPois()
         {
             //TODO: read JSON
             int numberOfPois = 5;
@@ -45,7 +58,13 @@ namespace GameComponents
             
             connectPOIs(_gameState.PointsOfInterest[4], _gameState.PointsOfInterest[2], TicketTypeEnum.Bike);
         }
-        
+
+        /// <summary>
+        /// Creates the connection between the points of interest
+        /// </summary>
+        /// <param name="pointOfInterest1">First point of connection</param>
+        /// <param name="pointOfInterest2">Second point of connection</param>
+        /// <param name="ticketType">Type of connection</param>
         private void connectPOIs(PointOfInterest pointOfInterest1, PointOfInterest pointOfInterest2, TicketTypeEnum ticketType)
         {
             switch (ticketType)
@@ -65,9 +84,14 @@ namespace GameComponents
             }
         }
 
-
-        public void InitPlayers(int numberOfPlayers) 
+        /// <summary>
+        /// Initializes players with start positions
+        /// Checks if the start position is blocked
+        /// </summary>
+        /// <param name="numberOfPlayers">Number of players</param>
+        private void InitPlayers(int numberOfPlayers) 
         {
+            //Array with random unique numbers
             int[] positions = new int[numberOfPlayers];
             for (int i = 0; i < positions.Length; i++)
             {
@@ -79,7 +103,7 @@ namespace GameComponents
                 positions[i] = newNumber;
             }
 
-
+            //Create players and set position
             _gameState.Detectives.Clear();
             for (int i = 0; i < numberOfPlayers - 2; i++)
             {
@@ -88,25 +112,35 @@ namespace GameComponents
             _gameState.MisterX = new Player(_gameState.PointsOfInterest[positions[numberOfPlayers-1]]);
         }
 
-
-        private bool CheckForOtherDetectives(PointOfInterest point)
+        /// <summary>
+        /// Checks if given point is blocked by other detective, ignores misterX
+        /// </summary>
+        /// <param name="point">Point of interest to check</param>
+        /// <returns>true if point is blocked</returns>
+        private bool CheckIfBlockedByDetective(PointOfInterest point)
         {
             //check if another player is on the field
-            //TODO: check if misterx is on field? --> Game Over
             foreach (var p in _gameState.Detectives)
             {
                 if (p.Position == point)
                 {
-                    return false;
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         }
 
-        public bool ValidateMove(Player player, PointOfInterest point, TicketTypeEnum ticketType)
+        /// <summary>
+        /// Checks if given move is possible for given player
+        /// </summary>
+        /// <param name="player">Player to check move</param>
+        /// <param name="point">Destination of move</param>
+        /// <param name="ticketType">Chosen ticketype</param>
+        /// <returns>true if move is possible</returns>
+        private bool ValidateMove(Player player, PointOfInterest point, TicketTypeEnum ticketType)
         {
-            if (!CheckForOtherDetectives(point)) 
+            if (!CheckIfBlockedByDetective(point)) 
             { 
                 return false;
             }
@@ -143,7 +177,14 @@ namespace GameComponents
             return true;
         }
 
-        public void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
+        /// <summary>
+        /// Checks and excecutes move
+        /// </summary>
+        /// <param name="player">Player to move</param>
+        /// <param name="newPosition">Destination of move</param>
+        /// <param name="ticketType">Chosen ticketype</param>
+        /// <exception cref="Exception">Game over</exception>
+        private void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
         {
             if (ValidateMove(player, newPosition, ticketType))
             {
@@ -169,6 +210,11 @@ namespace GameComponents
             }
         }
 
+        /// <summary>
+        /// Checks if player position equals misterX position
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         private bool FoundMisterX(Player player)
         {
             if (_gameState.MisterX.Position.Equals(player.Position)) return true;

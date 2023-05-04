@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace GameComponents
 {
-    public enum TicketTypeEnum
-    { Bus, Bike, Scooter}
+    /// <summary>
+    /// Contains tickettypes
+    /// </summary>
+    public enum TicketTypeEnum { Bus, Bike, Scooter }
 }
