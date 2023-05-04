@@ -1,3 +1,5 @@
+using GameComponents;
+
 namespace TestProject
 {
     public class ControllerTests
@@ -10,7 +12,10 @@ namespace TestProject
         [Fact]
         public void Initialize()
         {
-            //var controller = GameComponents.Controller.GetInstance();
+            var controller = Controller.GetInstance();
+            controller.Initialize(6);
+
+            //Assert.True(controller.MovePlayer(,))
         }
     }
 }
