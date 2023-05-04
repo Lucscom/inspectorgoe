@@ -11,7 +11,7 @@ namespace GameComponents
     /// <summary>
     /// Contains information to a point of interest and links to other points of interest
     /// </summary>
-    internal class PointOfInterest
+    public class PointOfInterest
     {
         /// <summary>
         /// Acts as the unique identifier for the point of interest

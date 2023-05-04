@@ -9,7 +9,7 @@ namespace GameComponents
     /// <summary>
     /// Controlls the game and validates the game state
     /// </summary>
-    internal class Controller
+    public class Controller
     {
 
         #region Singleton
@@ -51,12 +51,12 @@ namespace GameComponents
                 _gameState.PointsOfInterest.Add(new PointOfInterest(i, new Point()));
             }
 
-            connectPOIs(_gameState.PointsOfInterest[0], _gameState.PointsOfInterest[1], TicketTypeEnum.Bus);
-            connectPOIs(_gameState.PointsOfInterest[1], _gameState.PointsOfInterest[2], TicketTypeEnum.Bus);
-            connectPOIs(_gameState.PointsOfInterest[3], _gameState.PointsOfInterest[4], TicketTypeEnum.Bus);
-            connectPOIs(_gameState.PointsOfInterest[4], _gameState.PointsOfInterest[0], TicketTypeEnum.Bus);
+            ConnectPois(_gameState.PointsOfInterest[0], _gameState.PointsOfInterest[1], TicketTypeEnum.Bus);
+            ConnectPois(_gameState.PointsOfInterest[1], _gameState.PointsOfInterest[2], TicketTypeEnum.Bus);
+            ConnectPois(_gameState.PointsOfInterest[3], _gameState.PointsOfInterest[4], TicketTypeEnum.Bus);
+            ConnectPois(_gameState.PointsOfInterest[4], _gameState.PointsOfInterest[0], TicketTypeEnum.Bus);
             
-            connectPOIs(_gameState.PointsOfInterest[4], _gameState.PointsOfInterest[2], TicketTypeEnum.Bike);
+            ConnectPois(_gameState.PointsOfInterest[4], _gameState.PointsOfInterest[2], TicketTypeEnum.Bike);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace GameComponents
         /// <param name="pointOfInterest1">First point of connection</param>
         /// <param name="pointOfInterest2">Second point of connection</param>
         /// <param name="ticketType">Type of connection</param>
-        private void connectPOIs(PointOfInterest pointOfInterest1, PointOfInterest pointOfInterest2, TicketTypeEnum ticketType)
+        private void ConnectPois(PointOfInterest pointOfInterest1, PointOfInterest pointOfInterest2, TicketTypeEnum ticketType)
         {
             switch (ticketType)
             {
@@ -92,6 +92,7 @@ namespace GameComponents
         private void InitPlayers(int numberOfPlayers) 
         {
             //Array with random unique numbers
+            //Set starting points
             int[] positions = new int[numberOfPlayers];
             for (int i = 0; i < positions.Length; i++)
             {
@@ -117,7 +118,7 @@ namespace GameComponents
         /// </summary>
         /// <param name="point">Point of interest to check</param>
         /// <returns>true if point is blocked</returns>
-        private bool CheckIfBlockedByDetective(PointOfInterest point)
+        private bool PoiBlockedByDetective(PointOfInterest point)
         {
             //check if another player is on the field
             foreach (var p in _gameState.Detectives)
@@ -140,7 +141,7 @@ namespace GameComponents
         /// <returns>true if move is possible</returns>
         private bool ValidateMove(Player player, PointOfInterest point, TicketTypeEnum ticketType)
         {
-            if (!CheckIfBlockedByDetective(point)) 
+            if (PoiBlockedByDetective(point)) 
             { 
                 return false;
             }
@@ -159,18 +160,18 @@ namespace GameComponents
                     if (player.BikeTicket > 0)
                         if (!player.Position.ConnectionBike.Contains(point))
                             return false;
-                        else
-                            return false;
+                    else
+                        return false;
                     break;
                 case TicketTypeEnum.Scooter:
                     if (player.ScooterTicket > 0)
                         if (!player.Position.ConnectionScooter.Contains(point))
                             return false;
-                        else
-                            return false;
+                    else
+                        return false;
                     break;
                 default:
-                    break;
+                    return false;
             }
 
 
@@ -184,12 +185,12 @@ namespace GameComponents
         /// <param name="newPosition">Destination of move</param>
         /// <param name="ticketType">Chosen ticketype</param>
         /// <exception cref="Exception">Game over</exception>
-        private void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
+        public void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
         {
             if (ValidateMove(player, newPosition, ticketType))
             {
-                
                 player.Position = newPosition;
+
                 switch (ticketType)
                 {
                     case TicketTypeEnum.Bus:
