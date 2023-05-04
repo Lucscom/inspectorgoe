@@ -11,7 +11,7 @@ namespace GameComponents
     /// <summary>
     /// Contains information about player
     /// </summary>
-    internal class Player
+    public class Player
     {
         /// <summary>
         /// Playername

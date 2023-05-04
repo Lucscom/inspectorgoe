@@ -9,7 +9,7 @@ namespace GameComponents
     /// <summary>
     /// Controlls the game and validates the game state
     /// </summary>
-    internal class Controller
+    public class Controller
     {
 
         #region Singleton
@@ -185,7 +185,7 @@ namespace GameComponents
         /// <param name="newPosition">Destination of move</param>
         /// <param name="ticketType">Chosen ticketype</param>
         /// <exception cref="Exception">Game over</exception>
-        private void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
+        public void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
         {
             if (ValidateMove(player, newPosition, ticketType))
             {
