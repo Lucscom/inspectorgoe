@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Maui.Graphics;
-
 
 namespace GameComponents
 {
@@ -20,7 +18,7 @@ namespace GameComponents
         /// <summary>
         /// Picture of player
         /// </summary>
-        public Image Avatar { get; set; }
+        public string AvatarImagePath { get; set; }
         /// <summary>
         /// The current position as point of interest
         /// </summary>

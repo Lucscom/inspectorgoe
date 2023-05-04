@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Maui.Graphics;
 
 namespace GameComponents
 {
@@ -20,7 +20,7 @@ namespace GameComponents
         /// <summary>
         /// Coordinates on game board
         /// </summary>
-        public Point Location { get; private set; }
+        public Vector2 Location { get; private set; }
         /// <summary>
         /// List of connected points of interest reachable by bus
         /// </summary>
@@ -39,7 +39,7 @@ namespace GameComponents
         /// </summary>
         /// <param name="number">Unique identifier</param>
         /// <param name="location">Coordinates on game board</param>
-        public PointOfInterest(int number, Point location)
+        public PointOfInterest(int number, Vector2 location)
         {
             Number = number;
             Location = location;

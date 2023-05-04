@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,6 +40,10 @@ namespace GameComponents
             _gameState = new GameState();
 
             InitPois();
+            if (playerNumber > PointsOfInterest.Count)
+            {
+                throw new Exception("Not enough Pois");
+            }
             InitPlayers(playerNumber);
 
             _gameState.ActivePlayer = _gameState.MisterX;
@@ -53,7 +58,7 @@ namespace GameComponents
 
             for (int i = 0; i < numberOfPois; i++)
             {
-                _gameState.PointsOfInterest.Add(new PointOfInterest(i, new Point()));
+                _gameState.PointsOfInterest.Add(new PointOfInterest(i, new Vector2()));
             }
 
             ConnectPois(_gameState.PointsOfInterest[0], _gameState.PointsOfInterest[1], TicketTypeEnum.Bus);
@@ -98,7 +103,8 @@ namespace GameComponents
         {
             //Array with random unique numbers
             //Set starting points
-            int[] positions = new int[numberOfPlayers];
+            var positions = Enumerable.Repeat<int>(-1, numberOfPlayers).ToArray();
+
             for (int i = 0; i < positions.Length; i++)
             {
                 var newNumber = Random.Shared.Next(0, _gameState.PointsOfInterest.Count - 1);
@@ -211,8 +217,8 @@ namespace GameComponents
                         break;
                 }
 
-                if (FoundMisterX(player))
-                    throw new Exception("Game OVER");
+                if (player != MisterX && FoundMisterX(player))
+                        throw new Exception("Game OVER");
             }
         }
 
