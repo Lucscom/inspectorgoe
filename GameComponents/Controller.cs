@@ -25,6 +25,11 @@ namespace GameComponents
 
         private GameState _gameState;
 
+
+        public List<PointOfInterest> PointsOfInterest => _gameState.PointsOfInterest;
+        public List<Player> Detectives => _gameState.Detectives;
+        public Player MisterX => _gameState.MisterX;
+
         /// <summary>
         /// Initializes the game state with given number of players
         /// </summary>

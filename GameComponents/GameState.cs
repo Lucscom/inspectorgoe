@@ -10,7 +10,7 @@ namespace GameComponents
     /// <summary>
     /// Contains the informations about the game status
     /// </summary>
-    internal class GameState
+    public class GameState
     {
         /// <summary>
         /// List of all the player with role detective
