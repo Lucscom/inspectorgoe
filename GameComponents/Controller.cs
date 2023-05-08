@@ -26,10 +26,15 @@ namespace GameComponents
 
         private GameState _gameState;
 
-
+        /// <summary>
+        /// Creating get methods for gamegtate properties over controller
+        /// </summary>
         public List<PointOfInterest> PointsOfInterest => _gameState.PointsOfInterest;
         public List<Player> Detectives => _gameState.Detectives;
         public Player MisterX => _gameState.MisterX;
+        public int Round => _gameState.Round;
+        public Player ActivePlayer => _gameState.ActivePlayer;
+
 
         /// <summary>
         /// Initializes the game state with given number of players
@@ -117,9 +122,10 @@ namespace GameComponents
 
             //Create players and set position
             _gameState.Detectives.Clear();
-            for (int i = 0; i < numberOfPlayers - 2; i++)
+            for (int i = 0; i <= numberOfPlayers - 2; i++)
             {
-                _gameState.Detectives.Add(new Player(_gameState.PointsOfInterest[positions[i]]));
+                var startPosition = _gameState.PointsOfInterest[positions[i]];
+                _gameState.Detectives.Add(new Player(startPosition));
             }
             _gameState.MisterX = new Player(_gameState.PointsOfInterest[positions[numberOfPlayers-1]]);
         }
@@ -162,22 +168,28 @@ namespace GameComponents
             {
                 case TicketTypeEnum.Bus:
                     if (player.BusTicket > 0) //check for valid ticket
-                        if (!player.Position.ConnectionBus.Contains(point)) 
-                            return false; 
-                    else 
+                    {
+                        if (!player.Position.ConnectionBus.Contains(point))
+                            return false;
+                    }
+                    else
                         return false;
                     break;
                 case TicketTypeEnum.Bike:
                     if (player.BikeTicket > 0)
+                    {
                         if (!player.Position.ConnectionBike.Contains(point))
                             return false;
+                    }
                     else
                         return false;
                     break;
                 case TicketTypeEnum.Scooter:
                     if (player.ScooterTicket > 0)
+                    {
                         if (!player.Position.ConnectionScooter.Contains(point))
                             return false;
+                    }
                     else
                         return false;
                     break;
