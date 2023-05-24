@@ -12,9 +12,7 @@ namespace TestProject
         // testen ob controller die bewegung verweigert, wenn keinen tickets vorhanden sind
         public void NoTicketsNoMovement()
         {
-            // controller instanzieren & spieler anzahl festlegen
-            // todo: get methoden des controllorer für den gamestate mit read only properties versehen
-            // um sicherzustellen, dass nach initialisierung die Spieleranzahl nicht verändert werden kann
+            // controller instanzieren & spieleranzahl festlegen
             var controller = Controller.GetInstance();
             controller.Initialize(4);
 
@@ -25,6 +23,7 @@ namespace TestProject
              * durch den controller basierend auf der bewegungsart abgezogen werden um manipulation zu vermeiden
              * 
              * todo: hatten wir jetzt aber keinen bock dazu xD ticket muss noch geschrieben werden */
+            // Geht halt trotzdem, sollte uns nicht aufhalten
             X.ScooterTicket = 0;
             X.BikeTicket = 0;
             X.BusTicket = 0;
@@ -49,7 +48,7 @@ namespace TestProject
         public void TicketMovement()
         {
             var controller = Controller.GetInstance();
-            controller.Initialize(1);
+            controller.Initialize(2);
 
             var X = controller.MisterX;
 
@@ -68,15 +67,12 @@ namespace TestProject
 
 
         [Fact]
-        public void DontMoveInactivePlayer() {
-
+        public void DontMoveInactivePlayer() 
+        {
             // hier wird auch getestet, ob nur der aktive spieler seinen Zug durchführen darf
 
             var controller = Controller.GetInstance();
-
-            // todo: logik check benötigt ob mindestens 2 spieler initalisiert wurden (fehlermeldung oder sowas)
             controller.Initialize(2);
-
             var player = controller.Detectives.First();
 
             player.BusTicket = 5;
@@ -87,13 +83,7 @@ namespace TestProject
             // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
             controller.MovePlayer(player, newPos, TicketTypeEnum.Bus);
 
-            // todo: Es muss ein check angelegt werden, dass nur der aktive spieler bewegt werden darf
             Assert.False(player.Position == newPos);
-
         }
-
-
-
-
     }
 }

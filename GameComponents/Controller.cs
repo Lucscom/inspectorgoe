@@ -27,10 +27,10 @@ namespace GameComponents
         private GameState _gameState;
 
         /// <summary>
-        /// Creating get methods for gamegtate properties over controller
+        /// Creating get methods for gamestate properties over controller
         /// </summary>
-        public List<PointOfInterest> PointsOfInterest => _gameState.PointsOfInterest;
-        public List<Player> Detectives => _gameState.Detectives;
+        public IReadOnlyList<PointOfInterest> PointsOfInterest => _gameState.PointsOfInterest;
+        public IReadOnlyList<Player> Detectives => _gameState.Detectives;
         public Player MisterX => _gameState.MisterX;
         public int Round => _gameState.Round;
         public Player ActivePlayer => _gameState.ActivePlayer;
@@ -42,6 +42,11 @@ namespace GameComponents
         /// <param name="playerNumber">number of players</param>
         public void Initialize(int playerNumber) 
         {
+            if (playerNumber < 2 || playerNumber > 6)
+            {
+                throw new Exception("Invalid number of players");
+            }
+
             _gameState = new GameState();
 
             InitPois();
@@ -125,7 +130,8 @@ namespace GameComponents
             for (int i = 0; i <= numberOfPlayers - 2; i++)
             {
                 var startPosition = _gameState.PointsOfInterest[positions[i]];
-                _gameState.Detectives.Add(new Player(startPosition));
+                var newPlayer = new Player(startPosition);
+                _gameState.Detectives.Add(newPlayer);
             }
             _gameState.MisterX = new Player(_gameState.PointsOfInterest[positions[numberOfPlayers-1]]);
         }
@@ -210,6 +216,8 @@ namespace GameComponents
         /// <exception cref="Exception">Game over</exception>
         public void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
         {
+            if (player != ActivePlayer) return;
+
             if (ValidateMove(player, newPosition, ticketType))
             {
                 player.Position = newPosition;
