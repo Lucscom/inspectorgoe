@@ -8,8 +8,10 @@ namespace TestProject
         {
         }
 
+        /// <summary>
+        /// testen ob controller die bewegung verweigert, wenn keinen tickets vorhanden sind
+        /// </summary>
         [Fact]
-        // testen ob controller die bewegung verweigert, wenn keinen tickets vorhanden sind
         public void NoTicketsNoMovement()
         {
             // controller instanzieren & spieleranzahl festlegen
@@ -43,8 +45,10 @@ namespace TestProject
             Assert.False(X.Position == newPos);
         }
 
+        /// <summary>
+        /// testen ob der controller einen validen Zug zulässt
+        /// </summary>
         [Fact]
-        // testen ob der controller einen validen Zug zulässt
         public void TicketMovement()
         {
             var controller = Controller.GetInstance();
@@ -65,11 +69,12 @@ namespace TestProject
             Assert.True(X.Position == newPos);
         }
 
-
+        /// <summary>
+        /// hier wird auch getestet, ob nur der aktive spieler seinen Zug durchführen darf
+        /// </summary>
         [Fact]
         public void DontMoveInactivePlayer() 
         {
-            // hier wird auch getestet, ob nur der aktive spieler seinen Zug durchführen darf
 
             var controller = Controller.GetInstance();
             controller.Initialize(2);
