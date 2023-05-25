@@ -10,9 +10,8 @@ namespace GameComponents
     /// <summary>
     /// Contains the informations about the game status
     /// </summary>
-    internal class GameState
+    public class GameState
     {
-        //public ReadOnlyCollection<Player> Players => (new List<Player>() { MisterX }).Concat(Detectives).ToList().AsReadOnly();
         /// <summary>
         /// List of all the player with role detective
         /// </summary>

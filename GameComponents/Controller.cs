@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace GameComponents
     /// <summary>
     /// Controlls the game and validates the game state
     /// </summary>
-    internal class Controller
+    public class Controller
     {
 
         #region Singleton
@@ -26,14 +27,33 @@ namespace GameComponents
         private GameState _gameState;
 
         /// <summary>
+        /// Creating get methods for gamestate properties over controller
+        /// </summary>
+        public IReadOnlyList<PointOfInterest> PointsOfInterest => _gameState.PointsOfInterest;
+        public IReadOnlyList<Player> Detectives => _gameState.Detectives;
+        public Player MisterX => _gameState.MisterX;
+        public int Round => _gameState.Round;
+        public Player ActivePlayer => _gameState.ActivePlayer;
+
+
+        /// <summary>
         /// Initializes the game state with given number of players
         /// </summary>
         /// <param name="playerNumber">number of players</param>
         public void Initialize(int playerNumber) 
         {
+            if (playerNumber < 2 || playerNumber > 6)
+            {
+                throw new Exception("Invalid number of players");
+            }
+
             _gameState = new GameState();
 
             InitPois();
+            if (playerNumber > PointsOfInterest.Count)
+            {
+                throw new Exception("Not enough Pois");
+            }
             InitPlayers(playerNumber);
 
             _gameState.ActivePlayer = _gameState.MisterX;
@@ -48,15 +68,15 @@ namespace GameComponents
 
             for (int i = 0; i < numberOfPois; i++)
             {
-                _gameState.PointsOfInterest.Add(new PointOfInterest(i, new Point()));
+                _gameState.PointsOfInterest.Add(new PointOfInterest(i, new Vector2()));
             }
 
-            connectPOIs(_gameState.PointsOfInterest[0], _gameState.PointsOfInterest[1], TicketTypeEnum.Bus);
-            connectPOIs(_gameState.PointsOfInterest[1], _gameState.PointsOfInterest[2], TicketTypeEnum.Bus);
-            connectPOIs(_gameState.PointsOfInterest[3], _gameState.PointsOfInterest[4], TicketTypeEnum.Bus);
-            connectPOIs(_gameState.PointsOfInterest[4], _gameState.PointsOfInterest[0], TicketTypeEnum.Bus);
+            ConnectPois(_gameState.PointsOfInterest[0], _gameState.PointsOfInterest[1], TicketTypeEnum.Bus);
+            ConnectPois(_gameState.PointsOfInterest[1], _gameState.PointsOfInterest[2], TicketTypeEnum.Bus);
+            ConnectPois(_gameState.PointsOfInterest[3], _gameState.PointsOfInterest[4], TicketTypeEnum.Bus);
+            ConnectPois(_gameState.PointsOfInterest[4], _gameState.PointsOfInterest[0], TicketTypeEnum.Bus);
             
-            connectPOIs(_gameState.PointsOfInterest[4], _gameState.PointsOfInterest[2], TicketTypeEnum.Bike);
+            ConnectPois(_gameState.PointsOfInterest[4], _gameState.PointsOfInterest[2], TicketTypeEnum.Bike);
         }
 
         /// <summary>
@@ -65,7 +85,7 @@ namespace GameComponents
         /// <param name="pointOfInterest1">First point of connection</param>
         /// <param name="pointOfInterest2">Second point of connection</param>
         /// <param name="ticketType">Type of connection</param>
-        private void connectPOIs(PointOfInterest pointOfInterest1, PointOfInterest pointOfInterest2, TicketTypeEnum ticketType)
+        private void ConnectPois(PointOfInterest pointOfInterest1, PointOfInterest pointOfInterest2, TicketTypeEnum ticketType)
         {
             switch (ticketType)
             {
@@ -92,7 +112,9 @@ namespace GameComponents
         private void InitPlayers(int numberOfPlayers) 
         {
             //Array with random unique numbers
-            int[] positions = new int[numberOfPlayers];
+            //Set starting points
+            var positions = Enumerable.Repeat<int>(-1, numberOfPlayers).ToArray();
+
             for (int i = 0; i < positions.Length; i++)
             {
                 var newNumber = Random.Shared.Next(0, _gameState.PointsOfInterest.Count - 1);
@@ -105,9 +127,11 @@ namespace GameComponents
 
             //Create players and set position
             _gameState.Detectives.Clear();
-            for (int i = 0; i < numberOfPlayers - 2; i++)
+            for (int i = 0; i <= numberOfPlayers - 2; i++)
             {
-                _gameState.Detectives.Add(new Player(_gameState.PointsOfInterest[positions[i]]));
+                var startPosition = _gameState.PointsOfInterest[positions[i]];
+                var newPlayer = new Player(startPosition);
+                _gameState.Detectives.Add(newPlayer);
             }
             _gameState.MisterX = new Player(_gameState.PointsOfInterest[positions[numberOfPlayers-1]]);
         }
@@ -117,7 +141,7 @@ namespace GameComponents
         /// </summary>
         /// <param name="point">Point of interest to check</param>
         /// <returns>true if point is blocked</returns>
-        private bool CheckIfBlockedByDetective(PointOfInterest point)
+        private bool PoiBlockedByDetective(PointOfInterest point)
         {
             //check if another player is on the field
             foreach (var p in _gameState.Detectives)
@@ -140,7 +164,7 @@ namespace GameComponents
         /// <returns>true if move is possible</returns>
         private bool ValidateMove(Player player, PointOfInterest point, TicketTypeEnum ticketType)
         {
-            if (!CheckIfBlockedByDetective(point)) 
+            if (PoiBlockedByDetective(point)) 
             { 
                 return false;
             }
@@ -150,27 +174,33 @@ namespace GameComponents
             {
                 case TicketTypeEnum.Bus:
                     if (player.BusTicket > 0) //check for valid ticket
-                        if (!player.Position.ConnectionBus.Contains(point)) 
-                            return false; 
-                    else 
+                    {
+                        if (!player.Position.ConnectionBus.Contains(point))
+                            return false;
+                    }
+                    else
                         return false;
                     break;
                 case TicketTypeEnum.Bike:
                     if (player.BikeTicket > 0)
+                    {
                         if (!player.Position.ConnectionBike.Contains(point))
                             return false;
-                        else
-                            return false;
+                    }
+                    else
+                        return false;
                     break;
                 case TicketTypeEnum.Scooter:
                     if (player.ScooterTicket > 0)
+                    {
                         if (!player.Position.ConnectionScooter.Contains(point))
                             return false;
-                        else
-                            return false;
+                    }
+                    else
+                        return false;
                     break;
                 default:
-                    break;
+                    return false;
             }
 
 
@@ -184,12 +214,14 @@ namespace GameComponents
         /// <param name="newPosition">Destination of move</param>
         /// <param name="ticketType">Chosen ticketype</param>
         /// <exception cref="Exception">Game over</exception>
-        private void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
+        public void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
         {
+            if (player != ActivePlayer) return;
+
             if (ValidateMove(player, newPosition, ticketType))
             {
-                
                 player.Position = newPosition;
+
                 switch (ticketType)
                 {
                     case TicketTypeEnum.Bus:
@@ -205,8 +237,8 @@ namespace GameComponents
                         break;
                 }
 
-                if (FoundMisterX(player))
-                    throw new Exception("Game OVER");
+                if (player != MisterX && FoundMisterX(player))
+                        throw new Exception("Game OVER");
             }
         }
 
