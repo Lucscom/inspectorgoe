@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InspectorGoe.ContentViews.PlayerCard"
+             Padding="5">
+
+    <Frame 
+        BorderColor="Gold"
+        CornerRadius="10"
+        WidthRequest="400"
+        BackgroundColor="LightSkyBlue"
+        Padding="10"
+        HasShadow="True">
+
+        <!--Inhalt-->
+
+        <!--High level Grid-->
+        <Grid 
+            RowSpacing="6"
+            ColumnSpacing="6">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+
+
+            <!--Sub Grid-->
+            <Grid 
+                Grid.Column="1"
+                RowSpacing="2"
+                ColumnSpacing="6">
+
+                <!--Grid Definition-->
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <!--Ticket Bilder 
+                Die Bilder müssen eigentlich über Databinding eingefügt werden-->
+                <Frame                    
+                    BorderColor="Red"
+                    CornerRadius="5"
+                    BackgroundColor="White"
+                    Padding="2"
+                    HasShadow="True">
+                    <Image 
+                        Source="dotnet_bot.png"
+                        Aspect="AspectFit"/>
+                </Frame>
+
+                <Frame
+                    Grid.Row="1"
+                    BorderColor="Red"
+                    CornerRadius="5"
+                    Padding="2"
+                    BackgroundColor="White">
+                    <Image
+                        Source="dotnet_bot.png"
+                        Aspect="AspectFit"/>
+                </Frame>
+
+                <Frame                    
+                    Grid.Row="2"
+                    BorderColor="Red"
+                    CornerRadius="5"
+                    BackgroundColor="White"
+                    Padding="2">
+                    <Image 
+                        Source="dotnet_bot.png"
+                        Aspect="AspectFit"/>
+                </Frame>
+
+                <!--Tickets-->
+
+                <Frame
+                    Grid.Column="1"
+                    BorderColor="Red"
+                    CornerRadius="10"
+                    BackgroundColor="LightBlue"
+                    Padding="3"
+                    HasShadow="True">
+                    <Label
+                        Text="{Binding BusTicket}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                </Frame>
+
+                <Frame
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    BorderColor="Red"
+                    CornerRadius="10"
+                    BackgroundColor="LightBlue"
+                    Padding="3"
+                    HasShadow="True">
+                    <Label 
+                        Grid.Row="1"
+                        Text="{Binding BikeTicket}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Frame>
+
+                <Frame
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    BorderColor="Red"
+                    CornerRadius="10"
+                    BackgroundColor="LightBlue"
+                    Padding="3"
+                    HasShadow="True">
+                    <Label 
+                        Grid.Row="2"
+                        Text="{Binding ScooterTicket}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Frame>
+            </Grid>
+
+            <Frame                    
+                CornerRadius="10"
+                BackgroundColor="Red"
+                Padding="3">
+            </Frame>
+
+            <Frame                    
+                Grid.Column="1"
+                Grid.Row="1"
+                CornerRadius="10"
+                BackgroundColor="Yellow"
+                Padding="3">
+            </Frame>
+
+            <Frame                    
+                Grid.Row="1"
+                CornerRadius="10"
+                BackgroundColor="Purple"
+                Padding="3">
+            </Frame>
+            
+        </Grid>
+    </Frame>
+</ContentView>
