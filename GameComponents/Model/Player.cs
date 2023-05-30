@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameComponents
+namespace GameComponents.Model
 {
     /// <summary>
     /// Contains information about player
     /// </summary>
-    public class Player
+    public class Player : BaseEntity
     {
         /// <summary>
         /// Playername
         /// </summary>
+        [Required]
         public string Name { get; set; }
         /// <summary>
         /// Picture of player
