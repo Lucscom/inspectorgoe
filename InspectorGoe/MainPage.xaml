@@ -18,6 +18,21 @@
         <!--Inhalt-->
 
         <CollectionView 
+            Grid.Row="0"
+            Grid.Column="0"
+            ItemsSource="{Binding MrXticketsCollection}"
+            ItemsLayout="VerticalList">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <contentviews:MrX_Ticket/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+
+        <CollectionView 
             Grid.Row="1"
             Grid.Column="1"
             ItemsSource="{Binding DetectivesCollection}"
@@ -29,6 +44,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
     </Grid>
 
 </ContentPage>

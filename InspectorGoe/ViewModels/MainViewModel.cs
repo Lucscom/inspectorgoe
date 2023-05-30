@@ -5,17 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using GameComponents;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
     private Controller controller = Controller.GetInstance();
     private List<Player> detectives;
+    private List<String> mrXtickets;
 
     public MainViewModel()
     {
         controller.Initialize(4);
-
         detectives = new List<Player>(controller.Detectives);
 
         var first = detectives.First();
@@ -32,6 +33,19 @@ public partial class MainViewModel : ObservableObject
         second.Name = "2. TestSpieler";
         second.AvatarImagePath = "dotnet_bot.png";
 
+        //Hier muss eine Klasse aufgesetzt werden um das Databinding verwenden zu können.
+
+        string BusTicketURL = "dotnet_bot.png";
+        string ScooterTicketURL = "dotnet_bot.png";
+        string BikeTicketURL = "dotnet_bot.png";
+
+        mrXtickets = new List<String>();
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BikeTicketURL);
+        mrXtickets.Add(ScooterTicketURL);
+        mrXtickets.Add(ScooterTicketURL);
+        mrXtickets.Add(BikeTicketURL);
+        mrXtickets.Add(BusTicketURL);
     }
 
     public List<Player> DetectivesCollection
@@ -40,7 +54,11 @@ public partial class MainViewModel : ObservableObject
         set { detectives = value; }
     }
 
-
+    public List<String> MrXticketsCollection
+    {
+        get { return mrXtickets; }
+        set { mrXtickets = value; }
+    }
 
 
 }

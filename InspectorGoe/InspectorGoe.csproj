@@ -64,6 +64,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="ContentViews\MrX_Ticket.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ContentViews\PlayerCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
