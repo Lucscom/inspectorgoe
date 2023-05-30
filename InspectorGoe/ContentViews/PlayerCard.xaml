@@ -137,7 +137,7 @@
                         Grid.Row="2"
                         Text="{Binding ScooterTicket}"
                         HorizontalOptions="Center"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center"/>
                 </Frame>
             </Grid>
 
@@ -159,8 +159,6 @@
                 CornerRadius="10"
                 BackgroundColor="Purple"
                 Padding="3"/>
-            </Frame>
-            
         </Grid>
     </Frame>
 </ContentView>
