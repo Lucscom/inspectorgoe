@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject", "TestProject\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InspectorGoeServer", "InspectorGoeServer\InspectorGoeServer.csproj", "{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationModel", "CommunicationModel\CommunicationModel.csproj", "{ABE78508-9803-4220-AFD7-7BF3A76AD1CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABE78508-9803-4220-AFD7-7BF3A76AD1CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE78508-9803-4220-AFD7-7BF3A76AD1CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE78508-9803-4220-AFD7-7BF3A76AD1CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE78508-9803-4220-AFD7-7BF3A76AD1CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
