@@ -1,4 +1,5 @@
 using GameComponents;
+using GameComponents.Model;
 
 namespace TestProject
 {
