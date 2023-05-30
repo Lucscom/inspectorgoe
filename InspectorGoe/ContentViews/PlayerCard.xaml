@@ -29,6 +29,16 @@
                 <ColumnDefinition Width="5*" />
             </Grid.ColumnDefinitions>
 
+            <Frame
+                BorderColor="Blue"
+                    CornerRadius="5"
+                    BackgroundColor="White"
+                    Padding="2"
+                    HasShadow="True">
+                <Image 
+                        Source="{Binding AvatarImagePath}"
+                        Aspect="AspectFit"/>
+            </Frame>                  
 
             <!--Sub Grid-->
             <Grid 
@@ -37,7 +47,7 @@
                 ColumnSpacing="6">
 
                 <!--Grid Definition-->
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -132,24 +142,23 @@
             </Grid>
 
             <Frame                    
-                CornerRadius="10"
-                BackgroundColor="Red"
-                Padding="3">
-            </Frame>
-
-            <Frame                    
                 Grid.Column="1"
                 Grid.Row="1"
                 CornerRadius="10"
                 BackgroundColor="Yellow"
                 Padding="3">
+                <Label
+                    Text="{Binding Name}"
+                    TextColor="Black"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
             </Frame>
 
             <Frame                    
                 Grid.Row="1"
                 CornerRadius="10"
                 BackgroundColor="Purple"
-                Padding="3">
+                Padding="3"/>
             </Frame>
             
         </Grid>

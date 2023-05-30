@@ -18,10 +18,20 @@ public partial class MainViewModel : ObservableObject
 
         detectives = new List<Player>(controller.Detectives);
 
-        var X = detectives.First();
-        X.ScooterTicket = 3;
-        X.BikeTicket = 3;
-        X.BusTicket = 3;
+        var first = detectives.First();
+        first.ScooterTicket = 3;
+        first.BikeTicket = 3;
+        first.BusTicket = 3;
+        first.Name = "1. TestSpieler";
+        first.AvatarImagePath = "dotnet_bot.png";
+
+        var second= detectives[1];
+        second.ScooterTicket = 6;
+        second.BikeTicket = 6;
+        second.BusTicket = 6;
+        second.Name = "2. TestSpieler";
+        second.AvatarImagePath = "dotnet_bot.png";
+
     }
 
     public List<Player> DetectivesCollection
