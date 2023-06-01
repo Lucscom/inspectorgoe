@@ -1,7 +1,6 @@
 using CommunicationModel;
 using GameComponents.Model;
 using Microsoft.AspNetCore.Mvc;
-using Windows.Web.Http;
 
 namespace InspectorGoeServer.Controllers
 {
