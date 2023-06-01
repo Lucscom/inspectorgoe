@@ -38,14 +38,17 @@ public partial class MainViewModel : ObservableObject
         string BusTicketURL = "dotnet_bot.png";
         string ScooterTicketURL = "dotnet_bot.png";
         string BikeTicketURL = "dotnet_bot.png";
+        string BusTicketURL1 = "dotnet_bot.png";
+        string ScooterTicketURL1 = "dotnet_bot.png";
+        string BikeTicketURL1 = "dotnet_bot.png";
 
         mrXtickets = new List<String>();
         mrXtickets.Add(BusTicketURL);
         mrXtickets.Add(BikeTicketURL);
         mrXtickets.Add(ScooterTicketURL);
-        mrXtickets.Add(ScooterTicketURL);
-        mrXtickets.Add(BikeTicketURL);
-        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(ScooterTicketURL1);
+        mrXtickets.Add(BikeTicketURL1);
+        mrXtickets.Add(BusTicketURL1);
     }
 
     public List<Player> DetectivesCollection
@@ -56,9 +59,11 @@ public partial class MainViewModel : ObservableObject
 
     public List<String> MrXticketsCollection
     {
-        get { return mrXtickets; }
-        set { mrXtickets = value; }
+        get
+        {
+            List<String> temp = new List<String>(mrXtickets);
+            temp.Reverse();
+            return temp;
+        }
     }
-
-
-}
+ }

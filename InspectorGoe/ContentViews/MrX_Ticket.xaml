@@ -13,7 +13,7 @@
         Padding="5"
         HasShadow="True">
         <Image
-            Source="{Binding mrXtickets}"/>
+            Source="{Binding}"/>
     </Frame>
 
 </ContentView>
