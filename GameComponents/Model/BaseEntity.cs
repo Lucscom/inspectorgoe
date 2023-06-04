@@ -11,6 +11,6 @@ namespace GameComponents.Model
         /// <summary>
         /// Id of the entity
         /// </summary>
-        public string Id { get; set; }
+        public int Id { get; set; }
     }
 }
