@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
@@ -16,6 +17,8 @@ namespace GameComponents.Model
         /// <summary>
         /// Acts as the unique identifier for the point of interest
         /// </summary>
+        /// 
+        [Key]
         public int Number { get; private set; }
         /// <summary>
         /// Coordinates on game board

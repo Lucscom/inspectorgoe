@@ -6,10 +6,10 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using GameComponents.Model;
 
-namespace HttpClientSample
+namespace InspectorGoe
 {
 
-    class Program
+    class Communicator
     {
         static HttpClient client = new HttpClient();
 
@@ -29,16 +29,6 @@ namespace HttpClientSample
             return response.Headers.Location;
         }
 
-        static async Task<Player> GetProductAsync(string path)
-        {
-            Player product = null;
-            HttpResponseMessage response = await client.GetAsync(path);
-            if (response.IsSuccessStatusCode)
-            {
-                //product = await response.Content.ReadAsAsync<Product>();
-            }
-            return product;
-        }
 
         static async Task<Player> UpdateProductAsync(Player product)
         {
@@ -51,12 +41,6 @@ namespace HttpClientSample
             return product;
         }
 
-        static async Task<HttpStatusCode> DeleteProductAsync(string id)
-        {
-            HttpResponseMessage response = await client.DeleteAsync(
-                $"api/products/{id}");
-            return response.StatusCode;
-        }
 
         static void Main()
         {
@@ -82,22 +66,10 @@ namespace HttpClientSample
                 var url = await CreateProductAsync(player1);
                 Console.WriteLine($"Created at {url}");
 
-                //// get the product
-                //product = await getproductasync(url.pathandquery);
-                //showproduct(product);
-
                 //// update the product
                 //console.writeline("updating price...");
                 //product.price = 80;
                 //await updateproductasync(product);
-
-                //// get the updated product
-                //product = await getproductasync(url.pathandquery);
-                //showproduct(product);
-
-                //// delete the product
-                //var statuscode = await deleteproductasync(product.id);
-                //console.writeline($"deleted (http status = {(int)statuscode})");
 
             }
             catch (Exception e)

@@ -38,6 +38,7 @@ namespace GameComponents.Model
         /// </summary>
         public int ScooterTicket { get; set; }
 
+        public Player() { }
         /// <summary>
         /// Constructor to init player
         /// </summary>

@@ -1,33 +1,37 @@
 using CommunicationModel;
 using GameComponents.Model;
+using InspectorGoeServer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace InspectorGoeServer.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class PlayerController : ControllerBase
     {
 
-        private readonly ILogger<PlayerController> _logger;
+        private readonly PlayerContext _context;
 
-        public PlayerController(ILogger<PlayerController> logger)
+        public PlayerController(PlayerContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         [HttpPost]
-        public ActionResult Post(Player model)
+        public async Task<ActionResult<Player>> PostPlayer(Player player)
         {
             //todo: add player to database
-
-            return CreatedAtAction(nameof(Get), new { id = model.Id }, model);
+            _context.Players.Add(player);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(Get), new { id = player.Id }, player);
         }
 
         [HttpGet("{id}")]
-        private object Get(string id)
+        private async Task<ActionResult<IEnumerable<Player>>> Get(string id)
         {
-            throw new NotImplementedException();
+            return await _context.Players.ToListAsync();
         }
     }
 }
