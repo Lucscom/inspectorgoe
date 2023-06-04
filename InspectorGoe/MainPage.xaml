@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InspectorGoe.MainPage"
-             xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews">
+             xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
+             xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels"
+             x:DataType="viewModel:MainViewModel">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -17,7 +19,29 @@
 
         <!--Inhalt-->
 
-        <CollectionView Grid.Row="0"
+        <VerticalStackLayout Padding="10" BindableLayout.ItemsSource="{Binding MrXticketsCollection}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <ContentView>
+
+
+                        <Frame CornerRadius="10"
+                               HeightRequest="80" 
+                               WidthRequest="150"
+                               BackgroundColor="black"
+                               Padding="5"
+                               HasShadow="True">
+
+                            <Image Source="{Binding}"/>
+
+                        </Frame>
+
+                    </ContentView>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+
+        <!--<CollectionView Grid.Row="0"
                         Grid.Column="0" 
                         ItemsSource="{Binding MrXticketsCollection}" 
                         ItemsLayout="VerticalList">
@@ -28,7 +52,10 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Image Source="Ticket_2x.png" Grid.Row="1"/>
+
+        
+        
+        <Image Source="dotnet_bot.png" Grid.Row="1"/>
 
 
         <CollectionView Grid.Row="1" 
@@ -41,7 +68,7 @@
                     <contentviews:PlayerCard/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-        </CollectionView>
+        </CollectionView>-->
 
     </Grid>
 
