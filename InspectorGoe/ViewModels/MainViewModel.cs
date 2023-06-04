@@ -35,7 +35,7 @@ public partial class MainViewModel : ObservableObject
 
         //Hier muss eine Klasse aufgesetzt werden um das Databinding verwenden zu können.
 
-        string BusTicketURL = "dotnet_bot.png";
+        string BusTicketURL = "https://aka.ms/campus.jpg";
         string ScooterTicketURL = "dotnet_bot.png";
         string BikeTicketURL = "dotnet_bot.png";
         string BusTicketURL1 = "dotnet_bot.png";
@@ -44,11 +44,19 @@ public partial class MainViewModel : ObservableObject
 
         mrXtickets = new List<String>();
         mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BikeTicketURL);
-        mrXtickets.Add(ScooterTicketURL);
-        mrXtickets.Add(ScooterTicketURL1);
-        mrXtickets.Add(BikeTicketURL1);
-        mrXtickets.Add(BusTicketURL1);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(BusTicketURL);
     }
 
     public List<Player> DetectivesCollection

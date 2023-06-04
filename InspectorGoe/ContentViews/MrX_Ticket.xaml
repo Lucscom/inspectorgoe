@@ -4,16 +4,14 @@
              x:Class="InspectorGoe.ContentViews.MrX_Ticket"
              Padding="10">
 
-    <Frame
-        BorderColor="Gold"
-        CornerRadius="10"
-        HeightRequest="150"
-        WidthRequest="120"
-        BackgroundColor="LightSkyBlue"
-        Padding="5"
-        HasShadow="True">
-        <Image
-            Source="{Binding}"/>
+    <Frame CornerRadius="10"
+           HeightRequest="80" 
+           WidthRequest="150"
+           BackgroundColor="white"
+           Padding="5"
+           HasShadow="True">
+        
+        <Image Source="{Binding}"/>
     </Frame>
 
 </ContentView>

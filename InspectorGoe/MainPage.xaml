@@ -6,22 +6,21 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="210" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!--Inhalt-->
 
-        <CollectionView 
-            Grid.Row="0"
-            Grid.Column="0"
-            ItemsSource="{Binding MrXticketsCollection}"
-            ItemsLayout="VerticalList">
+        <CollectionView Grid.Row="0"
+                        Grid.Column="0" 
+                        ItemsSource="{Binding MrXticketsCollection}" 
+                        ItemsLayout="VerticalList">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -29,14 +28,13 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <Image Source="Ticket_2x.png" Grid.Row="1"/>
 
 
-
-        <CollectionView 
-            Grid.Row="1"
-            Grid.Column="1"
-            ItemsSource="{Binding DetectivesCollection}"
-            ItemsLayout="HorizontalList">
+        <CollectionView Grid.Row="1" 
+                        Grid.Column="1"
+                        ItemsSource="{Binding DetectivesCollection}"
+                        ItemsLayout="HorizontalList">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>

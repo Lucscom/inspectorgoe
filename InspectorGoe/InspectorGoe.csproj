@@ -45,7 +45,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -55,12 +54,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\dotnet_bot.svg" />
+	  <MauiImage Remove="Resources\Images\Ticket_2x.png" />
+	  <MauiImage Remove="Resources\Images\Ticket_Bus.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\Ticket_Bus.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\GameComponents\GameComponents.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+	  <Resource Include="Resources\Images\Ticket_2x.png" />
 	</ItemGroup>
 
 	<ItemGroup>
