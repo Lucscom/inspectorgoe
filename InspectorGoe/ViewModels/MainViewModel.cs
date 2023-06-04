@@ -33,9 +33,16 @@ public partial class MainViewModel : ObservableObject
         second.Name = "2. TestSpieler";
         second.AvatarImagePath = "dotnet_bot.png";
 
+        var third= detectives[2];
+        third.ScooterTicket = 6;
+        third.BikeTicket = 6;
+        third.BusTicket = 6;
+        third.Name = "3. Testspieler";
+        third.AvatarImagePath = "dotnet_bot.png";
+
         //Hier muss eine Klasse aufgesetzt werden um das Databinding verwenden zu können.
 
-        string BusTicketURL = "https://aka.ms/campus.jpg";
+        string BusTicketURL = "dotnet_bot.png";
         string ScooterTicketURL = "dotnet_bot.png";
         string BikeTicketURL = "dotnet_bot.png";
         string BusTicketURL1 = "dotnet_bot.png";
