@@ -11,4 +11,9 @@ public partial class Menu : ContentPage
     {
 		Navigation.PushAsync(new MainPage());
     }
+
+    private void Button_Clicked_1(object sender, EventArgs e)
+    {
+
+    }
 }

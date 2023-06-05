@@ -39,19 +39,5 @@
                 VerticalOptions="End"
                 Margin="10"/>
         </ContentView>
-
-        <!-- Popup Window -->
-        <ContentView x:Name="PopupContentView"
-                     Grid.Row="0"
-                     Grid.Column="1"
-                     Rotation="2"
-                     BackgroundColor="White"
-                     Padding="20"
-                     IsVisible="False"
-                     Opacity="0.9"
-                     VerticalOptions="Center"
-                     HorizontalOptions="Center">
-        </ContentView>
-
     </Grid>
 </ContentPage>

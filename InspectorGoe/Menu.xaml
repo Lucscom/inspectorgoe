@@ -3,9 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InspectorGoe.Menu"
              Title="Menu">
-    <VerticalStackLayout>
-        <Entry Placeholder="Username"/>
-        <Entry Placeholder="Password" IsPassword="True"/>
-        <Button Clicked="Button_Clicked" Text="Hello WOrld"/>
-    </VerticalStackLayout>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackLayout
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            BackgroundColor="LightBlue"
+            HorizontalOptions="Start"
+            WidthRequest="300">
+            <Button Text="Spiel erstellen" Margin="10" Clicked="Button_Clicked"/>
+            <Button Text="Spiel beitreten" Margin="10" Clicked="Button_Clicked_1"/>
+        </StackLayout>
+
+    </Grid>
 </ContentPage>
