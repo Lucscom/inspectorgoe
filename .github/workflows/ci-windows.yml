@@ -2,13 +2,13 @@ name: CI Windows
 
 on:
   push:
-    branches: [ master ]
+    branches: [ "main", "develop" ]
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
       - '**/*.gitattributes'
   pull_request:
-    branches: [ master ]
+    branches: [ "main", "develop" ]
   workflow_dispatch:
 permissions:
   contents: read
@@ -36,5 +36,5 @@ jobs:
           - name: Build MAUI Windows
             run: dotnet build -c Release -f net7.0-windows10.0.19041.0 --no-restore
 
-          - name: Testproject
+          - name: Test MAUI Windows
             run: dotnet test --verbosity normal
