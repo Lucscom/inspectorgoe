@@ -34,7 +34,7 @@ jobs:
             run: dotnet restore
 
           - name: Build MAUI Windows
-            run: dotnet build .\TestProject\TestProject.csproj -c Release --no-restore -p:PublishReadyToRun=false -f net7.0-windows10.0.19041.0
+            run: dotnet build .\InspectorGoe\InspectorGoe.csproj -c Release --no-restore -p:PublishReadyToRun=false -f net7.0-windows10.0.19041.0
 
           - name: Test MAUI Windows
             run: dotnet test .\TestProject\TestProject.csproj --verbosity normal
