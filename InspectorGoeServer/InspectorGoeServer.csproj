@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommunicationModel\CommunicationModel.csproj" />
     <ProjectReference Include="..\GameComponents\GameComponents.csproj" />
   </ItemGroup>
 
