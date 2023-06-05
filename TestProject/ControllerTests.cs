@@ -42,7 +42,7 @@ namespace TestProject
             // testen der controller MovePlayer method
             controller.MovePlayer(X, newPos, TicketTypeEnum.Scooter);
 
-            Assert.False(X.Position == newPos);
+            Assert.Equal(X.Position, newPos);
         }
 
         /// <summary>
