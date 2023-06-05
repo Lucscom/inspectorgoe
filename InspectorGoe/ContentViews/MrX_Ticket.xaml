@@ -11,7 +11,7 @@
            Padding="5"
            HasShadow="True">
         
-        <Image Source="dnet_bot.png"/>
+        <Image Source="{Binding}"/>
     </Frame>
 
 </ContentView>
