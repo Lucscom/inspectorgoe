@@ -1,9 +1,9 @@
-using CommunicationModel;
+using GameComponents;
 using GameComponents.Model;
 using InspectorGoeServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using System.ComponentModel.Design;
 
 namespace InspectorGoeServer.Controllers
 {
@@ -26,22 +26,37 @@ namespace InspectorGoeServer.Controllers
 
         [HttpGet("{id}")]
         [ActionName(nameof(GetPlayer))]
-        private async Task<ActionResult<Player>> GetPlayer(string id)
+        private async Task<ActionResult<Player>> GetPlayer(int id)
         {
             var player = await _context.Players.FindAsync(id);
             if (player == null)
             {
                 return NotFound();
             }
-            return player;
+            return Ok(player);
         }
+
         [HttpPost]
+        [ActionName(nameof(PostPlayer))]
         public async Task<ActionResult<Player>> PostPlayer(Player player)
         {
             //todo: add player to database
-            _context.Players.Add(player);
+            var newPlayer = _context.Players.Add(player);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetPlayer), new { id = player.Name }, player);
+            return Ok();
+            //return CreatedAtAction(nameof(GetPlayer), new { id = newPlayer.Entity.Id }, newPlayer);
+        }
+
+        [HttpPut("{id}")]
+        [ActionName(nameof(PutPlayer))]
+        public async Task<IActionResult> PutPlayer(int id, PointOfInterest poi, TicketTypeEnum ticketType)
+        {
+            Player player = await _context.Players.FindAsync(id);
+            GameComponents.Controller.GetInstance().MovePlayer(player, poi, ticketType);
+
+            _context.Entry(player).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }
