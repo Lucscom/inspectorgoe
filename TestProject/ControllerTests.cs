@@ -66,7 +66,7 @@ namespace TestProject
             // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
             controller.MovePlayer(X, newPos, TicketTypeEnum.Bus);
 
-            Assert.True(X.Position == newPos);
+            Assert.Equal(X.Position, newPos);
         }
 
         /// <summary>
