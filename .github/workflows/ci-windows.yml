@@ -37,4 +37,4 @@ jobs:
             run: dotnet build -c Release --no-restore -p:PublishReadyToRun=false -f net7.0-windows10.0.19041.0
 
           - name: Test MAUI Windows
-            run: dotnet test --verbosity normal  --no-build
+            run: dotnet test .\TestProject\TestProject.csproj --verbosity normal
