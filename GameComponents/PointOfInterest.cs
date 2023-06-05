@@ -22,6 +22,10 @@ namespace GameComponents
         /// </summary>
         public Vector2 Location { get; private set; }
         /// <summary>
+        /// Real name of POI
+        /// </summary>
+        public string Name { get; private set; }
+        /// <summary>
         /// List of connected points of interest reachable by bus
         /// </summary>
         public List<PointOfInterest> ConnectionBus { get; private set; } = new List<PointOfInterest>();
@@ -38,10 +42,12 @@ namespace GameComponents
         /// Constructor to init point of interest
         /// </summary>
         /// <param name="number">Unique identifier</param>
+        /// <param name="name">Real name</param>
         /// <param name="location">Coordinates on game board</param>
-        public PointOfInterest(int number, Vector2 location)
+        public PointOfInterest(int number, string name, Vector2 location)
         {
             Number = number;
+            Name = name;
             Location = location;
         }
     }
