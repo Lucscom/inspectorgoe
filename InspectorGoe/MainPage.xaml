@@ -20,7 +20,7 @@
 
 
         <ScrollView>
-            <VerticalStackLayout Padding="10" BindableLayout.ItemsSource="{Binding MrXticketsCollection}">
+            <VerticalStackLayout Padding="10" BindableLayout.ItemsSource="{Binding MrXticketsCollection}" HorizontalOptions="Start">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <contentviews:MrX_Ticket/>

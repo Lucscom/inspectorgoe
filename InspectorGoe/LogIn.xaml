@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InspectorGoe.LogIn">
+    
+    <!--High level Grid-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <StackLayout
+            Grid.Column="0"
+            BackgroundColor="LightBlue"
+            HorizontalOptions="Start"
+            WidthRequest="300">
+            <Entry Placeholder="Enter your email" Margin="10"/>
+            <Entry Placeholder="Enter your password" Margin="10" IsPassword="True"/>
+            <HorizontalStackLayout>
+                <Button Text="Log In" Margin="10" WidthRequest="130" Clicked="Button_Clicked_LogIn"/>
+                <Button Text="Sign Up" Margin="10" WidthRequest="130" Clicked="Button_Clicked_SignUp"/>
+            </HorizontalStackLayout>
+        </StackLayout>
+
+        <ContentView Grid.Row="1"
+                     Grid.Column="0"
+                     BackgroundColor="LightBlue"
+                     WidthRequest="300"
+                     HorizontalOptions="Start">
+            <Entry
+                Placeholder="Enter Server IP"
+                BackgroundColor="LightBlue"
+                VerticalOptions="End"
+                Margin="10"/>
+        </ContentView>
+
+        <!-- Popup Window -->
+        <ContentView x:Name="PopupContentView"
+                     Grid.Row="0"
+                     Grid.Column="1"
+                     Rotation="2"
+                     BackgroundColor="White"
+                     Padding="20"
+                     IsVisible="False"
+                     Opacity="0.9"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Center">
+        </ContentView>
+
+    </Grid>
+</ContentPage>
