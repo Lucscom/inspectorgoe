@@ -1,8 +1,11 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="InspectorGoe.RegisterPage">
+               x:Class="InspectorGoe.RegisterPage"
+               Color="Transparent"
+               Size="500,400">
 
+    <Frame BackgroundColor="LightBlue" CornerRadius="10">
         <StackLayout Padding="10">
             <Label Text="Sign Up" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
             <Entry Placeholder="Username" Margin="10"/>
@@ -10,5 +13,6 @@
             <Entry Placeholder="Confirm Password" Margin="10" IsPassword="True"/>
             <Button Text="Register" Margin="10" Clicked="Button_Clicked_Register"/>
         </StackLayout>
+    </Frame>
 
 </toolkit:Popup>
