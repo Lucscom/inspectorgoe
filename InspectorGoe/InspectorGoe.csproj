@@ -55,7 +55,6 @@
 
 	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\dotnet_bot.svg" />
-	  <MauiImage Remove="Resources\Images\Ticket_Bus.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -83,6 +82,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="ContentViews\MrXCard.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ContentViews\MrX_Ticket.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

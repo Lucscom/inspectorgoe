@@ -5,46 +5,73 @@
              xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
              xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="220" />
-        </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
 
-        <!--Inhalt-->
+    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="All">
 
+        <ScrollView Orientation="Both"
+                    x:Name="scrollView"
+                    AbsoluteLayout.LayoutFlags="All"
+                    AbsoluteLayout.LayoutBounds="0,0,1,1">
 
-        <ScrollView>
-            <VerticalStackLayout Padding="10" BindableLayout.ItemsSource="{Binding MrXticketsCollection}" HorizontalOptions="Start">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <contentviews:MrX_Ticket/>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </VerticalStackLayout>
+            <Image Source="map_komplett.png" Aspect="AspectFit" Scale="1"/>
+
         </ScrollView>
 
-        <ScrollView Grid.Row="1"
+
+        <Grid AbsoluteLayout.LayoutBounds="0,0,1,0.99"
+              AbsoluteLayout.LayoutFlags="All">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="230" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Inhalt-->
+            <ScrollView>
+                <VerticalStackLayout Padding="5" 
+                                     BindableLayout.ItemsSource="{Binding MrXticketsCollection}" 
+                                     HorizontalOptions="Start"
+                                     VerticalOptions="End"
+                                     >
+                    
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <contentviews:MrX_Ticket/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <ScrollView Grid.Row="1"
                     Grid.Column="1"
                     Orientation="Horizontal">
 
-            <HorizontalStackLayout BindableLayout.ItemsSource="{Binding DetectivesCollection}">
-                
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <contentviews:PlayerCard/>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </HorizontalStackLayout>
-        </ScrollView>
+                <HorizontalStackLayout BindableLayout.ItemsSource="{Binding DetectivesCollection}"
+                                       HorizontalOptions="Center">
 
-        <Image Source="ticket_2x.png" Grid.Row="1"/>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <contentviews:PlayerCard/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </HorizontalStackLayout>
+            </ScrollView>
 
-    </Grid>
+            <StackLayout Grid.Row="1" Padding="5">
+                <contentviews:MrXCard BindingContext="{Binding MisterX}"/>
+
+            </StackLayout>
+
+            
+        </Grid>
+    </AbsoluteLayout>
+
+
 
 </ContentPage>

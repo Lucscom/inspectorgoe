@@ -12,12 +12,20 @@ public partial class MainViewModel : ObservableObject
 {
     private Controller controller = Controller.GetInstance();
     private List<Player> detectives;
+    private Player mrX;
     private List<String> mrXtickets;
 
     public MainViewModel()
     {
         controller.Initialize(4);
         detectives = new List<Player>(controller.Detectives);
+        mrX = controller.MisterX;
+        mrX.AvatarImagePath = "dotnet_bot.png";
+
+        mrX.BikeTicket = 3;
+        mrX.BusTicket = 6;
+        mrX.ScooterTicket = 5;
+        mrX.Name = "MisterX";
 
         var first = detectives.First();
         first.ScooterTicket = 3;
@@ -26,14 +34,14 @@ public partial class MainViewModel : ObservableObject
         first.Name = "1. TestSpieler";
         first.AvatarImagePath = "dotnet_bot.png";
 
-        var second= detectives[1];
+        var second = detectives[1];
         second.ScooterTicket = 6;
         second.BikeTicket = 6;
         second.BusTicket = 6;
         second.Name = "2. TestSpieler";
         second.AvatarImagePath = "dotnet_bot.png";
 
-        var third= detectives[2];
+        var third = detectives[2];
         third.ScooterTicket = 6;
         third.BikeTicket = 6;
         third.BusTicket = 6;
@@ -42,29 +50,30 @@ public partial class MainViewModel : ObservableObject
 
         //Hier muss eine Klasse aufgesetzt werden um das Databinding verwenden zu können.
 
-        string BusTicketURL = "dotnet_bot.png";
-        string ScooterTicketURL = "dotnet_bot.png";
-        string BikeTicketURL = "dotnet_bot.png";
-        string BusTicketURL1 = "dotnet_bot.png";
-        string ScooterTicketURL1 = "dotnet_bot.png";
-        string BikeTicketURL1 = "dotnet_bot.png";
+        string ticketBusPath = "ticket_bus.png";
+        string ticketScooterPath = "ticket_scooter.png";
+        string ticketBikePath = "ticket_bike.png";
+        string ticketblackPath = "ticket_black.png";
+        string ticket2xPath = "ticket_2x.png";
+
 
         mrXtickets = new List<String>();
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
-        mrXtickets.Add(BusTicketURL);
+        mrXtickets.Add(ticketBikePath);
+        mrXtickets.Add(ticketBusPath);
+        mrXtickets.Add(ticketScooterPath);
+        mrXtickets.Add(ticketblackPath);
+        //mrXtickets.Add(ticket2xPath);
+        //mrXtickets.Add(ticket2xPath);
+        //mrXtickets.Add(ticketScooterPath);
+        //mrXtickets.Add(ticketScooterPath);
+        //mrXtickets.Add(ticketBusPath);
+        //mrXtickets.Add(ticketBikePath);
+        //mrXtickets.Add(ticketBusPath);
+        //mrXtickets.Add(ticketBikePath);
+        //mrXtickets.Add(ticketBikePath);
+
     }
+
 
     public List<Player> DetectivesCollection
     {
@@ -72,13 +81,13 @@ public partial class MainViewModel : ObservableObject
         set { detectives = value; }
     }
 
+    public Player MisterX
+    {
+        get { return mrX; }
+    }
+
     public List<String> MrXticketsCollection
     {
-        get
-        {
-            List<String> temp = new List<String>(mrXtickets);
-            temp.Reverse();
-            return temp;
-        }
+        get { return mrXtickets; }
     }
  }
