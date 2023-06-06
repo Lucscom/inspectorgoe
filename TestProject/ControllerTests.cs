@@ -64,6 +64,8 @@ namespace TestProject
             // Zielposition wird basierend auf den existierenden verbindungen des POI ausgewählt um einen validen zug zu garantieren
             var newPos = X.Position.ConnectionBus.First();
 
+            //todo: check ticket count before move, after move
+            //todo: check other ticket types as well
             // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
             controller.MovePlayer(X, newPos, TicketTypeEnum.Bus);
 
