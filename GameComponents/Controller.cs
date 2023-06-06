@@ -229,13 +229,13 @@ namespace GameComponents
             switch (ticketType)
             {
                 case TicketTypeEnum.Bus:
-                    player.BusTicket = -1;
+                    player.BusTicket -= 1;
                     break;
                 case TicketTypeEnum.Bike:
-                    player.BikeTicket = -1;
+                    player.BikeTicket -= 1;
                     break;
                 case TicketTypeEnum.Scooter:
-                    player.ScooterTicket = -1;
+                    player.ScooterTicket -= 1;
                     break;
                 default:
                     break;
