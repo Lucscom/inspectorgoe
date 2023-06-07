@@ -9,13 +9,13 @@ using GameComponents.Model;
 namespace InspectorGoe
 {
 
-    class Communicator
+    public class Communicator
     {
         static HttpClient client = new HttpClient();
 
         static void ShowProduct(Player product)
         {
-            Console.WriteLine($"Name: {product.Name}\tPrice: " +
+            Console.WriteLine($"Name: {product.UserName}\tPrice: " +
                 $"{product.BusTicket}\tCategory: {product.BikeTicket}");
         }
 
@@ -42,9 +42,9 @@ namespace InspectorGoe
         }
 
 
-        static void Main()
+        public async static void Main()
         {
-            RunAsync().GetAwaiter().GetResult();
+            await RunAsync();
         }
 
         static async Task RunAsync()
@@ -58,13 +58,13 @@ namespace InspectorGoe
             try
             {
                 // Create a new Player
-                PointOfInterest poi = new PointOfInterest(1, System.Numerics.Vector2.One);
-                Player player1 = new Player(poi);
+                //PointOfInterest poi = new PointOfInterest(1, System.Numerics.Vector2.One);
+                //Player player1 = new Player(poi);
 
 
 
-                var url = await CreateProductAsync(player1);
-                Console.WriteLine($"Created at {url}");
+                //var url = await CreateProductAsync(player1);
+                //Console.WriteLine($"Created at {url}");
 
                 //// update the product
                 //console.writeline("updating price...");
