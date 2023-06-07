@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace GameComponents.Model
 {
     /// <summary>
     /// Contains information about player
     /// </summary>
-    public class Player : BaseEntity
+    [DataContract]
+    public class Player : IdentityUser
     {
         /// <summary>
         /// Playername
         /// </summary>
-        [Required]
-        public string Name { get; set; }
+        [DataMember]
+        [Required(ErrorMessage = "Username is required")]
+        public override string UserName { get => base.UserName; set => base.UserName = value; }
+
+        [DataMember]
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; init; }
         /// <summary>
         /// Picture of player
         /// </summary>

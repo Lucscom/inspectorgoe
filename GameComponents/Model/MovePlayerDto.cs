@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameComponents.Model
 {
-    public class BaseEntity
+    public class MovePlayerDto
     {
-        /// <summary>
-        /// Id of the entity
-        /// </summary>
-        public int Id { get; set; }
+        public PointOfInterest PointOfInterest { get; set; }
+        public TicketTypeEnum TicketType { get; set; }
     }
 }
