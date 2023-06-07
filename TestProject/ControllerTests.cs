@@ -1,5 +1,7 @@
 using GameComponents;
 using GameComponents.Model;
+using System.Diagnostics;
+using System.Numerics;
 
 namespace TestProject
 {
@@ -62,14 +64,26 @@ namespace TestProject
             X.BusTicket = 5;
 
             // Zielposition wird basierend auf den existierenden verbindungen des POI ausgewählt um einen validen zug zu garantieren
-            var newPos = X.Position.ConnectionBus.First();
+            // Es wird nicht garantiert, dass ein anderer Spieler auf diesem POI steht!
+            var newPos = X.Position;
 
-            //todo: check ticket count before move, after move
-            //todo: check other ticket types as well
-            // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
-            controller.MovePlayer(X, newPos, TicketTypeEnum.Bus);
-
-            Assert.True(X.Position == newPos);
+            if (X.Position.ConnectionBus.Count != 0)                    // Busverbindung am Start-POI existiert
+            {
+                newPos = X.Position.ConnectionBus.First();                  // Neue Position ist erste aus der Liste der Busverbindungen
+                controller.MovePlayer(X, newPos, TicketTypeEnum.Bus);       // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
+            }
+            else if (X.Position.ConnectionBike.Count != 0)              //Bikeverbindung am Start-POI existiert
+            {
+                newPos = X.Position.ConnectionBike.First();                 // Neue Position ist erste aus der Liste der Bikeverbindungen
+                controller.MovePlayer(X, newPos, TicketTypeEnum.Bike);      // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
+            }
+            else if (X.Position.ConnectionScooter.Count != 0)           //Scooterverbindung am Start-POI existiert
+            {
+                newPos = X.Position.ConnectionScooter.First();              // Neue Position ist erste aus der Liste der Scooterverbindungen
+                controller.MovePlayer(X, newPos, TicketTypeEnum.Scooter);   // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
+            }
+                             
+            Assert.True(X.Position == newPos);      // Klappt nicht immer (aber häufig), wenn durch Zufall ein Detective auf dem Feld steht.
         }
 
         /// <summary>
@@ -83,15 +97,31 @@ namespace TestProject
             controller.Initialize(2);
             var player = controller.Detectives.First();
 
-            player.BusTicket = 5;
+            
+            var newPos = player.Position;
 
             // Zielposition wird basierend auf den existierenden verbindungen des POI ausgewählt um einen validen zug zu garantieren
-            var newPos = player.Position.ConnectionBus.First();
-
-            // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
-            controller.MovePlayer(player, newPos, TicketTypeEnum.Bus);
-
+            // Es wird nicht garantiert, dass ein anderer Spieler auf diesem POI steht!
+            if (player.Position.ConnectionBus.Count != 0)               // Busverbindung am Start-POI existiert
+            {
+                newPos = player.Position.ConnectionBus.First();             // Neue Position ist erste aus der Liste der Busverbindungen
+                player.BusTicket = 5;                                       
+                controller.MovePlayer(player, newPos, TicketTypeEnum.Bus);  // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
+            }
+            else if (player.Position.ConnectionBike.Count != 0)         //Bikeverbindung am Start-POI existiert
+            {
+                newPos = player.Position.ConnectionBike.First();            // Neue Position ist erste aus der Liste der Bikeverbindungen
+                player.BikeTicket = 5;
+                controller.MovePlayer(player, newPos, TicketTypeEnum.Bike); // übergeben des spieler, neuen position und fortbewegungsmittel an den controller
+            }
+            else if (player.Position.ConnectionScooter.Count != 0)      //Scooterverbindung am Start-POI existiert
+            {
+                newPos = player.Position.ConnectionScooter.First();         // Neue Position ist erste aus der Liste der Scooterverbindungen
+                player.ScooterTicket = 5;
+                controller.MovePlayer(player, newPos, TicketTypeEnum.Scooter);// übergeben des spieler, neuen position und fortbewegungsmittel an den controller
+            }
+            
             Assert.False(player.Position == newPos);
         }
-    }
+    }   
 }
