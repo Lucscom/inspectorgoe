@@ -19,7 +19,7 @@ namespace GameComponents.Model
 
         [DataMember]
         [Required(ErrorMessage = "Password is required")]
-        public string Password { get; init; }
+        public string Password { get; set; }
         /// <summary>
         /// Picture of player
         /// </summary>

@@ -2,6 +2,7 @@ using GameComponents;
 using GameComponents.Model;
 using InspectorGoeServer.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,8 +52,10 @@ namespace InspectorGoeServer.Controllers
         public async Task<ActionResult<Player>> RegisterPlayer([FromBody] Player player)
         {
             var userResult = await _userManager.CreateAsync(player, player.Password);
-            return !userResult.Succeeded ? 
-                new BadRequestObjectResult(userResult) : StatusCode(201);
+            var registeredUser = await _userManager.FindByNameAsync(player.UserName);
+            return !userResult.Succeeded 
+                ? new BadRequestObjectResult(userResult) 
+                : Created(new Uri(Request.GetEncodedUrl()), registeredUser);
         }
 
         [HttpPost("login")]
@@ -64,6 +67,19 @@ namespace InspectorGoeServer.Controllers
             return !result
                 ? Unauthorized()
                 : Ok(new { Token = await GenerateToken(currentUser) });
+        }
+
+        [HttpPut]
+        [Authorize]
+        [ActionName(nameof(PutPlayer))]
+        public async Task<IActionResult> PutPlayer([FromBody] MovePlayerDto movement)
+        {
+            var currentUser = await _context.Players.FindAsync(User.Identity.Name);
+            GameComponents.Controller.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType);
+
+            _context.Entry(currentUser).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
         private async Task<string> GenerateToken(Player? user)
@@ -105,19 +121,6 @@ namespace InspectorGoeServer.Controllers
                             expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtConfig["expiresIn"])),
                             signingCredentials: signingCredentials);
             return tokenOptions;
-        }
-
-        [HttpPut]
-        [Authorize]
-        [ActionName(nameof(PutPlayer))]
-        public async Task<IActionResult> PutPlayer([FromBody] MovePlayerDto movement)
-        {
-            var currentUser = await _context.Players.FindAsync(User.Identity.Name);
-            GameComponents.Controller.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType);
-
-            _context.Entry(currentUser).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return NoContent();
         }
     }
 }
