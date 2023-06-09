@@ -21,6 +21,10 @@ namespace GameComponents.Model
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; init; }
         /// <summary>
+        /// The Color displayed in the GUI
+        /// </summary>
+        public string PlayerColor { get; set; }
+        /// <summary>
         /// Picture of player
         /// </summary>
         public string AvatarImagePath { get; set; }
@@ -40,6 +44,14 @@ namespace GameComponents.Model
         /// Number of scootertickets available to the player
         /// </summary>
         public int ScooterTicket { get; set; }
+        /// <summary>
+        /// Number of Black Tickets available for Mister X
+        /// </summary>
+        public int BlackTicket { get; set; }
+        /// <summary>
+        /// Number of Double Tickets available for Mister X
+        /// </summary>
+        public int DoubleTicket { get; set; }
 
         public Player() { }
         /// <summary>
