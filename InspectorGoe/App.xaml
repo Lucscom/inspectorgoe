@@ -25,7 +25,7 @@
                                 <VisualState.Setters>
                                     <Setter Property="Scale"
                             Value="0.9" />
-                                    <Setter Property="BackgroundColor" Value="Indigo"/>
+                                    <Setter Property="BackgroundColor" Value="SteelBlue"/>
                                     <Setter Property="TextColor" Value="White"/>
                                 </VisualState.Setters>
                             </VisualState>
