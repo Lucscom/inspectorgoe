@@ -19,16 +19,21 @@ namespace InspectorGoe
                 $"{product.BusTicket}\tCategory: {product.BikeTicket}");
         }
 
-        static async Task<Uri> CreateProductAsync(Player product)
+        static async Task<HttpStatusCode> CreatePlayerAsync(Player player)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(
-                "api/Player", product);
+                "api/Player", player);
             response.EnsureSuccessStatusCode();
-
-            // return URI of the created resource.
-            return response.Headers.Location;
+            return response.StatusCode;
         }
 
+        static async Task<String> Login(Player player)
+        {
+            HttpResponseMessage response = await client.PostAsJsonAsync(
+                "api/Player/login", player);
+            response.EnsureSuccessStatusCode();
+            return response.Content.ToString();
+        }
 
         static async Task<Player> UpdateProductAsync(Player product)
         {
@@ -42,7 +47,7 @@ namespace InspectorGoe
         }
 
 
-        public async static void Main()
+        public async static Task Main()
         {
             await RunAsync();
         }
@@ -50,7 +55,7 @@ namespace InspectorGoe
         static async Task RunAsync()
         {
             // Update port # in the following line.
-            client.BaseAddress = new Uri("http://localhost:5014/");
+            client.BaseAddress = new Uri("http://localhost:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
@@ -58,9 +63,11 @@ namespace InspectorGoe
             try
             {
                 // Create a new Player
-                //PointOfInterest poi = new PointOfInterest(1, System.Numerics.Vector2.One);
-                //Player player1 = new Player(poi);
+                Player player1 = new Player(Name:"Henri", pw:"1234");
+                var code = await CreatePlayerAsync(player1);
 
+                var token = await Login(player1);
+                Console.WriteLine(token);
 
 
                 //var url = await CreateProductAsync(player1);

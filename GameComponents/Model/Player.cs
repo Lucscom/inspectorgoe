@@ -54,6 +54,13 @@ namespace GameComponents.Model
         public int DoubleTicket { get; set; }
 
         public Player() { }
+
+        public Player(String Name, String pw)
+        {
+            UserName = Name;
+            Password = pw;
+        }
+
         /// <summary>
         /// Constructor to init player
         /// </summary>
