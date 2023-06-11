@@ -32,7 +32,8 @@ namespace InspectorGoe
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 "api/Player/login", player);
             response.EnsureSuccessStatusCode();
-            return response.Content.ToString();
+            String token = await response.Content.ReadAsStringAsync();
+            return token;
         }
 
         static async Task<Player> UpdateProductAsync(Player product)
@@ -55,7 +56,7 @@ namespace InspectorGoe
         static async Task RunAsync()
         {
             // Update port # in the following line.
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri("https://localhost:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
@@ -64,7 +65,7 @@ namespace InspectorGoe
             {
                 // Create a new Player
                 Player player1 = new Player(Name:"Henri", pw:"1234");
-                var code = await CreatePlayerAsync(player1);
+                //var code = await CreatePlayerAsync(player1);
 
                 var token = await Login(player1);
                 Console.WriteLine(token);
@@ -79,9 +80,9 @@ namespace InspectorGoe
                 //await updateproductasync(product);
 
             }
-            catch (Exception e)
+            catch (HttpRequestException e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.InnerException.Message);
             }
 
             Console.ReadLine();
