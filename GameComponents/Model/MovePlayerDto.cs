@@ -10,5 +10,11 @@ namespace GameComponents.Model
     {
         public PointOfInterest PointOfInterest { get; set; }
         public TicketTypeEnum TicketType { get; set; }
+
+        public MovePlayerDto(PointOfInterest poi, TicketTypeEnum ticket)
+        {
+            PointOfInterest = poi;
+            TicketType = ticket;
+        }
     }
 }

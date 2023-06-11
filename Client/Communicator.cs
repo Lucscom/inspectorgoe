@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using GameComponents.Model;
+using GameComponents;
 
 namespace InspectorGoe
 {
@@ -33,8 +34,8 @@ namespace InspectorGoe
                 "api/Player/login", player);
             response.EnsureSuccessStatusCode();
             String tokenJson = await response.Content.ReadAsStringAsync();
-
-            String token = System.Text.Json.JsonSerializer.Deserialize<Token>(tokenJson).token;
+            String token = System.Text.Json.JsonSerializer.Deserialize<Token>(
+                tokenJson).token;
             return token;
         }
 
@@ -47,6 +48,14 @@ namespace InspectorGoe
             // Deserialize the updated product from the response body.
             //product = await response.Content.ReadAsAsync<Product>();
             return product;
+        }
+
+        static async Task<HttpStatusCode> MovePlayerAsync(MovePlayerDto move)
+        {
+            HttpResponseMessage response = await client.PutAsJsonAsync(
+                "api/Player", move);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
         }
 
 
@@ -71,7 +80,13 @@ namespace InspectorGoe
 
                 var token = await Login(player1);
                 Console.WriteLine(token);
-
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", token);
+                var vector = new System.Numerics.Vector2(0, 0);
+                var poi = new PointOfInterest(1, "test", vector);
+                var ticket = TicketTypeEnum.Bike;
+                var move = new MovePlayerDto(poi, ticket);
+               
 
                 //var url = await CreateProductAsync(player1);
                 //Console.WriteLine($"Created at {url}");
