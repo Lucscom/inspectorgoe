@@ -32,7 +32,9 @@ namespace InspectorGoe
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 "api/Player/login", player);
             response.EnsureSuccessStatusCode();
-            String token = await response.Content.ReadAsStringAsync();
+            String tokenJson = await response.Content.ReadAsStringAsync();
+
+            String token = System.Text.Json.JsonSerializer.Deserialize<Token>(tokenJson).token;
             return token;
         }
 
