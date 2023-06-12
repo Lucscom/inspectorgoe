@@ -6,6 +6,7 @@
                Size="500,350">
 
     <Frame BackgroundColor="LightBlue" CornerRadius="10">
+        
         <StackLayout Padding="10">
             <Label Text="Sign Up" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
             <Entry Placeholder="Username" Margin="10"/>

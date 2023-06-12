@@ -1,3 +1,6 @@
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
+
 namespace InspectorGoe;
 
 public partial class Menu : ContentPage
@@ -7,13 +10,22 @@ public partial class Menu : ContentPage
 		InitializeComponent();
 	}
 
-    private void Button_Clicked(object sender, EventArgs e)
+    private async void Button_Clicked_Erstellen(object sender, EventArgs e)
     {
-		Navigation.PushAsync(new MainPage());
+        var popup = new GameStartPage();
+        var result = await this.ShowPopupAsync(popup);
+
+        if (result is bool boolResult && boolResult)
+        {
+            await Navigation.PushAsync(new MainPage());
+        }
+        else
+        {
+            // No was tapped
+        }
     }
-
-    private void Button_Clicked_1(object sender, EventArgs e)
+    private void Button_Clicked_Betreten(object sender, EventArgs e)
     {
-
+        Navigation.PushAsync(new MainPage());
     }
 }

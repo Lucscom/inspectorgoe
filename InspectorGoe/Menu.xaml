@@ -23,8 +23,8 @@
             HorizontalOptions="Start"
             Opacity="0.8"
             WidthRequest="300">
-            <Button Text="Spiel erstellen" Margin="10" Clicked="Button_Clicked"/>
-            <Button Text="Spiel beitreten" Margin="10" Clicked="Button_Clicked_1"/>
+            <Button Text="Spiel erstellen" Margin="10" Clicked="Button_Clicked_Erstellen"/>
+            <Button Text="Spiel beitreten" Margin="10" Clicked="Button_Clicked_Betreten"/>
         </StackLayout>
 
     </Grid>
