@@ -7,17 +7,18 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Image Grid.ColumnSpan="2" Source="map_komplett.png" Aspect="AspectFill" VerticalOptions="StartAndExpand"/>
 
         <StackLayout
             Grid.Column="0"
             BackgroundColor="LightBlue"
+            Opacity="0.8"
             HorizontalOptions="Start"
             WidthRequest="300">
             <Entry Placeholder="Enter your email" Margin="10"/>
@@ -28,16 +29,13 @@
             </HorizontalStackLayout>
         </StackLayout>
 
-        <ContentView Grid.Row="1"
-                     Grid.Column="0"
-                     BackgroundColor="LightBlue"
-                     WidthRequest="300"
-                     HorizontalOptions="Start">
-            <Entry
+        <Entry
                 Placeholder="Enter Server IP"
                 BackgroundColor="LightBlue"
+                HorizontalOptions="CenterAndExpand"
                 VerticalOptions="End"
+                WidthRequest="280"
                 Margin="10"/>
-        </ContentView>
+
     </Grid>
 </ContentPage>
