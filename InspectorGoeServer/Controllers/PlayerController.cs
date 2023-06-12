@@ -113,10 +113,10 @@ namespace InspectorGoeServer.Controllers
         public async Task<IActionResult> PutPlayer([FromBody] MovePlayerDto movement)
         {
             var currentUser = await _context.Players.FindAsync(User.Identity.Name);
-            GameComponents.Controller.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType);
+            //GameComponents.Controller.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType);
 
-            _context.Entry(currentUser).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            //_context.Entry(currentUser).State = EntityState.Modified;
+            //await _context.SaveChangesAsync();
             return NoContent();
         }
     }
