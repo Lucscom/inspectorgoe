@@ -1,9 +1,11 @@
 using GameComponents;
 using GameComponents.Model;
+using InspectorGoeServer.Hubs;
 using InspectorGoeServer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -23,17 +25,20 @@ namespace InspectorGoeServer.Controllers
         private readonly PlayerContext _context;
         private readonly UserManager<Player> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly IHubContext<GameHub> _hubContext;
 
         public PlayerController(
             ILogger<PlayerController> logger, 
             PlayerContext context,
             UserManager<Player> userManager,
-            IConfiguration configuration)
+            IConfiguration configuration, 
+            IHubContext<GameHub> hubContext)
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
             _configuration = configuration;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -113,11 +118,31 @@ namespace InspectorGoeServer.Controllers
         public async Task<IActionResult> PutPlayer([FromBody] MovePlayerDto movement)
         {
             var currentUser = await _context.Players.FindAsync(User.Identity.Name);
-            GameComponents.Controller.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType);
+            if(GameComponents.Controller.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
+            {
+                //TODO get GameState from Controller
+                sendGameComponents(new GameState());
+            }
+
 
             _context.Entry(currentUser).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        private async void sendGameComponents(GameState gameState)
+        {
+            await _hubContext.Clients.All.SendAsync("ReceiveGameState", gameState);
+        }
+
+        [HttpGet("send")]
+        [AllowAnonymous]
+        [ActionName(nameof(SendGameState))]
+        public async Task<IActionResult> SendGameState()
+        {
+            GameState gameState = new GameState();
+            await _hubContext.Clients.All.SendAsync("ReceiveGameState", gameState);
+            return Ok();
         }
     }
 }
