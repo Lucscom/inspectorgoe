@@ -3,20 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InspectorGoe.MainPage"
              xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
-             xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels">
+             xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels"
+             xmlns:container="clr-namespace:InspectorGoe.Container">
 
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="All">
-
-        <ScrollView Orientation="Both"
-                    x:Name="scrollView"
                     AbsoluteLayout.LayoutFlags="All"
-                    AbsoluteLayout.LayoutBounds="0,0,1,1">
+                    x:Name="abolutLayout">
+        
+        
 
-            <Image Source="map_komplett.png" Aspect="AspectFit" Scale="1"/>
 
-        </ScrollView>
+
+            <container:PinchPanContainer>
+                <AbsoluteLayout x:Name="abolutMap"
+                            AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            AbsoluteLayout.LayoutFlags="All">
+
+                    <Image Source="map_komplett.png"/>
+                <Button/>
+            </AbsoluteLayout>
+        </container:PinchPanContainer>
+
+        
+
+            
+
+ 
+
+
+
 
 
         <Grid AbsoluteLayout.LayoutBounds="0,0,1,0.99"
