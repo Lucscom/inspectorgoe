@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using GameComponents.Model;
 
 
 namespace GameComponents
@@ -271,32 +272,36 @@ namespace GameComponents
         /// <param name="newPosition">Destination of move</param>
         /// <param name="ticketType">Chosen ticketype</param>
         /// <exception cref="Exception">Game over</exception>
-        public void MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
+        public bool MovePlayer(Player player, PointOfInterest newPosition, TicketTypeEnum ticketType)
         {
-            if (player != ActivePlayer) return;
+            if (player != ActivePlayer) return false;
 
-            if (ValidateMove(player, newPosition, ticketType))
+            if (!ValidateMove(player, newPosition, ticketType))
             {
-                player.Position = newPosition;
-
-                switch (ticketType)
-                {
-                    case TicketTypeEnum.Bus:
-                        player.BusTicket = -1;
-                        break;
-                    case TicketTypeEnum.Bike:
-                        player.BikeTicket = -1;
-                        break;
-                    case TicketTypeEnum.Scooter:
-                        player.ScooterTicket = -1;
-                        break;
-                    default:
-                        break;
-                }
-
-                if (player != MisterX && FoundMisterX(player))
-                        throw new Exception("Game OVER");
+                return false;
             }
+
+            player.Position = newPosition;
+
+            switch (ticketType)
+            {
+                case TicketTypeEnum.Bus:
+                    player.BusTicket -= 1;
+                    break;
+                case TicketTypeEnum.Bike:
+                    player.BikeTicket -= 1;
+                    break;
+                case TicketTypeEnum.Scooter:
+                    player.ScooterTicket -= 1;
+                    break;
+                default:
+                    break;
+            }
+
+            if (player != MisterX && FoundMisterX(player))
+                throw new Exception("Game OVER");
+
+            return true;
         }
 
         /// <summary>

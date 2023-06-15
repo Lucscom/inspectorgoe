@@ -1,20 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
-namespace GameComponents
+namespace GameComponents.Model
 {
     /// <summary>
     /// Contains information about player
     /// </summary>
-    public class Player
+    [DataContract]
+    public class Player : IdentityUser
     {
         /// <summary>
         /// Playername
         /// </summary>
-        public string Name { get; set; }
+        [DataMember]
+        [Required(ErrorMessage = "Username is required")]
+        public override string UserName { get => base.UserName; set => base.UserName = value; }
+
+        [DataMember]
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; init; }
+        /// <summary>
+        /// The Color displayed in the GUI
+        /// </summary>
+        public string PlayerColor { get; set; }
         /// <summary>
         /// Picture of player
         /// </summary>
@@ -35,6 +44,22 @@ namespace GameComponents
         /// Number of scootertickets available to the player
         /// </summary>
         public int ScooterTicket { get; set; }
+        /// <summary>
+        /// Number of Black Tickets available for Mister X
+        /// </summary>
+        public int BlackTicket { get; set; }
+        /// <summary>
+        /// Number of Double Tickets available for Mister X
+        /// </summary>
+        public int DoubleTicket { get; set; }
+
+        public Player() { }
+
+        public Player(String Name, String pw)
+        {
+            UserName = Name;
+            Password = pw;
+        }
 
         /// <summary>
         /// Constructor to init player

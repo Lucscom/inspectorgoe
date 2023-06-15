@@ -5,9 +5,13 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InspectorGoe", "InspectorGoe\InspectorGoe.csproj", "{3E6876DF-8C03-4930-B9CF-00EC95C1D0E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameComponents", "GameComponents\GameComponents.csproj", "{5B755A7D-29EB-433D-AB65-EDF959915887}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameComponents", "GameComponents\GameComponents.csproj", "{5B755A7D-29EB-433D-AB65-EDF959915887}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{F5832DB0-A89E-4D2A-A044-DB176924B0B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject", "TestProject\TestProject.csproj", "{F5832DB0-A89E-4D2A-A044-DB176924B0B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InspectorGoeServer", "InspectorGoeServer\InspectorGoeServer.csproj", "{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{E7CB480A-5491-4775-B90D-F6B24F419693}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +33,14 @@ Global
 		{F5832DB0-A89E-4D2A-A044-DB176924B0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5832DB0-A89E-4D2A-A044-DB176924B0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5832DB0-A89E-4D2A-A044-DB176924B0B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7CB480A-5491-4775-B90D-F6B24F419693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7CB480A-5491-4775-B90D-F6B24F419693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7CB480A-5491-4775-B90D-F6B24F419693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7CB480A-5491-4775-B90D-F6B24F419693}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

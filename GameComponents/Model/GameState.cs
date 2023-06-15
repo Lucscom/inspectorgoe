@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameComponents
+namespace GameComponents.Model
 {
     /// <summary>
     /// Contains the informations about the game status
