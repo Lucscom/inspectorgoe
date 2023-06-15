@@ -8,40 +8,55 @@
 
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="All"
-                    x:Name="abolutLayout">
+                    AbsoluteLayout.LayoutFlags="All">
 
         <container:PinchPanContainer AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                     AbsoluteLayout.LayoutFlags="All">
+                                     AbsoluteLayout.LayoutFlags="All"
+                                     x:Name="mapContainer">
 
-            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                            WidthRequest="2800"
-                            HeightRequest="1575">
-                
+            <AbsoluteLayout x:Name="absoluteMap"
+                            WidthRequest="2600"
+                            HeightRequest="1463"
+                            TranslationX="-600">
+
                 <Image Source="map.png"
-                       AbsoluteLayout.LayoutBounds="0,0,1,1"
+                       x:Name="map"
                        AbsoluteLayout.LayoutFlags="All"
-                       HorizontalOptions="Fill"
-                       VerticalOptions="Start"
-                       Scale="1"/>
-
-
-                <Button AbsoluteLayout.LayoutBounds="1920,500,30,30"/>
+                       AbsoluteLayout.LayoutBounds="0,0,1,1"
+                       WidthRequest="2600"
+                       HeightRequest="1463"/>
 
             </AbsoluteLayout>
-
-
-
         </container:PinchPanContainer>
 
+        <Button x:Name="buttonZoomPlus"
+                AbsoluteLayout.LayoutBounds="1,0,75,75"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                HeightRequest="40"
+                WidthRequest="40"
+                CornerRadius="30"
+                BackgroundColor="{StaticResource Gray600}"
+                TextColor="white"
+                Text="+"
+                Clicked="OnButtonZoom"/>
 
+        <Button x:Name="buttonZoomMinus"
+                AbsoluteLayout.LayoutBounds="1,0,75,160"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                HeightRequest="40"
+                WidthRequest="40"
+                CornerRadius="30"
+                BackgroundColor="{StaticResource Gray600}"
+                TextColor="white"
+                Text="-"
+                Clicked="OnButtonZoom"/>
 
-        <Grid AbsoluteLayout.LayoutBounds="0,0,1,0.99"
+        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
               AbsoluteLayout.LayoutFlags="All">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="230" />
+                <RowDefinition Height="200" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -51,12 +66,11 @@
 
 
         <!--Inhalt-->
-            <ScrollView>
+            <ScrollView VerticalScrollBarVisibility="Never">
                 <VerticalStackLayout Padding="5" 
                                      BindableLayout.ItemsSource="{Binding MrXticketsCollection}" 
                                      HorizontalOptions="Start"
-                                     VerticalOptions="End"
-                                     >
+                                     VerticalOptions="End">
                     
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -67,11 +81,12 @@
             </ScrollView>
 
             <ScrollView Grid.Row="1"
-                    Grid.Column="1"
-                    Orientation="Horizontal">
+                        Grid.Column="1"
+                        Orientation="Horizontal">
 
                 <HorizontalStackLayout BindableLayout.ItemsSource="{Binding DetectivesCollection}"
-                                       HorizontalOptions="Center">
+                                       HorizontalOptions="Center"
+                                       Padding="5">
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -81,7 +96,9 @@
                 </HorizontalStackLayout>
             </ScrollView>
 
-            <StackLayout Grid.Row="1" Padding="5">
+            <StackLayout Grid.Row="1" 
+                         Padding="5">
+                
                 <contentviews:MrXCard BindingContext="{Binding MisterX}"/>
 
             </StackLayout>
