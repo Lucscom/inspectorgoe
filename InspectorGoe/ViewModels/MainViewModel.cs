@@ -11,16 +11,15 @@ using Microsoft.Maui.Controls.Shapes;
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
-    private Controller controller = Controller.GetInstance();
+    private GameState gameState;
     private List<Player> detectives;
     private Player mrX;
     private List<String> mrXtickets;
 
     public MainViewModel()
     {
-        controller.Initialize(4);
-        detectives = new List<Player>(controller.Detectives);
-        mrX = controller.MisterX;
+        detectives = new List<Player>(gameState.Detectives);
+        mrX = gameState.MisterX;
         mrX.AvatarImagePath = "dotnet_bot.png";
 
         mrX.BikeTicket = 3;
