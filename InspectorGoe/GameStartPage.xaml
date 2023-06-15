@@ -3,19 +3,26 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="InspectorGoe.GameStartPage"
                Color="Transparent"
-               Size="700,450">
+               Size="700,500">
 
     <Frame BackgroundColor="LightBlue" CornerRadius="10">
-
-        <StackLayout Padding="10">
-            <Label Text="Start a new Game" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
-
-
-            <ImageButton Source="dotnet_bot.png" WidthRequest="80" HeightRequest="100" Margin="100"/>
-
-
-            <Button Text="Start Game" Margin="10" Clicked="Button_Clicked"/>
+        <StackLayout Padding="10" HorizontalOptions="Center">
+            <Label Text="Pick an Avatar" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <ImageButton x:Name="grothausmann" Source="hawk_grothausmann.jpg" WidthRequest="120" HeightRequest="150" Margin="10" Clicked="ImageButton_Clicked" Aspect="AspectFill" CornerRadius="10"/>
+                <ImageButton x:Name="hadeler" Source="hawk_hadeler.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_1" Aspect="AspectFill" CornerRadius="10"/>
+                <ImageButton x:Name="hirsch" Source="hawk_hirsch.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_2" Aspect="AspectFill" CornerRadius="10"/>
+                <ImageButton x:Name="ibental" Source="hawk_ibental.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_3" Aspect="AspectFill" CornerRadius="10"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <ImageButton x:Name="koch" Source="hawk_koch.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_4" Aspect="AspectFill" CornerRadius="10"/>
+                <ImageButton x:Name="neunheuser" Source="hawk_neunheuser.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_5" Aspect="AspectFill" CornerRadius="10"/>
+                <ImageButton x:Name="nietert" Source="hawk_nietert.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_6" Aspect="AspectFill" CornerRadius="10"/>
+                <ImageButton x:Name="wienecke" Source="hawk_wienecke.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_7" Aspect="AspectFill" CornerRadius="10"/>
+            </HorizontalStackLayout>
+            <Button Text="Start Game" Margin="10" Clicked="Button_Clicked" HorizontalOptions="Center" VerticalOptions="End"/>
         </StackLayout>
+        
     </Frame>
 
 </toolkit:Popup>
