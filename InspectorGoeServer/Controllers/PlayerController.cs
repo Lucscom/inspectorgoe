@@ -120,7 +120,7 @@ namespace InspectorGoeServer.Controllers
             var currentUser = await _context.Players.FindAsync(User.Identity.Name);
             if(GameComponents.Controller.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
             {
-                sendGameComponents(GameComponents.Controller.GetInstance()._gameState);
+                sendGameComponents(GameComponents.Controller.GetInstance().GameState);
             }
 
             //_context.Entry(currentUser).State = EntityState.Modified;
