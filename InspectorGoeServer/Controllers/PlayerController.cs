@@ -21,12 +21,35 @@ namespace InspectorGoeServer.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
+        /// <summary>
+        /// Logger
+        /// </summary>
         private readonly ILogger<PlayerController> _logger;
+        /// <summary>
+        /// Player Database
+        /// </summary>
         private readonly PlayerContext _context;
+        /// <summary>
+        /// User Database
+        /// </summary>
         private readonly UserManager<Player> _userManager;
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IConfiguration _configuration;
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IHubContext<GameHub> _hubContext;
 
+        /// <summary>
+        /// Constructor to init the player controller
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="context"></param>
+        /// <param name="userManager"></param>
+        /// <param name="configuration"></param>
+        /// <param name="hubContext"></param>
         public PlayerController(
             ILogger<PlayerController> logger, 
             PlayerContext context,
@@ -41,15 +64,11 @@ namespace InspectorGoeServer.Controllers
             _hubContext = hubContext;
         }
 
-        [HttpGet]
-        [Authorize]
-        [ActionName(nameof(GetPlayer))]
-        public async Task<ActionResult<Player>> GetPlayer()
-        {
-            var currentUser = await _context.Players.FindAsync(User.Identity.Name);
-            return Ok(currentUser);
-        }
-
+        /// <summary>
+        /// Http Post implementation on api/Player to register a new player
+        /// </summary>
+        /// <param name="player">Player object to be registered</param>
+        /// <returns>Http Status code </returns>
         [HttpPost]
         [AllowAnonymous]
         [ActionName(nameof(RegisterPlayer))]
@@ -60,6 +79,12 @@ namespace InspectorGoeServer.Controllers
                 new BadRequestObjectResult(userResult) : StatusCode(201);
         }
 
+        /// <summary>
+        /// Http Post implementation on api/Player/login to login a Player
+        /// and link the player with a bearer token for authentication
+        /// </summary>
+        /// <param name="user"> Player Object</param>
+        /// <returns>Token Object with token string</returns>
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] Player user)
@@ -71,6 +96,11 @@ namespace InspectorGoeServer.Controllers
                 : Ok(new { Token = await GenerateToken(currentUser) });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private async Task<string> GenerateToken(Player? user)
         {
             var signingCredentials = GetSigningCredentials();
@@ -79,6 +109,10 @@ namespace InspectorGoeServer.Controllers
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private SigningCredentials GetSigningCredentials()
         {
             var jwtConfig = _configuration.GetSection("jwtConfig");
@@ -86,6 +120,12 @@ namespace InspectorGoeServer.Controllers
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private async Task<List<Claim>> GetClaims(Player? user)
         {
             var claims = new List<Claim>
@@ -100,6 +140,12 @@ namespace InspectorGoeServer.Controllers
             return claims;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="signingCredentials"></param>
+        /// <param name="claims"></param>
+        /// <returns></returns>
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
             var jwtConfig = _configuration.GetSection("jwtConfig");
@@ -112,6 +158,12 @@ namespace InspectorGoeServer.Controllers
             return tokenOptions;
         }
 
+        /// <summary>
+        /// Http put implementation on api/Player to receive the move made by
+        /// a user
+        /// </summary>
+        /// <param name="movement">Movement Object with POI and Ticket</param>
+        /// <returns>Http response with no content</returns>
         [HttpPut]
         [Authorize]
         [ActionName(nameof(PutPlayer))]
@@ -128,6 +180,11 @@ namespace InspectorGoeServer.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Send gameState to all clients
+        /// Differentiates between MisterX and Detectives, Detectives do not recieve information about MisterX
+        /// </summary>
+        /// <param name="gameState">The current gameState</param>
         private async void sendGameComponents(GameState gameState)
         {
             await _hubContext.Clients.All.SendAsync("ReceiveGameState", gameState);

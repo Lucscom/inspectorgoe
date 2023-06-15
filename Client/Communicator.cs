@@ -42,6 +42,7 @@ namespace InspectorGoe
         /// </summary>
         /// <param name="url">Server URL</param>
         public void initClient(String url)
+
         {
             _url = url;
             _client.BaseAddress = new Uri(url);
@@ -105,6 +106,11 @@ namespace InspectorGoe
             return response.StatusCode;
         }
 
+        /// <summary>
+        /// Initializes hub connection to server with token as authentication
+        /// </summary>
+        /// <param name="token">Used for authentication</param>
+        /// <returns></returns>
         public async Task RunAsyncSignalR()
         {
             HubConnection connection;
@@ -121,6 +127,7 @@ namespace InspectorGoe
                 Console.WriteLine($"{message}");
             });
 
+            //Register method that can be called from the server
             connection.On<GameState>("ReceiveGameState", (gameState) =>
             {
                 Console.WriteLine($"Runde: {gameState.Round}");
@@ -129,7 +136,7 @@ namespace InspectorGoe
             await connection.StartAsync();
 
 
-
+            //TODO: remove
             while (true) { }
         }
     }

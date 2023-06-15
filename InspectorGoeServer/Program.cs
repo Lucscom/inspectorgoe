@@ -121,8 +121,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
-//var wsOptions = new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(120) };
-//app.UseWebSockets(wsOptions);
 app.MapHub<GameHub>("/gameHub");
 
 app.UseAuthentication();
