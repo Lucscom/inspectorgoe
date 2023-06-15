@@ -91,4 +91,20 @@ public partial class MainViewModel : ObservableObject
     {
         get { return mrXtickets; }
     }
+
+    /// <summary>
+    /// Take the login credentials and hand them to the communicator
+    /// </summary>
+    /// <param name="userName"></param>
+    /// <param name="password"></param>
+    /// <param name="serverAdress"></param>
+    public void loginPlayer(String userName, String password, String serverAdress)
+    {
+
+    }
+
+    public void movePlayer()
+    {
+
+    }
  }
