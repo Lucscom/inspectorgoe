@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using GameComponents;
 using GameComponents.Model;
 using Microsoft.Maui.Controls.Shapes;
+using Client;
 
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
@@ -15,6 +16,7 @@ public partial class MainViewModel : ObservableObject
     private List<Player> detectives;
     private Player mrX;
     private List<String> mrXtickets;
+    private Communicator _com;
 
     public MainViewModel()
     {
@@ -73,6 +75,11 @@ public partial class MainViewModel : ObservableObject
         //mrXtickets.Add(ticketBikePath);
         //mrXtickets.Add(ticketBikePath);
 
+
+        // hier startet die connection mit der Logik und dem Server
+        _com = new Communicator();
+
+
     }
 
 
@@ -100,11 +107,25 @@ public partial class MainViewModel : ObservableObject
     /// <param name="serverAdress"></param>
     public void loginPlayer(String userName, String password, String serverAdress)
     {
+        _com.initClient(serverAdress);
+        var player = new Player(userName, password);
+        var statusCreate = _com.CreatePlayerAsync(player);
+        var statusLogin = _com.LoginAsync(player);
+        // todo: status code checken -->
+        // bei fail gamestate neu bekommen und wiederholen
 
     }
 
-    public void movePlayer()
+    /// <summary>
+    /// Move a player to a destination poi
+    /// </summary>
+    /// <param name="poi">Point of interes Object</param>
+    /// <param name="ticket">ticket Type</param>
+    public void movePlayer(PointOfInterest poi, TicketTypeEnum ticket)
     {
-
+        var move = new MovePlayerDto(poi, ticket);
+        var moveStatus =_com.MovePlayerAsync(move);
+        // todo: status code checken -->
+        // bei fail gamestate neu bekommen und wiederholen
     }
  }

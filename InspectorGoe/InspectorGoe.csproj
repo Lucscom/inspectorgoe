@@ -36,6 +36,9 @@
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -69,6 +72,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\GameComponents\GameComponents.csproj" />
+	  <ProjectReference Include="..\Client\Client.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

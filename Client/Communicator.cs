@@ -10,7 +10,7 @@ using System.Net.WebSockets;
 using System.Text;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace InspectorGoe
+namespace Client
 {
 
     public class Communicator
@@ -80,7 +80,7 @@ namespace InspectorGoe
         /// </summary>
         /// <param name="player">Player Object</param>
         /// <returns>Http Status Code</returns>
-        public async Task<HttpStatusCode> Login(Player player)
+        public async Task<HttpStatusCode> LoginAsync(Player player)
         {
             HttpResponseMessage response = await _client.PostAsJsonAsync(
                 "api/Player/login", player);
