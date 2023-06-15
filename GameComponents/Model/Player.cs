@@ -52,6 +52,10 @@ namespace GameComponents.Model
         /// Number of Double Tickets available for Mister X
         /// </summary>
         public int DoubleTicket { get; set; }
+        /// <summary>
+        /// True if this player is controlled by the computer
+        /// </summary>
+        public bool isKI { get; set; }
 
         public Player() { }
 
