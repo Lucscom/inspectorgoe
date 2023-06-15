@@ -7,10 +7,10 @@
 
     <Frame CornerRadius="10"
            WidthRequest="300"
-           HeightRequest="220"
+           HeightRequest="180"
            BackgroundColor="{StaticResource Gray600}"
            Opacity="0.8"
-           Padding="10"
+           Padding="5"
            HasShadow="True">
 
         <!--Inhalt
@@ -40,14 +40,15 @@
                 
                 
                 <Frame BorderColor="DarkGray"
-                       HeightRequest="100"
-                       WidthRequest="100"
-                       CornerRadius="50"
+                       HeightRequest="80"
+                       WidthRequest="80"
+                       CornerRadius="40"
                        BackgroundColor="White"
-                       Padding="10"
+                       Padding="0"
                        HasShadow="True">
 
-                    <Image Source="{Binding AvatarImagePath}" Aspect="AspectFit"/>
+                    <Image Source="{Binding AvatarImagePath}" 
+                           Aspect="AspectFill"/>
                 </Frame>
 
                 <Frame Grid.Row="1" CornerRadius="10" BackgroundColor="Purple" BorderColor="Purple" Padding="2"/>
@@ -80,7 +81,7 @@
                        HasShadow="True"
                        HorizontalOptions="End">
 
-                    <Image Source="ticket_bus.png" Aspect="AspectFill"/>
+                    <Image Source="ticket_bus.png" Aspect="Fill"/>
                 </Frame>
 
                 <Frame Grid.Row="1"
@@ -90,7 +91,7 @@
                        Padding="0"
                        HorizontalOptions="End">
 
-                    <Image Source="ticket_bike.png" Aspect="AspectFill"/>
+                    <Image Source="ticket_bike.png" Aspect="Fill"/>
                 </Frame>
 
                 <Frame Grid.Row="2"
@@ -100,7 +101,7 @@
                        Padding="0"
                        HorizontalOptions="End">
 
-                    <Image Source="ticket_scooter.png" Aspect="AspectFill"/>
+                    <Image Source="ticket_scooter.png" Aspect="Fill"/>
                 </Frame>
 
                 <!--Tickets-->
@@ -108,29 +109,29 @@
                 <Frame Grid.Column="1"
                        CornerRadius="10"
                        BackgroundColor="{StaticResource Gray600}"
-                       Padding="2"
+                       Padding="0"
                        HasShadow="True">
 
-                    <Label Text="{Binding BusTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="{Binding BusTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Frame>
 
                 <Frame Grid.Column="1"
                        Grid.Row="1"
                        CornerRadius="10" 
                        BackgroundColor="{StaticResource Gray600}"
-                       Padding="2"
+                       Padding="0"
                        HasShadow="True">
 
-                    <Label Grid.Row="1" Text="{Binding BikeTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Grid.Row="1" Text="{Binding BikeTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                 </Frame>
 
                 <Frame Grid.Column="1"
                        Grid.Row="2"
                        CornerRadius="10"
                        BackgroundColor="{StaticResource Gray600}"
-                       Padding="2"
+                       Padding="0"
                        HasShadow="True">
-                    <Label Grid.Row="2" Text="{Binding ScooterTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Grid.Row="2" Text="{Binding ScooterTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Frame>
             </Grid>
 
@@ -140,12 +141,12 @@
                 Grid.ColumnSpan="2"
                 CornerRadius="10"
                 BackgroundColor="{StaticResource Blue100Accent}"
-                Padding="2">
-                <Label
-                    Text="{Binding Name}"
-                    TextColor="Black"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                Padding="0">
+                <Label Text="{Binding UserName}"
+                       TextColor="Black"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontSize="20"/>
             </Frame>
 
         </Grid>

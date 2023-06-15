@@ -6,8 +6,8 @@
     
     
     <Frame CornerRadius="10"
-           WidthRequest="250"
-           HeightRequest="220"
+           WidthRequest="300"
+           HeightRequest="180"
            BackgroundColor="{StaticResource Gray600}"
            Opacity="0.8"
            Padding="5"
@@ -72,7 +72,7 @@
                        Padding="0"
                        HorizontalOptions="End">
 
-                    <Image Source="ticket_black.png" Aspect="AspectFit"/>
+                    <Image Source="ticket_black.png" Aspect="Fill"/>
                 </Frame>
 
                 <Frame Grid.Row="1"
@@ -82,7 +82,7 @@
                        Padding="0"
                        HorizontalOptions="End">
 
-                    <Image Source="ticket_2x.png" Aspect="AspectFit"/>
+                    <Image Source="ticket_2x.png" Aspect="Fill"/>
                 </Frame>
 
 
@@ -117,7 +117,7 @@
                 BackgroundColor="{StaticResource Blue100Accent}"
                 Padding="2">
                 <Label
-                    Text="{Binding Name}"
+                    Text="{Binding UserName}"
                     TextColor="Black"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"/>
