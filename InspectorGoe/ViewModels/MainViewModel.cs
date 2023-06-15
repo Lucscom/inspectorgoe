@@ -33,21 +33,21 @@ public partial class MainViewModel : ObservableObject
         first.BikeTicket = 3;
         first.BusTicket = 3;
         first.UserName = "1. TestSpieler";
-        first.AvatarImagePath = "dotnet_bot.png";
+        first.AvatarImagePath = "hawk_hirsch.jpg";
 
         var second = detectives[1];
         second.ScooterTicket = 6;
         second.BikeTicket = 6;
         second.BusTicket = 6;
         second.UserName = "2. TestSpieler";
-        second.AvatarImagePath = "dotnet_bot.png";
+        second.AvatarImagePath = "hawk_nietert.jpg";
 
         var third = detectives[2];
         third.ScooterTicket = 6;
         third.BikeTicket = 6;
         third.BusTicket = 6;
         third.UserName = "3. Testspieler";
-        third.AvatarImagePath = "dotnet_bot.png";
+        third.AvatarImagePath = "hawk_koch.jpg";
 
         //Hier muss eine Klasse aufgesetzt werden um das Databinding verwenden zu können.
 
@@ -63,15 +63,15 @@ public partial class MainViewModel : ObservableObject
         mrXtickets.Add(ticketBusPath);
         mrXtickets.Add(ticketScooterPath);
         mrXtickets.Add(ticketblackPath);
-        //mrXtickets.Add(ticket2xPath);
-        //mrXtickets.Add(ticket2xPath);
-        //mrXtickets.Add(ticketScooterPath);
-        //mrXtickets.Add(ticketScooterPath);
-        //mrXtickets.Add(ticketBusPath);
-        //mrXtickets.Add(ticketBikePath);
-        //mrXtickets.Add(ticketBusPath);
-        //mrXtickets.Add(ticketBikePath);
-        //mrXtickets.Add(ticketBikePath);
+        mrXtickets.Add(ticket2xPath);
+        mrXtickets.Add(ticket2xPath);
+        mrXtickets.Add(ticketScooterPath);
+        mrXtickets.Add(ticketScooterPath);
+        mrXtickets.Add(ticketBusPath);
+        mrXtickets.Add(ticketBikePath);
+        mrXtickets.Add(ticketBusPath);
+        mrXtickets.Add(ticketBikePath);
+        mrXtickets.Add(ticketBikePath);
 
     }
 

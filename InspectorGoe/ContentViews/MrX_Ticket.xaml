@@ -5,13 +5,13 @@
              Padding="5">
 
     <Frame CornerRadius="10"
-           HeightRequest="140" 
-           WidthRequest="250"
+           HeightRequest="110" 
+           WidthRequest="200"
            BackgroundColor="white"
            Padding="0">
 
 
-        <Image Source="{Binding}" Aspect="AspectFill"/>
+        <Image Source="{Binding}" Aspect="Fill"/>
     </Frame>
 
 </ContentView>
