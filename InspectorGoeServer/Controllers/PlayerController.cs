@@ -181,9 +181,10 @@ namespace InspectorGoeServer.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Send gameState to all clients
+        /// Differentiates between MisterX and Detectives, Detectives do not recieve information about MisterX
         /// </summary>
-        /// <param name="gameState"></param>
+        /// <param name="gameState">The current gameState</param>
         private async void sendGameComponents(GameState gameState)
         {
             await _hubContext.Clients.All.SendAsync("ReceiveGameState", gameState);

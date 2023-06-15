@@ -113,39 +113,6 @@ namespace InspectorGoe
             Console.ReadLine();
         }
 
-        static async Task RunAsyncSocket()
-        {
-
-            try
-            {
-
-                using (var ws = new ClientWebSocket())
-                {
-                    await ws.ConnectAsync(new Uri("wss://localhost:5000/ws"), CancellationToken.None);
-                    var buffer = new byte[256];
-                    while (ws.State == WebSocketState.Open)
-                    {
-                        var result = await ws.ReceiveAsync(buffer, CancellationToken.None);
-                        if (result.MessageType == WebSocketMessageType.Close)
-                        {
-                            await ws.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
-                        }
-                        else
-                        {
-                            Console.WriteLine(Encoding.UTF8.GetString(buffer, 0, result.Count));
-                        }
-                    }
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            Console.ReadLine();
-        }
-
         /// <summary>
         /// Initializes hub connection to server with token as authentication
         /// </summary>
