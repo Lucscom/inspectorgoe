@@ -1,41 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InspectorGoe.MainPage">
+             x:Class="InspectorGoe.MainPage"
+             xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
+             xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels"
+             xmlns:container="clr-namespace:InspectorGoe.Container">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+    <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                    AbsoluteLayout.LayoutFlags="All"
+                    x:Name="abolutLayout">
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+        <container:PinchPanContainer AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                     AbsoluteLayout.LayoutFlags="All">
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            WidthRequest="2800"
+                            HeightRequest="1575">
+                
+                <Image Source="map.png"
+                       AbsoluteLayout.LayoutBounds="0,0,1,1"
+                       AbsoluteLayout.LayoutFlags="All"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Start"
+                       Scale="1"/>
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
 
-        </VerticalStackLayout>
-    </ScrollView>
+                <Button AbsoluteLayout.LayoutBounds="1920,500,30,30"/>
+
+            </AbsoluteLayout>
+
+
+
+        </container:PinchPanContainer>
+
+
+
+        <Grid AbsoluteLayout.LayoutBounds="0,0,1,0.99"
+              AbsoluteLayout.LayoutFlags="All">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="230" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+
+        <!--Inhalt-->
+            <ScrollView>
+                <VerticalStackLayout Padding="5" 
+                                     BindableLayout.ItemsSource="{Binding MrXticketsCollection}" 
+                                     HorizontalOptions="Start"
+                                     VerticalOptions="End"
+                                     >
+                    
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <contentviews:MrX_Ticket/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <ScrollView Grid.Row="1"
+                    Grid.Column="1"
+                    Orientation="Horizontal">
+
+                <HorizontalStackLayout BindableLayout.ItemsSource="{Binding DetectivesCollection}"
+                                       HorizontalOptions="Center">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <contentviews:PlayerCard/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <StackLayout Grid.Row="1" Padding="5">
+                <contentviews:MrXCard BindingContext="{Binding MisterX}"/>
+
+            </StackLayout>
+
+            
+        </Grid>
+    </AbsoluteLayout>
+
+
 
 </ContentPage>

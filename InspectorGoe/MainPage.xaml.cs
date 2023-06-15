@@ -1,24 +1,20 @@
-﻿namespace InspectorGoe;
+﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+
+namespace InspectorGoe;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
 
-	public MainPage()
+    public MainPage()
 	{
 		InitializeComponent();
-	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+        BindingContext = new ViewModels.MainViewModel();
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+
+    }
+
 }
 

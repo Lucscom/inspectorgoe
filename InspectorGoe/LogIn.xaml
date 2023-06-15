@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InspectorGoe.LogIn">
+    
+    <!--High level Grid-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.ColumnSpan="2" Source="maplogin.png" Aspect="AspectFill" VerticalOptions="StartAndExpand"/>
+
+        <StackLayout
+            Grid.Column="0"
+            BackgroundColor="LightBlue"
+            Opacity="0.8"
+            HorizontalOptions="Start"
+            WidthRequest="300">
+            <Entry Placeholder="Enter your email" Margin="10"/>
+            <Entry Placeholder="Enter your password" Margin="10" IsPassword="True"/>
+            <HorizontalStackLayout>
+                <Button Text="Log In" Margin="10" WidthRequest="130" Clicked="Button_Clicked_LogIn"/>
+                <Button Text="Sign Up" Margin="10" WidthRequest="130" Clicked="Button_Clicked_SignUp"/>
+            </HorizontalStackLayout>
+        </StackLayout>
+
+        <Entry
+                Placeholder="Enter Server IP"
+                BackgroundColor="LightBlue"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="End"
+                WidthRequest="280"
+                Margin="10"/>
+
+    </Grid>
+</ContentPage>
