@@ -10,28 +10,29 @@
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="All"
                     x:Name="abolutLayout">
-        
-        
+
+        <container:PinchPanContainer AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                     AbsoluteLayout.LayoutFlags="All">
+
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            WidthRequest="2800"
+                            HeightRequest="1575">
+                
+                <Image Source="map.png"
+                       AbsoluteLayout.LayoutBounds="0,0,1,1"
+                       AbsoluteLayout.LayoutFlags="All"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Start"
+                       Scale="1"/>
 
 
+                <Button AbsoluteLayout.LayoutBounds="1920,500,30,30"/>
 
-            <container:PinchPanContainer>
-                <AbsoluteLayout x:Name="abolutMap"
-                            AbsoluteLayout.LayoutBounds="0,0,1,1"
-                            AbsoluteLayout.LayoutFlags="All">
-
-                    <Image Source="map_komplett.png"/>
-                <Button/>
             </AbsoluteLayout>
+
+
+
         </container:PinchPanContainer>
-
-        
-
-            
-
- 
-
-
 
 
 
@@ -48,7 +49,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--Inhalt-->
+
+        <!--Inhalt-->
             <ScrollView>
                 <VerticalStackLayout Padding="5" 
                                      BindableLayout.ItemsSource="{Binding MrXticketsCollection}" 

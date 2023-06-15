@@ -8,17 +8,17 @@ namespace InspectorGoe.Container
 {
     class PinchPanContainer : ContentView
     {
-        double currentScale = 0.1;
-        double startScale = 0.1;
+        double currentScale = 1;
+        double startScale = 1;
         double xOffset = 0;
         double yOffset = 0;
         double x, y;
 
         public PinchPanContainer()
         {
-            PinchGestureRecognizer pinchGesture = new PinchGestureRecognizer();
-            pinchGesture.PinchUpdated += OnPinchUpdated;
-            GestureRecognizers.Add(pinchGesture);
+            //PinchGestureRecognizer pinchGesture = new PinchGestureRecognizer();
+            //pinchGesture.PinchUpdated += OnPinchUpdated;
+            //GestureRecognizers.Add(pinchGesture);
 
             PanGestureRecognizer panGesture = new PanGestureRecognizer();
             panGesture.PanUpdated += OnPanUpdated;
