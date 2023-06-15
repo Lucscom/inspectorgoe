@@ -14,27 +14,22 @@
         <container:PinchPanContainer AbsoluteLayout.LayoutBounds="0,0,1,1"
                                      AbsoluteLayout.LayoutFlags="All">
 
-            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                            WidthRequest="2800"
-                            HeightRequest="1575">
-                
+            <AbsoluteLayout x:Name="absoluteMap"
+                            WidthRequest="2600"
+                            HeightRequest="1463"
+                            TranslationX="-600">
+
                 <Image Source="map.png"
-                       AbsoluteLayout.LayoutBounds="0,0,1,1"
                        AbsoluteLayout.LayoutFlags="All"
-                       HorizontalOptions="Fill"
-                       VerticalOptions="Start"
-                       Scale="1"/>
+                       AbsoluteLayout.LayoutBounds="0,0,1,1"
+                       WidthRequest="2600"
+                       HeightRequest="1463"/>
 
 
-                <Button AbsoluteLayout.LayoutBounds="1920,500,30,30"/>
+                <Button AbsoluteLayout.LayoutBounds="2000,500,30,30"/>
 
             </AbsoluteLayout>
-
-
-
         </container:PinchPanContainer>
-
-
 
         <Grid AbsoluteLayout.LayoutBounds="0,0,1,0.99"
               AbsoluteLayout.LayoutFlags="All">
