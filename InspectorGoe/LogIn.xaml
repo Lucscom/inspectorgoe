@@ -13,7 +13,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Image Grid.ColumnSpan="2" Source="map_komplett.png" Aspect="AspectFill" VerticalOptions="StartAndExpand"/>
+        <Image Grid.ColumnSpan="2" Source="maplogin.png" Aspect="AspectFill" VerticalOptions="StartAndExpand"/>
 
         <StackLayout
             Grid.Column="0"

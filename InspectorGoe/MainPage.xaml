@@ -3,20 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InspectorGoe.MainPage"
              xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
-             xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels">
+             xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels"
+             xmlns:container="clr-namespace:InspectorGoe.Container">
 
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="All">
-
-        <ScrollView Orientation="Both"
-                    x:Name="scrollView"
                     AbsoluteLayout.LayoutFlags="All"
-                    AbsoluteLayout.LayoutBounds="0,0,1,1">
+                    x:Name="abolutLayout">
 
-            <Image Source="map_komplett.png" Aspect="AspectFit" Scale="1"/>
+        <container:PinchPanContainer AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                     AbsoluteLayout.LayoutFlags="All">
 
-        </ScrollView>
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            WidthRequest="2800"
+                            HeightRequest="1575">
+                
+                <Image Source="map.png"
+                       AbsoluteLayout.LayoutBounds="0,0,1,1"
+                       AbsoluteLayout.LayoutFlags="All"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Start"
+                       Scale="1"/>
+
+
+                <Button AbsoluteLayout.LayoutBounds="1920,500,30,30"/>
+
+            </AbsoluteLayout>
+
+
+
+        </container:PinchPanContainer>
+
 
 
         <Grid AbsoluteLayout.LayoutBounds="0,0,1,0.99"
@@ -32,7 +49,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--Inhalt-->
+
+        <!--Inhalt-->
             <ScrollView>
                 <VerticalStackLayout Padding="5" 
                                      BindableLayout.ItemsSource="{Binding MrXticketsCollection}" 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using GameComponents;
+using GameComponents.Model;
 using Microsoft.Maui.Controls.Shapes;
 
 namespace InspectorGoe.ViewModels;
@@ -25,27 +26,27 @@ public partial class MainViewModel : ObservableObject
         mrX.BikeTicket = 3;
         mrX.BusTicket = 6;
         mrX.ScooterTicket = 5;
-        mrX.Name = "MisterX";
+        mrX.UserName = "MisterX";
 
         var first = detectives.First();
         first.ScooterTicket = 3;
         first.BikeTicket = 3;
         first.BusTicket = 3;
-        first.Name = "1. TestSpieler";
+        first.UserName = "1. TestSpieler";
         first.AvatarImagePath = "dotnet_bot.png";
 
         var second = detectives[1];
         second.ScooterTicket = 6;
         second.BikeTicket = 6;
         second.BusTicket = 6;
-        second.Name = "2. TestSpieler";
+        second.UserName = "2. TestSpieler";
         second.AvatarImagePath = "dotnet_bot.png";
 
         var third = detectives[2];
         third.ScooterTicket = 6;
         third.BikeTicket = 6;
         third.BusTicket = 6;
-        third.Name = "3. Testspieler";
+        third.UserName = "3. Testspieler";
         third.AvatarImagePath = "dotnet_bot.png";
 
         //Hier muss eine Klasse aufgesetzt werden um das Databinding verwenden zu können.
