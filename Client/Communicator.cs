@@ -6,6 +6,9 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using GameComponents.Model;
 using GameComponents;
+using System.Net.WebSockets;
+using System.Text;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace InspectorGoe
 {
@@ -84,10 +87,13 @@ namespace InspectorGoe
                 var poi = new PointOfInterest(1, "test", vector);
                 var ticket = TicketTypeEnum.Bike;
                 var move = new MovePlayerDto(poi, ticket);
+
+                await RunAsyncSignalR(token);
+
                 //var code2 = MovePlayerAsync(move);
                 //Console.WriteLine(code2);
-                var player = GetPlayer();
-                Console.WriteLine(player);
+                //var player = GetPlayer();
+                //Console.WriteLine(player);
                 //var url = await CreateProductAsync(player1);
                 //Console.WriteLine($"Created at {url}");
 
@@ -103,6 +109,67 @@ namespace InspectorGoe
             }
 
             Console.ReadLine();
+        }
+
+        static async Task RunAsyncSocket()
+        {
+
+            try
+            {
+
+                using (var ws = new ClientWebSocket())
+                {
+                    await ws.ConnectAsync(new Uri("wss://localhost:5000/ws"), CancellationToken.None);
+                    var buffer = new byte[256];
+                    while (ws.State == WebSocketState.Open)
+                    {
+                        var result = await ws.ReceiveAsync(buffer, CancellationToken.None);
+                        if (result.MessageType == WebSocketMessageType.Close)
+                        {
+                            await ws.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
+                        }
+                        else
+                        {
+                            Console.WriteLine(Encoding.UTF8.GetString(buffer, 0, result.Count));
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            Console.ReadLine();
+        }
+
+        static async Task RunAsyncSignalR(String token)
+        {
+            HubConnection connection;
+            connection = new HubConnectionBuilder()
+                .WithUrl("https://localhost:5000/gameHub", options =>
+                {
+                    options.AccessTokenProvider = () => Task.FromResult(token);
+                })
+                .WithAutomaticReconnect()
+                .Build();
+
+            connection.On<string, string>("ReceiveMessage", (user, message) =>
+            {
+                Console.WriteLine($"{message}");
+            });
+
+            connection.On<GameState>("ReceiveGameState", (gameState) =>
+            {
+                Console.WriteLine($"Runde: {gameState.Round}");
+            });
+
+            await connection.StartAsync();
+
+
+
+            while (true) { }
         }
     }
 }

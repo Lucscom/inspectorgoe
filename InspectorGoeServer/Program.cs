@@ -2,13 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using InspectorGoeServer.Models;
 using Microsoft.AspNetCore.Identity;
 using GameComponents.Model;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Net.Http.Headers;
+using InspectorGoeServer.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson();
+builder.Services.AddSignalR();
+builder.Services.AddScoped<GameHub>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddDbContext<PlayerContext>(opt =>
     opt.UseInMemoryDatabase("Players"));
@@ -119,8 +120,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+//var wsOptions = new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(120) };
+//app.UseWebSockets(wsOptions);
+app.MapHub<GameHub>("/gameHub");
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 
