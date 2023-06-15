@@ -69,9 +69,8 @@ namespace GameComponents
         private void InitPois()
         {
             //read POIs from JSON file Testmap in project folder 
-            string jsonPath = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName).Parent.FullName;
-            jsonPath += "\\Testmap.json";      
-            dynamic json = JsonConvert.DeserializeObject(File.ReadAllText(@jsonPath));  //read JSON to dynamic variable
+            string jsonContent = new StreamReader(FileSystem.OpenAppPackageFileAsync("Testmap.json").GetAwaiter().GetResult()).ReadToEnd();      
+            dynamic json = JsonConvert.DeserializeObject(jsonContent);  //read JSON to dynamic variable
 
             // generate POIs 
             int numPoi = 0;     //number of POIs in JSON-File
