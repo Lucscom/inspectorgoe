@@ -42,17 +42,6 @@ namespace InspectorGoe
             return token;
         }
 
-        static async Task<Player> UpdateProductAsync(Player product)
-        {
-            HttpResponseMessage response = await client.PutAsJsonAsync(
-                $"api/products/{product.Id}", product);
-            response.EnsureSuccessStatusCode();
-
-            // Deserialize the updated product from the response body.
-            //product = await response.Content.ReadAsAsync<Product>();
-            return product;
-        }
-
         static async Task<HttpStatusCode> MovePlayerAsync(MovePlayerDto move)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
@@ -61,6 +50,15 @@ namespace InspectorGoe
             return response.StatusCode;
         }
 
+        static async Task<Player> GetPlayer()
+        {
+            HttpResponseMessage response = await client.GetAsync("api/Player");
+            response.EnsureSuccessStatusCode();
+            String playerJson = await response.Content.ReadAsStringAsync();
+            Player player = System.Text.Json.JsonSerializer.Deserialize<Player>(
+                playerJson);
+            return player;
+        }
 
         public async static Task Main()
         {
@@ -92,6 +90,10 @@ namespace InspectorGoe
 
                 await RunAsyncSignalR(token);
 
+                //var code2 = MovePlayerAsync(move);
+                //Console.WriteLine(code2);
+                //var player = GetPlayer();
+                //Console.WriteLine(player);
                 //var url = await CreateProductAsync(player1);
                 //Console.WriteLine($"Created at {url}");
 

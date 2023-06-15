@@ -123,9 +123,8 @@ namespace InspectorGoeServer.Controllers
                 sendGameComponents(GameComponents.Controller.GetInstance()._gameState);
             }
 
-
-            _context.Entry(currentUser).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            //_context.Entry(currentUser).State = EntityState.Modified;
+            //await _context.SaveChangesAsync();
             return NoContent();
         }
 
