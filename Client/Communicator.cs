@@ -17,12 +17,11 @@ namespace InspectorGoe
     {
         static HttpClient client = new HttpClient();
 
-        static void ShowProduct(Player product)
-        {
-            Console.WriteLine($"Name: {product.UserName}\tPrice: " +
-                $"{product.BusTicket}\tCategory: {product.BikeTicket}");
-        }
-
+        /// <summary>
+        /// Create a new Player on the Server with username and password
+        /// </summary>
+        /// <param name="player">Player Object</param>
+        /// <returns>Http Status code</returns>
         static async Task<HttpStatusCode> CreatePlayerAsync(Player player)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(
@@ -31,6 +30,11 @@ namespace InspectorGoe
             return response.StatusCode;
         }
 
+        /// <summary>
+        /// Login a Player, that is already registered on the server
+        /// </summary>
+        /// <param name="player">Player Object</param>
+        /// <returns>bearer token to authenticate on  the server</returns>
         static async Task<String> Login(Player player)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(
@@ -42,22 +46,17 @@ namespace InspectorGoe
             return token;
         }
 
+        /// <summary>
+        /// Sends the move to the server
+        /// </summary>
+        /// <param name="move">MovePlayerDto Object with POI and Ticket</param>
+        /// <returns>Http Status Code</returns>
         static async Task<HttpStatusCode> MovePlayerAsync(MovePlayerDto move)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
                 "api/Player", move);
             response.EnsureSuccessStatusCode();
             return response.StatusCode;
-        }
-
-        static async Task<Player> GetPlayer()
-        {
-            HttpResponseMessage response = await client.GetAsync("api/Player");
-            response.EnsureSuccessStatusCode();
-            String playerJson = await response.Content.ReadAsStringAsync();
-            Player player = System.Text.Json.JsonSerializer.Deserialize<Player>(
-                playerJson);
-            return player;
         }
 
         public async static Task Main()
@@ -77,12 +76,15 @@ namespace InspectorGoe
             {
                 // Create a new Player
                 Player player1 = new Player(Name:"Henri", pw:"1234");
+                // Register Player on the Server
                 var code = await CreatePlayerAsync(player1);
-
+                // Login Player to receive token
                 var token = await Login(player1);
                 Console.WriteLine(token);
+                // add the token to the http client authorization header 
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", token);
+                // create move object
                 var vector = new System.Numerics.Vector2(0, 0);
                 var poi = new PointOfInterest(1, "test", vector);
                 var ticket = TicketTypeEnum.Bike;
