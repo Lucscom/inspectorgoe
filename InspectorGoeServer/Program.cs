@@ -2,8 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using InspectorGoeServer.Models;
 using Microsoft.AspNetCore.Identity;
 using GameComponents.Model;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -122,13 +120,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.UseRouting();
 //var wsOptions = new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(120) };
 //app.UseWebSockets(wsOptions);
 app.MapHub<GameHub>("/gameHub");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapControllers();
 

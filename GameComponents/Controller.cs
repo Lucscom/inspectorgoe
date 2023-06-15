@@ -29,7 +29,7 @@ namespace GameComponents
         public static Controller GetInstance() { return _instance ??= new Controller(); }
         #endregion
 
-        private GameState _gameState;
+        public GameState _gameState { get; private set; }
 
         /// <summary>
         /// Creating get methods for gamestate properties over controller

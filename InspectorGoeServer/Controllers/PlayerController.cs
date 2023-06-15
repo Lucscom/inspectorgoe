@@ -120,8 +120,7 @@ namespace InspectorGoeServer.Controllers
             var currentUser = await _context.Players.FindAsync(User.Identity.Name);
             if(GameComponents.Controller.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
             {
-                //TODO get GameState from Controller
-                sendGameComponents(new GameState());
+                sendGameComponents(GameComponents.Controller.GetInstance()._gameState);
             }
 
 
@@ -135,6 +134,7 @@ namespace InspectorGoeServer.Controllers
             await _hubContext.Clients.All.SendAsync("ReceiveGameState", gameState);
         }
 
+        //TODO: remove
         [HttpGet("send")]
         [AllowAnonymous]
         [ActionName(nameof(SendGameState))]

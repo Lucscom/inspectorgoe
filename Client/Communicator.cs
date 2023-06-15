@@ -64,7 +64,7 @@ namespace InspectorGoe
 
         public async static Task Main()
         {
-            await RunAsyncSignalR();
+            await RunAsync();
         }
 
         static async Task RunAsync()
@@ -79,7 +79,7 @@ namespace InspectorGoe
             {
                 // Create a new Player
                 Player player1 = new Player(Name:"Henri", pw:"1234");
-                //var code = await CreatePlayerAsync(player1);
+                var code = await CreatePlayerAsync(player1);
 
                 var token = await Login(player1);
                 Console.WriteLine(token);
@@ -89,7 +89,8 @@ namespace InspectorGoe
                 var poi = new PointOfInterest(1, "test", vector);
                 var ticket = TicketTypeEnum.Bike;
                 var move = new MovePlayerDto(poi, ticket);
-               
+
+                await RunAsyncSignalR(token);
 
                 //var url = await CreateProductAsync(player1);
                 //Console.WriteLine($"Created at {url}");
@@ -141,11 +142,14 @@ namespace InspectorGoe
             Console.ReadLine();
         }
 
-        static async Task RunAsyncSignalR()
+        static async Task RunAsyncSignalR(String token)
         {
             HubConnection connection;
             connection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:5000/gameHub")
+                .WithUrl("https://localhost:5000/gameHub", options =>
+                {
+                    options.AccessTokenProvider = () => Task.FromResult(token);
+                })
                 .WithAutomaticReconnect()
                 .Build();
 
