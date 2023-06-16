@@ -94,5 +94,54 @@ namespace GameComponents
 
             return true;
         }
+
+        public Dictionary<PointOfInterest, List<TicketTypeEnum>> getValidMoves(GameState gameState, Player player)
+        {
+            Dictionary<PointOfInterest, List<TicketTypeEnum>> moves = new Dictionary<PointOfInterest, List<TicketTypeEnum>> ();
+
+            if(player.BikeTicket > 0)
+            {
+                moves = addValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBike);
+            }
+            if (player.ScooterTicket > 0)
+            {
+                moves = addValidMovesForTicket(moves, TicketTypeEnum.Scooter, player.Position.ConnectionScooter);
+            }
+            if (player.BusTicket > 0)
+            {
+                moves = addValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBus);
+            }
+            //TODO: doppeltickets
+            if (player == gameState.MisterX && player.BlackTicket > 0)
+            {
+                List<PointOfInterest> pois = new List<PointOfInterest>();
+                pois.Concat(player.Position.ConnectionBus);
+                pois.Concat(player.Position.ConnectionScooter);
+                pois.Concat(player.Position.ConnectionBike);
+
+                moves = addValidMovesForTicket(moves, TicketTypeEnum.Black, pois);
+            }
+
+            return moves;
+        }
+
+        private Dictionary<PointOfInterest, List<TicketTypeEnum>> addValidMovesForTicket(Dictionary<PointOfInterest, List<TicketTypeEnum>> moves, TicketTypeEnum ticketType, List<PointOfInterest> pois)
+        {
+            foreach (PointOfInterest poi in pois)
+            {
+                if (moves.ContainsKey(poi))
+                {
+                    List<TicketTypeEnum> tickets = new List<TicketTypeEnum>();
+                    tickets.AddRange(moves[poi]);
+                    tickets.Add(TicketTypeEnum.Bike);
+                    moves[poi] = tickets;
+                }
+                else
+                {
+                    moves.Add(poi, new List<TicketTypeEnum> { TicketTypeEnum.Bike });
+                }
+            }
+            return moves;
+        }
     }
 }
