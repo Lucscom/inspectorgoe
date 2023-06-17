@@ -21,21 +21,25 @@
             Opacity="0.8"
             HorizontalOptions="Start"
             WidthRequest="300">
-            <Entry Placeholder="Enter your email" Margin="10"/>
-            <Entry Placeholder="Enter your password" Margin="10" IsPassword="True"/>
+            <Entry x:Name="EmailEntry" Placeholder="Enter your email" Margin="10" MaxLength="20" Text="{Binding Useremail}" TextChanged="LoginActivation" />
+            <Entry x:Name="PasswordEntry" Placeholder="Enter your password" Margin="10" IsPassword="True" MaxLength="20" Text="{Binding Userpassword}"  TextChanged="LoginActivation"/>
             <HorizontalStackLayout>
-                <Button Text="Log In" Margin="10" WidthRequest="130" Clicked="Button_Clicked_LogIn"/>
+                <Button x:Name="LogInButton" Text="Log In" Margin="10" WidthRequest="130" Clicked="Button_Clicked_LogIn" IsEnabled="False"/>
                 <Button Text="Sign Up" Margin="10" WidthRequest="130" Clicked="Button_Clicked_SignUp"/>
             </HorizontalStackLayout>
         </StackLayout>
 
         <Entry
                 Placeholder="Enter Server IP"
+                x:Name="ServerEntry"
+                MaxLength="20"
                 BackgroundColor="LightBlue"
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="End"
                 WidthRequest="280"
-                Margin="10"/>
+                Margin="10"
+                Text="{Binding Userseverip}"
+                TextChanged="LoginActivation"/>
 
     </Grid>
 </ContentPage>

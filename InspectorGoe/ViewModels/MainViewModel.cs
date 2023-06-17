@@ -16,6 +16,12 @@ public partial class MainViewModel : ObservableObject
     private Player mrX;
     private List<String> mrXtickets;
 
+    //Variablen für Login
+
+    private string useremail = string.Empty;
+    private string userpassword = string.Empty;
+    private string severip = string.Empty;
+
     public MainViewModel()
     {
         controller.Initialize(4);
@@ -75,7 +81,6 @@ public partial class MainViewModel : ObservableObject
 
     }
 
-
     public List<Player> DetectivesCollection
     {
         get { return detectives; }
@@ -91,4 +96,24 @@ public partial class MainViewModel : ObservableObject
     {
         get { return mrXtickets; }
     }
- }
+
+    //get&set für Login
+    public string Useremail
+    {
+        get { return useremail; }
+        set { useremail = value; }
+    }
+
+    public string Userpassword
+    {
+        get { return userpassword; }
+        set { userpassword = value; }
+    }
+
+    public string Userseverip
+    {
+        get { return severip; }
+        set { severip = value; }
+    }
+
+}
