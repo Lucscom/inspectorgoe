@@ -9,10 +9,10 @@
         
         <StackLayout Padding="10">
             <Label Text="Sign Up" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
-            <Entry Placeholder="Username" Margin="10"/>
-            <Entry Placeholder="Password" Margin="10" IsPassword="True"/>
-            <Entry Placeholder="Confirm Password" Margin="10" IsPassword="True"/>
-            <Button Text="Register" Margin="10" Clicked="Button_Clicked_Register"/>
+            <Entry Placeholder="Username" Margin="10" Text="{Binding Usernameregister}" TextChanged="RegisterActivation"/>
+            <Entry Placeholder="Password" Margin="10" Text="{Binding Userpasswordregister}" TextChanged="RegisterActivation" IsPassword="True"/>
+            <Entry Placeholder="Confirm Password" Margin="10" Text="{Binding Userpasswordregister2}" TextChanged="RegisterActivation" IsPassword="True"/>
+            <Button x:Name="RegisterButton" Text="Register" Margin="10" Clicked="Button_Clicked_Register"/>
         </StackLayout>
     </Frame>
 

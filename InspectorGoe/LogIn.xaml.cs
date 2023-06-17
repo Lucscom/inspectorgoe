@@ -24,12 +24,11 @@ public partial class LogIn : ContentPage
     {
         // Show the popup window
         this.ShowPopup(new RegisterPage());
-
     }
 
     private void LoginActivation(object sender, TextChangedEventArgs e)
     {
-        if (MVM.Useremail != string.Empty && MVM.Userpassword != string.Empty && MVM.Userseverip != string.Empty) { LogInButton.IsEnabled = true; }
+        if (MVM.Username != string.Empty && MVM.Userpassword != string.Empty && MVM.Userseverip != string.Empty) { LogInButton.IsEnabled = true; }
         else { LogInButton.IsEnabled = false; }
     }
 

@@ -17,10 +17,14 @@ public partial class MainViewModel : ObservableObject
     private List<String> mrXtickets;
 
     //Variablen für Login
-
-    private string useremail = string.Empty;
+    private string username = string.Empty;
     private string userpassword = string.Empty;
     private string severip = string.Empty;
+
+    //Variablen für Register
+    private string usernameregister = string.Empty;
+    private string userpasswordregister = string.Empty;
+    private string userpasswordregister2 = string.Empty;
 
     public MainViewModel()
     {
@@ -97,11 +101,31 @@ public partial class MainViewModel : ObservableObject
         get { return mrXtickets; }
     }
 
-    //get&set für Login
-    public string Useremail
+    //get&set für Register
+
+    public string Usernameregister
     {
-        get { return useremail; }
-        set { useremail = value; }
+        get { return usernameregister; }
+        set { usernameregister = value; }
+    }
+
+    public string Userpasswordregister
+    {
+        get { return userpasswordregister; }
+        set { userpasswordregister = value; }
+    }
+    
+    public string Userpasswordregister2
+    {
+        get { return userpasswordregister2; }
+        set { userpasswordregister2 = value; }
+    }
+
+    //get&set für Login
+    public string Username
+    {
+        get { return username; }
+        set { username = value; }
     }
 
     public string Userpassword
