@@ -6,7 +6,7 @@ namespace GameComponents
     /// <summary>
     /// Validates moves
     /// </summary>
-    public class Validator
+    public static class Validator
     {
 
         /// <summary>
@@ -14,7 +14,7 @@ namespace GameComponents
         /// </summary>
         /// <param name="point">Point of interest to check</param>
         /// <returns>true if point is blocked</returns>
-        private bool PoiBlockedByDetective(PointOfInterest point, List<Player> detectives)
+        public static bool PoiBlockedByDetective(PointOfInterest point, List<Player> detectives)
         {
             //check if another player is on the field
             foreach (var p in detectives)
@@ -35,7 +35,7 @@ namespace GameComponents
         /// <param name="point">Destination of move</param>
         /// <param name="ticketType">Chosen ticketype</param>
         /// <returns>true if move is possible</returns>
-        private bool ValidateMove(Player player, PointOfInterest point, TicketTypeEnum ticketType, List<Player> detectives)
+        public static bool ValidateMove(Player player, PointOfInterest point, TicketTypeEnum ticketType, List<Player> detectives)
         {
             if (PoiBlockedByDetective(point, detectives)) 
             {
@@ -92,21 +92,21 @@ namespace GameComponents
         /// <param name="gameState">The current gameState</param>
         /// <param name="player">The player who wants to make a move</param>
         /// <returns>Dictionary that contains all possible pois with ticket type</returns>
-        public Dictionary<PointOfInterest, List<TicketTypeEnum>> getValidMoves(GameState gameState, Player player)
+        public static Dictionary<PointOfInterest, List<TicketTypeEnum>> GetValidMoves(GameState gameState, Player player)
         {
             Dictionary<PointOfInterest, List<TicketTypeEnum>> moves = new Dictionary<PointOfInterest, List<TicketTypeEnum>> ();
 
             if(player.BikeTicket > 0)
             {
-                moves = addValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBike, gameState.Detectives);
+                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBike, gameState.Detectives);
             }
             if (player.ScooterTicket > 0)
             {
-                moves = addValidMovesForTicket(moves, TicketTypeEnum.Scooter, player.Position.ConnectionScooter, gameState.Detectives);
+                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Scooter, player.Position.ConnectionScooter, gameState.Detectives);
             }
             if (player.BusTicket > 0)
             {
-                moves = addValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBus, gameState.Detectives);
+                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBus, gameState.Detectives);
             }
             //TODO: doppeltickets
             if (player == gameState.MisterX && player.BlackTicket > 0)
@@ -116,7 +116,7 @@ namespace GameComponents
                 pois.Concat(player.Position.ConnectionScooter);
                 pois.Concat(player.Position.ConnectionBike);
 
-                moves = addValidMovesForTicket(moves, TicketTypeEnum.Black, pois, gameState.Detectives);
+                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Black, pois, gameState.Detectives);
             }
 
             return moves;
@@ -130,7 +130,7 @@ namespace GameComponents
         /// <param name="pois">Connectins pois to player position</param>
         /// <param name="detectives">Detective players to get blocked pois</param>
         /// <returns>Dictionary that contains all possible pois for one ticket type</returns>
-        private Dictionary<PointOfInterest, List<TicketTypeEnum>> addValidMovesForTicket(Dictionary<PointOfInterest, List<TicketTypeEnum>> moves, TicketTypeEnum ticketType, List<PointOfInterest> pois, List<Player> detectives)
+        private static Dictionary<PointOfInterest, List<TicketTypeEnum>> AddValidMovesForTicket(Dictionary<PointOfInterest, List<TicketTypeEnum>> moves, TicketTypeEnum ticketType, List<PointOfInterest> pois, List<Player> detectives)
         {
             //Remove pois that are blocked by other detectives
             foreach (Player player in detectives)
