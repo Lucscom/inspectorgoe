@@ -170,10 +170,12 @@ namespace InspectorGoeServer.Controllers
         public async Task<IActionResult> PutPlayer([FromBody] MovePlayerDto movement)
         {
             var currentUser = await _context.Players.FindAsync(User.Identity.Name);
-            if(GameComponents.Controller.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
-            {
-                sendGameComponents(GameComponents.Controller.GetInstance().GameState);
-            }
+
+            //TODO: Use Server Contrller
+            //if(GameComponents.Validator.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
+            //{
+            //    sendGameComponents(GameComponents.Validator.GetInstance().GameState);
+            //}
 
             //_context.Entry(currentUser).State = EntityState.Modified;
             //await _context.SaveChangesAsync();

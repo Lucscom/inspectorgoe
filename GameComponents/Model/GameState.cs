@@ -32,5 +32,13 @@ namespace GameComponents.Model
         /// Contains all point of interest that are in the game
         /// </summary>
         public List<PointOfInterest> PointsOfInterest { get; set; } = new List<PointOfInterest>();
+        /// <summary>
+        /// Contains the last Tickets than MisterX used
+        /// </summary>
+        public List<TicketTypeEnum> TicketHistoryMisterX { get; set; }   
+        /// <summary>
+        /// Contains the last known PointofInterest of MisterX
+        /// </summary>
+        public PointOfInterest MisterXLastKnownPOI { get; set; }
     }
 }
