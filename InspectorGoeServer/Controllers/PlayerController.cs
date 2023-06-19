@@ -7,10 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel.Design;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -26,19 +23,22 @@ namespace InspectorGoeServer.Controllers
         private readonly UserManager<Player> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IHubContext<GameHub> _hubContext;
+        private readonly GameController _gameController;
 
         public PlayerController(
             ILogger<PlayerController> logger, 
             PlayerContext context,
             UserManager<Player> userManager,
             IConfiguration configuration, 
-            IHubContext<GameHub> hubContext)
+            IHubContext<GameHub> hubContext,
+            GameController gameController)
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
             _configuration = configuration;
             _hubContext = hubContext;
+            _gameController = gameController;
         }
 
         [HttpGet]
@@ -46,7 +46,15 @@ namespace InspectorGoeServer.Controllers
         [ActionName(nameof(GetPlayer))]
         public async Task<ActionResult<Player>> GetPlayer()
         {
-            var currentUser = await _context.Players.FindAsync(User.Identity.Name);
+            //var currentUser = await _context.Players.FindAsync(User.Identity.Name); //not working
+            //var currentUser = await _userManager.GetUserAsync(User); //not working
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+
+            if (currentUser == null)
+            {
+                return NotFound();
+            }
+
             return Ok(currentUser);
         }
 
@@ -56,8 +64,18 @@ namespace InspectorGoeServer.Controllers
         public async Task<ActionResult<Player>> RegisterPlayer([FromBody] Player player)
         {
             var userResult = await _userManager.CreateAsync(player, player.Password);
-            return !userResult.Succeeded ? 
-                new BadRequestObjectResult(userResult) : StatusCode(201);
+
+            if (!userResult.Succeeded)
+                return new BadRequestObjectResult(userResult);
+
+            var newPlayer = await _context.Players.FindAsync(player.Id);
+
+            if (_gameController.AddPlayer(newPlayer))
+            {
+                return Created("", "");
+            }
+
+            return StatusCode(500); //500 - Internal Server Error
         }
 
         [HttpPost("login")]
@@ -78,7 +96,6 @@ namespace InspectorGoeServer.Controllers
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
-
         private SigningCredentials GetSigningCredentials()
         {
             var jwtConfig = _configuration.GetSection("jwtConfig");
@@ -99,7 +116,6 @@ namespace InspectorGoeServer.Controllers
             }
             return claims;
         }
-
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
             var jwtConfig = _configuration.GetSection("jwtConfig");
@@ -117,22 +133,26 @@ namespace InspectorGoeServer.Controllers
         [ActionName(nameof(PutPlayer))]
         public async Task<IActionResult> PutPlayer([FromBody] MovePlayerDto movement)
         {
-            var currentUser = await _context.Players.FindAsync(User.Identity.Name);
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
 
-            //TODO: Use Server Contrller
-            //if(GameComponents.Validator.GetInstance().MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
-            //{
-            //    sendGameComponents(GameComponents.Validator.GetInstance().GameState);
-            //}
+            if(_gameController.MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
+            {
+                return Ok();
+            }
 
-            //_context.Entry(currentUser).State = EntityState.Modified;
-            //await _context.SaveChangesAsync();
-            return NoContent();
+            return BadRequest();
         }
 
-        private async void sendGameComponents(GameState gameState)
+        [HttpPut("startgame")]
+        [Authorize]
+        [ActionName(nameof(StartGame))]
+        public async Task<IActionResult> StartGame()
         {
-            await _hubContext.Clients.All.SendAsync("ReceiveGameState", gameState);
+            _gameController.StartGame();
+
+            return Ok();
         }
 
         //TODO: remove
