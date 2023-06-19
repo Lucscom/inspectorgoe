@@ -20,6 +20,7 @@ namespace GameComponents.Model
         /// Defines the misterX player
         /// </summary>
         public Player MisterX { get; set; }
+        public List<Player> AllPlayers => new List<Player>(new[] { MisterX }).Concat(Detectives).ToList();
         /// <summary>
         /// Currently active player, referenz to decetives list or misterX
         /// </summary>
@@ -27,7 +28,8 @@ namespace GameComponents.Model
         /// <summary>
         /// Roundcounter
         /// </summary>
-        public int Round { get; set; }
+        public int Round { get; set; } = 0;
+        public bool GameStarted => Round > 0;
         /// <summary>
         /// Contains all point of interest that are in the game
         /// </summary>
@@ -35,7 +37,7 @@ namespace GameComponents.Model
         /// <summary>
         /// Contains the last Tickets than MisterX used
         /// </summary>
-        public List<TicketTypeEnum> TicketHistoryMisterX { get; set; }   
+        public List<TicketTypeEnum> TicketHistoryMisterX { get; set; } = new List<TicketTypeEnum>();
         /// <summary>
         /// Contains the last known PointofInterest of MisterX
         /// </summary>
