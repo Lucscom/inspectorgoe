@@ -23,7 +23,6 @@ public partial class MainViewModel : ObservableObject
     #endregion
 
     private Communicator _com;
-    private Validator _validator = new Validator();
 
     //Variablen für Login
     private string username = string.Empty;
@@ -42,7 +41,7 @@ public partial class MainViewModel : ObservableObject
 
         //init gamestate for test purposes
         //Will be removed in the future
-        _com.GameState = _validator.InitPois();
+        _com.GameState = Validator.InitPois();
 
         Player mrX = new Player();
 
