@@ -95,6 +95,19 @@ namespace Client
         }
 
         /// <summary>
+        /// Login to an existing Player to get the authorization Token
+        /// (Http Post)
+        /// </summary>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> StartGameAsync()
+        {
+            HttpResponseMessage response = await _client.PutAsync(
+                "api/Player/startgame", null);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
+        /// <summary>
         /// Make a move with a destination POI and a ticket type
         /// (Http Put)
         /// </summary>

@@ -160,6 +160,14 @@ public partial class MainViewModel : ObservableObject
         // bei fail gamestate neu bekommen und wiederholen
     }
 
+    /// <summary>
+    /// Send start game to server
+    /// </summary>
+    public void startGame()
+    {
+        var status = _com.StartGameAsync();
+    }
+
     //get&set für Register
 
     public string Usernameregister
