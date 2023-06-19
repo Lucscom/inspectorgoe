@@ -15,6 +15,16 @@ public partial class MainViewModel : ObservableObject
     private Communicator _com;
     private Validator _validator = new Validator();
 
+    //Variablen für Login
+    private string username = string.Empty;
+    private string userpassword = string.Empty;
+    private string severip = string.Empty;
+
+    //Variablen für Register
+    private string usernameregister = string.Empty;
+    private string userpasswordregister = string.Empty;
+    private string userpasswordregister2 = string.Empty;
+
     public MainViewModel()
     {
         // hier startet die connection mit der Logik und dem Server
@@ -84,7 +94,6 @@ public partial class MainViewModel : ObservableObject
         mrXtickets.Add(ticketBikePath);
     }
 
-
     public List<Player> DetectivesCollection
     {
         get { return _com.GameState.Detectives; }
@@ -135,4 +144,44 @@ public partial class MainViewModel : ObservableObject
         // todo: status code checken -->
         // bei fail gamestate neu bekommen und wiederholen
     }
- }
+
+    //get&set für Register
+
+    public string Usernameregister
+    {
+        get { return usernameregister; }
+        set { usernameregister = value; }
+    }
+
+    public string Userpasswordregister
+    {
+        get { return userpasswordregister; }
+        set { userpasswordregister = value; }
+    }
+    
+    public string Userpasswordregister2
+    {
+        get { return userpasswordregister2; }
+        set { userpasswordregister2 = value; }
+    }
+
+    //get&set für Login
+    public string Username
+    {
+        get { return username; }
+        set { username = value; }
+    }
+
+    public string Userpassword
+    {
+        get { return userpassword; }
+        set { userpassword = value; }
+    }
+
+    public string Userseverip
+    {
+        get { return severip; }
+        set { severip = value; }
+    }
+
+}
