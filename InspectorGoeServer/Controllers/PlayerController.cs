@@ -18,13 +18,36 @@ namespace InspectorGoeServer.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
+        /// <summary>
+        /// Logger
+        /// </summary>
         private readonly ILogger<PlayerController> _logger;
+        /// <summary>
+        /// Player Database
+        /// </summary>
         private readonly PlayerContext _context;
+        /// <summary>
+        /// User Database
+        /// </summary>
         private readonly UserManager<Player> _userManager;
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IConfiguration _configuration;
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly IHubContext<GameHub> _hubContext;
         private readonly GameController _gameController;
 
+        /// <summary>
+        /// Constructor to init the player controller
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="context"></param>
+        /// <param name="userManager"></param>
+        /// <param name="configuration"></param>
+        /// <param name="hubContext"></param>
         public PlayerController(
             ILogger<PlayerController> logger, 
             PlayerContext context,
@@ -50,15 +73,7 @@ namespace InspectorGoeServer.Controllers
         [ActionName(nameof(GetPlayer))]
         public async Task<ActionResult<Player>> GetPlayer()
         {
-            //var currentUser = await _context.Players.FindAsync(User.Identity.Name); //not working
-            //var currentUser = await _userManager.GetUserAsync(User); //not working
-            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
-
-            if (currentUser == null)
-            {
-                return NotFound();
-            }
-
+            var currentUser = await _context.Players.FindAsync(User.Identity.Name);
             return Ok(currentUser);
         }
         /// <summary>
@@ -88,7 +103,7 @@ namespace InspectorGoeServer.Controllers
         /// <summary>
         /// Returns a token for the given user credentials
         /// </summary>
-        /// <param name="user">Player with username and password</param>
+        /// <param name="user">Player object with username and password</param>
         /// <returns>Valid JWT bearer token</returns>
         [HttpPost("login")]
         [AllowAnonymous]
@@ -164,7 +179,7 @@ namespace InspectorGoeServer.Controllers
         /// Moves the player to the given point of interest
         /// </summary>
         /// <param name="movement">The movement parameters</param>
-        /// <returns>Ok</returns>
+        /// <returns>Ok, Http response with no content</returns>
         [HttpPut]
         [Authorize]
         [ActionName(nameof(PutPlayer))]
@@ -196,6 +211,16 @@ namespace InspectorGoeServer.Controllers
             }
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Send gameState to all clients
+        /// Differentiates between MisterX and Detectives, Detectives do not recieve information about MisterX
+        /// </summary>
+        /// <param name="gameState">The current gameState</param>
+        private async void sendGameComponents(GameState gameState)
+        {
+            await _hubContext.Clients.All.SendAsync("ReceiveGameState", gameState);
         }
 
         //TODO: remove
