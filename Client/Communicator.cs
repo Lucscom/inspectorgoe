@@ -162,7 +162,7 @@ namespace InspectorGoe
 
             connection.On<GameState>("ReceiveGameState", (gameState) =>
             {
-                Console.WriteLine($"Runde: {gameState.Round}");
+                Console.WriteLine($"Runde: {gameState.Move}");
             });
 
             await connection.StartAsync();
