@@ -1,19 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Numerics;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using GameComponents.Model;
+﻿using GameComponents.Model;
 
 
 namespace GameComponents
 {
     /// <summary>
-    /// Controlls the game and validates the game state
+    /// Validates moves
     /// </summary>
     public class Validator
     {
@@ -95,6 +86,12 @@ namespace GameComponents
             return true;
         }
 
+        /// <summary>
+        /// Find all valid pois with ticket types for a given player
+        /// </summary>
+        /// <param name="gameState">The current gameState</param>
+        /// <param name="player">The player who wants to make a move</param>
+        /// <returns>Dictionary that contains all possible pois with ticket type</returns>
         public Dictionary<PointOfInterest, List<TicketTypeEnum>> getValidMoves(GameState gameState, Player player)
         {
             Dictionary<PointOfInterest, List<TicketTypeEnum>> moves = new Dictionary<PointOfInterest, List<TicketTypeEnum>> ();
@@ -125,8 +122,17 @@ namespace GameComponents
             return moves;
         }
 
+        /// <summary>
+        /// Find all valid Pois for one ticket type
+        /// </summary>
+        /// <param name="moves">Possible pois are added to this directory</param>
+        /// <param name="ticketType">Ticket type for valid moves</param>
+        /// <param name="pois">Connectins pois to player position</param>
+        /// <param name="detectives">Detective players to get blocked pois</param>
+        /// <returns>Dictionary that contains all possible pois for one ticket type</returns>
         private Dictionary<PointOfInterest, List<TicketTypeEnum>> addValidMovesForTicket(Dictionary<PointOfInterest, List<TicketTypeEnum>> moves, TicketTypeEnum ticketType, List<PointOfInterest> pois, List<Player> detectives)
         {
+            //Remove pois that are blocked by other detectives
             foreach (Player player in detectives)
             {
                 pois.Remove(player.Position);
