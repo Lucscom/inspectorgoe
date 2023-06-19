@@ -41,6 +41,10 @@ namespace InspectorGoeServer.Controllers
             _gameController = gameController;
         }
 
+        /// <summary>
+        /// Gets the authenticated player
+        /// </summary>
+        /// <returns>The authenticated Player if found</returns>
         [HttpGet]
         [Authorize]
         [ActionName(nameof(GetPlayer))]
@@ -57,7 +61,11 @@ namespace InspectorGoeServer.Controllers
 
             return Ok(currentUser);
         }
-
+        /// <summary>
+        /// Registers a new player and adds it to the game
+        /// </summary>
+        /// <param name="player">Player</param>
+        /// <returns>Ok if successfull</returns>
         [HttpPost]
         [AllowAnonymous]
         [ActionName(nameof(RegisterPlayer))]
@@ -77,7 +85,11 @@ namespace InspectorGoeServer.Controllers
 
             return StatusCode(500); //500 - Internal Server Error
         }
-
+        /// <summary>
+        /// Returns a token for the given user credentials
+        /// </summary>
+        /// <param name="user">Player with username and password</param>
+        /// <returns>Valid JWT bearer token</returns>
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] Player user)
@@ -89,6 +101,11 @@ namespace InspectorGoeServer.Controllers
                 : Ok(new { Token = await GenerateToken(currentUser) });
         }
 
+        /// <summary>
+        /// Generates a JWT token for the given user
+        /// </summary>
+        /// <param name="user">player</param>
+        /// <returns>JWT Token</returns>
         private async Task<string> GenerateToken(Player? user)
         {
             var signingCredentials = GetSigningCredentials();
@@ -96,13 +113,22 @@ namespace InspectorGoeServer.Controllers
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
+        /// <summary>
+        /// The key used to sign the JWT token
+        /// </summary>
+        /// <returns>The signing credentials</returns>
         private SigningCredentials GetSigningCredentials()
         {
             var jwtConfig = _configuration.GetSection("jwtConfig");
-            var key = Encoding.UTF8.GetBytes(jwtConfig["Secret"]);
+            var key = Encoding.UTF8.GetBytes(jwtConfig["Secret"]); //reads the secret from the appsettings.json
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
+        /// <summary>
+        /// The claims the user has
+        /// </summary>
+        /// <param name="user">Player</param>
+        /// <returns>List of claims</returns>
         private async Task<List<Claim>> GetClaims(Player? user)
         {
             var claims = new List<Claim>
@@ -116,6 +142,12 @@ namespace InspectorGoeServer.Controllers
             }
             return claims;
         }
+        /// <summary>
+        /// Generates a JWT token representation
+        /// </summary>
+        /// <param name="signingCredentials">Credentials for signing</param>
+        /// <param name="claims">List of claims</param>
+        /// <returns>JWT token representation</returns>
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
             var jwtConfig = _configuration.GetSection("jwtConfig");
@@ -128,6 +160,11 @@ namespace InspectorGoeServer.Controllers
             return tokenOptions;
         }
 
+        /// <summary>
+        /// Moves the player to the given point of interest
+        /// </summary>
+        /// <param name="movement">The movement parameters</param>
+        /// <returns>Ok</returns>
         [HttpPut]
         [Authorize]
         [ActionName(nameof(PutPlayer))]
@@ -144,13 +181,19 @@ namespace InspectorGoeServer.Controllers
 
             return BadRequest();
         }
-
+        /// <summary>
+        /// Starts the game
+        /// </summary>
+        /// <returns>Ok</returns>
         [HttpPut("startgame")]
         [Authorize]
         [ActionName(nameof(StartGame))]
         public async Task<IActionResult> StartGame()
         {
-            _gameController.StartGame();
+            if (!_gameController.StartGame())
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }
