@@ -113,6 +113,7 @@ public partial class MainViewModel : ObservableObject
         var statusLogin = _com.LoginAsync(player);
         // todo: status code checken -->
         // bei fail gamestate neu bekommen und wiederholen
+        var statusHub =  _com.RegisterGameHubAsync();
 
     }
 

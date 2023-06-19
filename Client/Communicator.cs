@@ -28,6 +28,8 @@ namespace Client
         /// </summary>
         private String _url;
 
+        public GameState GameState { get; private set; }
+
         /// <summary>
         /// Constructor for the communicator without url
         /// </summary>
@@ -111,7 +113,7 @@ namespace Client
         /// </summary>
         /// <param name="token">Used for authentication</param>
         /// <returns></returns>
-        public async Task RunAsyncSignalR()
+        public async Task RegisterGameHubAsync()
         {
             HubConnection connection;
             connection = new HubConnectionBuilder()
@@ -122,22 +124,15 @@ namespace Client
                 .WithAutomaticReconnect()
                 .Build();
 
-            connection.On<string, string>("ReceiveMessage", (user, message) =>
-            {
-                Console.WriteLine($"{message}");
-            });
-
             //Register method that can be called from the server
             connection.On<GameState>("ReceiveGameState", (gameState) =>
             {
-                Console.WriteLine($"Runde: {gameState.Round}");
+                GameState = gameState;
             });
 
-            await connection.StartAsync();
+            var t = connection.StartAsync();
 
-
-            //TODO: remove
-            while (true) { }
+            t.Wait();
         }
     }
 }
