@@ -162,7 +162,7 @@ namespace GameComponents
         /// <summary>
         /// Initializes points of interest from game config
         /// </summary>
-        public GameState InitPois()
+        public static GameState InitPois()
         {
             //read POIs from JSON file Testmap in project folder 
             //todo: change json location
@@ -234,7 +234,7 @@ namespace GameComponents
         /// <param name="pointOfInterest1">First point of connection</param>
         /// <param name="pointOfInterest2">Second point of connection</param>
         /// <param name="ticketType">Type of connection</param>
-        private void ConnectPois(PointOfInterest pointOfInterest1, PointOfInterest pointOfInterest2, TicketTypeEnum ticketType)
+        private static void ConnectPois(PointOfInterest pointOfInterest1, PointOfInterest pointOfInterest2, TicketTypeEnum ticketType)
         {
             switch (ticketType)
             {
