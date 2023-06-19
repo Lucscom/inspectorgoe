@@ -6,7 +6,7 @@ namespace InspectorGoe;
 
 public partial class LogIn : ContentPage
 {
-    MainViewModel MVM = new MainViewModel();
+    MainViewModel MVM = MainViewModel.GetInstance();
 
     public LogIn()
     {
@@ -17,6 +17,7 @@ public partial class LogIn : ContentPage
 
     private void Button_Clicked_LogIn(object sender, EventArgs e)
     {
+        MVM.loginPlayer();
         Navigation.PushAsync(new Menu());
     }
 

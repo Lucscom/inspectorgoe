@@ -12,20 +12,30 @@ using Client;
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
+    #region Singleton
+
+    private static MainViewModel _instance;
+    /// <summary>
+    /// Creates one instance of MainVieModel or returns it
+    /// </summary>
+    /// <returns>Unique MainVieModel instance</returns>
+    public static MainViewModel GetInstance() { return _instance ??= new MainViewModel(); }
+    #endregion
+
     private Communicator _com;
     private Validator _validator = new Validator();
 
     //Variablen für Login
     private string username = string.Empty;
     private string userpassword = string.Empty;
-    private string severip = string.Empty;
+    private string serverIp = string.Empty;
 
     //Variablen für Register
     private string usernameregister = string.Empty;
     private string userpasswordregister = string.Empty;
     private string userpasswordregister2 = string.Empty;
 
-    public MainViewModel()
+    private MainViewModel()
     {
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
@@ -34,12 +44,16 @@ public partial class MainViewModel : ObservableObject
         //Will be removed in the future
         _com.GameState = _validator.InitPois();
 
-        _com.GameState.MisterX.AvatarImagePath = "dotnet_bot.png";
+        Player mrX = new Player();
 
-        _com.GameState.MisterX.BikeTicket = 3;
-        _com.GameState.MisterX.BusTicket = 6;
-        _com.GameState.MisterX.ScooterTicket = 5;
-        _com.GameState.MisterX.UserName = "MisterX";
+        mrX.AvatarImagePath = "dotnet_bot.png";
+
+        mrX.BikeTicket = 3;
+        mrX.BusTicket = 6;
+        mrX.ScooterTicket = 5;
+        mrX.UserName = "MisterX";
+
+        _com.GameState.MisterX = mrX;
 
         Player first = new Player();
         first.ScooterTicket = 3;
@@ -114,16 +128,18 @@ public partial class MainViewModel : ObservableObject
         get { return _com.GameState.MisterXLastKnownPOI; }
     }
 
+    public List<PointOfInterest> AllPointOfInterest
+    {
+        get { return _com.GameState.PointsOfInterest; }
+    }
+
     /// <summary>
     /// Take the login credentials and hand them to the communicator
     /// </summary>
-    /// <param name="userName"></param>
-    /// <param name="password"></param>
-    /// <param name="serverAdress"></param>
-    public void loginPlayer(String userName, String password, String serverAdress)
+    public void loginPlayer()
     {
-        _com.initClient(serverAdress);
-        var player = new Player(userName, password);
+        _com.initClient(serverIp);
+        var player = new Player(username, userpassword);
         var statusCreate = _com.CreatePlayerAsync(player);
         var statusLogin = _com.LoginAsync(player);
         // todo: status code checken -->
@@ -180,8 +196,8 @@ public partial class MainViewModel : ObservableObject
 
     public string Userseverip
     {
-        get { return severip; }
-        set { severip = value; }
+        get { return serverIp; }
+        set { serverIp = value; }
     }
 
 }
