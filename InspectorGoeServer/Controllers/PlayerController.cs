@@ -191,6 +191,7 @@ namespace InspectorGoeServer.Controllers
 
             if(_gameController.MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
             {
+                sendGameComponents(_gameController.GameState);
                 return Ok();
             }
 
@@ -209,6 +210,7 @@ namespace InspectorGoeServer.Controllers
             {
                 return BadRequest();
             }
+            sendGameComponents(_gameController.GameState);
 
             return Ok();
         }
