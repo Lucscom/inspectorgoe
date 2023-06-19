@@ -11,5 +11,5 @@ namespace GameComponents
     /// <summary>
     /// Contains tickettypes
     /// </summary>
-    public enum TicketTypeEnum { Bus, Bike, Scooter }
+    public enum TicketTypeEnum { Bus, Bike, Scooter, Black }
 }
