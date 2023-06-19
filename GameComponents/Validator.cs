@@ -166,7 +166,7 @@ namespace GameComponents
         {
             //read POIs from JSON file Testmap in project folder 
             //todo: change json location
-            string jsonContent = new StreamReader(File.OpenRead("Testmap.json")).ReadToEnd();      //read JSON file from project folder
+            string jsonContent = new StreamReader(File.OpenRead("C:/Users/phili/source/repos/inspectorgoe/GameComponents/Testmap.json")).ReadToEnd();      //read JSON file from project folder
             dynamic json = JsonConvert.DeserializeObject(jsonContent);  //read JSON to dynamic variable
 
             GameState GameState = new GameState();
