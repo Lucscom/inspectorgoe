@@ -101,15 +101,15 @@ namespace GameComponents
 
             if(player.BikeTicket > 0)
             {
-                moves = addValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBike);
+                moves = addValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBike, gameState.Detectives);
             }
             if (player.ScooterTicket > 0)
             {
-                moves = addValidMovesForTicket(moves, TicketTypeEnum.Scooter, player.Position.ConnectionScooter);
+                moves = addValidMovesForTicket(moves, TicketTypeEnum.Scooter, player.Position.ConnectionScooter, gameState.Detectives);
             }
             if (player.BusTicket > 0)
             {
-                moves = addValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBus);
+                moves = addValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBus, gameState.Detectives);
             }
             //TODO: doppeltickets
             if (player == gameState.MisterX && player.BlackTicket > 0)
@@ -119,14 +119,18 @@ namespace GameComponents
                 pois.Concat(player.Position.ConnectionScooter);
                 pois.Concat(player.Position.ConnectionBike);
 
-                moves = addValidMovesForTicket(moves, TicketTypeEnum.Black, pois);
+                moves = addValidMovesForTicket(moves, TicketTypeEnum.Black, pois, gameState.Detectives);
             }
 
             return moves;
         }
 
-        private Dictionary<PointOfInterest, List<TicketTypeEnum>> addValidMovesForTicket(Dictionary<PointOfInterest, List<TicketTypeEnum>> moves, TicketTypeEnum ticketType, List<PointOfInterest> pois)
+        private Dictionary<PointOfInterest, List<TicketTypeEnum>> addValidMovesForTicket(Dictionary<PointOfInterest, List<TicketTypeEnum>> moves, TicketTypeEnum ticketType, List<PointOfInterest> pois, List<Player> detectives)
         {
+            foreach (Player player in detectives)
+            {
+                pois.Remove(player.Position);
+            }
             foreach (PointOfInterest poi in pois)
             {
                 if (moves.ContainsKey(poi))
