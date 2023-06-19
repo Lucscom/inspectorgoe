@@ -28,7 +28,7 @@ namespace Client
         /// </summary>
         private String _url;
 
-        public GameState GameState { get; private set; }
+        public GameState GameState { get; set; }
 
         /// <summary>
         /// Constructor for the communicator without url

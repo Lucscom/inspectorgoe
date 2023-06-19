@@ -12,43 +12,52 @@ using Client;
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
-    private GameState gameState;
-    private List<Player> detectives;
-    private Player mrX;
-    private List<String> mrXtickets;
     private Communicator _com;
+    private Validator _validator = new Validator();
 
     public MainViewModel()
     {
-        detectives = new List<Player>(gameState.Detectives);
-        mrX = gameState.MisterX;
-        mrX.AvatarImagePath = "dotnet_bot.png";
+        // hier startet die connection mit der Logik und dem Server
+        _com = new Communicator();
 
-        mrX.BikeTicket = 3;
-        mrX.BusTicket = 6;
-        mrX.ScooterTicket = 5;
-        mrX.UserName = "MisterX";
+        //init gamestate for test purposes
+        //Will be removed in the future
+        _com.GameState = _validator.InitPois();
 
-        var first = detectives.First();
+        _com.GameState.MisterX.AvatarImagePath = "dotnet_bot.png";
+
+        _com.GameState.MisterX.BikeTicket = 3;
+        _com.GameState.MisterX.BusTicket = 6;
+        _com.GameState.MisterX.ScooterTicket = 5;
+        _com.GameState.MisterX.UserName = "MisterX";
+
+        Player first = new Player();
         first.ScooterTicket = 3;
         first.BikeTicket = 3;
         first.BusTicket = 3;
         first.UserName = "1. TestSpieler";
         first.AvatarImagePath = "hawk_hirsch.jpg";
 
-        var second = detectives[1];
+        Player second = new Player();
         second.ScooterTicket = 6;
         second.BikeTicket = 6;
         second.BusTicket = 6;
         second.UserName = "2. TestSpieler";
         second.AvatarImagePath = "hawk_nietert.jpg";
 
-        var third = detectives[2];
+        Player third = new Player();
         third.ScooterTicket = 6;
         third.BikeTicket = 6;
         third.BusTicket = 6;
         third.UserName = "3. Testspieler";
         third.AvatarImagePath = "hawk_koch.jpg";
+
+        List<Player> detectives = new List<Player>();
+        detectives.Add(first);
+        detectives.Add(second);
+        detectives.Add(third);
+
+        _com.GameState.Detectives = detectives;
 
         //Hier muss eine Klasse aufgesetzt werden um das Databinding verwenden zu können.
 
@@ -59,7 +68,7 @@ public partial class MainViewModel : ObservableObject
         string ticket2xPath = "ticket_2x.png";
 
 
-        mrXtickets = new List<String>();
+        List<String> mrXtickets = new List<String>();
         mrXtickets.Add(ticketBikePath);
         mrXtickets.Add(ticketBusPath);
         mrXtickets.Add(ticketScooterPath);
@@ -73,29 +82,27 @@ public partial class MainViewModel : ObservableObject
         mrXtickets.Add(ticketBusPath);
         mrXtickets.Add(ticketBikePath);
         mrXtickets.Add(ticketBikePath);
-
-
-        // hier startet die connection mit der Logik und dem Server
-        _com = new Communicator();
-
-
     }
 
 
     public List<Player> DetectivesCollection
     {
-        get { return detectives; }
-        set { detectives = value; }
+        get { return _com.GameState.Detectives; }
     }
 
     public Player MisterX
     {
-        get { return mrX; }
+        get { return _com.GameState.MisterX; }
     }
 
-    public List<String> MrXticketsCollection
+    public List<TicketTypeEnum> MrXticketHistoryCollection
     {
-        get { return mrXtickets; }
+        get { return _com.GameState.TicketHistoryMisterX; }
+    }
+
+    public PointOfInterest MrXLastKnownPoi
+    {
+        get { return _com.GameState.MisterXLastKnownPOI; }
     }
 
     /// <summary>
