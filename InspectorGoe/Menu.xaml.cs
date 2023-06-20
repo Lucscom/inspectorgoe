@@ -17,7 +17,7 @@ public partial class Menu : ContentPage
 
         if (result is bool boolResult && boolResult)
         {
-            StartGame_Clicked();
+            StartLobby_Clicked();
         }
         else
         {
@@ -30,7 +30,7 @@ public partial class Menu : ContentPage
         Navigation.PushAsync(new MainPage());
     }
 
-    private async void StartGame_Clicked()
+    private async void StartLobby_Clicked()
     {
         var popup = new LobbyPage();
         var result = await this.ShowPopupAsync(popup);

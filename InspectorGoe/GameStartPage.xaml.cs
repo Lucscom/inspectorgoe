@@ -1,70 +1,71 @@
 namespace InspectorGoe;
 using CommunityToolkit.Maui.Views;
+using InspectorGoe.ViewModels;
 
 public partial class GameStartPage : Popup
 {
-    ImageButton Choice;
+    MainViewModel MVM = new MainViewModel();
 
     public GameStartPage()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+        BindingContext = MVM;
+    }
 
-    void Button_Clicked(object sender, EventArgs e) => Close(true);
-
+    void StartLobby_Clicked(object sender, EventArgs e) => Close(true);
 
     private void ImageButton_Clicked(object sender, EventArgs e)
     {
-        if (Choice == grothausmann) { Choice = null; } else { Choice = grothausmann; }
+        if (MVM.Choice== grothausmann) { MVM.Choice = null; } else { MVM.Choice = grothausmann; }
         Choosing();
     }
 
     private void ImageButton_Clicked_1(object sender, EventArgs e)
     {
-        if (Choice == hadeler) { Choice = null; } else { Choice = hadeler; }
+        if (MVM.Choice == hadeler) { MVM.Choice = null; } else { MVM.Choice = hadeler; }
         Choosing();
     }
 
     private void ImageButton_Clicked_2(object sender, EventArgs e)
     {
-        if (Choice == hirsch) { Choice = null; } else { Choice = hirsch; }
+        if (MVM.Choice == hirsch) { MVM.Choice = null; } else { MVM.Choice = hirsch; }
         Choosing();
     }
 
     private void ImageButton_Clicked_3(object sender, EventArgs e)
     {
-        if (Choice == ibental) { Choice = null; } else { Choice = ibental; }
+        if (MVM.Choice == ibental) { MVM.Choice = null; } else { MVM.Choice = ibental; }
         Choosing();
     }
 
     private void ImageButton_Clicked_4(object sender, EventArgs e)
     {
-        if (Choice == koch) { Choice = null; } else { Choice = koch; }
+        if (MVM.Choice == koch) { MVM.Choice = null; } else { MVM.Choice = koch; }
         Choosing();
     }
 
     private void ImageButton_Clicked_5(object sender, EventArgs e)
     {
-        if (Choice == neunheuser) { Choice = null; } else { Choice = neunheuser; }
+        if (MVM.Choice == neunheuser) { MVM.Choice = null; } else { MVM.Choice = neunheuser; }
         Choosing();
     }
 
     private void ImageButton_Clicked_6(object sender, EventArgs e)
     {
-        if (Choice == nietert) { Choice = null; } else { Choice = nietert; }
+        if (MVM.Choice == nietert) { MVM.Choice = null; } else { MVM.Choice = nietert; }
         Choosing();
     }
 
     private void ImageButton_Clicked_7(object sender, EventArgs e)
     {
-        if (Choice == wienecke) { Choice = null; } else { Choice = wienecke; }
+        if (MVM.Choice == wienecke) { MVM.Choice = null; } else { MVM.Choice = wienecke; }
         Choosing();
     }
 
     private void Choosing()
     { 
         
-        if (Choice != null)
+        if (MVM.Choice != null)
         {
             grothausmann.Opacity = 0.5;
             hadeler.Opacity = 0.5;
@@ -74,7 +75,7 @@ public partial class GameStartPage : Popup
             neunheuser.Opacity = 0.5;
             nietert.Opacity = 0.5;
             wienecke.Opacity = 0.5;
-            Choice.Opacity = 1;
+            MVM.Choice.Opacity = 1;
         }
         
         else
@@ -87,16 +88,6 @@ public partial class GameStartPage : Popup
             neunheuser.Opacity = 1;
             nietert.Opacity = 1;
             wienecke.Opacity = 1;
-        }
-
-
-
-
-          
-    
-    
+        }    
     }
-
-
-
 }

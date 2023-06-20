@@ -34,6 +34,11 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string userpasswordregister2 = string.Empty;
 
+    // Variablen für GameStartPage
+    [ObservableProperty]
+    private ImageButton choice;
+
+
     public MainViewModel()
     {
         controller.Initialize(4);
