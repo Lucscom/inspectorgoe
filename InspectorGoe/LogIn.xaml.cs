@@ -26,10 +26,11 @@ public partial class LogIn : ContentPage
         this.ShowPopup(new RegisterPage());
     }
 
-    private void LoginActivation(object sender, TextChangedEventArgs e)
+    // müsste in das MainViewModel aber ich hab kp wie ich die Aktivierung des Buttons da reinbekomme
+    private void LogInActivation(object sender, EventArgs e)
     {
         if (MVM.Username != string.Empty && MVM.Userpassword != string.Empty && MVM.Userseverip != string.Empty) { LogInButton.IsEnabled = true; }
         else { LogInButton.IsEnabled = false; }
     }
 
-}
+} 

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using GameComponents;
 using GameComponents.Model;
 using Microsoft.Maui.Controls.Shapes;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI.Xaml.Input;
 
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
@@ -17,13 +20,19 @@ public partial class MainViewModel : ObservableObject
     private List<String> mrXtickets;
 
     //Variablen für Login
-    private string username = string.Empty;
-    private string userpassword = string.Empty;
-    private string severip = string.Empty;
+    [ObservableProperty]
+    string username = string.Empty;
+    [ObservableProperty]
+    string userpassword = string.Empty;
+    [ObservableProperty]
+    string userseverip = string.Empty;
 
     //Variablen für Register
+    [ObservableProperty]
     private string usernameregister = string.Empty;
+    [ObservableProperty]
     private string userpasswordregister = string.Empty;
+    [ObservableProperty]
     private string userpasswordregister2 = string.Empty;
 
     public MainViewModel()
@@ -101,43 +110,8 @@ public partial class MainViewModel : ObservableObject
         get { return mrXtickets; }
     }
 
-    //get&set für Register
 
-    public string Usernameregister
-    {
-        get { return usernameregister; }
-        set { usernameregister = value; }
-    }
 
-    public string Userpasswordregister
-    {
-        get { return userpasswordregister; }
-        set { userpasswordregister = value; }
-    }
-    
-    public string Userpasswordregister2
-    {
-        get { return userpasswordregister2; }
-        set { userpasswordregister2 = value; }
-    }
 
-    //get&set für Login
-    public string Username
-    {
-        get { return username; }
-        set { username = value; }
-    }
-
-    public string Userpassword
-    {
-        get { return userpassword; }
-        set { userpassword = value; }
-    }
-
-    public string Userseverip
-    {
-        get { return severip; }
-        set { severip = value; }
-    }
 
 }
