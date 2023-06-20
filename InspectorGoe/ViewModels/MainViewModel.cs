@@ -9,7 +9,6 @@ using GameComponents;
 using GameComponents.Model;
 using Microsoft.Maui.Controls.Shapes;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Xaml.Input;
 
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject

@@ -17,15 +17,31 @@ public partial class Menu : ContentPage
 
         if (result is bool boolResult && boolResult)
         {
+            StartGame_Clicked();
+        }
+        else
+        {
+            // No was tapped
+        }
+
+    }
+    private void Button_Clicked_Betreten(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new MainPage());
+    }
+
+    private async void StartGame_Clicked()
+    {
+        var popup = new LobbyPage();
+        var result = await this.ShowPopupAsync(popup);
+
+        if (result is bool boolResult && boolResult)
+        {
             await Navigation.PushAsync(new MainPage());
         }
         else
         {
             // No was tapped
         }
-    }
-    private void Button_Clicked_Betreten(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(new MainPage());
     }
 }
