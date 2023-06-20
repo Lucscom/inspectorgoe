@@ -11,8 +11,5 @@ public partial class LobbyPage : Popup
         BindingContext = MVM;
     }
 
-    private void StartGame_Clicked(object sender, EventArgs e)
-    {
-
-    }
+    private void StartGame_Clicked(object sender, EventArgs e) => Close(true);
 }
