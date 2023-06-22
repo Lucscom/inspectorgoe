@@ -30,6 +30,8 @@ namespace Client
 
         public GameState GameState { get; set; }
 
+        public AutoResetEvent gameStateInitEvent = new AutoResetEvent(false);
+
         /// <summary>
         /// Constructor for the communicator without url
         /// </summary>
@@ -146,6 +148,7 @@ namespace Client
             connection.On<GameState>("ReceiveGameState", (gameState) =>
             {
                 GameState = gameState;
+                gameStateInitEvent.Set();
             });
 
             connection.ServerTimeout = TimeSpan.FromMinutes(15);

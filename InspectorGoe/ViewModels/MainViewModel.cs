@@ -230,6 +230,8 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     async Task StartGame()
     {
+        startGame();
+        _com.gameStateInitEvent.WaitOne();
         await App.Current.MainPage.Navigation.PushAsync(new MainPage());
     }
 
