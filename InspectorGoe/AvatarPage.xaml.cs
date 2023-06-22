@@ -16,7 +16,7 @@ public partial class AvaterPage : Popup
 
     private void ImageButton_Clicked(object sender, EventArgs e)
     {
-        if (MVM.Choice== grothausmann) { MVM.Choice = null; } else { MVM.Choice = grothausmann; }
+        if (MVM.Choice == grothausmann) { MVM.Choice = null; } else { MVM.Choice = grothausmann; }
         Choosing();
     }
 
