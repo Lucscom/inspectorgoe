@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GameComponents
 {
-    internal static class Initializer
+    public static class Initializer
     {
         /// <summary>
         /// Initializes points of interest from game config
