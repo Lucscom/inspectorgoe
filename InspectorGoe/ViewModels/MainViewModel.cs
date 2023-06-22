@@ -49,7 +49,7 @@ public partial class MainViewModel : ObservableObject
 
     // Variablen für AvatarPage
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(StartLobbyCommand))]
+    [NotifyCanExecuteChangedFor(nameof(StartCommand))]
     private ImageButton choice;
 
     #endregion
@@ -166,7 +166,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void CreateNewGame()
     {
-        Shell.Current.ShowPopup(new AvaterPage());
+        Shell.Current.ShowPopup(new AvatarPage());
     }
 
     /// <summary>
@@ -175,7 +175,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void JoinGame()
     {
-        Shell.Current.ShowPopup(new AvaterPage());
+        Shell.Current.ShowPopup(new AvatarPage());
     }
 
     /// <summary>
@@ -195,7 +195,7 @@ public partial class MainViewModel : ObservableObject
     /// Navigation from GameStartPage to LobbyPage
     /// </summary>
     [RelayCommand(CanExecute = nameof(AvatarIsSelected))]
-    private void StartLobby()
+    private void Start()
     {
 
         //senden des ausgewälten Avatars an den Server
