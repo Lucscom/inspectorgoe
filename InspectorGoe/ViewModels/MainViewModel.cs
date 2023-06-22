@@ -24,6 +24,8 @@ public partial class MainViewModel : ObservableObject
     public static MainViewModel GetInstance() { return _instance ??= new MainViewModel(); }
     #endregion
 
+    #region Variables
+
     private Communicator _com;
 
     //Variablen für Login
@@ -45,9 +47,12 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string userpasswordregister2 = string.Empty;
 
-    // Variablen für GameStartPage
+    // Variablen für AvatarPage
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(StartCommand))]
     private ImageButton choice;
+
+    #endregion
 
 
     private MainViewModel()
@@ -55,68 +60,6 @@ public partial class MainViewModel : ObservableObject
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
 
-        //Player mrX = new Player();
-
-        //mrX.AvatarImagePath = "dotnet_bot.png";
-
-        //mrX.BikeTicket = 3;
-        //mrX.BusTicket = 6;
-        //mrX.ScooterTicket = 5;
-        //mrX.UserName = "MisterX";
-
-        ////_com.GameState.MisterX = mrX;
-
-        //Player first = new Player();
-        //first.ScooterTicket = 3;
-        //first.BikeTicket = 3;
-        //first.BusTicket = 3;
-        //first.UserName = "1. TestSpieler";
-        //first.AvatarImagePath = "hawk_hirsch.jpg";
-
-        //Player second = new Player();
-        //second.ScooterTicket = 6;
-        //second.BikeTicket = 6;
-        //second.BusTicket = 6;
-        //second.UserName = "2. TestSpieler";
-        //second.AvatarImagePath = "hawk_nietert.jpg";
-
-        //Player third = new Player();
-        //third.ScooterTicket = 6;
-        //third.BikeTicket = 6;
-        //third.BusTicket = 6;
-        //third.UserName = "3. Testspieler";
-        //third.AvatarImagePath = "hawk_koch.jpg";
-
-        //List<Player> detectives = new List<Player>();
-        //detectives.Add(first);
-        //detectives.Add(second);
-        //detectives.Add(third);
-
-        //_com.GameState.Detectives = detectives;
-
-        ////Hier muss eine Klasse aufgesetzt werden um das Databinding verwenden zu können.
-
-        //string ticketBusPath = "ticket_bus.png";
-        //string ticketScooterPath = "ticket_scooter.png";
-        //string ticketBikePath = "ticket_bike.png";
-        //string ticketblackPath = "ticket_black.png";
-        //string ticket2xPath = "ticket_2x.png";
-
-
-        //List<String> mrXtickets = new List<String>();
-        //mrXtickets.Add(ticketBikePath);
-        //mrXtickets.Add(ticketBusPath);
-        //mrXtickets.Add(ticketScooterPath);
-        //mrXtickets.Add(ticketblackPath);
-        //mrXtickets.Add(ticket2xPath);
-        //mrXtickets.Add(ticket2xPath);
-        //mrXtickets.Add(ticketScooterPath);
-        //mrXtickets.Add(ticketScooterPath);
-        //mrXtickets.Add(ticketBusPath);
-        //mrXtickets.Add(ticketBikePath);
-        //mrXtickets.Add(ticketBusPath);
-        //mrXtickets.Add(ticketBikePath);
-        //mrXtickets.Add(ticketBikePath);
     }
 
     public List<Player> DetectivesCollection
@@ -181,8 +124,14 @@ public partial class MainViewModel : ObservableObject
     }
 
 
-    //LogIn Logic
+    #region Pages
 
+    #region LogIn
+
+    /// <summary>
+    /// LogIn Logic
+    /// </summary>
+    /// <returns></returns>
     [RelayCommand(CanExecute = nameof(LogInActivation))]
     async Task Button_Clicked_LogIn()
     {
@@ -190,17 +139,101 @@ public partial class MainViewModel : ObservableObject
         await App.Current.MainPage.Navigation.PushAsync(new Menu());
     }
 
+    /// <summary>
+    /// Logic for LogIn Activation
+    /// </summary>
+    /// <returns>Bool</returns>
     private bool LogInActivation()
     {
         if (Username != string.Empty && Userpassword != string.Empty && Userseverip != string.Empty) { return true; }
         else { return false; }
     }
 
-    //Register Logic
+    /// <summary>
+    /// Register Logic
+    /// </summary>
     [RelayCommand]
     private void Button_Clicked_Register()
     {
         Shell.Current.ShowPopup(new RegisterPage());
     }
 
+    #endregion
+
+    #region MenuPage
+    /// <summary>
+    /// Navigation from MenuPage to GameStartPage
+    /// </summary>
+    [RelayCommand]
+    private void CreateNewGame()
+    {
+        Shell.Current.ShowPopup(new AvatarPage());
+    }
+
+    /// <summary>
+    /// Navigation from MenuPage to MainPage
+    /// </summary>
+    [RelayCommand]
+    private void JoinGame()
+    {
+        Shell.Current.ShowPopup(new AvatarPage());
+    }
+
+    /// <summary>
+    /// Navigation from MenuPage to LogInPage
+    /// </summary>
+    [RelayCommand]
+    async Task LogOut()
+    {
+        await App.Current.MainPage.Navigation.PushAsync(new LogIn());
+    }
+
+    #endregion
+
+    #region AvatarPage
+
+    /// <summary>
+    /// Navigation from GameStartPage to LobbyPage
+    /// </summary>
+    [RelayCommand(CanExecute = nameof(AvatarIsSelected))]
+    private void Start()
+    {
+
+        //senden des ausgewälten Avatars an den Server
+
+        Shell.Current.ShowPopup(new LobbyPage());
+    }
+
+    /// <summary>
+    /// Überprüfe ob ein Avatar ausgewählt wurde
+    /// </summary>
+    /// <returns></returns>
+
+    private bool AvatarIsSelected()
+    {
+
+        if (Choice!= null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    #endregion
+
+    #region LobbyPage
+
+    [RelayCommand]
+    async Task StartGame()
+    {
+        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+    }
+
+    #endregion
+
+    #endregion
 }

@@ -1,7 +1,7 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-               x:Class="InspectorGoe.GameStartPage"
+               x:Class="InspectorGoe.AvatarPage"
                Color="Transparent"
                Size="700,500">
 
@@ -20,7 +20,7 @@
                 <ImageButton x:Name="nietert" Source="hawk_nietert.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_6" Aspect="AspectFill" CornerRadius="10"/>
                 <ImageButton x:Name="wienecke" Source="hawk_wienecke.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_7" Aspect="AspectFill" CornerRadius="10"/>
             </HorizontalStackLayout>
-            <Button Text="Start Lobby" Margin="10" Clicked="StartLobby_Clicked" HorizontalOptions="Center" VerticalOptions="End"/>
+            <Button Text="Start" Margin="10" Command="{Binding StartCommand}" HorizontalOptions="Center" VerticalOptions="End"/>
         </StackLayout>
         
     </Frame>

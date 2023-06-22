@@ -6,13 +6,9 @@ namespace InspectorGoe;
 
 public partial class LogIn : ContentPage
 {
-
     public LogIn()
     {
         InitializeComponent();
-
         BindingContext = MainViewModel.GetInstance();
     }
-
-
 } 

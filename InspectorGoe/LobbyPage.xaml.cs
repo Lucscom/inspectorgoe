@@ -4,12 +4,10 @@ using InspectorGoe.ViewModels;
 
 public partial class LobbyPage : Popup
 {
-    MainViewModel MVM = MainViewModel.GetInstance();
     public LobbyPage()
 	{
 		InitializeComponent();
-        BindingContext = MVM;
+        BindingContext = MainViewModel.GetInstance();
     }
 
-    private void StartGame_Clicked(object sender, EventArgs e) => Close(true);
 }

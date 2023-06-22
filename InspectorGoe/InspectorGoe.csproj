@@ -80,6 +80,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="AvatarPage.xaml.cs">
+	    <DependentUpon>AvatarPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiImage Update="Resources\Images\ticket_2x.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </MauiImage>
@@ -95,7 +101,7 @@
 	  <MauiXaml Update="ContentViews\PlayerCard.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="GameStartPage.xaml">
+	  <MauiXaml Update="AvatarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="LobbyPage.xaml">
