@@ -2,11 +2,11 @@ namespace InspectorGoe;
 using CommunityToolkit.Maui.Views;
 using InspectorGoe.ViewModels;
 
-public partial class GameStartPage : Popup
+public partial class AvaterPage : Popup
 {
     MainViewModel MVM = MainViewModel.GetInstance();
 
-    public GameStartPage()
+    public AvaterPage()
     {
         InitializeComponent();
         BindingContext = MVM;

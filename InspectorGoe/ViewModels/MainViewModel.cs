@@ -181,25 +181,99 @@ public partial class MainViewModel : ObservableObject
     }
 
 
-    //LogIn Logic
 
+
+
+    #region Pages
+
+    #region LogIn
+
+    /// <summary>
+    /// LogIn Logic
+    /// </summary>
+    /// <returns></returns>
     [RelayCommand(CanExecute = nameof(LogInActivation))]
     async Task Button_Clicked_LogIn()
     {
         await App.Current.MainPage.Navigation.PushAsync(new Menu());
     }
 
+    /// <summary>
+    /// Logic for LogIn Activation
+    /// </summary>
+    /// <returns>Bool</returns>
     private bool LogInActivation()
     {
         if (Username != string.Empty && Userpassword != string.Empty && Userseverip != string.Empty) { return true; }
         else { return false; }
     }
 
-    //Register Logic
+    /// <summary>
+    /// Register Logic
+    /// </summary>
     [RelayCommand]
     private void Button_Clicked_Register()
     {
         Shell.Current.ShowPopup(new RegisterPage());
     }
 
+    #endregion
+
+    #region MenuPage
+    /// <summary>
+    /// Navigation from MenuPage to GameStartPage
+    /// </summary>
+    [RelayCommand]
+    private void CreateNewGame()
+    {
+        Shell.Current.ShowPopup(new AvaterPage());
+    }
+
+    /// <summary>
+    /// Navigation from MenuPage to MainPage
+    /// </summary>
+    [RelayCommand]
+    private void JoinGame()
+    {
+        Shell.Current.ShowPopup(new AvaterPage());
+    }
+
+    /// <summary>
+    /// Navigation from MenuPage to LogInPage
+    /// </summary>
+    [RelayCommand]
+    async Task LogOut()
+    {
+        await App.Current.MainPage.Navigation.PushAsync(new LogIn());
+    }
+
+    #endregion
+
+    #region AvatarPage
+
+    /// <summary>
+    /// Navigation from GameStartPage to LobbyPage
+    /// </summary>
+    [RelayCommand]
+    private void StartLobby()
+    {
+        Shell.Current.ShowPopup(new LobbyPage());
+    }
+
+    // hier muss noch die Logik für die Avatare rein
+
+
+    #endregion
+
+    #region LobbyPage
+
+    [RelayCommand]
+    async Task StartGame()
+    {
+        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+    }
+
+    #endregion
+
+    #endregion
 }

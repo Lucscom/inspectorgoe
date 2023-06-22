@@ -6,25 +6,23 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Source="maplogin.png" Aspect="AspectFill" VerticalOptions="StartAndExpand"/>
-        
-        <StackLayout
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            BackgroundColor="LightBlue"
-            HorizontalOptions="Start"
-            Opacity="0.8"
-            WidthRequest="300">
-            <Button Text="Spiel erstellen" Margin="10" Clicked="Button_Clicked_Erstellen"/>
-            <Button Text="Spiel beitreten" Margin="10" Clicked="Button_Clicked_Betreten"/>
-        </StackLayout>
 
+        <StackLayout
+            Grid.Column="0"
+            BackgroundColor="LightBlue"
+            Opacity="0.8"
+            HorizontalOptions="Start"
+            WidthRequest="300">
+            <Button Text="Spiel erstellen" Margin="10" Command="{Binding CreateNewGameCommand}"/>
+            <Button Text="Spiel beitreten" Margin="10" Command="{Binding JoinGameCommand}"/>
+        </StackLayout>
+        <Button WidthRequest="280" Text="LogOut" Margin="10" Command="{Binding LogOutCommand}" VerticalOptions="End"/>
     </Grid>
 </ContentPage>
