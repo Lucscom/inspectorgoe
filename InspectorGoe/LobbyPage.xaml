@@ -16,7 +16,7 @@
                 <Label Text="Spieler 3"/>
                 <Label Text="Spieler 4"/>
             </StackLayout>
-            <Button x:Name="StartGame" Text="Start Game" Margin="10" Clicked="StartGame_Clicked"/>
+            <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}"/>
         </StackLayout>
     </Frame>
 

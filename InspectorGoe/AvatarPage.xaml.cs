@@ -2,11 +2,11 @@ namespace InspectorGoe;
 using CommunityToolkit.Maui.Views;
 using InspectorGoe.ViewModels;
 
-public partial class GameStartPage : Popup
+public partial class AvatarPage : Popup
 {
     MainViewModel MVM = MainViewModel.GetInstance();
 
-    public GameStartPage()
+    public AvatarPage()
     {
         InitializeComponent();
         BindingContext = MVM;
@@ -16,7 +16,7 @@ public partial class GameStartPage : Popup
 
     private void ImageButton_Clicked(object sender, EventArgs e)
     {
-        if (MVM.Choice== grothausmann) { MVM.Choice = null; } else { MVM.Choice = grothausmann; }
+        if (MVM.Choice == grothausmann) { MVM.Choice = null; } else { MVM.Choice = grothausmann; }
         Choosing();
     }
 
