@@ -10,166 +10,142 @@ using System.Net.WebSockets;
 using System.Text;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace InspectorGoe
+namespace Client
 {
 
     public class Communicator
     {
-        static HttpClient client = new HttpClient();
+        /// <summary>
+        /// Http Client manages connection
+        /// </summary>
+        private HttpClient _client;
+        /// <summary>
+        /// Bearer Token for authorization on the server
+        /// </summary>
+        private String _token;
+        /// <summary>
+        /// Server URL
+        /// </summary>
+        private String _url;
 
-        static void ShowProduct(Player product)
+        public GameState GameState { get; set; }
+
+        /// <summary>
+        /// Constructor for the communicator without url
+        /// </summary>
+        public Communicator()
         {
-            Console.WriteLine($"Name: {product.UserName}\tPrice: " +
-                $"{product.BusTicket}\tCategory: {product.BikeTicket}");
+            _client = new HttpClient();
+
         }
 
-        static async Task<HttpStatusCode> CreatePlayerAsync(Player player)
+        /// <summary>
+        /// Initialize the Communicator with the Server URL
+        /// </summary>
+        /// <param name="url">Server URL</param>
+        public void initClient(String url)
+
         {
-            HttpResponseMessage response = await client.PostAsJsonAsync(
+            _url = url;
+            _client.BaseAddress = new Uri(url);
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
+        }
+
+        /// <summary>
+        /// Set the Bearer Token for Authorization and configure the HTTP Header
+        /// </summary>
+        private void setToken()
+        {
+            _client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", _token);
+        }
+
+        /// <summary>
+        /// Create(Http Post) a new Player (Register)
+        /// </summary>
+        /// <param name="player">Player Object</param>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> CreatePlayerAsync(Player player)
+        {
+            HttpResponseMessage response = await _client.PostAsJsonAsync(
                 "api/Player", player);
             response.EnsureSuccessStatusCode();
             return response.StatusCode;
         }
 
-        static async Task<String> Login(Player player)
+        /// <summary>
+        /// Login to an existing Player to get the authorization Token
+        /// (Http Post)
+        /// </summary>
+        /// <param name="player">Player Object</param>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> LoginAsync(Player player)
         {
-            HttpResponseMessage response = await client.PostAsJsonAsync(
+            HttpResponseMessage response = await _client.PostAsJsonAsync(
                 "api/Player/login", player);
             response.EnsureSuccessStatusCode();
             String tokenJson = await response.Content.ReadAsStringAsync();
-            String token = System.Text.Json.JsonSerializer.Deserialize<Token>(
+            _token = System.Text.Json.JsonSerializer.Deserialize<Token>(
                 tokenJson).token;
-            return token;
+            setToken();
+            return response.StatusCode;
         }
 
-        static async Task<HttpStatusCode> MovePlayerAsync(MovePlayerDto move)
+        /// <summary>
+        /// Login to an existing Player to get the authorization Token
+        /// (Http Post)
+        /// </summary>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> StartGameAsync()
         {
-            HttpResponseMessage response = await client.PutAsJsonAsync(
+            HttpResponseMessage response = await _client.PutAsync(
+                "api/Player/startgame", null);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
+        /// <summary>
+        /// Make a move with a destination POI and a ticket type
+        /// (Http Put)
+        /// </summary>
+        /// <param name="move">Move Player Object</param>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> MovePlayerAsync(MovePlayerDto move)
+        {
+            HttpResponseMessage response = await _client.PutAsJsonAsync(
                 "api/Player", move);
             response.EnsureSuccessStatusCode();
             return response.StatusCode;
         }
 
-        static async Task<Player> GetPlayer()
-        {
-            HttpResponseMessage response = await client.GetAsync("api/Player");
-            response.EnsureSuccessStatusCode();
-            String playerJson = await response.Content.ReadAsStringAsync();
-            Player player = System.Text.Json.JsonSerializer.Deserialize<Player>(
-                playerJson);
-            return player;
-        }
-
-        public async static Task Main()
-        {
-            await RunAsync();
-        }
-
-        static async Task RunAsync()
-        {
-            // Update port # in the following line.
-            client.BaseAddress = new Uri("https://localhost:5000/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            try
-            {
-                // Create a new Player
-                Player player1 = new Player(Name:"Henri", pw:"1234");
-                var code = await CreatePlayerAsync(player1);
-
-                var token = await Login(player1);
-                Console.WriteLine(token);
-                client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", token);
-                var vector = new System.Numerics.Vector2(0, 0);
-                var poi = new PointOfInterest(1, "test", vector);
-                var ticket = TicketTypeEnum.Bike;
-                var move = new MovePlayerDto(poi, ticket);
-
-                await RunAsyncSignalR(token);
-
-                //var code2 = MovePlayerAsync(move);
-                //Console.WriteLine(code2);
-                //var player = GetPlayer();
-                //Console.WriteLine(player);
-                //var url = await CreateProductAsync(player1);
-                //Console.WriteLine($"Created at {url}");
-
-                //// update the product
-                //console.writeline("updating price...");
-                //product.price = 80;
-                //await updateproductasync(product);
-
-            }
-            catch (HttpRequestException e)
-            {
-                Console.WriteLine(e.InnerException.Message);
-            }
-
-            Console.ReadLine();
-        }
-
-        static async Task RunAsyncSocket()
-        {
-
-            try
-            {
-
-                using (var ws = new ClientWebSocket())
-                {
-                    await ws.ConnectAsync(new Uri("wss://localhost:5000/ws"), CancellationToken.None);
-                    var buffer = new byte[256];
-                    while (ws.State == WebSocketState.Open)
-                    {
-                        var result = await ws.ReceiveAsync(buffer, CancellationToken.None);
-                        if (result.MessageType == WebSocketMessageType.Close)
-                        {
-                            await ws.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
-                        }
-                        else
-                        {
-                            Console.WriteLine(Encoding.UTF8.GetString(buffer, 0, result.Count));
-                        }
-                    }
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            Console.ReadLine();
-        }
-
-        static async Task RunAsyncSignalR(String token)
+        /// <summary>
+        /// Initializes hub connection to server with token as authentication
+        /// </summary>
+        /// <param name="token">Used for authentication</param>
+        /// <returns></returns>
+        public async Task RegisterGameHubAsync()
         {
             HubConnection connection;
             connection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:5000/gameHub", options =>
+                .WithUrl(_url, options =>
                 {
-                    options.AccessTokenProvider = () => Task.FromResult(token);
+                    options.AccessTokenProvider = () => Task.FromResult(_token);
                 })
                 .WithAutomaticReconnect()
                 .Build();
 
-            connection.On<string, string>("ReceiveMessage", (user, message) =>
-            {
-                Console.WriteLine($"{message}");
-            });
-
+            //Register method that can be called from the server
             connection.On<GameState>("ReceiveGameState", (gameState) =>
             {
-                Console.WriteLine($"Runde: {gameState.Round}");
+                GameState = gameState;
             });
 
-            await connection.StartAsync();
+            var t = connection.StartAsync();
 
-
-
-            while (true) { }
+            t.Wait();
         }
     }
 }

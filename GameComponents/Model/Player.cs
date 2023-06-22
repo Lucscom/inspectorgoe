@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -35,31 +36,32 @@ namespace GameComponents.Model
         /// <summary>
         /// Number of bustickets available to the player
         /// </summary>
-        public int BusTicket { get; set; }
+        public int BusTicket { get; set; } = 4;
         /// <summary>
         /// Number of biketickets available to the player
         /// </summary>
-        public int BikeTicket { get; set; }
+        public int BikeTicket { get; set; } = 8;
         /// <summary>
         /// Number of scootertickets available to the player
         /// </summary>
-        public int ScooterTicket { get; set; }
+        public int ScooterTicket { get; set; } = 11;
         /// <summary>
         /// Number of Black Tickets available for Mister X
         /// </summary>
-        public int BlackTicket { get; set; }
+        public int BlackTicket { get; set; } = 0;
         /// <summary>
         /// Number of Double Tickets available for Mister X
         /// </summary>
-        public int DoubleTicket { get; set; }
+        public int DoubleTicket { get; set; } = 0;
         /// <summary>
         /// True if this player is controlled by the computer
         /// </summary>
-        public bool isKI { get; set; }
+        public bool Npc { get; set; } = false;
 
+        [JsonConstructor]
         public Player() { }
 
-        public Player(String Name, String pw)
+        public Player(string Name, string pw)
         {
             UserName = Name;
             Password = pw;
