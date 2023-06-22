@@ -66,7 +66,7 @@
 
 
         <!--Inhalt-->
-            <ScrollView VerticalScrollBarVisibility="Never">
+            <!--<ScrollView VerticalScrollBarVisibility="Never">
                 <VerticalStackLayout Padding="5" 
                                      BindableLayout.ItemsSource="{Binding MrXticketsCollection}" 
                                      HorizontalOptions="Start"
@@ -78,13 +78,13 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </VerticalStackLayout>
-            </ScrollView>
+            </ScrollView>-->
 
             <ScrollView Grid.Row="1"
                         Grid.Column="1"
                         Orientation="Horizontal">
 
-                <HorizontalStackLayout BindableLayout.ItemsSource="{Binding DetectivesCollection}"
+                <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Detectives}"
                                        HorizontalOptions="Center"
                                        Padding="5">
 

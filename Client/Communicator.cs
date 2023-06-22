@@ -30,7 +30,10 @@ namespace Client
 
         public GameState GameState { get; set; }
 
+
         public AutoResetEvent gameStateInitEvent = new AutoResetEvent(false);
+
+        public event EventHandler UpdateGameStateEvent;
 
         /// <summary>
         /// Constructor for the communicator without url
@@ -38,7 +41,6 @@ namespace Client
         public Communicator()
         {
             _client = new HttpClient();
-
         }
 
         /// <summary>
@@ -145,9 +147,17 @@ namespace Client
                 .Build();
 
             //Register method that can be called from the server
-            connection.On<GameState>("ReceiveGameState", (gameState) =>
+            connection.On<GameState>("InitGameState", (gameState) =>
             {
                 GameState = gameState;
+                UpdateGameStateEvent(this, EventArgs.Empty);
+                gameStateInitEvent.Set();
+            });
+
+            connection.On<GameState>("UpdateGameState", (gameState) =>
+            {
+                GameState = gameState;
+                UpdateGameStateEvent(this, EventArgs.Empty);
                 gameStateInitEvent.Set();
             });
 

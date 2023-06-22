@@ -52,6 +52,21 @@ public partial class MainViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
     private ImageButton choice;
 
+    [ObservableProperty]
+    private List<Player> detectives = new List<Player>();
+
+    [ObservableProperty]
+    private List<PointOfInterest> pois = new List<PointOfInterest>();
+
+    [ObservableProperty]
+    private Player misterX = null;
+
+    [ObservableProperty]
+    private List<TicketTypeEnum> mrXticketHistory = new List<TicketTypeEnum>();
+
+    [ObservableProperty]
+    private PointOfInterest mrXLastKnownPoi = null;
+
     #endregion
 
 
@@ -59,32 +74,16 @@ public partial class MainViewModel : ObservableObject
     {
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
-
+        _com.UpdateGameStateEvent += ComUpdateGameState;
     }
 
-    public List<Player> DetectivesCollection
+    private void ComUpdateGameState(object sender, EventArgs e)
     {
-        get { return _com.GameState.Detectives; }
-    }
-
-    public Player MisterX
-    {
-        get { return _com.GameState.MisterX; }
-    }
-
-    public List<TicketTypeEnum> MrXticketHistoryCollection
-    {
-        get { return _com.GameState.TicketHistoryMisterX; }
-    }
-
-    public PointOfInterest MrXLastKnownPoi
-    {
-        get { return _com.GameState.MisterXLastKnownPOI; }
-    }
-
-    public List<PointOfInterest> AllPointOfInterest
-    {
-        get { return _com.GameState.PointsOfInterest; }
+        detectives = _com.GameState.Detectives;
+        pois = _com.GameState.PointsOfInterest;
+        misterX = _com.GameState.MisterX;
+        mrXticketHistory = _com.GameState.TicketHistoryMisterX;
+        mrXLastKnownPoi = _com.GameState.MisterXLastKnownPOI;
     }
 
     /// <summary>

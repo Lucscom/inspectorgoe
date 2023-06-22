@@ -191,7 +191,7 @@ namespace InspectorGoeServer.Controllers
 
             if(_gameController.MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
             {
-                sendGameComponents(_gameController.GameState);
+                updateGameComponents(_gameController.GameState);
                 return Ok();
             }
 
@@ -210,7 +210,7 @@ namespace InspectorGoeServer.Controllers
             {
                 return BadRequest();
             }
-            sendGameComponents(_gameController.GameState);
+            sendInitGameComponents(_gameController.GameState);
 
             return Ok();
         }
@@ -220,9 +220,19 @@ namespace InspectorGoeServer.Controllers
         /// Differentiates between MisterX and Detectives, Detectives do not recieve information about MisterX
         /// </summary>
         /// <param name="gameState">The current gameState</param>
-        private async void sendGameComponents(GameState gameState)
+        private async void sendInitGameComponents(GameState gameState)
         {
-            await _hubContext.Clients.All.SendAsync("ReceiveGameState", gameState);
+            await _hubContext.Clients.All.SendAsync("InitGameState", gameState);
+        }
+
+        /// <summary>
+        /// Send gameState to all clients
+        /// Differentiates between MisterX and Detectives, Detectives do not recieve information about MisterX
+        /// </summary>
+        /// <param name="gameState">The current gameState</param>
+        private async void updateGameComponents(GameState gameState)
+        {
+            await _hubContext.Clients.All.SendAsync("UpdateGameState", gameState);
         }
 
         //TODO: remove
