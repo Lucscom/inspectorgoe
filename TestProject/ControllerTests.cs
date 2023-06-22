@@ -16,40 +16,40 @@ namespace TestProject
         }
 
         /// <summary>
-        /// testen ob controller die bewegung verweigert, wenn keinen tickets vorhanden sind
+        /// tests if controller denies move, when no tickets availible
         /// </summary>
         [Fact]
         public void NoTicketsNoMovement()
         {
-            /*// controller instanzieren & spieleranzahl festlegen
-            var controller = Controller.GetInstance();
-            controller.Initialize(4);
+            GameState TestGameState = new GameState();      // GameState constructor
+            Initializer.InitPois(TestGameState);        // generate POIs and Connections
 
-                var pois = controller.PointsOfInterest;
-                var X = controller.MisterX;
+            TestGameState.Detectives.Add(new Player("TestPlayer", "TestPassword"));   // generate TestPlayer
+            TestGameState.Detectives[0].Position = TestGameState.PointsOfInterest.First(); // assign Startposition for TestPlayer
+            TestGameState.Detectives[0].BusTicket = 0;      // assign bus tickets
+            TestGameState.Detectives[0].BikeTicket = 0;     // assign bike tickets
+            TestGameState.Detectives[0].ScooterTicket = 0;  // assign scooter tickets
 
-            /* dürfte theoretisch nicht gehen! muss durch den Controller selbst initiiert werden und müsste automatisch bei bewegung
-             * durch den controller basierend auf der bewegungsart abgezogen werden um manipulation zu vermeiden
-             * 
-             * todo: hatten wir jetzt aber keinen bock dazu xD ticket muss noch geschrieben werden */
-            // Geht halt trotzdem, sollte uns nicht aufhalten
-            /*X.ScooterTicket = 0;
-            X.BikeTicket = 0;
-            X.BusTicket = 0;
+            // zufälllige Zielposition für den Zug festlegen
+            //PointOfInterest newPos = TestGameState.PointsOfInterest.First();
 
-                // zufälllige Zielposition für den Zug festlegen
-                PointOfInterest newPos = pois.First();
+            // Zielposition wählen, zu der eine Verbindung mit Bike existiert
+            PointOfInterest newPos = TestGameState.Detectives[0].Position.ConnectionBike[Random.Shared.Next(0, TestGameState.Detectives[0].Position.ConnectionBike.Count - 1)];
 
-            // testen ob Zielposition ungleich aktueller position
-            while (X.Position == newPos)
+            // testen ob Zielposition ungleich aktueller position  //wird aktuell nicht mehr benötigt, da die gleich Position ausgeschlossen 
+            /*while (TestGameState.Detectives[0].Position == newPos)
             {
-                newPos = pois[Random.Shared.Next(0, pois.Count - 1)];
-            }
-            
-            // testen der controller MovePlayer method
-            controller.MovePlayer(X, newPos, TicketTypeEnum.Scooter);
+                newPos = TestGameState.PointsOfInterest[Random.Shared.Next(0, TestGameState.PointsOfInterest.Count - 1)];
+            }*/
 
-            Assert.NotEqual(X.Position, newPos);*/
+            // testen der GameController MovePlayer method
+            GameController TestGameController = new GameController(TestGameState);      // generate Gamecontroller
+            TestGameController.AddPlayer(TestGameState.Detectives[0]);      // add Player to GameController
+
+            TestGameController.MovePlayer(TestGameState.Detectives[0], newPos, TicketTypeEnum.Scooter);
+            
+            Assert.NotEqual(TestGameState.MisterX.Position, newPos);
+
         }
         /// <summary>
         /// testen ob der controller einen validen Zug zulässt

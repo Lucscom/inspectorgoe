@@ -12,7 +12,10 @@ namespace GameComponents
     public class GameController
     {
         public GameState GameState { get; private set; } = new GameState();
-        
+     
+        public GameController() { }
+        public GameController(GameState gameState) {  GameState = gameState; }
+
         /// <summary>
         /// Initializes the game with the given players. Each player gets a random position on the map.
         /// Checks if number of players is valid.

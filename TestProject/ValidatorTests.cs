@@ -46,7 +46,7 @@ namespace TestProject
             Initializer.InitPois(TestGameState);        // generate POIs and Connections
 
             TestGameState.MisterX = new Player("TestPlayer", "TestPassword");   // generate TestPlayer
-            TestGameState.MisterX.Position = TestGameState.PointsOfInterest.First(); // assign Startposition for TestPlayer
+            TestGameState.MisterX.Position = TestGameState.PointsOfInterest.First(); // assign Startposition for TestPlayer (here 1, Gänseliesel)
             TestGameState.MisterX.BusTicket = 3;      // assign bus tickets
             TestGameState.MisterX.BikeTicket = 0;     // assign no bike tickets
             TestGameState.MisterX.ScooterTicket = 2;  // assign scooter tickets
