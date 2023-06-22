@@ -35,7 +35,7 @@ namespace GameComponents.Model
         /// <summary>
         /// Round counter
         /// </summary>
-        public int Round => Move / Detectives.Count;
+        public int Round => Move / (Detectives.Count == 0 ? 1 : Detectives.Count);
         /// <summary>
         /// True if game is started
         /// </summary>

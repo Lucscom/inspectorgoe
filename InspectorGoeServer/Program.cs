@@ -15,8 +15,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers()
-    .AddNewtonsoftJson();
-builder.Services.AddSignalR();
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.MaxDepth = 3;
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
+builder.Services.AddSignalR(hubOptions =>
+{
+    hubOptions.ClientTimeoutInterval = TimeSpan.FromMinutes(30);
+    hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(15);
+    hubOptions.EnableDetailedErrors = true;
+    hubOptions.MaximumReceiveMessageSize = 10240;
+}).AddNewtonsoftJsonProtocol(options =>
+{
+    options.PayloadSerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+    options.PayloadSerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+});
+
 builder.Services.AddScoped<GameHub>();
 builder.Services.AddSingleton<GameController>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

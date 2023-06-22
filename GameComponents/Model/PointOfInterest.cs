@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace GameComponents.Model
     /// <summary>
     /// Contains information to a point of interest and links to other points of interest
     /// </summary>
+    [JsonObject(IsReference = true)]
     public class PointOfInterest
     {
         /// <summary>

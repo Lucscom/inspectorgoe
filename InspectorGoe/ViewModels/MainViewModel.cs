@@ -147,15 +147,15 @@ public partial class MainViewModel : ObservableObject
     /// <summary>
     /// Take the login credentials and hand them to the communicator
     /// </summary>
-    public void loginPlayer()
+    public async void loginPlayer()
     {
         _com.initClient(Userseverip);
         var player = new Player(Username, Userpassword);
-        var statusCreate = _com.CreatePlayerAsync(player);
-        var statusLogin = _com.LoginAsync(player);
+        var statusCrate = await _com.CreatePlayerAsync(player);
+        var statusLogin = await _com.LoginAsync(player);
         // todo: status code checken -->
         // bei fail gamestate neu bekommen und wiederholen
-        var statusHub =  _com.RegisterGameHubAsync();
+        var statusHub = _com.RegisterGameHubAsync();
 
     }
 
@@ -186,6 +186,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(LogInActivation))]
     async Task Button_Clicked_LogIn()
     {
+        loginPlayer();
         await App.Current.MainPage.Navigation.PushAsync(new Menu());
     }
 

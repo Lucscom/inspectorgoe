@@ -10,6 +10,17 @@ namespace InspectorGoeServer.Hubs
     [Authorize]
     public class GameHub : Hub
     {
+        public override async Task OnConnectedAsync()
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, "SignalR Users");
+            await base.OnConnectedAsync();
+        }
+
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            await base.OnDisconnectedAsync(exception);
+        }
+
         //TODO: remove
         public async Task SendMessage(string user, string message)
         {

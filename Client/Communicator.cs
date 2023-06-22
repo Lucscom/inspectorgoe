@@ -130,11 +130,16 @@ namespace Client
         {
             HubConnection connection;
             connection = new HubConnectionBuilder()
-                .WithUrl(_url, options =>
+                .WithUrl(_url+ "/gameHub", options =>
                 {
                     options.AccessTokenProvider = () => Task.FromResult(_token);
                 })
                 .WithAutomaticReconnect()
+                .AddNewtonsoftJsonProtocol(options =>
+                {
+                    options.PayloadSerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+                    options.PayloadSerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+                })
                 .Build();
 
             //Register method that can be called from the server
@@ -143,9 +148,11 @@ namespace Client
                 GameState = gameState;
             });
 
-            var t = connection.StartAsync();
+            connection.ServerTimeout = TimeSpan.FromMinutes(15);
 
-            t.Wait();
+
+            await connection.StartAsync();
+            Console.WriteLine(connection.ConnectionId);
         }
     }
 }
