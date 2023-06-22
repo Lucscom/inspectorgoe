@@ -9,6 +9,7 @@ using GameComponents;
 using GameComponents.Model;
 using Microsoft.Maui.Controls.Shapes;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Maui.Views;
 
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
@@ -20,10 +21,13 @@ public partial class MainViewModel : ObservableObject
 
     //Variablen für Login
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
     string username = string.Empty;
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
     string userpassword = string.Empty;
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
     string userseverip = string.Empty;
 
     //Variablen für Register
@@ -114,5 +118,26 @@ public partial class MainViewModel : ObservableObject
         get { return mrXtickets; }
     }
 
+
+    //LogIn Logic
+
+    [RelayCommand(CanExecute = nameof(LogInActivation))]
+    private void Button_Clicked_LogIn()
+    {
+        Shell.Current.GoToAsync(nameof(Menu));
+    }
+
+    private bool LogInActivation()
+    {
+        if (Username != string.Empty && Userpassword != string.Empty && Userseverip != string.Empty) { return true; }
+        else { return false; }
+    }
+
+    //Register Logic
+    [RelayCommand]
+    private void Button_Clicked_Register()
+    {
+        Shell.Current.ShowPopup(new RegisterPage());
+    }
 
 }
