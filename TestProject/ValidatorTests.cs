@@ -15,106 +15,24 @@ namespace TestProject
 
         //TODO: Write tests
 
-
         /// <summary>
-        /// Creates the connection between the points of interest
-        /// Implemented here only for test purspose
-        /// </summary>
-        /// <param name="pointOfInterest1">First point of connection</param>
-        /// <param name="pointOfInterest2">Second point of connection</param>
-        /// <param name="ticketType">Type of connection</param>
-        static void ConnectPois(PointOfInterest pointOfInterest1, PointOfInterest pointOfInterest2, TicketTypeEnum ticketType)
-        {
-            switch (ticketType)
-            {
-                case TicketTypeEnum.Bus:
-                    pointOfInterest1.ConnectionBus.Add(pointOfInterest2);
-                    pointOfInterest2.ConnectionBus.Add(pointOfInterest1);
-                    break;
-                case TicketTypeEnum.Bike:
-                    pointOfInterest1.ConnectionBike.Add(pointOfInterest2);
-                    pointOfInterest2.ConnectionBike.Add(pointOfInterest1);
-                    break;
-                case TicketTypeEnum.Scooter:
-                    pointOfInterest1.ConnectionScooter.Add(pointOfInterest2);
-                    pointOfInterest2.ConnectionScooter.Add(pointOfInterest1);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Tests if POIs and connections were generated correctly
+        /// Tests if POIs and connections read from a JSON-Testmap were generated correctly
         /// </summary>
         [Fact]
         public void ReadPoisAndConnections()
         {
-            
-
             GameState TestGameState = new GameState();      // GameState constructor
+    
+            Initializer.InitPois(TestGameState);        // generate POIs and Connections according to Testmap.JSON
 
-            //string jsonContent = new StreamReader(File.OpenRead("Testmap.json")).ReadToEnd();
-            dynamic jsonContent = JsonConvert.DeserializeObject(File.ReadAllText("Testmap.json"));      // read JSON to dynamic variable
-
-            // generate POIs 
-            int numPoi = 0;     //number of POIs in JSON-File
-            foreach (var Nodes in jsonContent.Nodes)
-            {
-                TestGameState.PointsOfInterest.Add(new PointOfInterest((int)Nodes.Number, (string)Nodes.Name, new Vector2((float)Nodes.Location_x, (float)Nodes.Location_y)));
-                ++numPoi;
-            }
-
-            // generate Connections 
-            int numConnect = 0;     // number of Connections in JSON
-            var noSuccess = 0;      // += 1 in default case
-            foreach (var Connections in jsonContent.Connections)
-            {
-                switch ((int)Connections.type) //defines number and type of connections between POIs
-                {
-                    // !!! Diese Logik stimmt bisher nur, wenn die POIs in der Reihenfolge ihrer Laufnummer initialisiert werden, da No in TestGameState.PointsOfInterest[No] nur die Position in der Liste repräsentiert, nicht die Laufnummer!
-                    case 1: //bus
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bus);
-                        ++numConnect;
-                        break;
-                    case 2:     //bike
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bike);
-                        ++numConnect;
-                        break;
-                    case 3:     //scooter
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
-                        ++numConnect;
-                        break;
-                    case 12:    //bus & bike
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bus);
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bike);
-                        numConnect += 2;
-                        break;
-                    case 13:    // bus & scooter
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bus);
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
-                        numConnect += 2;
-                        break;
-                    case 23:    // bike & scooter
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bike);
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
-                        numConnect += 2;
-                        break;
-                    case 123:   // bus, bike & scooter
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bus);
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bike);
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
-                        numConnect += 3;
-                        break;
-                    default:
-                        noSuccess += 1;
-                        break;
+            Assert.Equal(12, TestGameState.PointsOfInterest.Count);      // check if right number of POIs was created
 
 
-                }
-            }
-                
-
-                Assert.Equal(numPoi, TestGameState.PointsOfInterest.Count); // number POIs in JSON = number generateed POIs
-                Assert.Equal(0, noSuccess); // all connections were created
+            // check number of connections for each ticket type testwise for one POI (here Matheinstitut, Number 11)
+            Assert.Equal(2, TestGameState.PointsOfInterest[10].ConnectionBus.Count());      // Bus connections should be 2
+            Assert.Equal(3, TestGameState.PointsOfInterest[10].ConnectionBike.Count());     // Bike connections should be 3
+            Assert.Equal(2, TestGameState.PointsOfInterest[10].ConnectionScooter.Count());  // Scooter connections should be 2
+        
         }
 
         /// <summary>
