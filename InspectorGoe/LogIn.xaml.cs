@@ -11,7 +11,7 @@ public partial class LogIn : ContentPage
     {
         InitializeComponent();
 
-        BindingContext = new MainViewModel();
+        BindingContext = MainViewModel.GetInstance();
     }
 
 

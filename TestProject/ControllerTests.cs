@@ -9,6 +9,8 @@ namespace TestProject
     {
         public ControllerTests()
         {
+            //todo: change json location
+            string jsonContent = new StreamReader(File.OpenRead("Testmap.json")).ReadToEnd();      //read JSON file from project folder
         }
 
         /// <summary>

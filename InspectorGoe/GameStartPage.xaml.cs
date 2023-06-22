@@ -4,7 +4,7 @@ using InspectorGoe.ViewModels;
 
 public partial class GameStartPage : Popup
 {
-    MainViewModel MVM = new MainViewModel();
+    MainViewModel MVM = MainViewModel.GetInstance();
 
     public GameStartPage()
     {

@@ -1,10 +1,13 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using InspectorGoe.ViewModels;
 
 namespace InspectorGoe;
 
 public partial class Menu : ContentPage
 {
+    MainViewModel MVM = MainViewModel.GetInstance();
+
 	public Menu()
 	{
 		InitializeComponent();
