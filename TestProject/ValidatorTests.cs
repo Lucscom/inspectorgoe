@@ -157,7 +157,7 @@ namespace TestProject
                         ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
                         break;
                     case 23:    // bike & scooter
-                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bus);
+                        ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bike);
                         ConnectPois(TestGameState.PointsOfInterest[(int)Connections.sourceNo - 1], TestGameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
                         break;
                     case 123:   // bus, bike & scooter
@@ -175,7 +175,7 @@ namespace TestProject
             TestGameState.MisterX = new Player("TestPlayer", "TestPassword");   // generate TestPlayer
             TestGameState.MisterX.Position = TestGameState.PointsOfInterest.First(); // assign Startposition for TestPlayer
             TestGameState.MisterX.BusTicket = 3;      // assign bus tickets
-            TestGameState.MisterX.BikeTicket = 0;     // assign no bike tickets
+            TestGameState.MisterX.BikeTicket = 1;     // assign no bike tickets
             TestGameState.MisterX.ScooterTicket = 2;  // assign scooter tickets
 
             //var TestValidator = new Validator();    //generate instance of class Validator
