@@ -111,11 +111,12 @@ namespace GameComponents
                 Console.WriteLine("Player not moved");
                 return false;
             }
-            else if (GameState.GameStarted && Validator.ValidateMove(
+            else if (GameState.GameStarted && GameState.ActivePlayer == gamePlayers.First()
+                    && Validator.ValidateMove(
                     gamePlayers.First(), 
                     gamePois.First(), 
                     ticketType, 
-                    GameState.Detectives))
+                    GameState.Detectives))      
             {
                 player.Position = poi;
                 Console.WriteLine("Player moved");
