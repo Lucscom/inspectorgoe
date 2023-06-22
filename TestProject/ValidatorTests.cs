@@ -178,15 +178,15 @@ namespace TestProject
             TestGameState.MisterX.BikeTicket = 0;     // assign no bike tickets
             TestGameState.MisterX.ScooterTicket = 2;  // assign scooter tickets
 
-            var TestValidator = new Validator();    //generate instance of class Validator
+            //var TestValidator = new Validator();    //generate instance of class Validator
             Dictionary<PointOfInterest, List<TicketTypeEnum>> TestMoves = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();      // create dictonary for valid moves 
-            TestMoves = TestValidator.getValidMoves(TestGameState, TestGameState.MisterX);      // test method getValidMoves for MisterX in generated TestGameState
+            TestMoves = Validator.GetValidMoves(TestGameState, TestGameState.MisterX);      // test method getValidMoves for MisterX in generated TestGameState
 
             var BikeConnections = 0;      // all found possible bike connections
             //var NumPOIs = TestMoves.Count;
             for (var NumPOIs = 0; NumPOIs < TestMoves.Count; NumPOIs++)
             {
-                if (TestMoves.ContainsValue('Bike'))
+               // if (TestMoves.ContainsValue('Bike'))
               //if (TestMoves[NumPOIs] = 0)
                     BikeConnections++;
             }

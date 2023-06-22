@@ -107,7 +107,7 @@ namespace GameComponents
             }
             if (player.BusTicket > 0)
             {
-                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBus, gameState.Detectives);
+                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bus, player.Position.ConnectionBus, gameState.Detectives);
             }
             //TODO: doppeltickets
             if (player == gameState.MisterX && player.BlackTicket > 0)
@@ -144,12 +144,12 @@ namespace GameComponents
                 {
                     List<TicketTypeEnum> tickets = new List<TicketTypeEnum>();
                     tickets.AddRange(moves[poi]);
-                    tickets.Add(TicketTypeEnum.Bike);
+                    tickets.Add(ticketType);
                     moves[poi] = tickets;
                 }
                 else
                 {
-                    moves.Add(poi, new List<TicketTypeEnum> { TicketTypeEnum.Bike });
+                    moves.Add(poi, new List<TicketTypeEnum> { ticketType });
                 }
             }
             return moves;
