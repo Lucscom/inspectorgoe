@@ -10,6 +10,9 @@ using Microsoft.Maui.Controls.Shapes;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Maui.Views;
 using Client;
+using System.Numerics;
+using Microsoft.Maui.Controls.Xaml;
+using System.Windows.Input;
 
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
@@ -59,10 +62,13 @@ public partial class MainViewModel : ObservableObject
     private List<PointOfInterest> pois = new List<PointOfInterest>();
 
     [ObservableProperty]
+    public List<PointsOfInterestView> poisLocation = new List<PointsOfInterestView>();
+
+    [ObservableProperty]
     private Player misterX = null;
 
     [ObservableProperty]
-    private List<TicketTypeEnum> mrXticketHistory = new List<TicketTypeEnum>();
+    private List<TicketsView> mrXticketHistory = new List<TicketsView>();
 
     [ObservableProperty]
     private PointOfInterest mrXLastKnownPoi = null;
@@ -77,13 +83,83 @@ public partial class MainViewModel : ObservableObject
         _com.UpdateGameStateEvent += ComUpdateGameState;
     }
 
+
     private void ComUpdateGameState(object sender, EventArgs e)
     {
         detectives = _com.GameState.Detectives;
         pois = _com.GameState.PointsOfInterest;
         misterX = _com.GameState.MisterX;
-        mrXticketHistory = _com.GameState.TicketHistoryMisterX;
         mrXLastKnownPoi = _com.GameState.MisterXLastKnownPOI;
+
+        // Change List MisterX-Tickethistory in image-pahts
+        _com.GameState.TicketHistoryMisterX.Add(TicketTypeEnum.Bus);
+        _com.GameState.TicketHistoryMisterX.Add(TicketTypeEnum.Scooter);
+
+        mrXticketHistory = new List<TicketsView>();
+        foreach (TicketTypeEnum ticket in _com.GameState.TicketHistoryMisterX)
+        {
+            TicketsView tempTicket = new();
+            switch (ticket)
+            {
+                case TicketTypeEnum.Bus:
+                    tempTicket.ImagePath = "ticket_bus.png";
+                    tempTicket.MisterXDiscoverPosition = false;
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+                case TicketTypeEnum.Bike:
+                    tempTicket.ImagePath = "ticket_bike.png";
+                    tempTicket.MisterXDiscoverPosition = false;
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+                case TicketTypeEnum.Scooter:
+                    tempTicket.ImagePath = "ticket_scooter.png";
+                    tempTicket.MisterXDiscoverPosition = false;
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+                case TicketTypeEnum.Black:
+                    tempTicket.ImagePath = "ticket_black.png";
+                    tempTicket.MisterXDiscoverPosition = false;
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+                default:
+                    tempTicket.ImagePath = "";
+                    tempTicket.MisterXDiscoverPosition = false;
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+
+            }
+        }
+
+        // Add 24 dummys
+        for(int i = _com.GameState.TicketHistoryMisterX.Count-1; i<24; i++)
+        {
+            TicketsView tempTicket = new();
+            tempTicket.ImagePath = "ticket_placeholder.png";
+            tempTicket.MisterXDiscoverPosition = false;
+            mrXticketHistory.Add(tempTicket);
+        }
+        int number = 0;
+        foreach(TicketsView ticket in mrXticketHistory)
+        {
+            if (number == 3 || number == 8 || number == 13 || number == 18 || number == 24)
+                ticket.MisterXDiscoverPosition = true;
+            number++;
+        }
+
+
+        MrXticketHistory.Reverse();
+
+
+        
+
+        PoisLocation = new List<PointsOfInterestView>();
+        foreach (PointOfInterest poi in pois)
+        {
+            PointsOfInterestView temp = new PointsOfInterestView();
+            temp.Location = new Rect(poi.Location.X / 8914, poi.Location.Y / 5000, 0.0168, 0.03);
+            temp.Number = poi.Number;
+            PoisLocation.Add(temp);
+        }
     }
 
     /// <summary>
@@ -232,6 +308,16 @@ public partial class MainViewModel : ObservableObject
         startGame();
         _com.gameStateInitEvent.WaitOne();
         await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+    }
+
+    #endregion
+
+    #region MainPage
+
+    [RelayCommand]
+    private void Button_Clicked_Poi(int number)
+    {
+        Console.Write(number);
     }
 
     #endregion

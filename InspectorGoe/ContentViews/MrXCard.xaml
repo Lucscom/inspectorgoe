@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InspectorGoe.ContentViews.MrXCard"
              Padding="5">
-    
-    
+
     <Frame CornerRadius="10"
            WidthRequest="300"
            HeightRequest="180"
@@ -21,8 +20,7 @@
             ColumnSpacing="6">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="9*" />
                 <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
 
@@ -31,45 +29,56 @@
                 <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
 
+            <!--Avatar and Color-->
+            <Grid RowSpacing="6"
+                  ColumnSpacing="6">
 
-            <Frame BorderColor="DarkGray"
-                    HeightRequest="100"
-                    WidthRequest="100"
-                    CornerRadius="50"
-                    BackgroundColor="White"
-                    Padding="10"
-                    HasShadow="True">
-
-                <Image Source="{Binding AvatarImagePath}" Aspect="AspectFit"/>
-            </Frame>
-
-        <Frame Grid.Row="1" Grid.ColumnSpan="2"  CornerRadius="10" BackgroundColor="Purple" BorderColor="Purple" Padding="2"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
 
-            <!--Sub Grid-->
+                <Frame BorderColor="DarkGray"
+                       HeightRequest="80"
+                       WidthRequest="80"
+                       CornerRadius="40"
+                       BackgroundColor="White"
+                       Padding="0"
+                       HasShadow="True">
+
+                    <Image Source="{Binding AvatarImagePath}" 
+                           Aspect="AspectFill"/>
+                </Frame>
+
+                <Frame Grid.Row="1" CornerRadius="10" BackgroundColor="Purple" BorderColor="Purple" Padding="2"/>
+            </Grid>
+
+
+            <!--Tickets Ticketimages-->
             <Grid 
                 Grid.Column="1"
                 RowSpacing="2"
-                ColumnSpacing="5">
+                ColumnSpacing="6">
 
                 <!--Grid Definition-->
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
-                <!--Ticket Bilder 
-                Die Bilder müssen eigentlich über Databinding eingefügt werden-->
                 <Frame CornerRadius="5"
                        BackgroundColor="Transparent"
                        BorderColor="Transparent"
                        Padding="0"
+                       HasShadow="True"
                        HorizontalOptions="End">
 
                     <Image Source="ticket_black.png" Aspect="Fill"/>
@@ -86,41 +95,42 @@
                 </Frame>
 
 
+
                 <!--Tickets-->
 
                 <Frame Grid.Column="1"
                        CornerRadius="10"
                        BackgroundColor="{StaticResource Gray600}"
-                       Padding="2"
+                       Padding="0"
                        HasShadow="True">
 
-                    <Label Text="{Binding BusTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="{Binding BlackTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Frame>
 
                 <Frame Grid.Column="1"
                        Grid.Row="1"
                        CornerRadius="10" 
                        BackgroundColor="{StaticResource Gray600}"
-                       Padding="2"
+                       Padding="0"
                        HasShadow="True">
 
-                    <Label Grid.Row="1" Text="{Binding BikeTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Grid.Row="1" Text="{Binding BlackTicket}" TextColor="{StaticResource Blue100Accent}" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
                 </Frame>
 
             </Grid>
 
             <Frame                    
                 Grid.Column="0"
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.ColumnSpan="2"
                 CornerRadius="10"
                 BackgroundColor="{StaticResource Blue100Accent}"
-                Padding="2">
-                <Label
-                    Text="{Binding UserName}"
-                    TextColor="Black"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+                Padding="0">
+                <Label Text="{Binding UserName}"
+                       TextColor="Black"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontSize="20"/>
             </Frame>
 
         </Grid>

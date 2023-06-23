@@ -10,24 +10,55 @@
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
                     AbsoluteLayout.LayoutFlags="All">
 
-        <container:PinchPanContainer AbsoluteLayout.LayoutBounds="0,0,1,1"
+
+        <container:PanContainer AbsoluteLayout.LayoutBounds="0,0,1,1"
                                      AbsoluteLayout.LayoutFlags="All"
                                      x:Name="mapContainer">
 
+
+            <!--Absolutlayout für Map-->
             <AbsoluteLayout x:Name="absoluteMap"
                             WidthRequest="2600"
-                            HeightRequest="1463"
-                            TranslationX="-600">
+                            HeightRequest="1463">
 
-                <Image Source="map.png"
-                       x:Name="map"
-                       AbsoluteLayout.LayoutFlags="All"
-                       AbsoluteLayout.LayoutBounds="0,0,1,1"
-                       WidthRequest="2600"
-                       HeightRequest="1463"/>
 
+                    <Image Source="map.jpg"
+                            x:Name="map"
+                            AbsoluteLayout.LayoutFlags="All"
+                            AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            WidthRequest="2600"
+                            HeightRequest="1463"/>
+
+
+                <AbsoluteLayout x:Name="absolutButtons"
+                                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                WidthRequest="2600"
+                                HeightRequest="1463"
+                                BindableLayout.ItemsSource="{Binding PoisLocation}">
+
+
+                    <!--Absolutlayout für Buttons-->
+                    <BindableLayout.ItemTemplate >
+                        <DataTemplate>
+
+                            <Button AbsoluteLayout.LayoutBounds="{Binding Location}"
+                                    AbsoluteLayout.LayoutFlags="All"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=Button_Clicked_PoiCommand}"
+                                    CommandParameter="{Binding Number}"
+                                    BackgroundColor="gray"
+                                    Opacity="0.5"
+                                    CornerRadius="100"/>
+
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </AbsoluteLayout>
             </AbsoluteLayout>
-        </container:PinchPanContainer>
+        </container:PanContainer>
+
+        
+        
+
 
         <Button x:Name="buttonZoomPlus"
                 AbsoluteLayout.LayoutBounds="1,0,75,75"
@@ -66,9 +97,9 @@
 
 
         <!--Inhalt-->
-            <!--<ScrollView VerticalScrollBarVisibility="Never">
+            <ScrollView VerticalScrollBarVisibility="Never">
                 <VerticalStackLayout Padding="5" 
-                                     BindableLayout.ItemsSource="{Binding MrXticketsCollection}" 
+                                     BindableLayout.ItemsSource="{Binding MrXticketHistory}" 
                                      HorizontalOptions="Start"
                                      VerticalOptions="End">
                     
@@ -78,7 +109,7 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </VerticalStackLayout>
-            </ScrollView>-->
+            </ScrollView>
 
             <ScrollView Grid.Row="1"
                         Grid.Column="1"

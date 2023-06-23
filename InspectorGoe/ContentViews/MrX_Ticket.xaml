@@ -4,14 +4,25 @@
              x:Class="InspectorGoe.ContentViews.MrX_Ticket"
              Padding="5">
 
-    <Frame CornerRadius="10"
-           HeightRequest="110" 
-           WidthRequest="200"
-           BackgroundColor="white"
-           Padding="0">
+ 
+        <Frame CornerRadius="10"
+               HeightRequest="110" 
+               WidthRequest="200"
+               BackgroundColor="white"
+               Padding="0"
+               IsEnabled="{Binding MisterXDiscoverPosition}">
 
-
-        <Image Source="{Binding}" Aspect="Fill"/>
+        <Border Stroke="{StaticResource Blue100Accent}"
+                StrokeThickness="3">
+                
+            <Image Source="{Binding ImagePath}" Aspect="Fill"/>
+            
+        </Border>
+            
     </Frame>
+
+    
+    
+    
 
 </ContentView>
