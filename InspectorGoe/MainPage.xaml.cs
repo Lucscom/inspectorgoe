@@ -8,8 +8,8 @@ namespace InspectorGoe;
 
 public partial class MainPage : ContentPage
 {
-    private double width = 2600;
-    private double height = 1463;
+    private double Width = 2600;
+    private double Height = 1463;
 
 
     public MainPage()
@@ -28,16 +28,16 @@ public partial class MainPage : ContentPage
 
         if (tempButton.Text == "+")
         {
-            width += 100;
-            height = width / 1.77;
+            Width += 100;
+            Height = Width / 1.77;
 
             setSize();
 
         }
         else if (tempButton.Text == "-" && map.WidthRequest - 100 >= mapContainer.Width)
         {
-            width -= 100;
-            height = width / 1.77;
+            Width -= 100;
+            Height = Width / 1.77;
 
             setSize();
 
@@ -50,16 +50,33 @@ public partial class MainPage : ContentPage
 
     }
 
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+
+        if (width > height)
+        {
+            Width = width;
+            Height = width / 1.77;
+        }
+        else
+        {
+            Height = height;
+            Width = Height * 1.77;
+        }
+        setSize();
+    }
+
     private void setSize()
     {
-        absoluteMap.WidthRequest = width;
-        absoluteMap.HeightRequest = height;
+        absoluteMap.WidthRequest = Width;
+        absoluteMap.HeightRequest = Height;
 
-        map.WidthRequest = width;
-        map.HeightRequest = height;
+        map.WidthRequest = Width;
+        map.HeightRequest = Height;
 
-        absolutButtons.WidthRequest = width;
-        absolutButtons.HeightRequest = height;
+        absolutButtons.WidthRequest = Width;
+        absolutButtons.HeightRequest = Height;
     }
 
 
