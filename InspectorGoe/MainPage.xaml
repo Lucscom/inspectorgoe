@@ -19,26 +19,24 @@
             <!--Absolutlayout für Map-->
             <AbsoluteLayout x:Name="absoluteMap"
                             WidthRequest="2600"
-                            HeightRequest="1463">
+                            HeightRequest="1458">
 
 
-                    <Image Source="map.jpg"
+                <Image Source="map.jpg"
                             x:Name="map"
                             AbsoluteLayout.LayoutFlags="All"
                             AbsoluteLayout.LayoutBounds="0,0,1,1"
                             WidthRequest="2600"
-                            HeightRequest="1463"/>
+                            HeightRequest="1458"/>
 
-
+                <!--Absolutlayout für Buttons-->
                 <AbsoluteLayout x:Name="absolutButtons"
                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                                 AbsoluteLayout.LayoutFlags="All"
                                 WidthRequest="2600"
-                                HeightRequest="1463"
+                                HeightRequest="1458"
                                 BindableLayout.ItemsSource="{Binding PoisLocation}">
 
-
-                    <!--Absolutlayout für Buttons-->
                     <BindableLayout.ItemTemplate >
                         <DataTemplate>
 
@@ -49,17 +47,36 @@
                                     BackgroundColor="gray"
                                     Opacity="0.5"
                                     CornerRadius="100"/>
+                            
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </AbsoluteLayout>
+
+                    
+                <!--Absolutlayout für MisterX Position-->
+                <AbsoluteLayout x:Name="absolutMisterX"
+                                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                WidthRequest="2600"
+                                HeightRequest="1544"
+                                BindableLayout.ItemsSource="{Binding MrXLastKnownPoi}">
+
+                    <BindableLayout.ItemTemplate >
+                        <DataTemplate>
+                            <Border AbsoluteLayout.LayoutBounds="{Binding Location}"
+                                    AbsoluteLayout.LayoutFlags="All"
+                                    Stroke="{Binding ObjectColor}"
+                                    StrokeThickness="5"
+                                    StrokeShape="RoundRectangle 50,50,50,50"/>
 
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </AbsoluteLayout>
+
             </AbsoluteLayout>
         </container:PanContainer>
 
-        
-        
-
-
+        <!--Zoom Buttons-->
         <Button x:Name="buttonZoomPlus"
                 AbsoluteLayout.LayoutBounds="1,0,75,75"
                 AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -81,7 +98,8 @@
                 TextColor="white"
                 Text="-"
                 Clicked="OnButtonZoom"/>
-
+        
+        <!--Grid for the rest of the UI-->
         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
               AbsoluteLayout.LayoutFlags="All">
 
@@ -96,21 +114,33 @@
             </Grid.ColumnDefinitions>
 
 
-        <!--Inhalt-->
-            <ScrollView VerticalScrollBarVisibility="Never">
-                <VerticalStackLayout Padding="5" 
+            <!--Ticket History MisterX-->
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ScrollView VerticalScrollBarVisibility="Never">
+
+                    <VerticalStackLayout Padding="5" 
                                      BindableLayout.ItemsSource="{Binding MrXticketHistory}" 
                                      HorizontalOptions="Start"
                                      VerticalOptions="End">
-                    
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <contentviews:MrX_Ticket/>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </VerticalStackLayout>
-            </ScrollView>
 
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <contentviews:MrX_Ticket/>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </ScrollView>
+
+            </Grid>
+
+            
+            
+            <!--Detectives Cards-->
             <ScrollView Grid.Row="1"
                         Grid.Column="1"
                         Orientation="Horizontal">
@@ -127,6 +157,8 @@
                 </HorizontalStackLayout>
             </ScrollView>
 
+            
+            <!--MrX Card-->
             <StackLayout Grid.Row="1" 
                          Padding="5">
                 

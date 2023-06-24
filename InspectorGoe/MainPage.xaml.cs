@@ -9,7 +9,7 @@ namespace InspectorGoe;
 public partial class MainPage : ContentPage
 {
     private double Width = 2600;
-    private double Height = 1463;
+    private double Height = 1458;
 
 
     public MainPage()
@@ -29,7 +29,7 @@ public partial class MainPage : ContentPage
         if (tempButton.Text == "+")
         {
             Width += 100;
-            Height = Width / 1.77;
+            Height = Width / 1.7828;
 
             setSize();
 
@@ -37,7 +37,7 @@ public partial class MainPage : ContentPage
         else if (tempButton.Text == "-" && map.WidthRequest - 100 >= mapContainer.Width)
         {
             Width -= 100;
-            Height = Width / 1.77;
+            Height = Width / 1.7828;
 
             setSize();
 
@@ -57,12 +57,12 @@ public partial class MainPage : ContentPage
         if (width > height)
         {
             Width = width;
-            Height = width / 1.77;
+            Height = width / 1.7828;
         }
         else
         {
             Height = height;
-            Width = Height * 1.77;
+            Width = Height * 1.7828;
         }
         setSize();
     }
@@ -77,6 +77,9 @@ public partial class MainPage : ContentPage
 
         absolutButtons.WidthRequest = Width;
         absolutButtons.HeightRequest = Height;
+
+        absolutMisterX.WidthRequest = Width;
+        absolutMisterX.HeightRequest = Height;
     }
 
 
