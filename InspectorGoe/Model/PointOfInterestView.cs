@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace InspectorGoe.Model
 {
     /// <summary>
     /// Class for the POI on the map
     /// </summary>
-    public class PointOfInterestView
+    public class PointOfInterestView 
 
-    { 
+    {
         /// <summary>
         /// Position on the map
         /// </summary>

@@ -12,41 +12,52 @@
 
 
         <container:PanContainer AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                     AbsoluteLayout.LayoutFlags="All"
-                                     x:Name="mapContainer">
+                                AbsoluteLayout.LayoutFlags="All"
+                                x:Name="mapContainer">
 
 
             <!--Absolutlayout für Map-->
             <AbsoluteLayout x:Name="absoluteMap"
-                            WidthRequest="2600"
-                            HeightRequest="1458">
+                            WidthRequest="{Binding WidthMap}"
+                            HeightRequest="{Binding HeightMap}">
 
 
                 <Image Source="map.jpg"
                             x:Name="map"
                             AbsoluteLayout.LayoutFlags="All"
                             AbsoluteLayout.LayoutBounds="0,0,1,1"
-                            WidthRequest="2600"
-                            HeightRequest="1458"/>
+                            WidthRequest="{Binding WidthMap}"
+                            HeightRequest="{Binding HeightMap}"/>
 
                 <!--Absolutlayout für Buttons-->
                 <AbsoluteLayout x:Name="absolutButtons"
                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                                 AbsoluteLayout.LayoutFlags="All"
-                                WidthRequest="2600"
-                                HeightRequest="1458"
+                                WidthRequest="{Binding WidthMap}"
+                            HeightRequest="{Binding HeightMap}"
                                 BindableLayout.ItemsSource="{Binding PoisLocation}">
 
-                    <BindableLayout.ItemTemplate >
+                    <BindableLayout.ItemTemplate>
                         <DataTemplate>
 
                             <Button AbsoluteLayout.LayoutBounds="{Binding Location}"
-                                    AbsoluteLayout.LayoutFlags="All"
+                                    AbsoluteLayout.LayoutFlags="None"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=Button_Clicked_PoiCommand}"
                                     CommandParameter="{Binding Number}"
-                                    BackgroundColor="gray"
-                                    Opacity="0.5"
-                                    CornerRadius="100"/>
+                                    CornerRadius="100"
+                                    BorderColor="Transparent">
+
+                                <Button.Background>
+                                    <RadialGradientBrush Center="0.5,0.5">
+                                        <GradientStop Color="Transparent"
+                                                      Offset="0.60" />
+                                        <GradientStop Color="Yellow"
+                                                      Offset="0.62" />
+                                        <GradientStop Color="Transparent"
+                                                      Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Button.Background>
+                            </Button>
                             
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
@@ -57,8 +68,8 @@
                 <AbsoluteLayout x:Name="absolutMisterX"
                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                                 AbsoluteLayout.LayoutFlags="All"
-                                WidthRequest="2600"
-                                HeightRequest="1544"
+                                WidthRequest="{Binding WidthMap}"
+                                HeightRequest="{Binding HeightMap}"
                                 BindableLayout.ItemsSource="{Binding MrXLastKnownPoi}">
 
                     <BindableLayout.ItemTemplate >
@@ -86,7 +97,8 @@
                 BackgroundColor="{StaticResource Gray600}"
                 TextColor="white"
                 Text="+"
-                Clicked="OnButtonZoom"/>
+                Command="{Binding Button_Clicked_ZoomCommand}"
+                CommandParameter="plus"/>
 
         <Button x:Name="buttonZoomMinus"
                 AbsoluteLayout.LayoutBounds="1,0,75,160"
@@ -97,7 +109,8 @@
                 BackgroundColor="{StaticResource Gray600}"
                 TextColor="white"
                 Text="-"
-                Clicked="OnButtonZoom"/>
+                Command="{Binding Button_Clicked_ZoomCommand}"
+                CommandParameter="minus"/>
         
         <!--Grid for the rest of the UI-->
         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -124,9 +137,9 @@
                 <ScrollView VerticalScrollBarVisibility="Never">
 
                     <VerticalStackLayout Padding="5" 
-                                     BindableLayout.ItemsSource="{Binding MrXticketHistory}" 
-                                     HorizontalOptions="Start"
-                                     VerticalOptions="End">
+                                         BindableLayout.ItemsSource="{Binding MrXticketHistory}" 
+                                         HorizontalOptions="Start"
+                                         VerticalOptions="End">
 
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
