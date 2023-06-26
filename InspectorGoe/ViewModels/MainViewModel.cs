@@ -95,7 +95,7 @@ public partial class MainViewModel : ObservableObject
 
     private void ComUpdateGameState(object sender, EventArgs e)
     {
-        // Dtectives
+        // Detectives
         Detectives.Clear();
         foreach (Player detective in _com.GameState.Detectives)
         {
@@ -218,10 +218,20 @@ public partial class MainViewModel : ObservableObject
     {
         var move = new MovePlayerDto(poi, ticket);
         var moveStatus =_com.MovePlayerAsync(move);
-        // todo: status code checken -->
+        // TODO: status code checken -->
         // bei fail gamestate neu bekommen und wiederholen
     }
 
+    /// <summary>
+    /// Get own player Object from the server
+    /// </summary>
+    /// <returns>Player player</returns>
+    public Player GetOwnPlayer()
+    {
+        var playerTask = _com.GetPlayerAsync();
+        // muss man hier auf den Task warten? :O
+        return playerTask.Result;
+    }
 
     #region Pages
 
