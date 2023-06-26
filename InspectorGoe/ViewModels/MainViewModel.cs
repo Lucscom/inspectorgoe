@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Client;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using GameComponents;
 using GameComponents.Model;
-using Microsoft.Maui.Controls.Shapes;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Maui.Views;
-using Client;
+using InspectorGoe.Model;
+using System.Collections.ObjectModel;
 
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
@@ -32,9 +28,11 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
     string username = string.Empty;
+
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
     string userpassword = string.Empty;
+
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
     string userseverip = string.Empty;
@@ -42,8 +40,10 @@ public partial class MainViewModel : ObservableObject
     //Variablen für Register
     [ObservableProperty]
     private string usernameregister = string.Empty;
+
     [ObservableProperty]
     private string userpasswordregister = string.Empty;
+
     [ObservableProperty]
     private string userpasswordregister2 = string.Empty;
 
@@ -52,20 +52,35 @@ public partial class MainViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
     private ImageButton choice;
 
-    [ObservableProperty]
-    private List<Player> detectives = new List<Player>();
+
+    // Variablen für MainPage
 
     [ObservableProperty]
-    private List<PointOfInterest> pois = new List<PointOfInterest>();
+    private double widthMap = 2600;
 
     [ObservableProperty]
-    private Player misterX = null;
+    private double heightMap = 1458.38;
 
     [ObservableProperty]
-    private List<TicketTypeEnum> mrXticketHistory = new List<TicketTypeEnum>();
+    private ObservableCollection<Player> detectives = new ObservableCollection<Player>();
 
     [ObservableProperty]
-    private PointOfInterest mrXLastKnownPoi = null;
+    private Player misterX = new Player();
+
+    [ObservableProperty]
+    public ObservableCollection<PointOfInterestView> poisLocation = new ObservableCollection<PointOfInterestView>();
+
+    [ObservableProperty]
+    private ObservableCollection<TicketsView> mrXticketHistory = new ObservableCollection<TicketsView>();
+
+    [ObservableProperty]
+    private ObservableCollection<PointOfInterestView> mrXLastKnownPoi = new ObservableCollection<PointOfInterestView>();
+
+    private TicketSelectionPage ticketSelectionPage;
+
+    [ObservableProperty]
+    private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
+
 
     #endregion
 
@@ -77,29 +92,122 @@ public partial class MainViewModel : ObservableObject
         _com.UpdateGameStateEvent += ComUpdateGameState;
     }
 
+
     private void ComUpdateGameState(object sender, EventArgs e)
     {
-        detectives = _com.GameState.Detectives;
-        pois = _com.GameState.PointsOfInterest;
+        // Dtectives
+        Detectives.Clear();
+        foreach (Player detective in _com.GameState.Detectives)
+        {
+            Detectives.Add(detective);
+        }
+
+        // MisterX
         misterX = _com.GameState.MisterX;
-        mrXticketHistory = _com.GameState.TicketHistoryMisterX;
-        mrXLastKnownPoi = _com.GameState.MisterXLastKnownPOI;
+
+        // MisterX Last Known POI
+        mrXLastKnownPoi.Add(PoiConverter(_com.GameState.MisterXLastKnownPOI, 170, Colors.Purple));
+
+
+        // Ticket History from Mister
+        mrXticketHistory = new ObservableCollection<TicketsView>();
+        foreach (TicketTypeEnum ticket in _com.GameState.TicketHistoryMisterX)
+        {
+            TicketsView tempTicket = new();
+            switch (ticket)
+            {
+                case TicketTypeEnum.Bus:
+                    tempTicket.ImagePath = "ticket_bus.png";
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+                case TicketTypeEnum.Bike:
+                    tempTicket.ImagePath = "ticket_bike.png";
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+                case TicketTypeEnum.Scooter:
+                    tempTicket.ImagePath = "ticket_scooter.png";
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+                case TicketTypeEnum.Black:
+                    tempTicket.ImagePath = "ticket_black.png";
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+                default:
+                    tempTicket.ImagePath = "";
+                    mrXticketHistory.Add(tempTicket);
+                    break;
+            }
+        }
+
+        // Fill up with dummys
+        for(int i = _com.GameState.TicketHistoryMisterX.Count-1; i<23; i++)
+        {
+            TicketsView tempTicket = new();
+            tempTicket.ImagePath = "ticket_placeholder.png";
+            mrXticketHistory.Add(tempTicket);
+
+        }
+
+        // setting up all other variables
+        int number = 0;
+        foreach(TicketsView ticket in mrXticketHistory)
+        {
+            ticket.NumberRound = number + 1;
+            if (number < _com.GameState.TicketHistoryMisterX.Count)
+            {
+                ticket.NumberColor = Colors.Transparent;
+                ticket.NumberFrameColor = Colors.Transparent;
+            }
+            else
+            {
+                ticket.NumberColor = Colors.White;
+                ticket.NumberFrameColor = Colors.Gray;
+            }
+
+            // setting up MisterX discover round
+            if (number == 2 || number == 7 || number == 12 || number == 17 || number == 23)
+                ticket.BorderThickness = 4;
+            else
+                ticket.BorderThickness = 0;
+
+            number++;
+        }
+        MrXticketHistory.Reverse();
+
+
+        // Buttons POIS
+        PoisLocation = new ObservableCollection<PointOfInterestView>();
+        foreach (PointOfInterest poi in _com.GameState.PointsOfInterest)
+        {
+            PoisLocation.Add(PoiConverter(poi, 200));
+        }
     }
+
 
     /// <summary>
-    /// Take the login credentials and hand them to the communicator
+    /// Convert from POI in the model to POI in the view
     /// </summary>
-    public async void loginPlayer()
+    /// <param name="poi">Point of interes Object</param>
+    /// <returns>PointOfInterestView</returns>
+    private PointOfInterestView PoiConverter(PointOfInterest poi, double size,  Color objectColor = null)
     {
-        _com.initClient(Userseverip);
-        var player = new Player(Username, Userpassword);
-        var statusCrate = await _com.CreatePlayerAsync(player);
-        var statusLogin = await _com.LoginAsync(player);
-        // todo: status code checken -->
-        // bei fail gamestate neu bekommen und wiederholen
-        var statusHub = _com.RegisterGameHubAsync();
+        if (poi != null)
+        {
+            double zoomFactor = widthMap / 8914;
+
+            PointOfInterestView temp = new PointOfInterestView();
+            temp.Location = new Rect(zoomFactor * poi.Location.X - (zoomFactor * size) / 2, zoomFactor * poi.Location.Y - (zoomFactor * size)/2, zoomFactor *  size , zoomFactor * size);
+            temp.Number = poi.Number;
+            temp.ObjectColor = objectColor ?? Colors.Transparent;
+            return temp;
+        }
+        else
+        {
+            return null;
+        }   
 
     }
+
 
     /// <summary>
     /// Move a player to a destination poi
@@ -114,14 +222,6 @@ public partial class MainViewModel : ObservableObject
         // bei fail gamestate neu bekommen und wiederholen
     }
 
-    /// <summary>
-    /// Send start game to server
-    /// </summary>
-    public void startGame()
-    {
-        var status = _com.StartGameAsync();
-    }
-
 
     #region Pages
 
@@ -134,7 +234,15 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(LogInActivation))]
     async Task Button_Clicked_LogIn()
     {
-        loginPlayer();
+        _com.initClient(Userseverip);
+        var player = new Player(Username, Userpassword);
+        var statusCrate = await _com.CreatePlayerAsync(player);
+        var statusLogin = await _com.LoginAsync(player);
+        // todo: status code checken -->
+        // bei fail gamestate neu bekommen und wiederholen
+        var statusHub = _com.RegisterGameHubAsync();
+
+
         await App.Current.MainPage.Navigation.PushAsync(new Menu());
     }
 
@@ -229,9 +337,73 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     async Task StartGame()
     {
-        startGame();
+        var status = _com.StartGameAsync();
+
         _com.gameStateInitEvent.WaitOne();
         await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+    }
+
+    #endregion
+
+    #region MainPage
+
+    [RelayCommand]
+    private void Button_Clicked_Zoom(string zoomType)
+    { 
+        if (zoomType == "plus" && WidthMap <= 8914 && HeightMap <= 5000)
+        {
+            WidthMap += 200;
+            HeightMap = WidthMap / 1.7828;
+        }
+        else if (zoomType == "minus" && WidthMap - 200 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 200 >= DeviceDisplay.MainDisplayInfo.Height)
+        {
+            WidthMap -= 200;
+            HeightMap = WidthMap / 1.7828;
+        }
+
+        PoisLocation.Clear();
+        //Button Position and Size Update
+        foreach (PointOfInterest poi in _com.GameState.PointsOfInterest)
+        {
+            PoisLocation.Add(PoiConverter(poi, 200));
+        }
+
+    }
+
+
+   [RelayCommand]
+    private void Button_Clicked_Poi(int number)
+    {
+        TicketSelection.Clear();
+
+        TicketSelection temp = new TicketSelection();
+        temp.PointOfInterest = _com.GameState.PointsOfInterest.Find(x => x.Number == number);
+        temp.TicketType = TicketTypeEnum.Bike;
+        temp.TicketImagePath = "ticket_bike.png";
+        TicketSelection.Add(temp);
+
+        temp = new TicketSelection();
+        temp.PointOfInterest = _com.GameState.PointsOfInterest.Find(x => x.Number == number);
+        temp.TicketType = TicketTypeEnum.Bus;
+        temp.TicketImagePath = "ticket_bus.png";
+        TicketSelection.Add(temp);
+
+        temp = new TicketSelection();
+        temp.PointOfInterest = _com.GameState.PointsOfInterest.Find(x => x.Number == number);
+        temp.TicketType = TicketTypeEnum.Scooter;
+        temp.TicketImagePath = "ticket_scooter.png";
+        TicketSelection.Add(temp);
+
+        ticketSelectionPage = new TicketSelectionPage();
+
+        Shell.Current.ShowPopup(ticketSelectionPage);
+    }
+
+    [RelayCommand]
+    private void Button_Clicked_Ticket(TicketSelection ticket)
+    {
+        ticketSelectionPage.Close();
+        Console.Write("Test");
     }
 
     #endregion

@@ -1,6 +1,8 @@
 ﻿using InspectorGoe.Container;
+using InspectorGoe.ViewModels;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Layouts;
 
 namespace InspectorGoe;
 
@@ -12,39 +14,28 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 
         BindingContext = ViewModels.MainViewModel.GetInstance();
-
     }
 
-    private void OnButtonZoom(object sender, EventArgs args)
-    {
 
-        var tempButton = (Button)sender;
 
-        if (tempButton.Text == "+" )
-        {
-            map.WidthRequest += 100;
-            map.HeightRequest = map.WidthRequest / 1.777;
 
-            absoluteMap.WidthRequest = map.WidthRequest;
-            absoluteMap.HeightRequest = map.HeightRequest;
+    //protected override void OnSizeAllocated(double width, double height)
+    //{
+    //    base.OnSizeAllocated(width, height);
 
-        }
-        else if (tempButton.Text == "-" && map.WidthRequest - 100 >= mapContainer.Width)
-        {
-            map.WidthRequest -= 100;
-            map.HeightRequest = map.WidthRequest / 1.777;
+    //    if (width > height)
+    //    {
+    //        Width = width;
+    //        Height = width / 1.7828;
+    //    }
+    //    else
+    //    {
+    //        Height = height;
+    //        Width = Height * 1.7828;
+    //    }
+    //    setSize();
+    //}
 
-            absoluteMap.WidthRequest = map.WidthRequest;
-            absoluteMap.HeightRequest = map.HeightRequest;
-
-        }
-
-        var mapContainerTemp = (PinchPanContainer)mapContainer;
-
-        mapContainerTemp.OnPanUpdated(mapContainerTemp, new PanUpdatedEventArgs(GestureStatus.Running, 0, 0, 0));
-        mapContainerTemp.OnPanUpdated(mapContainerTemp, new PanUpdatedEventArgs(GestureStatus.Completed, 0, 0, 0));
-
-    }
 
 }
 

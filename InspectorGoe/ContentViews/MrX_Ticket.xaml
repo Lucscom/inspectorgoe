@@ -4,14 +4,52 @@
              x:Class="InspectorGoe.ContentViews.MrX_Ticket"
              Padding="5">
 
-    <Frame CornerRadius="10"
-           HeightRequest="110" 
-           WidthRequest="200"
-           BackgroundColor="white"
-           Padding="0">
 
 
-        <Image Source="{Binding}" Aspect="Fill"/>
+    <Border StrokeThickness="{Binding BorderThickness}"
+            Stroke="{StaticResource Yellow100Accent}"
+            StrokeShape="RoundRectangle 20,20,20,20"
+            Padding="0">
+        
+        
+        <Frame HeightRequest="110" 
+               WidthRequest="200"
+               BackgroundColor="white"
+               Padding="0">
+
+            <AbsoluteLayout>
+
+                <Image AbsoluteLayout.LayoutBounds="0,0,1,1"
+                       AbsoluteLayout.LayoutFlags="All"
+                       Source="{Binding ImagePath}" 
+                       Aspect="Fill"/>
+
+                <Frame AbsoluteLayout.LayoutBounds="0,0,1,1"
+                       AbsoluteLayout.LayoutFlags="All"
+                       Opacity="0.8"
+                       BackgroundColor="{Binding NumberFrameColor}"/>
+
+                <Label AbsoluteLayout.LayoutBounds="0,0,1,1"
+                       AbsoluteLayout.LayoutFlags="All"
+                       Text="{Binding NumberRound}"
+                       TextColor="{Binding NumberColor}"
+                       FontSize="40"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"/>
+              
+
+            </AbsoluteLayout>
+
     </Frame>
+
+
+
+    </Border>
+
+
+
+
+
+
 
 </ContentView>
