@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using GameComponents.Model;
+using InspectorGoeServer.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace InspectorGoeServer.Hubs
 {
@@ -10,21 +14,38 @@ namespace InspectorGoeServer.Hubs
     [Authorize]
     public class GameHub : Hub
     {
+
+        /// <summary>
+        /// Player Database
+        /// </summary>
+        private readonly PlayerContext _context;
+        /// <summary>
+        /// User Database
+        /// </summary>
+        private readonly UserManager<Player> _userManager;
+
+        public GameHub(PlayerContext playerContext, UserManager<Player> userManager) 
+        {
+            _context = playerContext;
+            _userManager = userManager;
+        }
+
         public override async Task OnConnectedAsync()
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, "SignalR Users");
+            if (_userManager.Users.Count() < 1)
+            {
+                await Groups.AddToGroupAsync(Context.ConnectionId, "MisterX");
+            }
+            else
+            {
+                await Groups.AddToGroupAsync(Context.ConnectionId, "Detectives");
+            }
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             await base.OnDisconnectedAsync(exception);
-        }
-
-        //TODO: remove
-        public async Task SendMessage(string user, string message)
-        {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
     }
 }

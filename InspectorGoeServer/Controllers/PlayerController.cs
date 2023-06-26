@@ -235,6 +235,15 @@ namespace InspectorGoeServer.Controllers
             await _hubContext.Clients.All.SendAsync("UpdateGameState", gameState);
         }
 
+
+        private async void sendGameComponents(GameState gameState, String method)
+        {
+            await _hubContext.Clients.Group("MisterX").SendAsync(method, gameState);
+            GameState gameStateDetectives = gameState;
+            gameStateDetectives.MisterX.Position = null;
+            await _hubContext.Clients.Group("Detectives").SendAsync(method, gameState);
+        }
+
         //TODO: remove
         [HttpGet("send")]
         [AllowAnonymous]
