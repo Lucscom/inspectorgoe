@@ -135,21 +135,5 @@ namespace GameComponents
             GameState.ActivePlayer = GameState.AllPlayers[GameState.Move++ % GameState.AllPlayers.Count];
         }
 
-        /// <summary>
-        /// Executes moves for a computer controlled ("AI-") player 
-        /// </summary>
-        /// <param name="player">Player that is AI-controlled</param>
-        /// <returns>True if AI-player was moved</returns>
-        public bool AiMove(Player player)
-        {
-            // todo: Übergabewerte: Player, ...?
-                // implement difference between MisterX and Detective
-
-            // get all possible moves
-            Dictionary<PointOfInterest, List<TicketTypeEnum>> moves = Validator.GetValidMoves(GameState, player);
-            //
-
-            return false;
-        }
     }
 }
