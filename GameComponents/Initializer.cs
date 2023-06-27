@@ -18,6 +18,8 @@ namespace GameComponents
         {
             //read POIs from JSON file Testmap in project folder 
             string jsonContent = new StreamReader(File.OpenRead("Testmap.json")).ReadToEnd();
+            //read POIs from JSON file Testmap in project folder 
+            //string jsonContent = new StreamReader(File.OpenRead("Map_InspGö_260623.json")).ReadToEnd();
             dynamic json = JsonConvert.DeserializeObject(jsonContent);  //read JSON to dynamic variable
 
             // generate POIs 
