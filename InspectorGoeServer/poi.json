@@ -1106,10 +1106,6 @@
       "type": 23
     },
     {
-      "source": "CinemaxX",
-      "sourceNo": 26
-    },
-    {
       "source": "Idunazentrum",
       "sourceNo": 27,
       "targetNo": 29,
@@ -1493,18 +1489,10 @@
       "type": 23
     },
     {
-      "source": "Bismarkstein",
-      "sourceNo": 55
-    },
-    {
       "source": "AlpenMAX",
       "sourceNo": 56,
       "targetNo": 58,
       "type": 3
-    },
-    {
-      "source": "FREIgeist",
-      "sourceNo": 57
     },
     {
       "source": "Bibliothek",
@@ -1518,18 +1506,10 @@
       "type": 2
     },
     {
-      "source": "Z-Campus",
-      "sourceNo": 59
-    },
-    {
       "source": "Mensa am Turm",
       "sourceNo": 60,
       "targetNo": 61,
       "type": 3
-    },
-    {
-      "source": "Kolosseum",
-      "sourceNo": 61
     },
     {
       "source": "Kaufpark",
@@ -1588,10 +1568,6 @@
       "type": 2
     },
     {
-      "source": "Friedhof",
-      "sourceNo": 68
-    },
-    {
       "source": "Leinewiesen",
       "sourceNo": 69,
       "targetNo": 83,
@@ -1628,10 +1604,6 @@
       "sourceNo": 71,
       "targetNo": 94,
       "type": 1
-    },
-    {
-      "source": "Hans im Glück",
-      "sourceNo": 72
     },
     {
       "source": "City Rewe",
@@ -1900,10 +1872,6 @@
       "sourceNo": 95,
       "targetNo": 97,
       "type": 23
-    },
-    {
-      "source": "St. Albanikirche",
-      "sourceNo": 96
     },
     {
       "source": "Cheltenham Park",
@@ -2200,10 +2168,6 @@
       "sourceNo": 127,
       "targetNo": 128,
       "type": 1
-    },
-    {
-      "source": "Schöneberger Straße",
-      "sourceNo": 128
     }
   ]
 }
