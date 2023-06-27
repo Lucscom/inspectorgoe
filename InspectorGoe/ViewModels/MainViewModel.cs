@@ -67,8 +67,13 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private Player misterX = new Player();
 
+
+
     [ObservableProperty]
-    public ObservableCollection<PointOfInterestView> poisLocation = new ObservableCollection<PointOfInterestView>();
+    public ObservableCollection<PointOfInterest> poiButtons = new ObservableCollection<PointOfInterest>();
+
+
+
 
     [ObservableProperty]
     private ObservableCollection<TicketsView> mrXticketHistory = new ObservableCollection<TicketsView>();
@@ -176,35 +181,28 @@ public partial class MainViewModel : ObservableObject
 
 
         // Buttons POIS
-        PoisLocation = new ObservableCollection<PointOfInterestView>();
+        PoiButtons = new ObservableCollection<PointOfInterest>();
         foreach (PointOfInterest poi in _com.GameState.PointsOfInterest)
         {
-            PoisLocation.Add(PoiConverter(poi, 200));
+            PoiButtons.Add(PoiConverter(poi));
         }
     }
 
 
     /// <summary>
-    /// Convert from POI in the model to POI in the view
+    /// Convert POI Location to Zoom Factor
     /// </summary>
     /// <param name="poi">Point of interes Object</param>
     /// <returns>PointOfInterestView</returns>
-    private PointOfInterestView PoiConverter(PointOfInterest poi, double size,  Color objectColor = null)
+    private PointOfInterest PoiConverter(PointOfInterest poi)
     {
-        if (poi != null)
-        {
-            double zoomFactor = widthMap / 8914;
+        double zoomFactor = widthMap / 8914;
 
-            PointOfInterestView temp = new PointOfInterestView();
-            temp.Location = new Rect(zoomFactor * poi.Location.X - (zoomFactor * size) / 2, zoomFactor * poi.Location.Y - (zoomFactor * size)/2, zoomFactor *  size , zoomFactor * size);
-            temp.Number = poi.Number;
-            temp.ObjectColor = objectColor ?? Colors.Transparent;
-            return temp;
-        }
-        else
-        {
-            return null;
-        }   
+        PointOfInterest temp = poi;
+
+        temp.Location = new Rect(zoomFactor * poi.Location.X - (zoomFactor * poi.Location.Width) / 2, zoomFactor * poi.Location.Y - (zoomFactor * poi.Location.Height) / 2, zoomFactor * poi.Location.Width, zoomFactor * poi.Location.Height);
+
+        return temp;
 
     }
 
