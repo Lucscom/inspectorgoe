@@ -100,7 +100,7 @@ public partial class MainViewModel : ObservableObject
 
     private void ComUpdateGameState(object sender, EventArgs e)
     {
-        // Dtectives
+        // Detectives
         Detectives.Clear();
         foreach (Player detective in _com.GameState.Detectives)
         {
@@ -215,11 +215,38 @@ public partial class MainViewModel : ObservableObject
     public void movePlayer(PointOfInterest poi, TicketTypeEnum ticket)
     {
         var move = new MovePlayerDto(poi, ticket);
-        var moveStatus =_com.MovePlayerAsync(move);
-        // todo: status code checken -->
-        // bei fail gamestate neu bekommen und wiederholen
+        try
+        {
+            var moveStatus = _com.MovePlayerAsync(move);
+        }
+        catch (Exception ex)
+        {
+            // bei fail gamestate neu bekommen und wiederholen
+        }
+
+
     }
 
+    /// <summary>
+    /// Get own player Object from the server
+    /// </summary>
+    /// <returns>Player player</returns>
+    public Player GetOwnPlayer()
+    {
+        try
+        {
+            var playerTask = _com.GetPlayerAsync();
+            return playerTask.Result;
+        }
+        catch (Exception ex)
+        {
+            return null;
+
+        }
+
+
+
+    }
 
     #region Pages
 
@@ -234,10 +261,25 @@ public partial class MainViewModel : ObservableObject
     {
         _com.initClient(Userseverip);
         var player = new Player(Username, Userpassword);
-        var statusCrate = await _com.CreatePlayerAsync(player);
-        var statusLogin = await _com.LoginAsync(player);
-        // todo: status code checken -->
-        // bei fail gamestate neu bekommen und wiederholen
+        try
+        {
+            var statusCrate = await _com.CreatePlayerAsync(player);
+        }
+        catch (Exception ex)
+        {
+            // TODO: hier einfügen, was passieren soll, wenn Username schon vergeben ist!
+        }
+        try
+        {
+            var statusLogin = await _com.LoginAsync(player);
+        }
+        catch (Exception ex)
+        {
+            // hier dürfte normalerweise kein Fehler auftreten xD
+        }
+
+
+
         var statusHub = _com.RegisterGameHubAsync();
 
 

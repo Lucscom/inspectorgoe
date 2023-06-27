@@ -68,6 +68,19 @@ namespace Client
         }
 
         /// <summary>
+        /// Get own player Object from the Server
+        /// </summary>
+        /// <returns>Player player</returns>
+        public async Task<Player> GetPlayerAsync()
+        {
+            HttpResponseMessage responseMessage = await _client.GetAsync("api/Player");
+            responseMessage.EnsureSuccessStatusCode();
+            String playerString = await responseMessage.Content.ReadAsStringAsync();
+            Player player = System.Text.Json.JsonSerializer.Deserialize<Player>(playerString);
+            return player;
+        }
+
+        /// <summary>
         /// Create(Http Post) a new Player (Register)
         /// </summary>
         /// <param name="player">Player Object</param>
