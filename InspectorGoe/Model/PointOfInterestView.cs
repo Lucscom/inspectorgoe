@@ -1,5 +1,7 @@
 ﻿
 
+using GameComponents.Model;
+
 namespace InspectorGoe.Model
 {
     /// <summary>
@@ -16,7 +18,7 @@ namespace InspectorGoe.Model
         /// <summary>
         /// Number of the POI
         /// </summary>
-        public int Number { get; set; }
+        public PointOfInterest PointOfInterest { get; set; }
 
         /// <summary>
         /// If an object need special color on the map (e.g. PlayerColor

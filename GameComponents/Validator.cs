@@ -133,6 +133,7 @@ namespace GameComponents
         /// <returns>Dictionary that contains all possible pois for one ticket type</returns>
         private static Dictionary<PointOfInterest, List<TicketTypeEnum>> AddValidMovesForTicket(Dictionary<PointOfInterest, List<TicketTypeEnum>> moves, TicketTypeEnum ticketType, List<PointOfInterest> pois, List<Player> detectives)
         {
+
             //Remove pois that are blocked by other detectives
             foreach (Player player in detectives)
             {

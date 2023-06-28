@@ -34,8 +34,8 @@
                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                                 AbsoluteLayout.LayoutFlags="All"
                                 WidthRequest="{Binding WidthMap}"
-                            HeightRequest="{Binding HeightMap}"
-                                BindableLayout.ItemsSource="{Binding PoisLocation}">
+                                HeightRequest="{Binding HeightMap}"
+                                BindableLayout.ItemsSource="{Binding PoiButtons}">
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -43,7 +43,7 @@
                             <Button AbsoluteLayout.LayoutBounds="{Binding Location}"
                                     AbsoluteLayout.LayoutFlags="None"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=Button_Clicked_PoiCommand}"
-                                    CommandParameter="{Binding Number}"
+                                    CommandParameter="{Binding PointOfInterest}"
                                     CornerRadius="100"
                                     BorderColor="Transparent">
 
@@ -63,7 +63,39 @@
                     </BindableLayout.ItemTemplate>
                 </AbsoluteLayout>
 
-                    
+                <!--Absolutlayout für POI Frames -->
+                <AbsoluteLayout x:Name="absolutFrames"
+                                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                WidthRequest="{Binding WidthMap}"
+                                HeightRequest="{Binding HeightMap}"
+                                BindableLayout.ItemsSource="{Binding PoiFrames}">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+
+                            <Frame   AbsoluteLayout.LayoutBounds="{Binding Location}"
+                                    AbsoluteLayout.LayoutFlags="None"
+                                    CornerRadius="100"
+                                    BorderColor="Transparent">
+
+                                <Frame.Background>
+                                    <RadialGradientBrush Center="0.5,0.5">
+                                        <GradientStop Color="Transparent"
+                                                      Offset="0.60" />
+                                        <GradientStop Color="white"
+                                                      Offset="0.62" />
+                                        <GradientStop Color="Transparent"
+                                                      Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Frame.Background>
+                            </Frame>
+
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </AbsoluteLayout>
+
+
                 <!--Absolutlayout für MisterX Position-->
                 <AbsoluteLayout x:Name="absolutMisterX"
                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -118,7 +150,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="200" />
+                <RowDefinition Height="210" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>

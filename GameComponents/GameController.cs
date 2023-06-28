@@ -137,7 +137,7 @@ namespace GameComponents
             int numPoi = 0;     //number of POIs in JSON-File
             foreach (var Nodes in json.Nodes)
             {
-                GameState.PointsOfInterest.Add(new PointOfInterest((int)Nodes.Number, (string)Nodes.Name, new Rect((double)Nodes.Location_x, (double)Nodes.Location_y, 200, 200)));
+                GameState.PointsOfInterest.Add(new PointOfInterest((int)Nodes.Number, (string)Nodes.Name, new Vector2((float)Nodes.Location_x, (float)Nodes.Location_y)));
                 ++numPoi;
             }
 

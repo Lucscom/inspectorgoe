@@ -7,9 +7,9 @@
 
     <Frame CornerRadius="10"
            WidthRequest="300"
-           HeightRequest="180"
+           HeightRequest="190"
            BackgroundColor="{StaticResource Gray600}"
-           Opacity="0.8"
+           Opacity="0.9"
            Padding="5"
            HasShadow="True">
 
@@ -79,7 +79,9 @@
                        BorderColor="Transparent"
                        Padding="0"
                        HasShadow="True"
-                       HorizontalOptions="End">
+                       HorizontalOptions="End"
+                       WidthRequest="80"
+                       HeightRequest="45">
 
                     <Image Source="ticket_bus.png" Aspect="Fill"/>
                 </Frame>
@@ -89,7 +91,9 @@
                        BorderColor="Transparent"
                        CornerRadius="5"
                        Padding="0"
-                       HorizontalOptions="End">
+                       HorizontalOptions="End"
+                       WidthRequest="80"
+                       HeightRequest="45">
 
                     <Image Source="ticket_bike.png" Aspect="Fill"/>
                 </Frame>
@@ -99,7 +103,9 @@
                        BackgroundColor="Transparent"
                        BorderColor="Transparent"
                        Padding="0"
-                       HorizontalOptions="End">
+                       HorizontalOptions="End"
+                       WidthRequest="80"
+                       HeightRequest="45">
 
                     <Image Source="ticket_scooter.png" Aspect="Fill"/>
                 </Frame>
