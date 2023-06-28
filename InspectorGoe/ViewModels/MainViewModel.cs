@@ -120,7 +120,39 @@ public partial class MainViewModel : ObservableObject
 
 
         // Ticket History from Mister
-        mrXticketHistory = new ObservableCollection<TicketsView>();
+        fillTicketHistoryList();
+
+
+        // Point of Interest Buttons if active player = this client
+        Player ownPlayer = GetOwnPlayer();
+        if(_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
+        {
+            Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
+            temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
+
+        }
+
+        // Point of Interest Label if actice player != this client
+        else
+        {
+            
+        }
+
+
+        //Buttons POIS
+        PoiButtons = new ObservableCollection<PointOfInterestView>();
+        foreach (PointOfInterest poi in _com.GameState.PointsOfInterest)
+        {
+            PoiButtons.Add(PoiConverter(poi, 200));
+        }
+    }
+
+    /// <summary>
+    /// Fill up the ticket history list from MisterX
+    /// </summary>
+    private void fillTicketHistoryList ()
+    {
+        MrXticketHistory = new ObservableCollection<TicketsView>();
         foreach (TicketTypeEnum ticket in _com.GameState.TicketHistoryMisterX)
         {
             TicketsView tempTicket = new();
@@ -128,39 +160,39 @@ public partial class MainViewModel : ObservableObject
             {
                 case TicketTypeEnum.Bus:
                     tempTicket.ImagePath = "ticket_bus.png";
-                    mrXticketHistory.Add(tempTicket);
+                    MrXticketHistory.Add(tempTicket);
                     break;
                 case TicketTypeEnum.Bike:
                     tempTicket.ImagePath = "ticket_bike.png";
-                    mrXticketHistory.Add(tempTicket);
+                    MrXticketHistory.Add(tempTicket);
                     break;
                 case TicketTypeEnum.Scooter:
                     tempTicket.ImagePath = "ticket_scooter.png";
-                    mrXticketHistory.Add(tempTicket);
+                    MrXticketHistory.Add(tempTicket);
                     break;
                 case TicketTypeEnum.Black:
                     tempTicket.ImagePath = "ticket_black.png";
-                    mrXticketHistory.Add(tempTicket);
+                    MrXticketHistory.Add(tempTicket);
                     break;
                 default:
                     tempTicket.ImagePath = "";
-                    mrXticketHistory.Add(tempTicket);
+                    MrXticketHistory.Add(tempTicket);
                     break;
             }
         }
 
         // Fill up with dummys
-        for(int i = _com.GameState.TicketHistoryMisterX.Count-1; i<23; i++)
+        for (int i = _com.GameState.TicketHistoryMisterX.Count - 1; i < 23; i++)
         {
             TicketsView tempTicket = new();
             tempTicket.ImagePath = "ticket_placeholder.png";
-            mrXticketHistory.Add(tempTicket);
+            MrXticketHistory.Add(tempTicket);
 
         }
 
         // setting up all other variables
         int number = 0;
-        foreach(TicketsView ticket in mrXticketHistory)
+        foreach (TicketsView ticket in MrXticketHistory)
         {
             ticket.NumberRound = number + 1;
             if (number < _com.GameState.TicketHistoryMisterX.Count)
@@ -183,20 +215,6 @@ public partial class MainViewModel : ObservableObject
             number++;
         }
         MrXticketHistory.Reverse();
-
-
-        // Abfrage ob Aktiver Spieler dieser Client ist. Zum Testen hier lediglich mit aktiven Spieler:
-        //Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
-        //temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
-
-
-
-        //Buttons POIS
-        PoiButtons = new ObservableCollection<PointOfInterestView>();
-        foreach (PointOfInterest poi in _com.GameState.PointsOfInterest)
-        {
-            PoiButtons.Add(PoiConverter(poi, 200));
-        }
     }
 
 
@@ -261,9 +279,6 @@ public partial class MainViewModel : ObservableObject
             return null;
 
         }
-
-
-
     }
 
     #region Pages

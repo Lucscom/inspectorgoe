@@ -130,7 +130,7 @@ namespace GameComponents
         private void InitPois()
         {
             //read POIs from JSON file Testmap in project folder 
-            string jsonContent = new StreamReader(File.OpenRead("Testmap.json")).ReadToEnd();
+            string jsonContent = new StreamReader(File.OpenRead("poimap.json")).ReadToEnd();
             dynamic json = JsonConvert.DeserializeObject(jsonContent);  //read JSON to dynamic variable
 
             // generate POIs 
