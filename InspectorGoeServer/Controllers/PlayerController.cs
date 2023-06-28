@@ -222,7 +222,7 @@ namespace InspectorGoeServer.Controllers
         /// <param name="gameState">The current gameState</param>
         private async void sendInitGameComponents(GameState gameState)
         {
-            await _hubContext.Clients.All.SendAsync("InitGameState", gameState);
+            await _hubContext.Clients.All.SendAsync("UpdateGameState", System.Text.Json.JsonSerializer.Serialize(gameState));
         }
 
         /// <summary>
@@ -242,17 +242,6 @@ namespace InspectorGoeServer.Controllers
             GameState gameStateDetectives = gameState;
             gameStateDetectives.MisterX.Position = null;
             await _hubContext.Clients.Group("Detectives").SendAsync(method, gameState);
-        }
-
-        //TODO: remove
-        [HttpGet("send")]
-        [AllowAnonymous]
-        [ActionName(nameof(SendGameState))]
-        public async Task<IActionResult> SendGameState()
-        {
-            GameState gameState = new GameState();
-            await _hubContext.Clients.All.SendAsync("ReceiveGameState", gameState);
-            return Ok();
         }
     }
 }

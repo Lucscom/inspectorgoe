@@ -14,12 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers()
-    .AddNewtonsoftJson(options =>
-    {
-        options.SerializerSettings.MaxDepth = 3;
-        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-    });
+builder.Services.AddControllers();
 builder.Services.AddSignalR(hubOptions =>
 {
     hubOptions.ClientTimeoutInterval = TimeSpan.FromMinutes(30);

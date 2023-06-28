@@ -24,22 +24,20 @@ namespace InspectorGoeServer.Hubs
         /// </summary>
         private readonly UserManager<Player> _userManager;
 
-        public GameHub(PlayerContext playerContext, UserManager<Player> userManager) 
+        public GameHub() 
         {
-            _context = playerContext;
-            _userManager = userManager;
         }
 
         public override async Task OnConnectedAsync()
         {
-            if (_userManager.Users.Count() < 1)
+            /*if (_userManager.Users.Count() < 1)
             {
                 await Groups.AddToGroupAsync(Context.ConnectionId, "MisterX");
             }
             else
             {
                 await Groups.AddToGroupAsync(Context.ConnectionId, "Detectives");
-            }
+            }*/
             await base.OnConnectedAsync();
         }
 
