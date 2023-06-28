@@ -73,7 +73,6 @@
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-
                             <Frame   AbsoluteLayout.LayoutBounds="{Binding Location}"
                                     AbsoluteLayout.LayoutFlags="None"
                                     CornerRadius="100"
@@ -96,22 +95,34 @@
                 </AbsoluteLayout>
 
 
-                <!--Absolutlayout für MisterX Position-->
-                <AbsoluteLayout x:Name="absolutMisterX"
+                <!--Absolutlayout für Player Position-->
+                <AbsoluteLayout x:Name="absolutPlayerLocation"
                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                                 AbsoluteLayout.LayoutFlags="All"
                                 WidthRequest="{Binding WidthMap}"
                                 HeightRequest="{Binding HeightMap}"
-                                BindableLayout.ItemsSource="{Binding MrXLastKnownPoi}">
+                                BindableLayout.ItemsSource="{Binding PlayerLocation}">
 
                     <BindableLayout.ItemTemplate >
                         <DataTemplate>
-                            <Border AbsoluteLayout.LayoutBounds="{Binding Location}"
-                                    AbsoluteLayout.LayoutFlags="All"
-                                    Stroke="{Binding ObjectColor}"
-                                    StrokeThickness="5"
-                                    StrokeShape="RoundRectangle 50,50,50,50"/>
+                            <Frame   AbsoluteLayout.LayoutBounds="{Binding Location}"
+                                    AbsoluteLayout.LayoutFlags="None"
+                                    CornerRadius="100"
+                                    BorderColor="Transparent">
 
+                                <Frame.Background>
+                                    <RadialGradientBrush Center="0.5,0.5">
+                                        <GradientStop Color="Transparent"
+                                                      Offset="0.65" />
+                                        <GradientStop Color="{Binding ObjectColor}"
+                                                      Offset="0.705" />
+                                        <GradientStop Color="{Binding ObjectColor}"
+                                                      Offset="0.8" />
+                                        <GradientStop Color="Transparent"
+                                                      Offset="1" />
+                                    </RadialGradientBrush>
+                                </Frame.Background>
+                            </Frame>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </AbsoluteLayout>

@@ -122,7 +122,7 @@ namespace GameComponents
                 {
                     pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
                 }
-                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bike, pois, gameState.Detectives);
+                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bus, pois, gameState.Detectives);
             }
             //TODO: doppeltickets
             if (player == gameState.MisterX && player.BlackTicket > 0)
@@ -169,7 +169,7 @@ namespace GameComponents
                 {
                     List<TicketTypeEnum> tickets = new List<TicketTypeEnum>();
                     tickets.AddRange(moves[poi]);
-                    tickets.Add(TicketTypeEnum.Bike);
+                    tickets.Add(ticketType);
                     moves[poi] = tickets;
                 }
                 else

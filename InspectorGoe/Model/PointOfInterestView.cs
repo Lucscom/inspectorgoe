@@ -11,6 +11,11 @@ namespace InspectorGoe.Model
 
     {
         /// <summary>
+        /// Number of the POI
+        /// </summary>
+        public int Number { get; set; }
+
+        /// <summary>
         /// Position on the map
         /// </summary>
         public Rect Location { get; set; }

@@ -25,9 +25,13 @@ namespace GameComponents.Model
         /// 
         public int Number { get; private set; }
         /// <summary>
-        /// Coordinates on game board
+        /// X Coordinate on game board
         /// </summary>
-        public Vector2 Location { get;  set; }
+        public int LocationX { get; private set; }
+        /// <summary>
+        /// Y Coordinate on game board
+        /// </summary>
+        public int LocationY { get; private set; }
         /// <summary>
         /// Real name of POI
         /// </summary>
@@ -51,11 +55,12 @@ namespace GameComponents.Model
         /// <param name="number">Unique identifier</param>
         /// <param name="name">Real name</param>
         /// <param name="location">Coordinates on game board</param>
-        public PointOfInterest(int number, string name, Vector2 location)
+        public PointOfInterest(int number, string name, int locationX, int locationY)
         {
             Number = number;
             Name = name;
-            Location = location;
+            LocationX = locationX;
+            LocationY = locationY;
         }
     }
 }
