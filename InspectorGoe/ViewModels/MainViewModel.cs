@@ -196,7 +196,7 @@ public partial class MainViewModel : ObservableObject
             double zoomFactor = widthMap / 8914;
 
             PointOfInterestView temp = new PointOfInterestView();
-            temp.Location = new Rect(zoomFactor * poi.Location.X - (zoomFactor * size) / 2, zoomFactor * poi.Location.Y - (zoomFactor * size)/2, zoomFactor *  size , zoomFactor * size);
+            temp.Location = new Rect(zoomFactor * poi.LocationX - (zoomFactor * size) / 2, zoomFactor * poi.LocationY - (zoomFactor * size)/2, zoomFactor *  size , zoomFactor * size);
             temp.Number = poi.Number;
             temp.ObjectColor = objectColor ?? Colors.Transparent;
             return temp;
