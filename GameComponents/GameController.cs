@@ -201,16 +201,16 @@ namespace GameComponents
             switch (ticketType)
             {
                 case TicketTypeEnum.Bus:
-                    pointOfInterest1.ConnectionBus.Add(pointOfInterest2);
-                    pointOfInterest2.ConnectionBus.Add(pointOfInterest1);
+                    pointOfInterest1.ConnectionBus.Add(pointOfInterest2.Number);
+                    pointOfInterest2.ConnectionBus.Add(pointOfInterest1.Number);
                     break;
                 case TicketTypeEnum.Bike:
-                    pointOfInterest1.ConnectionBike.Add(pointOfInterest2);
-                    pointOfInterest2.ConnectionBike.Add(pointOfInterest1);
+                    pointOfInterest1.ConnectionBike.Add(pointOfInterest2.Number);
+                    pointOfInterest2.ConnectionBike.Add(pointOfInterest1.Number);
                     break;
                 case TicketTypeEnum.Scooter:
-                    pointOfInterest1.ConnectionScooter.Add(pointOfInterest2);
-                    pointOfInterest2.ConnectionScooter.Add(pointOfInterest1);
+                    pointOfInterest1.ConnectionScooter.Add(pointOfInterest2.Number);
+                    pointOfInterest2.ConnectionScooter.Add(pointOfInterest1.Number);
                     break;
             }
         }

@@ -9,6 +9,7 @@ namespace GameComponents.Model
     /// Contains information about player
     /// </summary>
     [DataContract]
+    [JsonObject(IsReference = true)]
     public class Player : IdentityUser
     {
         /// <summary>

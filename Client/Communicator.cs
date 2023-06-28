@@ -9,6 +9,7 @@ using GameComponents;
 using System.Net.WebSockets;
 using System.Text;
 using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -150,6 +151,8 @@ namespace Client
                 .WithUrl(_url+ "/gameHub", options =>
                 {
                     options.AccessTokenProvider = () => Task.FromResult(_token);
+                    options.ApplicationMaxBufferSize = 10240;
+                    options.TransportMaxBufferSize = 10240;
                 })
                 .WithAutomaticReconnect()
                 .AddNewtonsoftJsonProtocol(options =>
@@ -167,9 +170,9 @@ namespace Client
                 gameStateInitEvent.Set();
             });
 
-            connection.On<GameState>("UpdateGameState", (gameState) =>
+            connection.On<string>("UpdateGameState", (gameState) =>
             {
-                GameState = gameState;
+                GameState = JsonConvert.DeserializeObject<GameState>(gameState);
                 UpdateGameStateEvent(this, EventArgs.Empty);
                 gameStateInitEvent.Set();
             });

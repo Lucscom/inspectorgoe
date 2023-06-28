@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
@@ -14,13 +16,13 @@ namespace GameComponents.Model
     /// Contains information to a point of interest and links to other points of interest
     /// </summary>
     [JsonObject(IsReference = true)]
+    [NotMapped]
     public class PointOfInterest
     {
         /// <summary>
         /// Acts as the unique identifier for the point of interest
         /// </summary>
         /// 
-        [Key]
         public int Number { get; private set; }
         /// <summary>
         /// Coordinates on game board
@@ -33,15 +35,15 @@ namespace GameComponents.Model
         /// <summary>
         /// List of connected points of interest reachable by bus
         /// </summary>
-        public List<PointOfInterest> ConnectionBus { get; private set; } = new List<PointOfInterest>();
+        public List<int> ConnectionBus { get; set; } = new List<int>();
         /// <summary>
         /// List of connected points of interest reachable by bike
         /// </summary>
-        public List<PointOfInterest> ConnectionBike { get; private set; } = new List<PointOfInterest>();
+        public List<int> ConnectionBike { get; set; } = new List<int>();
         /// <summary>
         /// List of connected points of interest reachable by scooter
         /// </summary>
-        public List<PointOfInterest> ConnectionScooter { get; private set; } = new List<PointOfInterest>();
+        public List<int> ConnectionScooter { get; set; } = new List<int>();
 
         /// <summary>
         /// Constructor to init point of interest

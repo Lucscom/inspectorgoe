@@ -263,6 +263,7 @@ public partial class MainViewModel : ObservableObject
     {
         _com.initClient(Userseverip);
         var player = new Player(Username, Userpassword);
+        player.Position = null;
         try
         {
             var statusCrate = await _com.CreatePlayerAsync(player);
@@ -379,7 +380,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     async Task StartGame()
     {
-        var status = _com.StartGameAsync();
+        var status = await _com.StartGameAsync();
 
         _com.gameStateInitEvent.WaitOne();
         await App.Current.MainPage.Navigation.PushAsync(new MainPage());

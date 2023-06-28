@@ -50,7 +50,7 @@ namespace GameComponents
                 case TicketTypeEnum.Bus:
                     if (player.BusTicket > 0) //check for valid ticket
                     {
-                        if (!player.Position.ConnectionBus.Contains(point))
+                        if (!player.Position.ConnectionBus.Contains(point.Number))
                             //throw new Exception("Connection Bus doesn't exist!");
                             return false;
                     }
@@ -61,7 +61,7 @@ namespace GameComponents
                 case TicketTypeEnum.Bike:
                     if (player.BikeTicket > 0)
                     {
-                        if (!player.Position.ConnectionBike.Contains(point))
+                        if (!player.Position.ConnectionBike.Contains(point.Number))
                             //throw new Exception("Connection Bike doesn't exist!");
                             return false;
                     }
@@ -72,7 +72,7 @@ namespace GameComponents
                 case TicketTypeEnum.Scooter:
                     if (player.ScooterTicket > 0)
                     {
-                        if (!player.Position.ConnectionScooter.Contains(point))
+                        if (!player.Position.ConnectionScooter.Contains(point.Number))
                             //throw new Exception("Connection Scooter doesn't exist!");
                             return false;
                     }
@@ -99,23 +99,47 @@ namespace GameComponents
 
             if(player.BikeTicket > 0)
             {
-                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBike, gameState.Detectives);
+                List<PointOfInterest> pois = new List<PointOfInterest>();
+                foreach (int poiNumber in player.Position.ConnectionBike)
+                {
+                    pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
+                }
+                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bike, pois, gameState.Detectives);
             }
             if (player.ScooterTicket > 0)
             {
-                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Scooter, player.Position.ConnectionScooter, gameState.Detectives);
+                List<PointOfInterest> pois = new List<PointOfInterest>();
+                foreach (int poiNumber in player.Position.ConnectionScooter)
+                {
+                    pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
+                }
+                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Scooter, pois, gameState.Detectives);
             }
             if (player.BusTicket > 0)
             {
-                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bike, player.Position.ConnectionBus, gameState.Detectives);
+                List<PointOfInterest> pois = new List<PointOfInterest>();
+                foreach (int poiNumber in player.Position.ConnectionBus)
+                {
+                    pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
+                }
+                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bike, pois, gameState.Detectives);
             }
             //TODO: doppeltickets
             if (player == gameState.MisterX && player.BlackTicket > 0)
             {
                 List<PointOfInterest> pois = new List<PointOfInterest>();
-                pois.Concat(player.Position.ConnectionBus);
-                pois.Concat(player.Position.ConnectionScooter);
-                pois.Concat(player.Position.ConnectionBike);
+                foreach(int poiNumber in player.Position.ConnectionBike)
+                {
+                    pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
+                }
+                foreach (int poiNumber in player.Position.ConnectionScooter)
+                {
+                    pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
+                }
+                foreach (int poiNumber in player.Position.ConnectionBus)
+                {
+                    pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
+                }
 
                 moves = AddValidMovesForTicket(moves, TicketTypeEnum.Black, pois, gameState.Detectives);
             }
