@@ -97,6 +97,7 @@ public partial class MainViewModel : ObservableObject
         _com.UpdateGameStateEvent += ComUpdateGameState;
     }
 
+    #region GameLogic
 
     private void ComUpdateGameState(object sender, EventArgs e)
     {
@@ -287,6 +288,8 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    #endregion
+
     #region Pages
 
     #region LogIn
@@ -364,6 +367,15 @@ public partial class MainViewModel : ObservableObject
     private void JoinGame()
     {
         Shell.Current.ShowPopup(new AvatarPage());
+    }
+
+    /// <summary>
+    /// Navigation from MenuPage to MainPage
+    /// </summary>
+    [RelayCommand]
+    private void Tutorial()
+    {
+        Shell.Current.ShowPopup(new TutorialPage());
     }
 
     /// <summary>
