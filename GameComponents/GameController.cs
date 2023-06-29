@@ -114,7 +114,7 @@ namespace GameComponents
                     ticketType, 
                     GameState.Detectives))
             {
-                player.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
+                GameState.ActivePlayer.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
                 Console.WriteLine("Player moved");
                 NextRound();
                 return true;
