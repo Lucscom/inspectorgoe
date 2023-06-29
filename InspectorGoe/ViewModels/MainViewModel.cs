@@ -254,7 +254,7 @@ public partial class MainViewModel : ObservableObject
     /// </summary>
     /// <param name="poi">Point of interes Object</param>
     /// <param name="ticket">ticket Type</param>
-    public void movePlayer(PointOfInterest poi, TicketTypeEnum ticket)
+    public void movePlayer(int poi, TicketTypeEnum ticket)
     {
         var move = new MovePlayerDto(poi, ticket);
         try
@@ -474,7 +474,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Button_Clicked_Ticket(TicketSelection ticket)
     {
-        movePlayer(ticket.PointOfInterest, ticket.TicketType);
+        movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
 
         ticketSelectionPage.Close();
     }

@@ -94,14 +94,14 @@ namespace GameComponents
         /// <param name="poi">Point Of Interes</param>
         /// <param name="ticketType">Ticket that will be used</param>
         /// <returns>True if player was moved</returns>
-        public bool MovePlayer(Player player, PointOfInterest poi, TicketTypeEnum ticketType)
+        public bool MovePlayer(Player player, int poi, TicketTypeEnum ticketType)
         { 
             //exchange player with player from GameState.
             //This is necessary because the position attribute of the incoming player is null. (No valid position)
             //The GameState poi is needed to validate the move because the validator depends on it.
             //todo: force poi numbers to be unique
             var gamePlayers = GameState.AllPlayers.Where(p => p.UserName == player.UserName);
-            var gamePois = GameState.PointsOfInterest.Where(p => p.Number == poi.Number);
+            var gamePois = GameState.PointsOfInterest.Where(p => p.Number == poi);
             //check if player and poi are found in the game
             if (gamePlayers == null || gamePois == null || !(gamePlayers.Any() && gamePois.Any()))
             {
@@ -114,7 +114,7 @@ namespace GameComponents
                     ticketType, 
                     GameState.Detectives))
             {
-                player.Position = poi;
+                player.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
                 Console.WriteLine("Player moved");
                 NextRound();
                 return true;
