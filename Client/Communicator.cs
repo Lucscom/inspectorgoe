@@ -113,6 +113,28 @@ namespace Client
         }
 
         /// <summary>
+        /// Pushes the serverside gamestate to all clients
+        /// </summary>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> CreateGameAsync()
+        {
+            HttpResponseMessage response = await _client.PutAsync(
+                "api/Player/creategame", null);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+        /// <summary>
+        /// Joins the game and pushes the serverside gamestate to all clients
+        /// </summary>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> JoinGameAsync()
+        {
+            HttpResponseMessage response = await _client.PutAsync(
+                "api/Player/joingame", null);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+        /// <summary>
         /// Login to an existing Player to get the authorization Token
         /// (Http Post)
         /// </summary>

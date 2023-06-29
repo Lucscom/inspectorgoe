@@ -19,6 +19,57 @@ namespace GameComponents
         public GameController(GameState gameState) {  GameState = gameState; }
 
         /// <summary>
+        /// Sets game creator
+        /// </summary>
+        /// <returns>True if game was created</returns>
+        public bool CreateGame(Player creator)
+        {
+            Console.WriteLine("Trying to create game");
+            if (GameState.GameCreator != null)
+            {
+                Console.WriteLine("Game already created");
+                return false;
+            }
+            else if (GameState.GameStarted)
+            {
+                Console.WriteLine("Game already started");
+                return false;
+            }
+
+            GameState.GameCreator = creator;
+            Console.WriteLine($"Created Game by request from: {creator.UserName}");
+            return true;
+        }
+
+        /// <summary>
+        /// Join the game as a player if a game was created.
+        /// </summary>
+        /// <returns>True if game was joined</returns>
+        public bool JoinGame(Player player)
+        {
+            Console.WriteLine($"Trying to join game as player: {player.UserName}");
+            if (GameState.GameCreator == null)
+            {
+                Console.WriteLine("Game not yet created");
+                Console.WriteLine("Nothing to join");
+                return false;
+            }
+            if (GameState.GameStarted)
+            {
+                Console.WriteLine("Game already stated");
+                Console.WriteLine("Cannot be joined");
+                return false;
+            }
+            if (AddPlayer(player))
+            {
+                Console.WriteLine($"Player {player.UserName} joined the game");
+                return true;
+            }
+
+            Console.WriteLine($"Player {player.UserName} could not join the game");
+            return false;
+        }
+        /// <summary>
         /// Initializes the game with the given players. Each player gets a random position on the map.
         /// Checks if number of players is valid.
         /// </summary>
@@ -26,6 +77,12 @@ namespace GameComponents
         public bool StartGame()
         {
             Console.WriteLine("Game starting");
+            if (GameState.GameCreator == null)
+            {
+                Console.WriteLine("Game creator missing");
+                Console.WriteLine("Game not started");
+                return false;
+            }
             if (GameState.MisterX == null)
             {
                 Console.WriteLine("MisterX still missing");
@@ -122,7 +179,7 @@ namespace GameComponents
             {
                 GameState.ActivePlayer.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
                 Console.WriteLine("Player moved");
-                NextRound();
+                NextMove();
                 return true;
             }
 
@@ -164,7 +221,7 @@ namespace GameComponents
         /// <summary>
         /// Sets the active player to the next player. Also increases the move counter.
         /// </summary>
-        private void NextRound()
+        private void NextMove()
         {
             GameState.ActivePlayer = GameState.AllPlayers[GameState.Move++ % GameState.AllPlayers.Count];
             if (GameState.ActivePlayer.Npc)

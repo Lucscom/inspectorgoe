@@ -113,6 +113,11 @@ public partial class MainViewModel : ObservableObject
 
     private async Task ComUpdateGameState(object sender, EventArgs e)
     {
+        //todo: handle simultaneous invocations
+        //MAKE THIS THREAD SAFE!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         // Set  Player Cards
         Detectives = new ObservableCollection<Player>();
         foreach (Player detective in _com.GameState.Detectives)
@@ -150,7 +155,7 @@ public partial class MainViewModel : ObservableObject
         }
 
         // Abfrage ob dieser Client misterX ist wenn ja dann wird die Position angezeigt
-        PlayerLocation.Add(PoiConverter(_com.GameState.MisterX.Position, 210, Colors.Purple));
+        PlayerLocation.Add(PoiConverter(_com.GameState.MisterX?.Position, 210, Colors.Purple));
 
         // Wenn nicht dann wird die letzte bekannte Position angezeigt
         //PlayerLocation.Add(PoiConverter(_com.GameState.MisterXLastKnownPOI, 170, Colors.Purple));
@@ -408,12 +413,22 @@ public partial class MainViewModel : ObservableObject
     /// Navigation from GameStartPage to LobbyPage
     /// </summary>
     [RelayCommand(CanExecute = nameof(AvatarIsSelected))]
-    private void Start()
+    private async Task Start() //todo: rename to create game
     {
+        try
+        {
+            await _com.CreateGameAsync();
+            await _com.JoinGameAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
 
         //senden des ausgewälten Avatars an den Server
-
-        Shell.Current.ShowPopup(new LobbyPage());
+        
+        await Shell.Current.ShowPopupAsync(new LobbyPage());
     }
 
     /// <summary>

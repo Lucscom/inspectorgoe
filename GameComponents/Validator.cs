@@ -97,6 +97,10 @@ namespace GameComponents
         {
             Dictionary<PointOfInterest, List<TicketTypeEnum>> moves = new Dictionary<PointOfInterest, List<TicketTypeEnum>> ();
 
+            if (player == null)
+            {
+                return moves;
+            }
             if(player.BikeTicket > 0)
             {
                 List<PointOfInterest> pois = new List<PointOfInterest>();

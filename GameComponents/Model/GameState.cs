@@ -29,6 +29,10 @@ namespace GameComponents.Model
         /// </summary>
         public Player ActivePlayer { get; set; }
         /// <summary>
+        /// Player that created the game
+        /// </summary>
+        public Player GameCreator { get; set; }
+        /// <summary>
         /// Move counter
         /// </summary>
         public int Move { get; set; } = 0;

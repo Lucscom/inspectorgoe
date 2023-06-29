@@ -94,10 +94,8 @@ namespace InspectorGoeServer.Controllers
 
             var newPlayer = await _context.Players.FindAsync(player.Id);
 
-            if (_gameController.AddPlayer(newPlayer))
-            {
-                return Created("", "");
-            }
+            if (newPlayer != null)
+                return Created("", newPlayer);
 
             return StatusCode(500); //500 - Internal Server Error
         }
@@ -146,12 +144,56 @@ namespace InspectorGoeServer.Controllers
         /// Starts the game
         /// </summary>
         /// <returns>Ok</returns>
+        [HttpPut("creategame")]
+        [Authorize]
+        [ActionName(nameof(CreateGame))]
+        public async Task<IActionResult> CreateGame()
+        {
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
+
+            if (!_gameController.CreateGame(currentUser))
+            {
+                return BadRequest();
+            }
+            await updateGameComponents(_gameController.GameState);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Starts the game
+        /// </summary>
+        /// <returns>Ok</returns>
         [HttpPut("startgame")]
         [Authorize]
         [ActionName(nameof(StartGame))]
         public async Task<IActionResult> StartGame()
         {
             if (!_gameController.StartGame())
+            {
+                return BadRequest();
+            }
+            await updateGameComponents(_gameController.GameState);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Join the game
+        /// </summary>
+        /// <returns>Ok</returns>
+        [HttpPut("joingame")]
+        [Authorize]
+        [ActionName(nameof(JoinGame))]
+        public async Task<IActionResult> JoinGame()
+        {
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
+
+            if (!_gameController.JoinGame(currentUser))
             {
                 return BadRequest();
             }
