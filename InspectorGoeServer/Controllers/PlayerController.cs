@@ -95,9 +95,6 @@ namespace InspectorGoeServer.Controllers
 
             if (_gameController.AddPlayer(newPlayer))
             {
-                //TODO: remove
-                newPlayer.UserName = "blabla";
-                _gameController.AddPlayer(newPlayer);
                 return Created("", "");
             }
 

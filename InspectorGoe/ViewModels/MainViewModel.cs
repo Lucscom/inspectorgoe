@@ -120,7 +120,7 @@ public partial class MainViewModel : ObservableObject
 
 
         // Point of Interest Buttons
-        fillPoiButtons();
+        fillPoiObjects();
     }
 
 
@@ -147,30 +147,28 @@ public partial class MainViewModel : ObservableObject
     /// <summary>
     /// Fill up the Point of Interest Buttons List
     /// </summary>
-    private async Task fillPoiButtons()
+    private async Task fillPoiObjects()
     {
         // Point of Interest Buttons if active player = this client
         Player ownPlayer = await GetOwnPlayer();
-        //if(_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
-        //{
+
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
         PoiButtons = new ObservableCollection<PointOfInterestView>();
+        PoiFrames = new ObservableCollection<PointOfInterestView>();
+
         foreach (PointOfInterest poi in temp.Keys)
         {
             PointOfInterestView tempPOIV = PoiConverter(poi, 200);
             tempPOIV.PointOfInterest = poi;
-            PoiButtons.Add(tempPOIV);
+
+            if (_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
+                PoiButtons.Add(tempPOIV);
+            else
+                PoiFrames.Add(tempPOIV);    
         }
 
-        //}
-
-        // Point of Interest Label if actice player != this client
-        //else
-        //{
-
-        //}
 
     }
 
@@ -441,7 +439,7 @@ public partial class MainViewModel : ObservableObject
             HeightMap = WidthMap / 1.7828;
         }
 
-        fillPoiButtons();
+        fillPoiObjects();
         fillPlayerLocation();
 
     }
