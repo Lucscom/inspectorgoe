@@ -101,7 +101,7 @@ public partial class MainViewModel : ObservableObject
     private void ComUpdateGameState(object sender, EventArgs e)
     {
         // Set  Player Cards
-        Detectives.Clear();
+        Detectives = new ObservableCollection<Player>();
         foreach (Player detective in _com.GameState.Detectives)
         {
             Detectives.Add(detective);
@@ -130,7 +130,7 @@ public partial class MainViewModel : ObservableObject
     private void fillPlayerLocation()
     {
         // Detectives
-        PlayerLocation.Clear();
+        PlayerLocation = new ObservableCollection<PointOfInterestView>();
         foreach (Player detective in _com.GameState.Detectives)
         {
             PlayerLocation.Add(PoiConverter(detective.Position, 210, Colors.Red));
@@ -156,7 +156,7 @@ public partial class MainViewModel : ObservableObject
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
-        PoiButtons.Clear();
+        PoiButtons = new ObservableCollection<PointOfInterestView>();
         foreach (PointOfInterest poi in temp.Keys)
         {
             PointOfInterestView tempPOIV = PoiConverter(poi, 200);
@@ -180,7 +180,7 @@ public partial class MainViewModel : ObservableObject
     /// </summary>
     private void fillTicketHistoryList ()
     {
-        MrXticketHistory.Clear();
+        MrXticketHistory = new ObservableCollection<TicketsView>();
         foreach (TicketTypeEnum ticket in _com.GameState.TicketHistoryMisterX)
         {
             TicketsView tempTicket = new();
