@@ -35,7 +35,7 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
-    string userseverip = string.Empty;
+    string userseverip = "https://localhost:5000";
 
     //Variablen für Register
     [ObservableProperty]
