@@ -27,15 +27,27 @@ public partial class MainViewModel : ObservableObject
     //Variablen für Login
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
+    #if DEBUG
+    string username = DateTime.Now.ToString("HHmmss");
+    #else
     string username = string.Empty;
+    #endif
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
+    #if DEBUG
+    string userpassword = "test";
+    #else
     string userpassword = string.Empty;
+    #endif
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
+    #if DEBUG
     string userseverip = "https://localhost:5000";
+    #else
+    string userseverip = string.Empty;
+    #endif
 
     //Variablen für Register
     [ObservableProperty]
@@ -87,7 +99,7 @@ public partial class MainViewModel : ObservableObject
     private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
 
 
-    #endregion
+#endregion
 
 
     private MainViewModel()
@@ -304,22 +316,22 @@ public partial class MainViewModel : ObservableObject
         player.Position = null;
         try
         {
-            var statusCrate = await _com.CreatePlayerAsync(player);
+            await _com.CreatePlayerAsync(player);
         }
         catch (Exception ex)
         {
-            // TODO: hier einfügen, was passieren soll, wenn Username schon vergeben ist!
+            await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
+            return;
         }
+
         try
         {
-            var statusLogin = await _com.LoginAsync(player);
+            await _com.LoginAsync(player);
         }
         catch (Exception ex)
         {
-            // hier dürfte normalerweise kein Fehler auftreten xD
+            await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
         }
-
-
 
         var statusHub = _com.RegisterGameHubAsync();
 
@@ -430,7 +442,15 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     async Task StartGame()
     {
-        var status = await _com.StartGameAsync();
+        try
+        {
+            var status = await _com.StartGameAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
 
         _com.gameStateInitEvent.WaitOne();
         await App.Current.MainPage.Navigation.PushAsync(new MainPage());

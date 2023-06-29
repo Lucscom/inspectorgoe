@@ -76,12 +76,13 @@ namespace InspectorGoeServer.Controllers
             var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First();
             return Ok(currentUser);
         }
+
         /// <summary>
         /// Registers a new player and adds it to the game
         /// </summary>
         /// <param name="player">Player</param>
         /// <returns>Ok if successfull</returns>
-        [HttpPost]
+        [HttpPost("register")]
         [AllowAnonymous]
         [ActionName(nameof(RegisterPlayer))]
         public async Task<ActionResult<Player>> RegisterPlayer([FromBody] Player player)
@@ -100,6 +101,7 @@ namespace InspectorGoeServer.Controllers
 
             return StatusCode(500); //500 - Internal Server Error
         }
+
         /// <summary>
         /// Returns a token for the given user credentials
         /// </summary>
@@ -122,23 +124,24 @@ namespace InspectorGoeServer.Controllers
         /// </summary>
         /// <param name="movement">The movement parameters</param>
         /// <returns>Ok, Http response with no content</returns>
-        [HttpPut]
+        [HttpPut("move")]
         [Authorize]
-        [ActionName(nameof(PutPlayer))]
-        public async Task<IActionResult> PutPlayer([FromBody] MovePlayerDto movement)
+        [ActionName(nameof(MovePlayer))]
+        public async Task<IActionResult> MovePlayer([FromBody] MovePlayerDto movement)
         {
             var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
             if (currentUser == null)
                 return StatusCode(500);
 
-            if(_gameController.MovePlayer(currentUser, movement.PointOfInterest.Number, movement.TicketType))
+            if(_gameController.MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
             {
-                updateGameComponents(_gameController.GameState);
+                await updateGameComponents(_gameController.GameState);
                 return Ok();
             }
 
             return BadRequest();
         }
+
         /// <summary>
         /// Starts the game
         /// </summary>
@@ -152,7 +155,7 @@ namespace InspectorGoeServer.Controllers
             {
                 return BadRequest();
             }
-            updateGameComponents(_gameController.GameState);
+            await updateGameComponents(_gameController.GameState);
 
             return Ok();
         }
@@ -161,10 +164,11 @@ namespace InspectorGoeServer.Controllers
         /// Send gameState to all clients
         /// </summary>
         /// <param name="gameState">The current gameState</param>
-        private async void updateGameComponents(GameState gameState)
+        private async Task updateGameComponents(GameState gameState)
         {
             await _hubContext.Clients.All.SendAsync("UpdateGameState", System.Text.Json.JsonSerializer.Serialize(gameState));
         }
+
 
         #region TokenGeneration
         /// <summary>

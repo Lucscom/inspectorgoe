@@ -89,7 +89,7 @@ namespace Client
         public async Task<HttpStatusCode> CreatePlayerAsync(Player player)
         {
             HttpResponseMessage response = await _client.PostAsJsonAsync(
-                "api/Player", player);
+                "api/Player/register", player);
             response.EnsureSuccessStatusCode();
             return response.StatusCode;
         }
@@ -134,7 +134,7 @@ namespace Client
         public async Task<HttpStatusCode> MovePlayerAsync(MovePlayerDto move)
         {
             HttpResponseMessage response = await _client.PutAsJsonAsync(
-                "api/Player", move);
+                "api/Player/move", move);
             response.EnsureSuccessStatusCode();
             return response.StatusCode;
         }
