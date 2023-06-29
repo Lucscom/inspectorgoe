@@ -23,6 +23,7 @@ public partial class MainViewModel : ObservableObject
     #region Variables
 
     private Communicator _com;
+    private SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
     //Variablen für Login
     [ObservableProperty]
@@ -85,6 +86,9 @@ public partial class MainViewModel : ObservableObject
     private Player misterX = new Player();
 
     [ObservableProperty]
+    private ObservableCollection<Player> allPlayers = new ObservableCollection<Player>();
+
+    [ObservableProperty]
     private ObservableCollection<TicketsView> mrXticketHistory = new ObservableCollection<TicketsView>();
 
 
@@ -116,32 +120,39 @@ public partial class MainViewModel : ObservableObject
 
     private async Task ComUpdateGameState(object sender, EventArgs e)
     {
-        //todo: handle simultaneous invocations
-        //MAKE THIS THREAD SAFE!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-        // Set  Player Cards
-        Detectives = new ObservableCollection<Player>();
-        foreach (Player detective in _com.GameState.Detectives)
+        _semaphoreSlim.Wait();
+        try
         {
-            Detectives.Add(detective);
+            // Set  Player Cards
+            Detectives = new ObservableCollection<Player>();
+            AllPlayers = new ObservableCollection<Player>();
+            foreach (Player detective in _com.GameState.Detectives)
+            {
+                Detectives.Add(detective);
+                AllPlayers.Add(detective);
+            }
+
+            // MisterX
+            MisterX = _com.GameState.MisterX;
+            if (MisterX != null)
+                AllPlayers.Add(MisterX);
+
+
+            // Set Player Position
+            fillPlayerLocation();
+
+
+            // Ticket History from Mister
+            fillTicketHistoryList();
+
+
+            // Point of Interest Buttons
+            await fillPoiObjects();
         }
-
-        // MisterX
-        MisterX = _com.GameState.MisterX;
-
-
-        // Set Player Position
-        fillPlayerLocation();
-
-
-        // Ticket History from Mister
-        fillTicketHistoryList();
-
-
-        // Point of Interest Buttons
-        await fillPoiObjects();
+        finally
+        {
+            _semaphoreSlim.Release();
+        }
     }
 
 
