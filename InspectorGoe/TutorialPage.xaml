@@ -8,14 +8,14 @@
     <Frame BackgroundColor="LightBlue" CornerRadius="10">
 
         <StackLayout Padding="10">
-            <Label Text="Sign Up" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
+            <Label Text="Tutorial" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
             <WebView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <WebView.Source >
                     <HtmlWebViewSource>
                         <HtmlWebViewSource.Html>
                             <![CDATA[
                                     <HTML>
-                                    <BODY>
+                                    <BODY style="background-color:lightblue; color:white;">
                                     <h1>Kernidee</h1>
                                     <p>Mister X will seine Verfolger (Detektive) abh&auml;ngen und nutzt daf&uuml;r Verkehrsmittel. Detektive versuchen Mister X zu schnappen.</p>
                                     <p>
