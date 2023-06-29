@@ -129,28 +129,28 @@ namespace GameComponents
         }
 
         /// <summary>
-        /// Executes moves for a computer controlled ("AI-") player 
+        /// Executes a move for a computer controlled ("AI-") player 
         /// </summary>
         /// <param name="player">Player that is AI-controlled</param>
         /// <returns>True if player is ai-controlled and could be moved</returns>
         public bool AiMove(Player player)
         {
             // todo:    //Übergabewerte: nur Player?
-            // implement difference between MisterX and Detective
-            // make the AI smarter ;)
-
+                        // implement difference between MisterX and Detective
+                        // make the AI smarter ;)
+                        
             if (player.Npc)             // check if the player is computer controlled
             {
                 // get all possible moves
-                //Dictionary<PointOfInterest, List<TicketTypeEnum>> moves = Validator.GetValidMoves(GameState, player);
                 Dictionary<PointOfInterest, List<TicketTypeEnum>> TestMoves = Validator.GetValidMoves(GameState, player);
 
                 // execute random move with availible ticketType e.i. out of TestMoves
                 int randomNumber = Random.Shared.Next(0, TestMoves.Count - 1);
                 PointOfInterest newPos = TestMoves.ElementAt(randomNumber).Key;   //choose random (availible) new Position
+                //while
                 TicketTypeEnum ticket = TestMoves.ElementAt(randomNumber).Value.ElementAt(Random.Shared.Next(0, TestMoves.ElementAt(randomNumber).Value.Count - 1));  //choose random (availible) ticketType to new Position
                 MovePlayer(player, newPos, ticket);
-                              
+                                            
                 return true;
                
             }
@@ -166,6 +166,11 @@ namespace GameComponents
         private void NextRound()
         {
             GameState.ActivePlayer = GameState.AllPlayers[GameState.Move++ % GameState.AllPlayers.Count];
+            if (GameState.ActivePlayer.Npc)
+            {
+                AiMove(GameState.ActivePlayer);
+            }
+
         }
     }
 }

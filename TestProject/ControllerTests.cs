@@ -111,21 +111,55 @@ namespace TestProject
 
             TestGameState.Detectives.Add(new Player("TestPlayer", "TestPassword"));   // generate TestPlayer
             TestGameState.MisterX = (new Player("TestX", "TestPassword"));   // generate Mister X for tests (needed to Start game)
-            TestGameState.Detectives[0].Npc = true;         // make player ai-controlled
-            TestGameState.Detectives[0].BusTicket = 5;      // assign bus tickets
-            TestGameState.Detectives[0].BikeTicket = 5;     // assign bike tickets
-            TestGameState.Detectives[0].ScooterTicket = 5;  // assign scooter tickets
+            TestGameState.MisterX.Npc = true;         // make player ai-controlled
+            //TestGameState.Detectives[0].BusTicket = 5;      // assign bus tickets
+            //TestGameState.Detectives[0].BikeTicket = 5;     // assign bike tickets
+            //TestGameState.Detectives[0].ScooterTicket = 5;  // assign scooter tickets
 
             // test AiMove method from GameController: 
             GameController TestGameController = new GameController(TestGameState);                      // generate Gamecontroller
             TestGameController.StartGame();                                                             // Start Game is requirement for MovePlayer, !calls InitPois() and InitPlayers()!, sets MisterX als active Player
-            TestGameController.GameState.ActivePlayer = TestGameController.GameState.Detectives[0];     // assign Detective[0] as active Player
+            //TestGameController.GameState.ActivePlayer = TestGameController.GameState.Detectives[0];     // assign Detective[0] as active Player
 
-            PointOfInterest oldPos = TestGameController.GameState.Detectives[0].Position;   // store old position for comparision
+            PointOfInterest oldPos = TestGameController.GameState.MisterX.Position;   // store old position for comparision
 
-            TestGameController.AiMove(TestGameController.GameState.Detectives[0]);          // test moving ai-Detective
+            TestGameController.AiMove(TestGameController.GameState.MisterX);          // test moving ai-Detective
 
-            Assert.NotEqual(TestGameController.GameState.Detectives[0].Position, oldPos);
+            Assert.NotEqual(TestGameController.GameState.MisterX.Position, oldPos);
+        }
+        /// <summary>
+        /// tests, if the game flow works with an active move an a automated move by an ai-controlled player
+        /// </summary>
+        [Fact]
+        public void AiMoveInGame()
+        {
+            GameState TestGameState = new GameState();      // GameState constructor
+            //Initializer.InitPois(TestGameState);        // generate POIs and Connections
+
+            TestGameState.Detectives.Add(new Player("TestPlayer", "TestPassword"));   // generate TestPlayer
+            TestGameState.MisterX = (new Player("TestX", "TestPassword"));   // generate Mister X for tests (needed to Start game)
+            TestGameState.Detectives[0].Npc = true;         // make player ai-controlled
+            TestGameState.Detectives[0].BusTicket = 5;      // assign bus tickets
+            TestGameState.Detectives[0].BikeTicket = 5;     // assign bike tickets
+            TestGameState.Detectives[0].ScooterTicket = 5;  // assign scooter tickets
+            TestGameState.MisterX.BusTicket = 5;      // assign bus tickets
+            TestGameState.MisterX.BikeTicket = 5;     // assign bike tickets
+            TestGameState.MisterX.ScooterTicket = 5;  // assign scooter tickets
+
+
+            GameController TestGameController = new GameController(TestGameState);                      // generate Gamecontroller
+            TestGameController.StartGame();   // Start Game is requirement for MovePlayer, !calls InitPois() and InitPlayers()!, sets MisterX als active Player
+            
+            PointOfInterest oldPosAi = TestGameController.GameState.Detectives[0].Position;   // store old position of ai-player for comparision
+            Dictionary<PointOfInterest, List<TicketTypeEnum>> TestMoves = Validator.GetValidMoves(TestGameController.GameState, TestGameController.GameState.MisterX); //get valid moves for MisterX
+           
+            // move MisterX; Detective[0] should move on his own, as he is the next active Player
+            int randomNumber = Random.Shared.Next(0, TestMoves.Count - 1);
+            PointOfInterest newPos = TestMoves.ElementAt(randomNumber).Key;   //choose random (availible) new Position for MisterX
+            TicketTypeEnum ticket = TestMoves.ElementAt(randomNumber).Value.ElementAt(Random.Shared.Next(0, TestMoves.ElementAt(randomNumber).Value.Count - 1));  //choose random (availible) ticketType to new Position
+            TestGameController.MovePlayer(TestGameController.GameState.MisterX, newPos, ticket);    // execute move
+            
+            Assert.NotEqual(TestGameController.GameState.Detectives[0].Position, oldPosAi);
         }
 
     }   
