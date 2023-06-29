@@ -147,10 +147,10 @@ public partial class MainViewModel : ObservableObject
     /// <summary>
     /// Fill up the Point of Interest Buttons List
     /// </summary>
-    private void fillPoiButtons()
+    private async Task fillPoiButtons()
     {
         // Point of Interest Buttons if active player = this client
-        Player ownPlayer = GetOwnPlayer();
+        Player ownPlayer = await GetOwnPlayer();
         //if(_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
         //{
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
@@ -273,12 +273,12 @@ public partial class MainViewModel : ObservableObject
     /// Get own player Object from the server
     /// </summary>
     /// <returns>Player player</returns>
-    public Player GetOwnPlayer()
+    public async Task<Player> GetOwnPlayer()
     {
         try
         {
-            var playerTask = _com.GetPlayerAsync();
-            return playerTask.Result;
+            var player = await _com.GetPlayerAsync();
+            return player;
         }
         catch (Exception ex)
         {
