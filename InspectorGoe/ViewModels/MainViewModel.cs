@@ -76,6 +76,9 @@ public partial class MainViewModel : ObservableObject
     private ObservableCollection<PointOfInterestView> playerLocation = new ObservableCollection<PointOfInterestView>();
 
     [ObservableProperty]
+    private Player currentPlayer = new Player();
+
+    [ObservableProperty]
     private ObservableCollection<Player> detectives = new ObservableCollection<Player>();
 
     [ObservableProperty]
@@ -168,7 +171,7 @@ public partial class MainViewModel : ObservableObject
     private async Task fillPoiObjects()
     {
         // Point of Interest Buttons if active player = this client
-        Player ownPlayer = await GetOwnPlayer();
+        CurrentPlayer = await GetOwnPlayer();
 
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
@@ -181,7 +184,7 @@ public partial class MainViewModel : ObservableObject
             PointOfInterestView tempPOIV = PoiConverter(poi, 200);
             tempPOIV.PointOfInterest = poi;
 
-            if (_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
+            if (_com.GameState.ActivePlayer.UserName == CurrentPlayer.UserName)
                 PoiButtons.Add(tempPOIV);
             else
                 PoiFrames.Add(tempPOIV);    
