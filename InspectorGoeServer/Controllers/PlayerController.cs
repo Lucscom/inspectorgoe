@@ -232,7 +232,7 @@ namespace InspectorGoeServer.Controllers
         /// <param name="gameState">The current gameState</param>
         private async void updateGameComponents(GameState gameState)
         {
-            await _hubContext.Clients.All.SendAsync("UpdateGameState", gameState);
+            await _hubContext.Clients.All.SendAsync("UpdateGameState", System.Text.Json.JsonSerializer.Serialize(gameState));
         }
 
 

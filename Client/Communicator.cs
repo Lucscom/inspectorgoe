@@ -77,7 +77,7 @@ namespace Client
             HttpResponseMessage responseMessage = await _client.GetAsync("api/Player");
             responseMessage.EnsureSuccessStatusCode();
             String playerString = await responseMessage.Content.ReadAsStringAsync();
-            Player player = System.Text.Json.JsonSerializer.Deserialize<Player>(playerString);
+            Player player = JsonConvert.DeserializeObject<Player>(playerString);
             return player;
         }
 
@@ -163,9 +163,9 @@ namespace Client
                 .Build();
 
             //Register method that can be called from the server
-            connection.On<GameState>("InitGameState", (gameState) =>
+            connection.On<string>("InitGameState", (gameState) =>
             {
-                GameState = gameState;
+                GameState = JsonConvert.DeserializeObject<GameState>(gameState);
                 UpdateGameStateEvent(this, EventArgs.Empty);
                 gameStateInitEvent.Set();
             });

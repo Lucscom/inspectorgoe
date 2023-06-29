@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GameComponents.Model
 {
     public class MovePlayerDto
     {
-        public PointOfInterest PointOfInterest { get; set; }
+        public int PointOfInterest { get; set; }
         public TicketTypeEnum TicketType { get; set; }
 
-        public MovePlayerDto(PointOfInterest poi, TicketTypeEnum ticket)
+        [JsonConstructor]
+        public MovePlayerDto() { 
+        }
+        public MovePlayerDto(int poi, TicketTypeEnum ticket)
         {
             PointOfInterest = poi;
             TicketType = ticket;

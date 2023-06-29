@@ -118,7 +118,7 @@
                                                       Offset="0.705" />
                                         <GradientStop Color="{Binding ObjectColor}"
                                                       Offset="0.8" />
-                                        <GradientStop Color="Transparent"
+                                        <GradientStop Color="White"
                                                       Offset="1" />
                                     </RadialGradientBrush>
                                 </Frame.Background>
