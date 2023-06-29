@@ -6,6 +6,7 @@ using GameComponents;
 using GameComponents.Model;
 using InspectorGoe.Model;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace InspectorGoe.ViewModels;
 public partial class MainViewModel : ObservableObject
@@ -85,6 +86,8 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private Player misterX = new Player();
 
+    public bool IsMisterX => CurrentPlayer.UserName == MisterX.UserName;
+
     [ObservableProperty]
     private ObservableCollection<Player> allPlayers = new ObservableCollection<Player>();
 
@@ -137,6 +140,7 @@ public partial class MainViewModel : ObservableObject
             if (MisterX != null)
                 AllPlayers.Add(MisterX);
 
+            CurrentPlayer = AllPlayers.FirstOrDefault(p => p.UserName == CurrentPlayer.UserName);
 
             // Set Player Position
             fillPlayerLocation();
@@ -148,6 +152,10 @@ public partial class MainViewModel : ObservableObject
 
             // Point of Interest Buttons
             await fillPoiObjects();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
         }
         finally
         {

@@ -12,12 +12,55 @@
 
         <StackLayout Padding="10">
             <Label Text="Lobby" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
-            <StackLayout >
-                <Label Text="Spieler 1"/>
-                <Label Text="Spieler 2"/>
-                <Label Text="Spieler 3"/>
-                <Label Text="Spieler 4"/>
-            </StackLayout>
+            <ListView ItemsSource="{Binding AllPlayers}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <!--    Show avatar if we have one
+                                    <Image Grid.RowSpan="2"
+                                       Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="60"
+                                       WidthRequest="60" />-->
+                                <Label Grid.Column="1"
+                                       Text="{Binding UserName}"
+                                       FontAttributes="Bold" />
+                                <StackLayout Grid.Row="1"
+                                       Grid.Column="1"
+                                       Orientation="Horizontal"
+                                       VerticalOptions="End">
+                                    <Label Text="MisterX"
+                                           VerticalOptions="Center"/>
+                                    <!--fix this binding, add attribute?-->
+                                    <CheckBox IsEnabled="False"
+                                           IsChecked="{Binding IsMisterX}" 
+                                           VerticalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1"
+                                       Grid.Column="2"
+                                       Orientation="Horizontal"
+                                       VerticalOptions="End">
+                                    <Label Text="NPC"
+                                           VerticalOptions="Center"/>
+                                    <CheckBox IsEnabled="False"
+                                           IsChecked="{Binding IsNpc}"
+                                           VerticalOptions="Center"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}"/>
         </StackLayout>
     </Frame>
