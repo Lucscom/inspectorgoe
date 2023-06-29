@@ -86,7 +86,8 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private Player misterX = new Player();
 
-    public bool IsMisterX => CurrentPlayer.UserName == MisterX.UserName;
+    [ObservableProperty]
+    private bool isMisterX = false;
 
     [ObservableProperty]
     private ObservableCollection<Player> allPlayers = new ObservableCollection<Player>();
@@ -138,7 +139,10 @@ public partial class MainViewModel : ObservableObject
             // MisterX
             MisterX = _com.GameState.MisterX;
             if (MisterX != null)
+            {
                 AllPlayers.Add(MisterX);
+                IsMisterX = CurrentPlayer?.UserName == MisterX?.UserName;
+            }
 
             CurrentPlayer = AllPlayers.FirstOrDefault(p => p.UserName == CurrentPlayer.UserName);
 
