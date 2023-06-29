@@ -2,7 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,10 @@ namespace GameComponents
     public class GameController
     {
         public GameState GameState { get; private set; } = new GameState();
-        
+     
+        public GameController() { }
+        public GameController(GameState gameState) {  GameState = gameState; }
+
         /// <summary>
         /// Initializes the game with the given players. Each player gets a random position on the map.
         /// Checks if number of players is valid.
@@ -33,8 +38,8 @@ namespace GameComponents
                 Console.WriteLine("Game not started");
                 return false;
             }
-            InitPois();
-            InitPlayers(GameState.Detectives.Count + 1); // + MisterX
+            Initializer.InitPois(GameState);
+            Initializer.InitPlayers(GameState, GameState.Detectives.Count + 1); // + MisterX
 
             GameState.ActivePlayer = GameState.MisterX;
 
@@ -108,11 +113,12 @@ namespace GameComponents
                 Console.WriteLine("Player not moved");
                 return false;
             }
-            else if (GameState.GameStarted && Validator.ValidateMove(
+            else if (GameState.GameStarted && GameState.ActivePlayer == gamePlayers.First()
+                    && Validator.ValidateMove(
                     gamePlayers.First(), 
                     gamePois.First(), 
                     ticketType, 
-                    GameState.Detectives))
+                    GameState.Detectives))      
             {
                 GameState.ActivePlayer.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
                 Console.WriteLine("Player moved");
@@ -123,6 +129,37 @@ namespace GameComponents
             return false;
         }
 
+        /// <summary>
+        /// Executes a move for a computer controlled ("AI-") player 
+        /// </summary>
+        /// <param name="player">Player that is AI-controlled</param>
+        /// <returns>True if player is ai-controlled and could be moved</returns>
+        public bool AiMove(Player player)
+        {
+            // todo:    //Übergabewerte: nur Player?
+            // implement difference between MisterX and Detective
+            // make the AI smarter ;)
+
+            if (player.Npc)             // check if the player is computer controlled
+            {
+                // get all possible moves
+                Dictionary<PointOfInterest, List<TicketTypeEnum>> TestMoves = Validator.GetValidMoves(GameState, player);
+
+                // execute random move with availible ticketType e.i. out of TestMoves
+                int randomNumber = Random.Shared.Next(0, TestMoves.Count - 1);
+                PointOfInterest newPos = TestMoves.ElementAt(randomNumber).Key;   //choose random (availible) new Position
+                //while
+                TicketTypeEnum ticket = TestMoves.ElementAt(randomNumber).Value.ElementAt(Random.Shared.Next(0, TestMoves.ElementAt(randomNumber).Value.Count - 1));  //choose random (availible) ticketType to new Position
+                MovePlayer(player, newPos.Number, ticket);
+
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// Initializes points of interest from game config
@@ -244,12 +281,18 @@ namespace GameComponents
             }
             GameState.MisterX.Position = GameState.PointsOfInterest[positions[numberOfPlayers - 1]];
         }
+
         /// <summary>
         /// Sets the active player to the next player. Also increases the move counter.
         /// </summary>
         private void NextRound()
         {
             GameState.ActivePlayer = GameState.AllPlayers[GameState.Move++ % GameState.AllPlayers.Count];
+            if (GameState.ActivePlayer.Npc)
+            {
+                AiMove(GameState.ActivePlayer);
+            }
+
         }
     }
 }
