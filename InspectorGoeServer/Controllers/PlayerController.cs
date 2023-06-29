@@ -73,7 +73,7 @@ namespace InspectorGoeServer.Controllers
         [ActionName(nameof(GetPlayer))]
         public async Task<ActionResult<Player>> GetPlayer()
         {
-            var currentUser = await _context.Players.FindAsync(User.Identity.Name);
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First();
             return Ok(currentUser);
         }
         /// <summary>

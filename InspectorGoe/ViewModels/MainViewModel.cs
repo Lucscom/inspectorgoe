@@ -150,7 +150,7 @@ public partial class MainViewModel : ObservableObject
     private void fillPoiButtons()
     {
         // Point of Interest Buttons if active player = this client
-        //Player ownPlayer = GetOwnPlayer();
+        Player ownPlayer = GetOwnPlayer();
         //if(_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
         //{
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
