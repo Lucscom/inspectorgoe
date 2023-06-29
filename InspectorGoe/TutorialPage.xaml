@@ -15,7 +15,7 @@
                         <HtmlWebViewSource.Html>
                             <![CDATA[
                                     <HTML>
-                                    <BODY>
+                                    <BODY style="background-color:lightblue; color:white;">
                                     <h1>Kernidee</h1>
                                     <p>Mister X will seine Verfolger (Detektive) abh&auml;ngen und nutzt daf&uuml;r Verkehrsmittel. Detektive versuchen Mister X zu schnappen.</p>
                                     <p>
