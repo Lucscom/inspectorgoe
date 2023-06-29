@@ -94,12 +94,12 @@ public partial class MainViewModel : ObservableObject
     {
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
-        _com.UpdateGameStateEvent += ComUpdateGameState;
+        _com.UpdateGameStateEvent += async (s,e) => await ComUpdateGameState(s,e);
     }
 
     #region GameLogic
 
-    private void ComUpdateGameState(object sender, EventArgs e)
+    private async Task ComUpdateGameState(object sender, EventArgs e)
     {
         // Set  Player Cards
         Detectives = new ObservableCollection<Player>();
@@ -121,7 +121,7 @@ public partial class MainViewModel : ObservableObject
 
 
         // Point of Interest Buttons
-        fillPoiObjects();
+        await fillPoiObjects();
     }
 
 
