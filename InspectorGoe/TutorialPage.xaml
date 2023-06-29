@@ -1,0 +1,182 @@
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="InspectorGoe.TutorialPage"
+               Color="Transparent"
+               Size="800,500">
+
+    <Frame BackgroundColor="LightBlue" CornerRadius="10">
+
+        <StackLayout Padding="10">
+            <Label Text="Sign Up" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
+            <WebView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <WebView.Source >
+                    <HtmlWebViewSource>
+                        <HtmlWebViewSource.Html>
+                            <![CDATA[
+                                    <HTML>
+                                    <BODY>
+                                    <h1>Kernidee</h1>
+                                    <p>Mister X will seine Verfolger (Detektive) abh&auml;ngen und nutzt daf&uuml;r Verkehrsmittel. Detektive versuchen Mister X zu schnappen.</p>
+                                    <p>
+                                        <br>
+                                    </p>
+                                    <h1>Spielstart (Initialisierung)</h1>
+                                    <ul>
+                                        <li>
+                                            <p>Ein Spieler wird als Mister X festgelegt</p>
+                                        </li>
+                                        <li>
+                                            <p>Alle anderen Spieler sind Detektive</p>
+                                        </li>
+                                    </ul>
+                                    <p>Mister X bekommt</p>
+                                    <ul>
+                                        <li>
+                                            <p>wei&szlig;e Spielfigur</p>
+                                        </li>
+                                        <li>
+                                            <p>5 Blacktickets</p>
+                                        </li>
+                                        <li>
+                                            <p>2 Doppeltickets</p>
+                                        </li>
+                                        <li>
+                                            <p>(Kappe)</p>
+                                        </li>
+                                        <li>
+                                            <p>(Fahrtentafel)</p>
+                                        </li>
+                                        <li>
+                                            <p>Mister X nimmt normale Tickets immer aus dem allgemeinen Stapel</p>
+                                        </li>
+                                    </ul>
+                                    <p>Detektive bekommen</p>
+                                    <ul>
+                                        <li>
+                                            <p>Spielfigur mit Farbe nach Wahl</p>
+                                        </li>
+                                        <li>
+                                            <p>4 U-Bahn Ticktes</p>
+                                        </li>
+                                        <li>
+                                            <p>8 Bus Ticktes</p>
+                                        </li>
+                                        <li>
+                                            <p>11 Taxi Tickets</p>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        <br>
+                                    </p>
+                                    <h2>Startaufstellung</h2>
+                                    <p>Es gibt jeweils Startkarten f&uuml;r Mister X und f&uuml;r Detektive</p>
+                                    <p>Jeder Detektiv zieht aus den gemischten D-Startkarten eine Karte &rarr; Startpositionen offen einnehmen</p>
+                                    <p>Mister X zieht aus den gemischten X-Startkarten Karte &rarr; Startposition verdeckt einnehmen&nbsp;</p>
+                                    <p>
+                                        <br>
+                                    </p>
+                                    <h1>Spielablauf</h1>
+                                    <ul>
+                                        <li>
+                                            <p>Mister X zieht zuerst &rarr; &auml;ndert seinen Standort mit Ticket aus dem allgemeinen Vorrat</p>
+                                        </li>
+                                        <li>
+                                            <p>Detektive ziehen in Beliebiger Reihenfolge mit Tickets von ihrer Tickettafel</p>
+                                        </li>
+                                        <li>
+                                            <p>Detektive k&ouml;nnen nicht gleichzeitig am gleichen Ort stehen</p>
+                                        </li>
+                                        <li>
+                                            <p>Es kann immer nur bis zur n&auml;chsten m&ouml;glichen Station gefahren werden</p>
+                                        </li>
+                                        <li>
+                                            <p>Valider Zug:</p>
+                                            <ul>
+                                                <li>
+                                                    <p>Start und Zielknoten haben beinhalten die gleiche Farbe (sind also mit einem bestimmten Verkehrsmittel verbunden) siehe Bild: 78 und 63 haben eine blaue Verbindung, alle haben gelbe Verbindung</p>
+                                                </li>
+                                                <li>
+                                                    <p>(Der Detektiv besitzt ein Ticket f&uuml;r dieses Verkehrsmittel)</p>
+                                                </li>
+                                                <li>
+                                                    <p>Am Zielknoten steht kein anderer Detektiv</p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <p>Mister X</p>
+                                            <ul>
+                                                <li>
+                                                    <p>Verliert, wenn er einen Detektiv an einem Knoten trifft, oder keinen Zug mehr machen kann ohne einen Detektiv zu treffen</p>
+                                                </li>
+                                                <li>
+                                                    <p>Gewinnt, wenn er bis zum Ende der 22. Runde unentdeckt bleibt oder kein Detektiv mehr ziehen kann</p>
+                                                </li>
+                                                <li>
+                                                    <p>macht seinen Zug verdeckt</p>
+                                                </li>
+                                                <li>
+                                                    <p>muss wie die Detektive einen validen Zug machen</p>
+                                                </li>
+                                                <li>
+                                                    <p>neue Position wird in das n&auml;chste freie Feld der Fahrtentafel geschrieben</p>
+                                                </li>
+                                                <li>
+                                                    <p>Das Feld wird mit einem Ticket des benutzten Verkehrsmittels abgedeckt</p>
+                                                </li>
+                                                <li>
+                                                    <p>Position wird aufgedeckt, nach folgenden Z&uuml;gen: 3., 8., 13., 18., 24. &rarr; Spielfigur wird nach seinem Zug auf die neue Position gestellt</p>
+                                                </li>
+                                                <li>
+                                                    <p>Doppelzugticket: kann verwendet werden um zwei Z&uuml;ge direkt hintereinander zu machen &rarr; funktioniert wie normaler Zug, nur zweimal hintereinander &rarr; Wenn zwischendurch die Position aufgedeckt werden muss, passiert das, aber er verschwindet sofort wieder</p>
+                                                </li>
+                                                <li>
+                                                    <p>Blackticket: normaler Zug, statt Ticket wird Blacktiket zum verdecken verwendet &rarr; Detektive wissen nicht welches Verkehrsmittel verwendet wurde (im Original kann nur damit die F&auml;hre verwendet werden &rarr; schwarze Linie mit nur einer Verbindung zwischen zwei Knoten)</p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <p>Detektiv</p>
+                                            <ul>
+                                                <li>
+                                                    <p>Gewinnen, wenn sich ein Detektiv mit Mister X an einer Position befindet &rarr; Mister X muss sich zu erkennen geben</p>
+                                                </li>
+                                                <li>
+                                                    <p>arbeiten zusammen und sollten sich absprechen</p>
+                                                </li>
+                                                <li>
+                                                    <p>Kein Ticket Tausch</p>
+                                                </li>
+                                                <li>
+                                                    <p>Wenn keine Tickets mehr: Aussetzen</p>
+                                                </li>
+                                                <li>
+                                                    <p>Tickets m&uuml;ssen offen liegen, damit Mister X sie sehen kann</p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    </BODY>
+                                    </HTML>
+                                    ]]>
+                        </HtmlWebViewSource.Html>
+                    </HtmlWebViewSource>
+                </WebView.Source>
+            </WebView>
+            <Button Text="Close" Margin="10" Clicked="Button_Clicked"/>
+        </StackLayout>
+    </Frame>
+
+</toolkit:Popup>

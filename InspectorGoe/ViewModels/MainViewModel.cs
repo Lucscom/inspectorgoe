@@ -97,11 +97,12 @@ public partial class MainViewModel : ObservableObject
         _com.UpdateGameStateEvent += async (s,e) => await ComUpdateGameState(s,e);
     }
 
+    #region GameLogic
 
     private async Task ComUpdateGameState(object sender, EventArgs e)
     {
         // Set  Player Cards
-        Detectives.Clear();
+        Detectives = new ObservableCollection<Player>();
         foreach (Player detective in _com.GameState.Detectives)
         {
             Detectives.Add(detective);
@@ -130,7 +131,7 @@ public partial class MainViewModel : ObservableObject
     private void fillPlayerLocation()
     {
         // Detectives
-        PlayerLocation.Clear();
+        PlayerLocation = new ObservableCollection<PointOfInterestView>();
         foreach (Player detective in _com.GameState.Detectives)
         {
             PlayerLocation.Add(PoiConverter(detective.Position, 210, Colors.Red));
@@ -147,30 +148,28 @@ public partial class MainViewModel : ObservableObject
     /// <summary>
     /// Fill up the Point of Interest Buttons List
     /// </summary>
-    private async Task fillPoiButtons()
+    private async Task fillPoiObjects()
     {
         // Point of Interest Buttons if active player = this client
         Player ownPlayer = await GetOwnPlayer();
-        //if(_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
-        //{
+
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
-        PoiButtons.Clear();
+        PoiButtons = new ObservableCollection<PointOfInterestView>();
+        PoiFrames = new ObservableCollection<PointOfInterestView>();
+
         foreach (PointOfInterest poi in temp.Keys)
         {
             PointOfInterestView tempPOIV = PoiConverter(poi, 200);
             tempPOIV.PointOfInterest = poi;
-            PoiButtons.Add(tempPOIV);
+
+            if (_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
+                PoiButtons.Add(tempPOIV);
+            else
+                PoiFrames.Add(tempPOIV);    
         }
 
-        //}
-
-        // Point of Interest Label if actice player != this client
-        //else
-        //{
-
-        //}
 
     }
 
@@ -180,7 +179,7 @@ public partial class MainViewModel : ObservableObject
     /// </summary>
     private void fillTicketHistoryList ()
     {
-        MrXticketHistory.Clear();
+        MrXticketHistory = new ObservableCollection<TicketsView>();
         foreach (TicketTypeEnum ticket in _com.GameState.TicketHistoryMisterX)
         {
             TicketsView tempTicket = new();
@@ -287,6 +286,8 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    #endregion
+
     #region Pages
 
     #region LogIn
@@ -361,9 +362,21 @@ public partial class MainViewModel : ObservableObject
     /// Navigation from MenuPage to MainPage
     /// </summary>
     [RelayCommand]
-    private void JoinGame()
+    private async void JoinGame()
     {
-        Shell.Current.ShowPopup(new AvatarPage());
+        _com.gameStateInitEvent.WaitOne();
+        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+
+        //Shell.Current.ShowPopup(new AvatarPage());
+    }
+
+    /// <summary>
+    /// Navigation from MenuPage to MainPage
+    /// </summary>
+    [RelayCommand]
+    private void Tutorial()
+    {
+        Shell.Current.ShowPopup(new TutorialPage());
     }
 
     /// <summary>
@@ -441,7 +454,7 @@ public partial class MainViewModel : ObservableObject
             HeightMap = WidthMap / 1.7828;
         }
 
-        fillPoiButtons();
+        fillPoiObjects();
         fillPlayerLocation();
 
     }

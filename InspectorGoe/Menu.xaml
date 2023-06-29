@@ -23,6 +23,9 @@
             <Button Text="Spiel erstellen" Margin="10" Command="{Binding CreateNewGameCommand}"/>
             <Button Text="Spiel beitreten" Margin="10" Command="{Binding JoinGameCommand}"/>
         </StackLayout>
-        <Button WidthRequest="280" Text="LogOut" Margin="10" Command="{Binding LogOutCommand}" VerticalOptions="End"/>
+        <StackLayout VerticalOptions="End">
+            <Button WidthRequest="280" Text="Tutorial" Margin="10" Command="{Binding TutorialCommand}"/>
+            <Button WidthRequest="280" Text="LogOut" Margin="10" Command="{Binding LogOutCommand}"/>
+        </StackLayout>
     </Grid>
 </ContentPage>

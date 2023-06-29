@@ -2,7 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,10 @@ namespace GameComponents
     public class GameController
     {
         public GameState GameState { get; private set; } = new GameState();
-        
+     
+        public GameController() { }
+        public GameController(GameState gameState) {  GameState = gameState; }
+
         /// <summary>
         /// Initializes the game with the given players. Each player gets a random position on the map.
         /// Checks if number of players is valid.
@@ -33,8 +38,8 @@ namespace GameComponents
                 Console.WriteLine("Game not started");
                 return false;
             }
-            InitPois();
-            InitPlayers(GameState.Detectives.Count + 1); // + MisterX
+            Initializer.InitPois(GameState);
+            Initializer.InitPlayers(GameState, GameState.Detectives.Count + 1); // + MisterX
 
             GameState.ActivePlayer = GameState.MisterX;
 
@@ -108,11 +113,12 @@ namespace GameComponents
                 Console.WriteLine("Player not moved");
                 return false;
             }
-            else if (GameState.GameStarted && Validator.ValidateMove(
+            else if (GameState.GameStarted && GameState.ActivePlayer == gamePlayers.First()
+                    && Validator.ValidateMove(
                     gamePlayers.First(), 
                     gamePois.First(), 
                     ticketType, 
-                    GameState.Detectives))
+                    GameState.Detectives))      
             {
                 GameState.ActivePlayer.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
                 Console.WriteLine("Player moved");
@@ -123,133 +129,49 @@ namespace GameComponents
             return false;
         }
 
-
         /// <summary>
-        /// Initializes points of interest from game config
+        /// Executes a move for a computer controlled ("AI-") player 
         /// </summary>
-        private void InitPois()
+        /// <param name="player">Player that is AI-controlled</param>
+        /// <returns>True if player is ai-controlled and could be moved</returns>
+        public bool AiMove(Player player)
         {
-            //read POIs from JSON file Testmap in project folder 
-            string jsonContent = new StreamReader(File.OpenRead("poimap.json")).ReadToEnd();
-            dynamic json = JsonConvert.DeserializeObject(jsonContent);  //read JSON to dynamic variable
+            // todo:    //Übergabewerte: nur Player?
+            // implement difference between MisterX and Detective
+            // make the AI smarter ;)
 
-            // generate POIs 
-            int numPoi = 0;     //number of POIs in JSON-File
-            foreach (var Nodes in json.Nodes)
+            if (player.Npc)             // check if the player is computer controlled
             {
-                GameState.PointsOfInterest.Add(new PointOfInterest((int)Nodes.Number, (string)Nodes.Name, (int)Nodes.Location_x, (int)Nodes.Location_y));
-                ++numPoi;
+                // get all possible moves
+                Dictionary<PointOfInterest, List<TicketTypeEnum>> TestMoves = Validator.GetValidMoves(GameState, player);
+
+                // execute random move with availible ticketType e.i. out of TestMoves
+                int randomNumber = Random.Shared.Next(0, TestMoves.Count - 1);
+                PointOfInterest newPos = TestMoves.ElementAt(randomNumber).Key;   //choose random (availible) new Position
+                //while
+                TicketTypeEnum ticket = TestMoves.ElementAt(randomNumber).Value.ElementAt(Random.Shared.Next(0, TestMoves.ElementAt(randomNumber).Value.Count - 1));  //choose random (availible) ticketType to new Position
+                MovePlayer(player, newPos.Number, ticket);
+
+                return true;
+
             }
-
-            // generate Connections 
-            int numConnect = 0;     //total number of Connections 
-            var noSuccess = 0;      //  =1 in default case
-            foreach (var Connections in json.Connections)
+            else
             {
-                switch ((int)Connections.type) //defines number and type of connections between POIs
-                {
-                    // !!! Diese Logik stimmt bisher nur, wenn die POIs in der Reihenfolge ihrer Laufnummer initialisiert werden, da No in _gameState.PointsOfInterest[No] nur die Position in der Liste repräsentiert, nicht die Laufnummer!
-                    case 1:
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bus);
-                        ++numConnect;
-                        break;
-                    case 2:
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bike);
-                        ++numConnect;
-                        break;
-                    case 3:
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
-                        ++numConnect;
-                        break;
-                    case 12:
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bus);
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bike);
-                        numConnect = numConnect + 2;
-                        break;
-                    case 13:
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bus);
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
-                        numConnect = numConnect + 2;
-                        break;
-                    case 23:
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bike);
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
-                        numConnect = numConnect + 2;
-                        break;
-                    case 123:
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bus);
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Bike);
-                        ConnectPois(GameState.PointsOfInterest[(int)Connections.sourceNo - 1], GameState.PointsOfInterest[(int)Connections.targetNo - 1], TicketTypeEnum.Scooter);
-                        numConnect = numConnect + 3;
-                        break;
-                    default:
-                        noSuccess = 1;
-                        break;
-                }
-            }
-
-        }
-
-        /// <summary>
-        /// Creates the connection between the points of interest
-        /// </summary>
-        /// <param name="pointOfInterest1">First point of connection</param>
-        /// <param name="pointOfInterest2">Second point of connection</param>
-        /// <param name="ticketType">Type of connection</param>
-        private void ConnectPois(PointOfInterest pointOfInterest1, PointOfInterest pointOfInterest2, TicketTypeEnum ticketType)
-        {
-            switch (ticketType)
-            {
-                case TicketTypeEnum.Bus:
-                    pointOfInterest1.ConnectionBus.Add(pointOfInterest2.Number);
-                    pointOfInterest2.ConnectionBus.Add(pointOfInterest1.Number);
-                    break;
-                case TicketTypeEnum.Bike:
-                    pointOfInterest1.ConnectionBike.Add(pointOfInterest2.Number);
-                    pointOfInterest2.ConnectionBike.Add(pointOfInterest1.Number);
-                    break;
-                case TicketTypeEnum.Scooter:
-                    pointOfInterest1.ConnectionScooter.Add(pointOfInterest2.Number);
-                    pointOfInterest2.ConnectionScooter.Add(pointOfInterest1.Number);
-                    break;
+                return false;
             }
         }
 
-        /// <summary>
-        /// Initializes players with start positions
-        /// Checks if the start position is blocked
-        /// </summary>
-        /// <param name="numberOfPlayers">Number of players</param>
-        private void InitPlayers(int numberOfPlayers)
-        {
-            //Array with random unique numbers
-            //Set starting points
-            var positions = Enumerable.Repeat<int>(-1, numberOfPlayers).ToArray();
-
-            for (int i = 0; i < positions.Length; i++)
-            {
-                var newNumber = Random.Shared.Next(0, GameState.PointsOfInterest.Count - 1);
-                while (positions.Contains(newNumber))
-                {
-                    newNumber = Random.Shared.Next(0, GameState.PointsOfInterest.Count - 1);
-                }
-                positions[i] = newNumber;
-            }
-
-            //Create players and set position
-            for (int i = 0; i <= numberOfPlayers - 2; i++)
-            {
-                var startPosition = GameState.PointsOfInterest[positions[i]];
-                GameState.Detectives[i].Position = startPosition;
-            }
-            GameState.MisterX.Position = GameState.PointsOfInterest[positions[numberOfPlayers - 1]];
-        }
         /// <summary>
         /// Sets the active player to the next player. Also increases the move counter.
         /// </summary>
         private void NextRound()
         {
             GameState.ActivePlayer = GameState.AllPlayers[GameState.Move++ % GameState.AllPlayers.Count];
+            if (GameState.ActivePlayer.Npc)
+            {
+                AiMove(GameState.ActivePlayer);
+            }
+
         }
     }
 }
