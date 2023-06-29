@@ -361,9 +361,12 @@ public partial class MainViewModel : ObservableObject
     /// Navigation from MenuPage to MainPage
     /// </summary>
     [RelayCommand]
-    private void JoinGame()
+    private async void JoinGame()
     {
-        Shell.Current.ShowPopup(new AvatarPage());
+        _com.gameStateInitEvent.WaitOne();
+        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+
+        //Shell.Current.ShowPopup(new AvatarPage());
     }
 
     /// <summary>

@@ -17,14 +17,14 @@ namespace GameComponents
         public static GameState InitPois(GameState GameState)
         {
             //read POIs from JSON file Testmap in project folder 
-            string jsonContent = new StreamReader(File.OpenRead("Testmap.json")).ReadToEnd();
+            string jsonContent = new StreamReader(File.OpenRead("poimap.json")).ReadToEnd();
             dynamic json = JsonConvert.DeserializeObject(jsonContent);  //read JSON to dynamic variable
 
             // generate POIs 
             int numPoi = 0;     //number of POIs in JSON-File
             foreach (var Nodes in json.Nodes)
             {
-                GameState.PointsOfInterest.Add(new PointOfInterest((int)Nodes.Number, (string)Nodes.Name, new Vector2((float)Nodes.Location_x, (float)Nodes.Location_y)));
+                GameState.PointsOfInterest.Add(new PointOfInterest((int)Nodes.Number, (string)Nodes.Name, (int)Nodes.Location_x, (int)Nodes.Location_y));
                 ++numPoi;
             }
 
@@ -88,16 +88,16 @@ namespace GameComponents
             switch (ticketType)
             {
                 case TicketTypeEnum.Bus:
-                    pointOfInterest1.ConnectionBus.Add(pointOfInterest2);
-                    pointOfInterest2.ConnectionBus.Add(pointOfInterest1);
+                    pointOfInterest1.ConnectionBus.Add(pointOfInterest2.Number);
+                    pointOfInterest2.ConnectionBus.Add(pointOfInterest1.Number);
                     break;
                 case TicketTypeEnum.Bike:
-                    pointOfInterest1.ConnectionBike.Add(pointOfInterest2);
-                    pointOfInterest2.ConnectionBike.Add(pointOfInterest1);
+                    pointOfInterest1.ConnectionBike.Add(pointOfInterest2.Number);
+                    pointOfInterest2.ConnectionBike.Add(pointOfInterest1.Number);
                     break;
                 case TicketTypeEnum.Scooter:
-                    pointOfInterest1.ConnectionScooter.Add(pointOfInterest2);
-                    pointOfInterest2.ConnectionScooter.Add(pointOfInterest1);
+                    pointOfInterest1.ConnectionScooter.Add(pointOfInterest2.Number);
+                    pointOfInterest2.ConnectionScooter.Add(pointOfInterest1.Number);
                     break;
             }
         }
