@@ -474,8 +474,9 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Button_Clicked_Ticket(TicketSelection ticket)
     {
+        movePlayer(ticket.PointOfInterest, ticket.TicketType);
+
         ticketSelectionPage.Close();
-        Console.Write("Test");
     }
 
     #endregion

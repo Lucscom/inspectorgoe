@@ -174,7 +174,7 @@ namespace GameComponents
                 }
                 else
                 {
-                    moves.Add(poi, new List<TicketTypeEnum> { TicketTypeEnum.Bike });
+                    moves.Add(poi, new List<TicketTypeEnum> { ticketType });
                 }
             }
             return moves;
