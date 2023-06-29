@@ -116,6 +116,57 @@ namespace InspectorGoeServer.Controllers
                 : Ok(new { Token = await GenerateToken(currentUser) });
         }
 
+
+        /// <summary>
+        /// Moves the player to the given point of interest
+        /// </summary>
+        /// <param name="movement">The movement parameters</param>
+        /// <returns>Ok, Http response with no content</returns>
+        [HttpPut]
+        [Authorize]
+        [ActionName(nameof(PutPlayer))]
+        public async Task<IActionResult> PutPlayer([FromBody] MovePlayerDto movement)
+        {
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
+
+            if(_gameController.MovePlayer(currentUser, movement.PointOfInterest.Number, movement.TicketType))
+            {
+                updateGameComponents(_gameController.GameState);
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+        /// <summary>
+        /// Starts the game
+        /// </summary>
+        /// <returns>Ok</returns>
+        [HttpPut("startgame")]
+        [Authorize]
+        [ActionName(nameof(StartGame))]
+        public async Task<IActionResult> StartGame()
+        {
+            if (!_gameController.StartGame())
+            {
+                return BadRequest();
+            }
+            updateGameComponents(_gameController.GameState);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Send gameState to all clients
+        /// </summary>
+        /// <param name="gameState">The current gameState</param>
+        private async void updateGameComponents(GameState gameState)
+        {
+            await _hubContext.Clients.All.SendAsync("UpdateGameState", System.Text.Json.JsonSerializer.Serialize(gameState));
+        }
+
+        #region TokenGeneration
         /// <summary>
         /// Generates a JWT token for the given user
         /// </summary>
@@ -174,74 +225,6 @@ namespace InspectorGoeServer.Controllers
                             signingCredentials: signingCredentials);
             return tokenOptions;
         }
-
-        /// <summary>
-        /// Moves the player to the given point of interest
-        /// </summary>
-        /// <param name="movement">The movement parameters</param>
-        /// <returns>Ok, Http response with no content</returns>
-        [HttpPut]
-        [Authorize]
-        [ActionName(nameof(PutPlayer))]
-        public async Task<IActionResult> PutPlayer([FromBody] MovePlayerDto movement)
-        {
-            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
-            if (currentUser == null)
-                return StatusCode(500);
-
-            if(_gameController.MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
-            {
-                updateGameComponents(_gameController.GameState);
-                return Ok();
-            }
-
-            return BadRequest();
-        }
-        /// <summary>
-        /// Starts the game
-        /// </summary>
-        /// <returns>Ok</returns>
-        [HttpPut("startgame")]
-        [Authorize]
-        [ActionName(nameof(StartGame))]
-        public async Task<IActionResult> StartGame()
-        {
-            if (!_gameController.StartGame())
-            {
-                return BadRequest();
-            }
-            sendInitGameComponents(_gameController.GameState);
-
-            return Ok();
-        }
-
-        /// <summary>
-        /// Send gameState to all clients
-        /// Differentiates between MisterX and Detectives, Detectives do not recieve information about MisterX
-        /// </summary>
-        /// <param name="gameState">The current gameState</param>
-        private async void sendInitGameComponents(GameState gameState)
-        {
-            await _hubContext.Clients.All.SendAsync("UpdateGameState", System.Text.Json.JsonSerializer.Serialize(gameState));
-        }
-
-        /// <summary>
-        /// Send gameState to all clients
-        /// Differentiates between MisterX and Detectives, Detectives do not recieve information about MisterX
-        /// </summary>
-        /// <param name="gameState">The current gameState</param>
-        private async void updateGameComponents(GameState gameState)
-        {
-            await _hubContext.Clients.All.SendAsync("UpdateGameState", System.Text.Json.JsonSerializer.Serialize(gameState));
-        }
-
-
-        private async void sendGameComponents(GameState gameState, String method)
-        {
-            await _hubContext.Clients.Group("MisterX").SendAsync(method, gameState);
-            GameState gameStateDetectives = gameState;
-            gameStateDetectives.MisterX.Position = null;
-            await _hubContext.Clients.Group("Detectives").SendAsync(method, gameState);
-        }
+        #endregion
     }
 }
