@@ -121,7 +121,7 @@ public partial class MainViewModel : ObservableObject
 
 
         // Point of Interest Buttons
-        await fillPoiButtons();
+        await fillPoiObjects();
     }
 
 
