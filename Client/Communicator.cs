@@ -77,7 +77,7 @@ namespace Client
             HttpResponseMessage responseMessage = await _client.GetAsync("api/Player");
             responseMessage.EnsureSuccessStatusCode();
             String playerString = await responseMessage.Content.ReadAsStringAsync();
-            Player player = System.Text.Json.JsonSerializer.Deserialize<Player>(playerString);
+            Player player = JsonConvert.DeserializeObject<Player>(playerString);
             return player;
         }
 
