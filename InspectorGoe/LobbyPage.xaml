@@ -9,7 +9,7 @@
     <Frame BackgroundColor="LightBlue" CornerRadius="10">
 
         <StackLayout Padding="10">
-            <Label Text="Sign Up" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
+            <Label Text="Lobby" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
             <StackLayout >
                 <Label Text="Spieler 1"/>
                 <Label Text="Spieler 2"/>
