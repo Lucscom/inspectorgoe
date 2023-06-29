@@ -163,9 +163,9 @@ namespace Client
                 .Build();
 
             //Register method that can be called from the server
-            connection.On<GameState>("InitGameState", (gameState) =>
+            connection.On<string>("InitGameState", (gameState) =>
             {
-                GameState = gameState;
+                GameState = JsonConvert.DeserializeObject<GameState>(gameState);
                 UpdateGameStateEvent(this, EventArgs.Empty);
                 gameStateInitEvent.Set();
             });
