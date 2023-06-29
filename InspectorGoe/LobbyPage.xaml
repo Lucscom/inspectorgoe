@@ -3,7 +3,9 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="InspectorGoe.LobbyPage"
                Color="Transparent"
-               Size="500,350">
+               Size="500,350"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               x:Name="ThisPopup">
 
 
     <Frame BackgroundColor="LightBlue" CornerRadius="10">
@@ -16,7 +18,7 @@
                 <Label Text="Spieler 3"/>
                 <Label Text="Spieler 4"/>
             </StackLayout>
-            <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}"/>
+            <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}"/>
         </StackLayout>
     </Frame>
 

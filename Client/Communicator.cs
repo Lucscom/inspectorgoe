@@ -32,7 +32,7 @@ namespace Client
         public GameState GameState { get; set; }
 
 
-        public AutoResetEvent gameStateInitEvent = new AutoResetEvent(false);
+        public AutoResetEvent gameStartedEvent = new AutoResetEvent(false);
 
         public event EventHandler UpdateGameStateEvent;
 
@@ -184,19 +184,14 @@ namespace Client
                 })
                 .Build();
 
-            //Register method that can be called from the server
-            connection.On<string>("InitGameState", (gameState) =>
-            {
-                GameState = JsonConvert.DeserializeObject<GameState>(gameState);
-                UpdateGameStateEvent(this, EventArgs.Empty);
-                gameStateInitEvent.Set();
-            });
-
             connection.On<string>("UpdateGameState", (gameState) =>
             {
                 GameState = JsonConvert.DeserializeObject<GameState>(gameState);
                 UpdateGameStateEvent(this, EventArgs.Empty);
-                gameStateInitEvent.Set();
+                if (GameState.GameStarted)
+                {
+                    gameStartedEvent.Set();
+                }
             });
 
             connection.ServerTimeout = TimeSpan.FromMinutes(15);

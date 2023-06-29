@@ -379,12 +379,27 @@ public partial class MainViewModel : ObservableObject
     /// Navigation from MenuPage to MainPage
     /// </summary>
     [RelayCommand]
-    private async void JoinGame()
+    private async Task JoinGame()
     {
-        _com.gameStateInitEvent.WaitOne();
-        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
-
+        //todo: check logic
+        //show avatar page?
         //Shell.Current.ShowPopup(new AvatarPage());
+        //show lobby page? While waiting for game to start
+
+        try
+        {
+            await _com.JoinGameAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
+            return;
+        }
+
+        //todo: fix this. This will wait for game start.
+        //THE CLIENT FREEZES HERE COMPLETELY!!!!!!!!
+        _com.gameStartedEvent.WaitOne();
+        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
     }
 
     /// <summary>
@@ -413,7 +428,7 @@ public partial class MainViewModel : ObservableObject
     /// Navigation from GameStartPage to LobbyPage
     /// </summary>
     [RelayCommand(CanExecute = nameof(AvatarIsSelected))]
-    private async Task Start() //todo: rename to create game
+    private async Task Start(AvatarPage popup) //todo: rename to create game
     {
         try
         {
@@ -427,8 +442,9 @@ public partial class MainViewModel : ObservableObject
         }
 
         //senden des ausgewälten Avatars an den Server
-        
-        await Shell.Current.ShowPopupAsync(new LobbyPage());
+
+        popup.Close();
+        Shell.Current.ShowPopup(new LobbyPage());
     }
 
     /// <summary>
@@ -455,11 +471,11 @@ public partial class MainViewModel : ObservableObject
     #region LobbyPage
 
     [RelayCommand]
-    async Task StartGame()
+    async Task StartGame(LobbyPage popup)
     {
         try
         {
-            var status = await _com.StartGameAsync();
+            await _com.StartGameAsync();
         }
         catch (Exception ex)
         {
@@ -467,7 +483,8 @@ public partial class MainViewModel : ObservableObject
             return;
         }
 
-        _com.gameStateInitEvent.WaitOne();
+        _com.gameStartedEvent.WaitOne();
+        popup.Close();
         await App.Current.MainPage.Navigation.PushAsync(new MainPage());
     }
 

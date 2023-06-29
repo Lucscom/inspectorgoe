@@ -12,8 +12,6 @@ public partial class AvatarPage : Popup
         BindingContext = MVM;
     }
 
-    void StartLobby_Clicked(object sender, EventArgs e) => Close(true);
-
     private void ImageButton_Clicked(object sender, EventArgs e)
     {
         if (MVM.Choice == grothausmann) { MVM.Choice = null; } else { MVM.Choice = grothausmann; }
