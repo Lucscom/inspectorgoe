@@ -35,7 +35,7 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
-    string userseverip = string.Empty;
+    string userseverip = "https://localhost:5000";
 
     //Variablen für Register
     [ObservableProperty]
@@ -150,7 +150,7 @@ public partial class MainViewModel : ObservableObject
     private void fillPoiButtons()
     {
         // Point of Interest Buttons if active player = this client
-        //Player ownPlayer = GetOwnPlayer();
+        Player ownPlayer = GetOwnPlayer();
         //if(_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
         //{
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
