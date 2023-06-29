@@ -463,7 +463,7 @@ public partial class MainViewModel : ObservableObject
    [RelayCommand]
     private void Button_Clicked_Poi(PointOfInterest poi)
     {
-        TicketSelection.Clear();
+        TicketSelection = new ObservableCollection<TicketSelection>();
 
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
