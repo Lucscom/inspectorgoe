@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using GameComponents;
 using GameComponents.Model;
 using InspectorGoe.Model;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -24,7 +25,6 @@ public partial class MainViewModel : ObservableObject
     #region Variables
 
     private Communicator _com;
-    private SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
     //Variablen für Login
     [ObservableProperty]
@@ -109,27 +109,23 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
 
-
-#endregion
-
+    #endregion
 
     private MainViewModel()
     {
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
-        _com.UpdateGameStateEvent += async (s,e) => await ComUpdateGameState(s,e);
+        //signalr initiates updates on a seperate thread
+        //use the dispatcher to shedule the update on the UI thread instead
+        //therefore signalr and ui thread will not access the properties/variables at the same time
+        _com.UpdateGameStateEvent += async (s,e) => await Shell.Current.Dispatcher.DispatchAsync(async () => await ComUpdateGameState(s,e));
     }
+
 
     #region GameLogic
 
     private async Task ComUpdateGameState(object sender, EventArgs e)
     {
-        _semaphoreSlim.Wait();
-        //the semaphore is only for signalr initiated updates
-        //the UI thread will still access the properties/variables directly
-        //at the same time as the update thread. This is a big problem!!!
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //todo: make the observable properties thread safe!!!!!!!!!
         try
         {
             // Set  Player Cards
@@ -149,7 +145,7 @@ public partial class MainViewModel : ObservableObject
                 IsMisterX = CurrentPlayer?.UserName == MisterX?.UserName;
             }
 
-            CurrentPlayer = AllPlayers.FirstOrDefault(p => p.UserName == CurrentPlayer.UserName);
+            CurrentPlayer = AllPlayers.FirstOrDefault(p => p.UserName == CurrentPlayer?.UserName);
 
             // Set Player Position
             fillPlayerLocation();
@@ -169,12 +165,7 @@ public partial class MainViewModel : ObservableObject
             throw;
 #endif
         }
-        finally
-        {
-            _semaphoreSlim.Release();
-        }
     }
-
 
     /// <summary>
     /// fill up the player location list
@@ -519,7 +510,7 @@ public partial class MainViewModel : ObservableObject
 
         _com.gameStartedEvent.WaitOne();
         popup.Close();
-        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
+        await Shell.Current.Dispatcher.DispatchAsync(async () => await Shell.Current.Navigation.PushAsync(new MainPage()));
     }
 
     #endregion
@@ -527,7 +518,7 @@ public partial class MainViewModel : ObservableObject
     #region MainPage
 
     [RelayCommand]
-    private void Button_Clicked_Zoom(string zoomType)
+    private async Task Button_Clicked_Zoom(string zoomType)
     { 
         if (zoomType == "plus" && WidthMap <= 8914 && HeightMap <= 5000)
         {
@@ -540,7 +531,7 @@ public partial class MainViewModel : ObservableObject
             HeightMap = WidthMap / 1.7828;
         }
 
-        fillPoiObjects();
+        await fillPoiObjects();
         fillPlayerLocation();
 
     }
