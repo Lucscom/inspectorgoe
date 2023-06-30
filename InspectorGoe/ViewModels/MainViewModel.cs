@@ -98,10 +98,10 @@ public partial class MainViewModel : ObservableObject
 
     // POIS
     [ObservableProperty]
-    public ObservableCollection<PointOfInterestView> poiButtons = new ObservableCollection<PointOfInterestView>();
+    private ObservableCollection<PointOfInterestView> poiButtons = new ObservableCollection<PointOfInterestView>();
 
     [ObservableProperty]
-    public ObservableCollection<PointOfInterestView> poiFrames = new ObservableCollection<PointOfInterestView>();
+    private ObservableCollection<PointOfInterestView> poiFrames = new ObservableCollection<PointOfInterestView>();
 
 
     private TicketSelectionPage ticketSelectionPage;
@@ -125,11 +125,16 @@ public partial class MainViewModel : ObservableObject
     private async Task ComUpdateGameState(object sender, EventArgs e)
     {
         _semaphoreSlim.Wait();
+        //the semaphore is only for signalr initiated updates
+        //the UI thread will still access the properties/variables directly
+        //at the same time as the update thread. This is a big problem!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //todo: make the observable properties thread safe!!!!!!!!!
         try
         {
             // Set  Player Cards
-            Detectives = new ObservableCollection<Player>();
-            AllPlayers = new ObservableCollection<Player>();
+            Detectives.Clear();
+            AllPlayers.Clear();
             foreach (Player detective in _com.GameState.Detectives)
             {
                 Detectives.Add(detective);
@@ -160,6 +165,9 @@ public partial class MainViewModel : ObservableObject
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
+#if DEBUG
+            throw;
+#endif
         }
         finally
         {
@@ -174,7 +182,7 @@ public partial class MainViewModel : ObservableObject
     private void fillPlayerLocation()
     {
         // Detectives
-        PlayerLocation = new ObservableCollection<PointOfInterestView>();
+        PlayerLocation.Clear();
         foreach (Player detective in _com.GameState.Detectives)
         {
             PlayerLocation.Add(PoiConverter(detective.Position, 210, Colors.Red));
@@ -199,8 +207,8 @@ public partial class MainViewModel : ObservableObject
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
-        PoiButtons = new ObservableCollection<PointOfInterestView>();
-        PoiFrames = new ObservableCollection<PointOfInterestView>();
+        PoiButtons.Clear();
+        PoiFrames.Clear();
 
         foreach (PointOfInterest poi in temp.Keys)
         {
@@ -222,7 +230,7 @@ public partial class MainViewModel : ObservableObject
     /// </summary>
     private void fillTicketHistoryList ()
     {
-        MrXticketHistory = new ObservableCollection<TicketsView>();
+        MrXticketHistory.Clear();
         foreach (TicketTypeEnum ticket in _com.GameState.TicketHistoryMisterX)
         {
             TicketsView tempTicket = new();
@@ -541,7 +549,7 @@ public partial class MainViewModel : ObservableObject
    [RelayCommand]
     private void Button_Clicked_Poi(PointOfInterest poi)
     {
-        TicketSelection = new ObservableCollection<TicketSelection>();
+        TicketSelection.Clear();
 
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
