@@ -131,10 +131,19 @@ namespace InspectorGoeServer.Controllers
             if (currentUser == null)
                 return StatusCode(500);
 
-            if(_gameController.MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
+            try
             {
-                await updateGameComponents(_gameController.GameState);
-                return Ok();
+                if (_gameController.MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
+                {
+                    await updateGameComponents(_gameController.GameState);
+                    return Ok();
+                }
+            } catch (Exception ex)
+            {
+                if(ex.Message.Equals("MisterX found!"))
+                {
+                    await _hubContext.Clients.All.SendAsync("GameEnd", "MisterX");
+                }
             }
 
             return BadRequest();

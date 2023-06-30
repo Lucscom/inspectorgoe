@@ -10,6 +10,7 @@ using System.Net.WebSockets;
 using System.Text;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
+using Client.Events;
 
 namespace Client
 {
@@ -35,6 +36,8 @@ namespace Client
         public AutoResetEvent gameStartedEvent = new AutoResetEvent(false);
 
         public event EventHandler UpdateGameStateEvent;
+
+        public event EventHandler<GameEndEventArgs> GameEndEvent;
 
         /// <summary>
         /// Constructor for the communicator without url
@@ -192,6 +195,13 @@ namespace Client
                 {
                     gameStartedEvent.Set();
                 }
+            });
+
+            connection.On<string>("GameEnd", (player) =>
+            {
+                GameEndEventArgs args = new GameEndEventArgs();
+                args.Player = player;
+                GameEndEvent(this, args);
             });
 
             connection.ServerTimeout = TimeSpan.FromMinutes(15);

@@ -1,4 +1,5 @@
 ﻿using Client;
+using Client.Events;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -118,6 +119,7 @@ public partial class MainViewModel : ObservableObject
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
         _com.UpdateGameStateEvent += async (s,e) => await ComUpdateGameState(s,e);
+        _com.GameEndEvent += ComGameEnd;
     }
 
     #region GameLogic
@@ -167,6 +169,17 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    /// <summary>
+    /// Handles game end event
+    /// </summary>
+    /// <param name="player">Player(group) that won the game</param>
+    /// <param name="e"></param>
+    /// <exception cref="Exception"></exception>
+    private void ComGameEnd(object player, GameEndEventArgs e)
+    {
+        //Trigger View element
+        throw new Exception(e.Player);
+    }
 
     /// <summary>
     /// fill up the player location list
