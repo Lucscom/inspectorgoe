@@ -5,6 +5,8 @@ using CommunityToolkit.Mvvm.Input;
 using GameComponents;
 using GameComponents.Model;
 using InspectorGoe.Model;
+using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -347,13 +349,17 @@ public partial class MainViewModel : ObservableObject
         _com.initClient(Userseverip);
         var player = new Player(Username, Userpassword);
         player.Position = null;
+
+        HttpResponseMessage response = null;
         try
         {
-            await _com.CreatePlayerAsync(player);
+            response = await _com.CreatePlayerAsync(player);
+            response.EnsureSuccessStatusCode();
         }
         catch (Exception ex)
         {
-            await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
+            var content = JsonConvert.DeserializeObject<List<IdentityError>>(await response.Content.ReadAsStringAsync());
+            await Shell.Current.DisplayAlert($"{content?.First()?.Code}", $"{content?.First()?.Description}", "OK");
             return;
         }
 
