@@ -32,7 +32,8 @@ namespace Client
         public GameState GameState { get; set; }
 
 
-        public AutoResetEvent gameStartedEvent = new AutoResetEvent(false);
+        public AsyncAutoResetEvent gameStartedEvent = new AsyncAutoResetEvent(false);
+        public AsyncAutoResetEvent newGameStateEvent = new AsyncAutoResetEvent(false);
 
         public event EventHandler UpdateGameStateEvent;
 
@@ -188,6 +189,7 @@ namespace Client
             {
                 GameState = JsonConvert.DeserializeObject<GameState>(gameState);
                 UpdateGameStateEvent(this, EventArgs.Empty);
+                newGameStateEvent.Set();
                 if (GameState.GameStarted)
                 {
                     gameStartedEvent.Set();

@@ -25,6 +25,7 @@ public partial class MainViewModel : ObservableObject
     #region Variables
 
     private Communicator _com;
+    private LobbyPage _lobby;
 
     //Variablen für Login
     [ObservableProperty]
@@ -145,7 +146,11 @@ public partial class MainViewModel : ObservableObject
                 IsMisterX = CurrentPlayer?.UserName == MisterX?.UserName;
             }
 
-            CurrentPlayer = AllPlayers.FirstOrDefault(p => p.UserName == CurrentPlayer?.UserName);
+            var currPlayer = AllPlayers.FirstOrDefault(p => p.UserName == CurrentPlayer?.UserName);
+            if (currPlayer != null) 
+            { 
+                CurrentPlayer = currPlayer;
+            }
 
             // Set Player Position
             fillPlayerLocation();
@@ -193,8 +198,6 @@ public partial class MainViewModel : ObservableObject
     private async Task fillPoiObjects()
     {
         // Point of Interest Buttons if active player = this client
-        CurrentPlayer = await GetOwnPlayer();
-
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
@@ -219,7 +222,7 @@ public partial class MainViewModel : ObservableObject
     /// <summary>
     /// Fill up the ticket history list from MisterX
     /// </summary>
-    private void fillTicketHistoryList ()
+    private void fillTicketHistoryList()
     {
         MrXticketHistory.Clear();
         foreach (TicketTypeEnum ticket in _com.GameState.TicketHistoryMisterX)
@@ -357,6 +360,7 @@ public partial class MainViewModel : ObservableObject
         try
         {
             await _com.LoginAsync(player);
+            CurrentPlayer = await GetOwnPlayer();
         }
         catch (Exception ex)
         {
@@ -395,9 +399,18 @@ public partial class MainViewModel : ObservableObject
     /// Navigation from MenuPage to GameStartPage
     /// </summary>
     [RelayCommand]
-    private void CreateNewGame()
+    private async Task CreateNewGame()
     {
-        Shell.Current.ShowPopup(new AvatarPage());
+        try
+        {
+            await _com.CreateGameAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
+        await Shell.Current.ShowPopupAsync(new AvatarPage());
     }
 
     /// <summary>
@@ -406,24 +419,10 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task JoinGame()
     {
-        //todo: check logic
-        //show avatar page?
-        //Shell.Current.ShowPopup(new AvatarPage());
-        //show lobby page? While waiting for game to start
+        await Shell.Current.ShowPopupAsync(new AvatarPage());
 
-        try
-        {
-            await _com.JoinGameAsync();
-        }
-        catch (Exception ex)
-        {
-            await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
-            return;
-        }
-
-        //todo: fix this. This will wait for game start.
-        //THE CLIENT FREEZES HERE COMPLETELY!!!!!!!!
-        _com.gameStartedEvent.WaitOne();
+        await _com.gameStartedEvent.WaitAsync();
+        _lobby?.Close();
         await App.Current.MainPage.Navigation.PushAsync(new MainPage());
     }
 
@@ -431,9 +430,9 @@ public partial class MainViewModel : ObservableObject
     /// Navigation from MenuPage to MainPage
     /// </summary>
     [RelayCommand]
-    private void Tutorial()
+    private async Task Tutorial()
     {
-        Shell.Current.ShowPopup(new TutorialPage());
+        await Shell.Current.ShowPopupAsync(new TutorialPage());
     }
 
     /// <summary>
@@ -457,7 +456,6 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
-            await _com.CreateGameAsync();
             await _com.JoinGameAsync();
         }
         catch (Exception ex)
@@ -468,8 +466,12 @@ public partial class MainViewModel : ObservableObject
 
         //senden des ausgewälten Avatars an den Server
 
+        _lobby = new LobbyPage();
+        await _com.newGameStateEvent.WaitAsync();
+        if (CurrentPlayer.UserName != _com.GameState.GameCreator.UserName)
+            _lobby.FindByName<Button>("StartGame").IsVisible = false;
+        Shell.Current.ShowPopup(_lobby);
         popup.Close();
-        Shell.Current.ShowPopup(new LobbyPage());
     }
 
     /// <summary>
@@ -508,7 +510,7 @@ public partial class MainViewModel : ObservableObject
             return;
         }
 
-        _com.gameStartedEvent.WaitOne();
+        await _com.gameStartedEvent.WaitAsync();
         popup.Close();
         await Shell.Current.Dispatcher.DispatchAsync(async () => await Shell.Current.Navigation.PushAsync(new MainPage()));
     }
