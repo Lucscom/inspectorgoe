@@ -208,6 +208,16 @@ public partial class MainViewModel : ObservableObject
         // Set  Player Cards
         Detectives = new ObservableCollection<PlayerView>();
 
+        List<Color> colorList = new List<Color>
+            {
+                Colors.Navy,
+                Colors.LimeGreen,
+                Colors.Turquoise,
+                Colors.Orange,
+                Colors.Purple
+            };
+        int colorCounter = 0;
+
         foreach (Player detective in _com.GameState.Detectives)
         {
             PlayerView temp = new();
@@ -218,13 +228,17 @@ public partial class MainViewModel : ObservableObject
             temp.BusTicket = detective.BusTicket;
             temp.BlackTicket = detective.BlackTicket;
             temp.DoubleTicket = detective.DoubleTicket;
+            temp.Position = detective.Position;
 
             if (_com.GameState.ActivePlayer.UserName == detective.UserName)
-                temp.FrameColor = Colors.Transparent;
+                temp.BorderThickness = 4;
             else
-                temp.FrameColor = Colors.Black;
+                temp.BorderThickness = 0;
 
             Detectives.Add(temp);
+
+            temp.PlayerColor = colorList[colorCounter];
+            colorCounter++;
 
         }
 
@@ -236,10 +250,12 @@ public partial class MainViewModel : ObservableObject
         MisterX.BusTicket = _com.GameState.MisterX.BusTicket;
         MisterX.BlackTicket = _com.GameState.MisterX.BlackTicket;
         MisterX.DoubleTicket = _com.GameState.MisterX.DoubleTicket;
+        MisterX.Position = _com.GameState.MisterX.Position;
+        MisterX.PlayerColor = Colors.Red;
         if (_com.GameState.ActivePlayer.UserName == _com.GameState.MisterX.UserName)
-            MisterX.FrameColor = Colors.Transparent;
+            MisterX.BorderThickness = 4;
         else
-            MisterX.FrameColor = Colors.Black;
+            MisterX.BorderThickness = 0;
 
     }
 
@@ -250,18 +266,18 @@ public partial class MainViewModel : ObservableObject
     {
         // Detectives
         PlayerLocation = new ObservableCollection<PointOfInterestView>();
-        foreach (Player detective in _com.GameState.Detectives)
+        foreach (PlayerView detective in Detectives)
         {
-            PlayerLocation.Add(PoiConverter(detective.Position, 210, Colors.Red));
+            PlayerLocation.Add(PoiConverter(detective.Position, 210, detective.PlayerColor, detective.Position.Name));
         }
 
         if(IsMisterX == true)
         // Abfrage ob dieser Client misterX ist wenn ja dann wird die Position angezeigt
-            PlayerLocation.Add(PoiConverter(_com.GameState.MisterX?.Position, 210, Colors.Purple));
+            PlayerLocation.Add(PoiConverter(_com.GameState.MisterX?.Position, 210, MisterX.PlayerColor, _com.GameState.MisterX.Position.Name));
 
         else if(_com.GameState.MisterXLastKnownPOI != null)
         // Wenn nicht dann wird die letzte bekannte Position angezeigt
-            PlayerLocation.Add(PoiConverter(_com.GameState.MisterXLastKnownPOI, 210, Colors.Purple));
+            PlayerLocation.Add(PoiConverter(_com.GameState.MisterXLastKnownPOI, 210, MisterX.PlayerColor, _com.GameState.MisterX.Position.Name));
     }
 
 
@@ -281,6 +297,7 @@ public partial class MainViewModel : ObservableObject
         {
             PointOfInterestView tempPOIV = PoiConverter(poi, 200);
             tempPOIV.PointOfInterest = poi;
+            tempPOIV.Name = poi.Name;
 
             if (_com.GameState.ActivePlayer.UserName == CurrentPlayer.UserName)
                 PoiButtons.Add(tempPOIV);
@@ -346,7 +363,7 @@ public partial class MainViewModel : ObservableObject
     /// </summary>
     /// <param name="poi">Point of interes Object</param>
     /// <returns>PointOfInterestView</returns>
-    private PointOfInterestView PoiConverter(PointOfInterest poi, double size, Color objectColor = null)
+    private PointOfInterestView PoiConverter(PointOfInterest poi, double size, Color objectColor = null, string name = null)
     {
         if (poi != null)
         {
@@ -355,6 +372,7 @@ public partial class MainViewModel : ObservableObject
             PointOfInterestView temp = new PointOfInterestView();
             temp.Location = new Rect(zoomFactor * poi.LocationX - (zoomFactor * size) / 2, zoomFactor * poi.LocationY - (zoomFactor * size)/2, zoomFactor *  size , zoomFactor * size);
             temp.ObjectColor = objectColor ?? Colors.Transparent;
+            temp.Name = name ?? poi.Name;
             return temp;
         }
         else
@@ -600,12 +618,12 @@ public partial class MainViewModel : ObservableObject
     { 
         if (zoomType == "plus" && WidthMap <= 8914 && HeightMap <= 5000)
         {
-            WidthMap += 200;
+            WidthMap += 100;
             HeightMap = WidthMap / 1.7828;
         }
-        else if (zoomType == "minus" && WidthMap - 200 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 200 >= DeviceDisplay.MainDisplayInfo.Height)
+        else if (zoomType == "minus" && WidthMap - 100 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 100 >= DeviceDisplay.MainDisplayInfo.Height)
         {
-            WidthMap -= 200;
+            WidthMap -= 100;
             HeightMap = WidthMap / 1.7828;
         }
 

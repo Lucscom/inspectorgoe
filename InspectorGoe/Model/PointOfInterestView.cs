@@ -15,6 +15,9 @@ namespace InspectorGoe.Model
         private int number;
         public int Number { get => number; set => SetProperty(ref number, value); }
 
+        private string name;
+        public string Name { get => name; set => SetProperty(ref name, value); }
+
         /// <summary>
         /// Position on the map
         /// </summary>
