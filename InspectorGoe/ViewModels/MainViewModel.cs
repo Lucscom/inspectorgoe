@@ -160,7 +160,6 @@ public partial class MainViewModel : ObservableObject
             // Set Player Position
             fillPlayerLocation();
 
-            _com.GameState.TicketHistoryMisterX.Add(TicketTypeEnum.Bus);
 
             // Ticket History from Mister
             fillTicketHistoryList();

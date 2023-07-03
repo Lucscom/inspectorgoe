@@ -196,8 +196,7 @@ namespace GameComponents
                         break;
                 }
                 GameState.ActivePlayer.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
-                GameState.Move++;
-                if (player == GameState.MisterX)
+                if (player.UserName == GameState.MisterX.UserName)
                 {
                     GameState.TicketHistoryMisterX.Add(ticketType);
                     if (GameState.Round == 3 || GameState.Round == 8 || GameState.Round == 13 || GameState.Round == 18 || GameState.Round == 24)
