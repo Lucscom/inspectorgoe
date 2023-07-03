@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
+using GameComponents.Model;
 
 namespace InspectorGoe.Model
 {
@@ -36,11 +36,14 @@ namespace InspectorGoe.Model
         private bool npc;
         public bool Npc { get => npc; set => SetProperty(ref npc, value); }
 
+        private PointOfInterest position;
+        public PointOfInterest Position { get => position; set => SetProperty(ref position, value); }
+
 
         /// <summary>
         /// Color for top level Frame in Player Cards to signal if the player is active
         /// </summary>
-        private Color frameColor;
-        public Color FrameColor { get => frameColor; set => SetProperty(ref frameColor, value); }
+        private int borderThickness;
+        public int BorderThickness { get => borderThickness; set => SetProperty(ref borderThickness, value); }
     }
 }

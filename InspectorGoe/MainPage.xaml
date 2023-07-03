@@ -29,6 +29,40 @@
                             WidthRequest="{Binding WidthMap}"
                             HeightRequest="{Binding HeightMap}"/>
 
+
+                <!--Absolutlayout für Player Position-->
+                <AbsoluteLayout x:Name="absolutPlayerLocation"
+                                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                AbsoluteLayout.LayoutFlags="All"
+                                WidthRequest="{Binding WidthMap}"
+                                HeightRequest="{Binding HeightMap}"
+                                BindableLayout.ItemsSource="{Binding PlayerLocation}">
+
+                    <BindableLayout.ItemTemplate >
+                        <DataTemplate>
+                            <Frame   AbsoluteLayout.LayoutBounds="{Binding Location}"
+                                    AbsoluteLayout.LayoutFlags="None"
+                                    CornerRadius="100"
+                                    BorderColor="Transparent"
+                                    ToolTipProperties.Text="{Binding Name}">
+
+                                <Frame.Background>
+                                    <RadialGradientBrush Center="0.5,0.5">
+                                        <GradientStop Color="Transparent"
+                                                      Offset="0.65" />
+                                        <GradientStop Color="{Binding ObjectColor}"
+                                                      Offset="0.705" />
+                                        <GradientStop Color="{Binding ObjectColor}"
+                                                      Offset="0.8" />
+                                        <GradientStop Color="White"
+                                                      Offset="1" />
+                                    </RadialGradientBrush>
+                                </Frame.Background>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </AbsoluteLayout>
+
                 <!--Absolutlayout für Buttons-->
                 <AbsoluteLayout x:Name="absolutButtons"
                                 AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -45,7 +79,8 @@
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=Button_Clicked_PoiCommand}"
                                     CommandParameter="{Binding PointOfInterest}"
                                     CornerRadius="100"
-                                    BorderColor="Transparent">
+                                    BorderColor="Transparent"
+                                    ToolTipProperties.Text="{Binding Name}">
 
                                 <Button.Background>
                                     <RadialGradientBrush Center="0.5,0.5">
@@ -76,7 +111,8 @@
                             <Frame   AbsoluteLayout.LayoutBounds="{Binding Location}"
                                     AbsoluteLayout.LayoutFlags="None"
                                     CornerRadius="100"
-                                    BorderColor="Transparent">
+                                    BorderColor="Transparent"
+                                    ToolTipProperties.Text="{Binding Name}">
 
                                 <Frame.Background>
                                     <RadialGradientBrush Center="0.5,0.5">
@@ -94,38 +130,6 @@
                     </BindableLayout.ItemTemplate>
                 </AbsoluteLayout>
 
-
-                <!--Absolutlayout für Player Position-->
-                <AbsoluteLayout x:Name="absolutPlayerLocation"
-                                AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                AbsoluteLayout.LayoutFlags="All"
-                                WidthRequest="{Binding WidthMap}"
-                                HeightRequest="{Binding HeightMap}"
-                                BindableLayout.ItemsSource="{Binding PlayerLocation}">
-
-                    <BindableLayout.ItemTemplate >
-                        <DataTemplate>
-                            <Frame   AbsoluteLayout.LayoutBounds="{Binding Location}"
-                                    AbsoluteLayout.LayoutFlags="None"
-                                    CornerRadius="100"
-                                    BorderColor="Transparent">
-
-                                <Frame.Background>
-                                    <RadialGradientBrush Center="0.5,0.5">
-                                        <GradientStop Color="Transparent"
-                                                      Offset="0.65" />
-                                        <GradientStop Color="{Binding ObjectColor}"
-                                                      Offset="0.705" />
-                                        <GradientStop Color="{Binding ObjectColor}"
-                                                      Offset="0.8" />
-                                        <GradientStop Color="White"
-                                                      Offset="1" />
-                                    </RadialGradientBrush>
-                                </Frame.Background>
-                            </Frame>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </AbsoluteLayout>
 
             </AbsoluteLayout>
         </container:PanContainer>
