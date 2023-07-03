@@ -33,7 +33,8 @@ namespace Client
         public GameState GameState { get; set; }
 
 
-        public AutoResetEvent gameStartedEvent = new AutoResetEvent(false);
+        public AsyncAutoResetEvent gameStartedEvent = new AsyncAutoResetEvent(false);
+        public AsyncAutoResetEvent newGameStateEvent = new AsyncAutoResetEvent(false);
 
         public event EventHandler UpdateGameStateEvent;
 
@@ -89,12 +90,11 @@ namespace Client
         /// </summary>
         /// <param name="player">Player Object</param>
         /// <returns>Http Status Code</returns>
-        public async Task<HttpStatusCode> CreatePlayerAsync(Player player)
+        public async Task<HttpResponseMessage> CreatePlayerAsync(Player player)
         {
             HttpResponseMessage response = await _client.PostAsJsonAsync(
                 "api/Player/register", player);
-            response.EnsureSuccessStatusCode();
-            return response.StatusCode;
+            return response;
         }
 
         /// <summary>
@@ -191,6 +191,7 @@ namespace Client
             {
                 GameState = JsonConvert.DeserializeObject<GameState>(gameState);
                 UpdateGameStateEvent(this, EventArgs.Empty);
+                newGameStateEvent.Set();
                 if (GameState.GameStarted)
                 {
                     gameStartedEvent.Set();

@@ -90,7 +90,7 @@ namespace InspectorGoeServer.Controllers
             var userResult = await _userManager.CreateAsync(player, player.Password);
 
             if (!userResult.Succeeded)
-                return new BadRequestObjectResult(userResult);
+                return new BadRequestObjectResult(userResult.Errors);
 
             var newPlayer = await _context.Players.FindAsync(player.Id);
 
