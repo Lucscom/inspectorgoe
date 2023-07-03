@@ -227,7 +227,7 @@ namespace GameComponents
         /// <returns></returns>
         private bool FoundMisterX(Player player)
         {
-            if (GameState.MisterX.Position.Equals(player.Position)) return true;
+            if (GameState.MisterX.Position.Number  == player.Position.Number) return true;
             else return false;
         }
 
