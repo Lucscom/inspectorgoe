@@ -80,6 +80,17 @@ namespace GameComponents
                         //throw new Exception("No Scooter Tickets!");
                         return false;
                     break;
+                case TicketTypeEnum.Black:
+                    if (player.BlackTicket > 0)
+                    {
+                        if (!(player.Position.ConnectionScooter.Contains(point.Number) || player.Position.ConnectionBus.Contains(point.Number) || player.Position.ConnectionBike.Contains(point.Number)))
+                            //throw new Exception("Connection Black doesn't exist!");
+                            return false;
+                    }
+                    else
+                        //throw new Exception("No Scooter Tickets!");
+                        return false;
+                    break;
                 default:
                     return false;
             }
@@ -103,7 +114,7 @@ namespace GameComponents
             }
             if(player.BikeTicket > 0)
             {
-                List<PointOfInterest> pois = new List<PointOfInterest>();
+                HashSet<PointOfInterest> pois = new HashSet<PointOfInterest>();
                 foreach (int poiNumber in player.Position.ConnectionBike)
                 {
                     pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
@@ -112,7 +123,7 @@ namespace GameComponents
             }
             if (player.ScooterTicket > 0)
             {
-                List<PointOfInterest> pois = new List<PointOfInterest>();
+                HashSet<PointOfInterest> pois = new HashSet<PointOfInterest>();
                 foreach (int poiNumber in player.Position.ConnectionScooter)
                 {
                     pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
@@ -121,7 +132,7 @@ namespace GameComponents
             }
             if (player.BusTicket > 0)
             {
-                List<PointOfInterest> pois = new List<PointOfInterest>();
+                HashSet<PointOfInterest> pois = new HashSet<PointOfInterest>();
                 foreach (int poiNumber in player.Position.ConnectionBus)
                 {
                     pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
@@ -129,9 +140,9 @@ namespace GameComponents
                 moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bus, pois, gameState.Detectives);
             }
             //TODO: doppeltickets
-            if (player == gameState.MisterX && player.BlackTicket > 0)
+            if (player.BlackTicket > 0)
             {
-                List<PointOfInterest> pois = new List<PointOfInterest>();
+                HashSet<PointOfInterest> pois = new HashSet<PointOfInterest>();
                 foreach(int poiNumber in player.Position.ConnectionBike)
                 {
                     pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
@@ -159,7 +170,7 @@ namespace GameComponents
         /// <param name="pois">Connectins pois to player position</param>
         /// <param name="detectives">Detective players to get blocked pois</param>
         /// <returns>Dictionary that contains all possible pois for one ticket type</returns>
-        private static Dictionary<PointOfInterest, List<TicketTypeEnum>> AddValidMovesForTicket(Dictionary<PointOfInterest, List<TicketTypeEnum>> moves, TicketTypeEnum ticketType, List<PointOfInterest> pois, List<Player> detectives)
+        private static Dictionary<PointOfInterest, List<TicketTypeEnum>> AddValidMovesForTicket(Dictionary<PointOfInterest, List<TicketTypeEnum>> moves, TicketTypeEnum ticketType, HashSet<PointOfInterest> pois, List<Player> detectives)
         {
 
             //Remove pois that are blocked by other detectives
