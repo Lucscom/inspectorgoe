@@ -85,10 +85,10 @@ public partial class MainViewModel : ObservableObject
     private Player currentPlayer = new Player();
 
     [ObservableProperty]
-    private ObservableCollection<Player> detectives = new ObservableCollection<Player>();
+    private ObservableCollection<PlayerView> detectives = new ObservableCollection<PlayerView>();
 
     [ObservableProperty]
-    private Player misterX = new Player();
+    private PlayerView misterX = new PlayerView();
 
     [ObservableProperty]
     private bool isMisterX = false;
@@ -134,39 +134,48 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
-            // Set  Player Cards
-            Detectives = new ObservableCollection<Player>();
             AllPlayers = new ObservableCollection<Player>();
             foreach (Player detective in _com.GameState.Detectives)
             {
-                Detectives.Add(detective);
                 AllPlayers.Add(detective);
             }
 
-            // MisterX
-            MisterX = _com.GameState.MisterX;
-            if (MisterX != null)
+
+            if (_com.GameState.MisterX != null)
             {
-                AllPlayers.Add(MisterX);
-                IsMisterX = CurrentPlayer?.UserName == MisterX?.UserName;
+                AllPlayers.Add(_com.GameState.MisterX);
+                IsMisterX = CurrentPlayer?.UserName == _com.GameState.MisterX?.UserName;
             }
 
-            var currPlayer = AllPlayers.FirstOrDefault(p => p.UserName == CurrentPlayer?.UserName);
-            if (currPlayer != null) 
-            { 
-                CurrentPlayer = currPlayer;
+
+            if (AllPlayers.Any())
+            {
+                var currPlayer = AllPlayers.FirstOrDefault(p => p.UserName == CurrentPlayer?.UserName);
+                if (currPlayer != null)
+                {
+                    CurrentPlayer = currPlayer;
+                }
             }
 
-            // Set Player Position
-            fillPlayerLocation();
+
+            if (_com.GameState.GameStarted == true)
+            {
+
+                // Set Player Card
+                fillPlayerCards();
 
 
-            // Ticket History from Mister
-            fillTicketHistoryList();
+                // Set Player Position
+                fillPlayerLocation();
 
 
-            // Point of Interest Buttons
-            fillPoiObjects();
+                // Ticket History from Mister
+                fillTicketHistoryList();
+
+
+                // Point of Interest Buttons
+                fillPoiObjects();
+            }
         }
         catch (Exception ex)
         {
@@ -176,6 +185,7 @@ public partial class MainViewModel : ObservableObject
 #endif
         }
     }
+
 
     /// <summary>
     /// Handles game end event
@@ -187,6 +197,50 @@ public partial class MainViewModel : ObservableObject
     {
         //Trigger View element
         throw new Exception(e.Player);
+    }
+
+
+    /// <summary>
+    /// Fill the Player Cards from detectives and MisterX
+    /// </summary>
+    private void fillPlayerCards()
+    {
+        // Set  Player Cards
+        Detectives = new ObservableCollection<PlayerView>();
+
+        foreach (Player detective in _com.GameState.Detectives)
+        {
+            PlayerView temp = new();
+            temp.AvatarImagePath = detective.AvatarImagePath;
+            temp.UserName = detective.UserName;
+            temp.BikeTicket = detective.BikeTicket;
+            temp.ScooterTicket = detective.ScooterTicket;
+            temp.BusTicket = detective.BusTicket;
+            temp.BlackTicket = detective.BlackTicket;
+            temp.DoubleTicket = detective.DoubleTicket;
+
+            if (_com.GameState.ActivePlayer.UserName == detective.UserName)
+                temp.FrameColor = Colors.Transparent;
+            else
+                temp.FrameColor = Colors.Black;
+
+            Detectives.Add(temp);
+
+        }
+
+        // MisterX
+        MisterX.AvatarImagePath = _com.GameState.MisterX.AvatarImagePath;
+        MisterX.UserName = _com.GameState.MisterX.UserName;
+        MisterX.BikeTicket = _com.GameState.MisterX.BikeTicket;
+        MisterX.ScooterTicket = _com.GameState.MisterX.ScooterTicket;
+        MisterX.BusTicket = _com.GameState.MisterX.BusTicket;
+        MisterX.BlackTicket = _com.GameState.MisterX.BlackTicket;
+        MisterX.DoubleTicket = _com.GameState.MisterX.DoubleTicket;
+        if (_com.GameState.ActivePlayer.UserName == _com.GameState.MisterX.UserName)
+            MisterX.FrameColor = Colors.Transparent;
+        else
+            MisterX.FrameColor = Colors.Black;
+
     }
 
     /// <summary>
@@ -201,11 +255,13 @@ public partial class MainViewModel : ObservableObject
             PlayerLocation.Add(PoiConverter(detective.Position, 210, Colors.Red));
         }
 
+        if(IsMisterX == true)
         // Abfrage ob dieser Client misterX ist wenn ja dann wird die Position angezeigt
-        PlayerLocation.Add(PoiConverter(_com.GameState.MisterX?.Position, 210, Colors.Purple));
+            PlayerLocation.Add(PoiConverter(_com.GameState.MisterX?.Position, 210, Colors.Purple));
 
+        else if(_com.GameState.MisterXLastKnownPOI != null)
         // Wenn nicht dann wird die letzte bekannte Position angezeigt
-        //PlayerLocation.Add(PoiConverter(_com.GameState.MisterXLastKnownPOI, 170, Colors.Purple));
+            PlayerLocation.Add(PoiConverter(_com.GameState.MisterXLastKnownPOI, 210, Colors.Purple));
     }
 
 
@@ -228,7 +284,7 @@ public partial class MainViewModel : ObservableObject
 
             if (_com.GameState.ActivePlayer.UserName == CurrentPlayer.UserName)
                 PoiButtons.Add(tempPOIV);
-            else
+            else if(_com.GameState.ActivePlayer.UserName != _com.GameState.MisterX.UserName)
                 PoiFrames.Add(tempPOIV);    
         }
 
