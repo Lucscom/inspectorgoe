@@ -199,7 +199,7 @@ namespace GameComponents
                 if (player.UserName == GameState.MisterX.UserName)
                 {
                     GameState.TicketHistoryMisterX.Add(ticketType);
-                    if (GameState.Round == 3 || GameState.Round == 8 || GameState.Round == 13 || GameState.Round == 18 || GameState.Round == 24)
+                    if (GameState.Round == 2 || GameState.Round == 7 || GameState.Round == 12 || GameState.Round == 17 || GameState.Round == 23)
                     {
                         GameState.MisterXLastKnownPOI = GameState.MisterX.Position;
                     }
