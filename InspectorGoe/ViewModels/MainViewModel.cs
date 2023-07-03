@@ -135,8 +135,8 @@ public partial class MainViewModel : ObservableObject
         try
         {
             // Set  Player Cards
-            Detectives.Clear();
-            AllPlayers.Clear();
+            Detectives = new ObservableCollection<Player>();
+            AllPlayers = new ObservableCollection<Player>();
             foreach (Player detective in _com.GameState.Detectives)
             {
                 Detectives.Add(detective);
@@ -160,13 +160,14 @@ public partial class MainViewModel : ObservableObject
             // Set Player Position
             fillPlayerLocation();
 
+            _com.GameState.TicketHistoryMisterX.Add(TicketTypeEnum.Bus);
 
             // Ticket History from Mister
             fillTicketHistoryList();
 
 
             // Point of Interest Buttons
-            await fillPoiObjects();
+            fillPoiObjects();
         }
         catch (Exception ex)
         {
@@ -195,7 +196,7 @@ public partial class MainViewModel : ObservableObject
     private void fillPlayerLocation()
     {
         // Detectives
-        PlayerLocation.Clear();
+        PlayerLocation = new ObservableCollection<PointOfInterestView>();
         foreach (Player detective in _com.GameState.Detectives)
         {
             PlayerLocation.Add(PoiConverter(detective.Position, 210, Colors.Red));
@@ -212,14 +213,14 @@ public partial class MainViewModel : ObservableObject
     /// <summary>
     /// Fill up the Point of Interest Buttons List
     /// </summary>
-    private async Task fillPoiObjects()
+    private void fillPoiObjects()
     {
         // Point of Interest Buttons if active player = this client
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
-        PoiButtons.Clear();
-        PoiFrames.Clear();
+        PoiButtons = new ObservableCollection<PointOfInterestView>();
+        PoiFrames = new ObservableCollection<PointOfInterestView>();
 
         foreach (PointOfInterest poi in temp.Keys)
         {
@@ -241,7 +242,7 @@ public partial class MainViewModel : ObservableObject
     /// </summary>
     private void fillTicketHistoryList()
     {
-        MrXticketHistory.Clear();
+        MrXticketHistory = new ObservableCollection<TicketsView>();
         foreach (TicketTypeEnum ticket in _com.GameState.TicketHistoryMisterX)
         {
             TicketsView tempTicket = new();
@@ -250,12 +251,11 @@ public partial class MainViewModel : ObservableObject
         }
 
         // Fill up with dummys
-        for (int i = _com.GameState.TicketHistoryMisterX.Count - 1; i < 23; i++)
+        for (int i = _com.GameState.TicketHistoryMisterX.Count; i < 24; i++)
         {
             TicketsView tempTicket = new();
             tempTicket.ImagePath = "ticket_placeholder.png";
             MrXticketHistory.Add(tempTicket);
-
         }
 
         // setting up all other variables
@@ -282,7 +282,7 @@ public partial class MainViewModel : ObservableObject
 
             number++;
         }
-        MrXticketHistory.Reverse();
+        //MrXticketHistory.Reverse();
     }
 
 
@@ -295,7 +295,7 @@ public partial class MainViewModel : ObservableObject
     {
         if (poi != null)
         {
-            double zoomFactor = widthMap / 8914;
+            double zoomFactor = WidthMap / 8914;
 
             PointOfInterestView temp = new PointOfInterestView();
             temp.Location = new Rect(zoomFactor * poi.LocationX - (zoomFactor * size) / 2, zoomFactor * poi.LocationY - (zoomFactor * size)/2, zoomFactor *  size , zoomFactor * size);
@@ -554,7 +554,7 @@ public partial class MainViewModel : ObservableObject
             HeightMap = WidthMap / 1.7828;
         }
 
-        await fillPoiObjects();
+        fillPoiObjects();
         fillPlayerLocation();
 
     }
@@ -563,7 +563,7 @@ public partial class MainViewModel : ObservableObject
    [RelayCommand]
     private void Button_Clicked_Poi(PointOfInterest poi)
     {
-        TicketSelection.Clear();
+        TicketSelection = new ObservableCollection<TicketSelection>();
 
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);

@@ -15,27 +15,5 @@ public partial class MainPage : ContentPage
 
         BindingContext = ViewModels.MainViewModel.GetInstance();
     }
-
-
-
-
-    //protected override void OnSizeAllocated(double width, double height)
-    //{
-    //    base.OnSizeAllocated(width, height);
-
-    //    if (width > height)
-    //    {
-    //        Width = width;
-    //        Height = width / 1.7828;
-    //    }
-    //    else
-    //    {
-    //        Height = height;
-    //        Width = Height * 1.7828;
-    //    }
-    //    setSize();
-    //}
-
-
 }
 

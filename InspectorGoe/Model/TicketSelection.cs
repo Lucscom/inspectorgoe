@@ -1,15 +1,31 @@
 ﻿using GameComponents;
+using CommunityToolkit.Mvvm.ComponentModel;
 using GameComponents.Model;
 
 namespace InspectorGoe.Model
 {
-    public class TicketSelection
+    /// <summary>
+    /// Class for plotting the tickets in the Ticket Selection 
+    /// </summary>
+    public class TicketSelection : ObservableObject
     {
-        public PointOfInterest PointOfInterest { get; set; }
+        /// <summary>
+        /// selected POI
+        /// </summary>
+        private PointOfInterest pointOfInterest;
+        public PointOfInterest PointOfInterest { get => pointOfInterest; set => SetProperty(ref pointOfInterest, value); }
 
-        public TicketTypeEnum TicketType { get; set; }
+        /// <summary>
+        /// Ticket Type
+        /// </summary>
+        private TicketTypeEnum ticketType;
+        public TicketTypeEnum TicketType { get => ticketType; set => SetProperty(ref ticketType, value); }
 
-        public string TicketImagePath { get; set; }
+        /// <summary>
+        /// Ticket Image Path for displaying the Ticket
+        /// </summary>
+        private string ticketImagePath;
+        public string TicketImagePath { get => ticketImagePath; set => SetProperty<string>(ref ticketImagePath, value); }
 
     }
 }
