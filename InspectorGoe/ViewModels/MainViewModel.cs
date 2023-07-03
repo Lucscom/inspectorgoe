@@ -1,4 +1,5 @@
 ﻿using Client;
+using Client.Events;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -118,6 +119,8 @@ public partial class MainViewModel : ObservableObject
     {
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
+        _com.GameEndEvent += ComGameEnd;
+        
         //signalr initiates updates on a seperate thread
         //use the dispatcher to shedule the update on the UI thread instead
         //therefore signalr and ui thread will not access the properties/variables at the same time
@@ -172,6 +175,18 @@ public partial class MainViewModel : ObservableObject
             throw;
 #endif
         }
+    }
+
+    /// <summary>
+    /// Handles game end event
+    /// </summary>
+    /// <param name="player">Player(group) that won the game</param>
+    /// <param name="e"></param>
+    /// <exception cref="Exception"></exception>
+    private void ComGameEnd(object player, GameEndEventArgs e)
+    {
+        //Trigger View element
+        throw new Exception(e.Player);
     }
 
     /// <summary>

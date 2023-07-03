@@ -183,7 +183,21 @@ namespace GameComponents
                 return true;
             }
 
+            if (player != GameState.MisterX && FoundMisterX(player))
+                throw new Exception("MisterX found!");
+
             return false;
+        }
+
+        /// <summary>
+        /// Checks if player position equals misterX position
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        private bool FoundMisterX(Player player)
+        {
+            if (GameState.MisterX.Position.Equals(player.Position)) return true;
+            else return false;
         }
 
         /// <summary>
