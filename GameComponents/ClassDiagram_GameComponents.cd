@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GameComponents.Model.GameState">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAADQAAACAgCCAAAAAAAAAAAAEAIAAAE=</HashCode>
+      <FileName>Model\GameState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameComponents.Model.Player">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABgAQAAgAAAAAAAAAAAIAAACARgAAAAAEgA=</HashCode>
+      <FileName>Model\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameComponents.Model.PointOfInterest">
+    <Position X="4.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEoAAAQAAEAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\PointOfInterest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameComponents.GameController">
+    <Position X="0.5" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAIBEAAAACAAAgAAAAEAAAAAgAAAAgIAA=</HashCode>
+      <FileName>GameController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameComponents.Validator">
+    <Position X="2.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gQAIAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameComponents.Initializer">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAACAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Initializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="GameComponents.TicketTypeEnum">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIEQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>TicketTypeEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
