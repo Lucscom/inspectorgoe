@@ -212,6 +212,11 @@ namespace GameComponents
             if (player != GameState.MisterX && FoundMisterX(player))
                 throw new Exception("MisterX found!");
 
+            if(GameState.Round > 24)
+            {
+                throw new Exception("Round limit!");
+            }
+
             return false;
         }
 
