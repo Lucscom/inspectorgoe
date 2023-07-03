@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GameComponents
 {
@@ -177,7 +178,34 @@ namespace GameComponents
                     ticketType, 
                     GameState.Detectives))      
             {
+                switch(ticketType)
+                {
+                    case TicketTypeEnum.Bus:
+                        GameState.ActivePlayer.BusTicket--;
+                        break;
+                    case TicketTypeEnum.Bike:
+                        GameState.ActivePlayer.BikeTicket--;
+                        break;
+                    case TicketTypeEnum.Scooter:
+                        GameState.ActivePlayer.ScooterTicket--;
+                        break;
+                    case TicketTypeEnum.Black:
+                        GameState.ActivePlayer.BlackTicket--;
+                        break;
+                    case TicketTypeEnum.doubleTicket: 
+                        GameState.ActivePlayer.DoubleTicket--;
+                        break;
+                }
                 GameState.ActivePlayer.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
+                GameState.Move++;
+                if (player == GameState.MisterX)
+                {
+                    GameState.TicketHistoryMisterX.Add(ticketType);
+                    if (GameState.Round == 3 || GameState.Round == 8 || GameState.Round == 13 || GameState.Round == 18 || GameState.Round == 24)
+                    {
+                        GameState.MisterXLastKnownPOI = GameState.MisterX.Position;
+                    }
+                }
                 Console.WriteLine("Player moved");
                 NextMove();
                 return true;
