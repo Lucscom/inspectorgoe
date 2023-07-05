@@ -109,6 +109,7 @@ public partial class MainViewModel : ObservableObject
 
 
     private TicketSelectionPage ticketSelectionPage;
+    private TicketSelectionPageMisterX ticketSelectionPageMisterX;
 
     [ObservableProperty]
     private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
@@ -633,6 +634,7 @@ public partial class MainViewModel : ObservableObject
     }
 
 
+    // Tickselection PopUp
    [RelayCommand]
     private void Button_Clicked_Poi(PointOfInterest poi)
     {
@@ -641,29 +643,51 @@ public partial class MainViewModel : ObservableObject
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
-        if (temp.ContainsKey(poi))
-        {
-            foreach (TicketTypeEnum ticket in temp[poi])
-            {
-                TicketSelection tempTicket = new TicketSelection();
-                tempTicket.PointOfInterest = poi;
-                tempTicket.TicketType = ticket;
-                tempTicket.TicketImagePath = "ticket_" + ticket.ToString().ToLower() + ".png";
-                TicketSelection.Add(tempTicket);
-            }
-        }
-        ticketSelectionPage = new TicketSelectionPage();
 
-        Shell.Current.ShowPopup(ticketSelectionPage);
+        foreach (TicketTypeEnum ticket in Enum.GetValues(typeof(TicketTypeEnum)))
+        {
+            if(IsMisterX == false && (ticket == TicketTypeEnum.Black || ticket == TicketTypeEnum.doubleTicket))
+                continue;
+
+            TicketSelection tempTicket = new TicketSelection();
+            tempTicket.PointOfInterest = poi;
+            tempTicket.TicketType = ticket;
+
+            if (temp[poi].Contains(ticket))
+            {
+                tempTicket.IsEnabled = true;
+                tempTicket.TicketImagePath = "ticket_" + ticket.ToString().ToLower() + ".png";
+            }
+            else
+            {
+                tempTicket.IsEnabled = false;
+                tempTicket.TicketImagePath = "ticket_" + ticket.ToString().ToLower() + "_sw.png";
+            }            
+            TicketSelection.Add(tempTicket);
+        }
+
+        if (IsMisterX == false)
+        {
+            ticketSelectionPage = new TicketSelectionPage();
+            Shell.Current.ShowPopup(ticketSelectionPage);
+        }
+        else
+        {
+            ticketSelectionPageMisterX = new TicketSelectionPageMisterX();
+            Shell.Current.ShowPopup(ticketSelectionPageMisterX);
+        }
     }
 
+    // After Click on Ticket
     [RelayCommand]
     private void Button_Clicked_Ticket(TicketSelection ticket)
     {
         movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
 
-        ticketSelectionPage.Close();
+        ticketSelectionPage?.Close();
+        ticketSelectionPageMisterX?.Close();
     }
+
 
     #endregion
 

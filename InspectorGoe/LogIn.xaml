@@ -29,17 +29,16 @@
             </HorizontalStackLayout>
         </StackLayout>
 
-        <Entry
-                Placeholder="Enter Server IP"
-                x:Name="ServerEntry"
-                MaxLength="40"
-                BackgroundColor="LightBlue"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="End"
-                WidthRequest="280"
-                Margin="10"
-                Text="{Binding Userseverip}"
-                ReturnCommand="{Binding Button_Clicked_LogInCommand}"/>
+        <Entry Placeholder="Enter Server IP"
+               x:Name="ServerEntry"
+               MaxLength="40"
+               BackgroundColor="LightBlue"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="End"
+               WidthRequest="280"
+               Margin="10"
+               Text="{Binding Userseverip}"
+               ReturnCommand="{Binding Button_Clicked_LogInCommand}"/>
 
     </Grid>
 </ContentPage>
