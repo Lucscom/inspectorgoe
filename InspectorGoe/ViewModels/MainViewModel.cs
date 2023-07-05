@@ -621,7 +621,7 @@ public partial class MainViewModel : ObservableObject
             WidthMap += 100;
             HeightMap = WidthMap / 1.7828;
         }
-        else if (zoomType == "minus" && WidthMap - 100 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 100 >= DeviceDisplay.MainDisplayInfo.Height)
+        else if (zoomType == "minus")//&& WidthMap - 100 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 100 >= DeviceDisplay.MainDisplayInfo.Height
         {
             WidthMap -= 100;
             HeightMap = WidthMap / 1.7828;

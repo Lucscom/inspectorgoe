@@ -8,7 +8,8 @@
 
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                    AbsoluteLayout.LayoutFlags="All">
+                    AbsoluteLayout.LayoutFlags="All"
+                    BackgroundColor="#10247a">
 
 
         <container:PanContainer AbsoluteLayout.LayoutBounds="0,0,1,1"

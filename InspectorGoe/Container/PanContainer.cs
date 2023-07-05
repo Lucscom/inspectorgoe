@@ -8,10 +8,6 @@ namespace InspectorGoe.Container
 {
     class PanContainer : ContentView
     {
-        double currentScale = 1;
-        double startScale = 1;
-        double xOffset = 0;
-        double yOffset = 0;
         double x = -600, y;
 
         public PanContainer()
@@ -25,10 +21,16 @@ namespace InspectorGoe.Container
         {
             switch (e.StatusType)
             {
+                case GestureStatus.Started:
+                    x = Content.TranslationX;
+                    y = Content.TranslationY;
+
+                    break;
                 case GestureStatus.Running:
                     // Translate and ensure we don't pan beyond the wrapped user interface element bounds.
                     Content.TranslationX = Math.Max(Math.Min(0, x + e.TotalX), -Math.Abs(Content.Width - this.Width));
                     Content.TranslationY = Math.Max(Math.Min(0, y + e.TotalY), -Math.Abs(Content.Height - this.Height));
+
                     break;
 
                 case GestureStatus.Completed:
