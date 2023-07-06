@@ -24,9 +24,10 @@ namespace GameComponents.Model
             IsDoubleTicket = false;
         }
 
-        public MovePlayerDto(int pointOfInterest, bool isDoubleTicket)
+        public MovePlayerDto(int pointOfInterest, TicketTypeEnum ticket, bool isDoubleTicket)
         {
             PointOfInterest = pointOfInterest;
+            TicketType = ticket;
             IsDoubleTicket = isDoubleTicket;
         }
     }

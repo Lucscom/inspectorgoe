@@ -7,6 +7,7 @@ using GameComponents;
 using GameComponents.Model;
 using InspectorGoe.Model;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Maui.Layouts;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -183,6 +184,12 @@ public partial class MainViewModel : ObservableObject
 
                 // Point of Interest Buttons
                 fillPoiObjects();
+
+                if (doubleTicketSelected)
+                {
+                    _com.GameState.ActivePlayer.usingDoubleTicket = true;
+                    doubleTicketSelected = false;
+                }
 
             }
         }
@@ -422,7 +429,7 @@ public partial class MainViewModel : ObservableObject
     /// <param name="ticket">ticket Type</param>
     public void movePlayer(int poi, TicketTypeEnum ticket)
     {
-        var move = new MovePlayerDto(poi, ticket);
+        var move = new MovePlayerDto(poi, ticket, doubleTicketSelected);
         try
         {
             var moveStatus = _com.MovePlayerAsync(move);
@@ -431,8 +438,6 @@ public partial class MainViewModel : ObservableObject
         {
             // bei fail gamestate neu bekommen und wiederholen
         }
-
-
     }
 
     /// <summary>
@@ -737,7 +742,6 @@ public partial class MainViewModel : ObservableObject
 
         else
         {
-
             movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
 
             ticketSelectionPage?.Close();
