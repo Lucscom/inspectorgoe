@@ -564,9 +564,10 @@ public partial class MainViewModel : ObservableObject
         //senden des ausgewälten Avatars an den Server
         try
         {
-            var avatarPathObj = new StringDto();
-            avatarPathObj.token = avatarImagePath;
+            var avatarPathObj = new StringDto(avatarImagePath);
             await _com.UpdateAvatar(avatarPathObj);
+
+            //debug info
             var player = await _com.GetPlayerAsync();
 
         }

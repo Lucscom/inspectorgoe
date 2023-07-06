@@ -226,6 +226,8 @@ namespace InspectorGoeServer.Controllers
             currentUser.AvatarImagePath = path.token;
             _context.Update(currentUser);
             _context.SaveChanges();
+            var gamePlayer = (_gameController.GameState.AllPlayers.Where(p => p.UserName == currentUser.UserName)).First();
+            gamePlayer.AvatarImagePath = path.token;
             return Ok();
 
         }
