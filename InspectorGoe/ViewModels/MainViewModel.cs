@@ -68,7 +68,7 @@ public partial class MainViewModel : ObservableObject
     // ########## Variablen für AvatarPage ##########
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
-    private ImageButton choice;
+    private string avatarImagePath;
 
 
     // ########## Variablen für MainPage ##########
@@ -578,7 +578,7 @@ public partial class MainViewModel : ObservableObject
     private bool AvatarIsSelected()
     {
 
-        if (Choice!= null)
+        if (AvatarImagePath != "")
         {
             return true;
         }
