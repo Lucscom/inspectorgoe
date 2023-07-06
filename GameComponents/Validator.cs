@@ -139,8 +139,7 @@ namespace GameComponents
                 }
                 moves = AddValidMovesForTicket(moves, TicketTypeEnum.Bus, pois, gameState.Detectives);
             }
-            //TODO: doppeltickets
-            if (player.BlackTicket > 0)
+            if (player.BlackTicket > 0 || player.DoubleTicket > 0)
             {
                 HashSet<PointOfInterest> pois = new HashSet<PointOfInterest>();
                 foreach(int poiNumber in player.Position.ConnectionBike)
@@ -156,7 +155,10 @@ namespace GameComponents
                     pois.Add(gameState.PointsOfInterest.First(poi => poi.Number == poiNumber));
                 }
 
-                moves = AddValidMovesForTicket(moves, TicketTypeEnum.Black, pois, gameState.Detectives);
+                if(player.BlackTicket > 0)
+                    moves = AddValidMovesForTicket(moves, TicketTypeEnum.Black, pois, gameState.Detectives);
+                if(player.DoubleTicket > 0)
+                    moves = AddValidMovesForTicket(moves, TicketTypeEnum.doubleTicket, pois, gameState.Detectives);
             }
 
             return moves;
