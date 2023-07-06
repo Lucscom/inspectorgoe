@@ -630,6 +630,33 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    async Task AddNPC(LobbyPage popup)
+    {
+        try
+        {
+            await _com.AddNpcAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
+    }
+
+    [RelayCommand]
+    async Task RemovePlayer(string player)
+    {
+        try
+        {
+            await _com.RemoveAsync(player);
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
+    }
     #endregion
 
     #region MainPage
