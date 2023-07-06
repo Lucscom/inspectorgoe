@@ -100,6 +100,8 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<TicketsView> mrXticketHistory = new ObservableCollection<TicketsView>();
 
+    private bool doubleTicketSelected = false;
+
 
     // POIS
     [ObservableProperty]
@@ -681,6 +683,7 @@ public partial class MainViewModel : ObservableObject
             TicketSelection tempTicket = new TicketSelection();
             tempTicket.PointOfInterest = poi;
             tempTicket.TicketType = ticket;
+            tempTicket.BorderColor = Colors.Transparent;
 
             if (temp[poi].Contains(ticket))
             {
@@ -711,10 +714,35 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Button_Clicked_Ticket(TicketSelection ticket)
     {
-        movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
+        if (ticket.TicketType == TicketTypeEnum.doubleTicket)
+        {
 
-        ticketSelectionPage?.Close();
-        ticketSelectionPageMisterX?.Close();
+            foreach (TicketSelection tempTicket in TicketSelection)
+            {
+                if (tempTicket.TicketType == TicketTypeEnum.doubleTicket)
+                {
+                    if (doubleTicketSelected == true)
+                    {
+                        tempTicket.BorderColor = Colors.Transparent;
+                        doubleTicketSelected = false;
+                    }
+                    else
+                    {
+                        tempTicket.BorderColor = Colors.Yellow;
+                        doubleTicketSelected = true;
+                    }
+                }
+            }
+        }
+
+        else
+        {
+
+            movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
+
+            ticketSelectionPage?.Close();
+            ticketSelectionPageMisterX?.Close();
+        }
     }
 
 
