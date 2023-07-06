@@ -110,9 +110,11 @@ public partial class MainViewModel : ObservableObject
 
 
     private TicketSelectionPage ticketSelectionPage;
+    private TicketSelectionPageMisterX ticketSelectionPageMisterX;
 
     [ObservableProperty]
     private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
+
 
     #endregion
 
@@ -121,7 +123,8 @@ public partial class MainViewModel : ObservableObject
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
 
-        _com.GameEndEvent += ComGameEnd;
+        _com.GameEndEvent += async (s, e) => await Shell.Current.Dispatcher.DispatchAsync(async () => await ComGameEnd(s, e));
+
         
         //signalr initiates updates on a seperate thread
         //use the dispatcher to shedule the update on the UI thread instead
@@ -178,6 +181,7 @@ public partial class MainViewModel : ObservableObject
 
                 // Point of Interest Buttons
                 fillPoiObjects();
+
             }
         }
         catch (Exception ex)
@@ -196,10 +200,34 @@ public partial class MainViewModel : ObservableObject
     /// <param name="player">Player(group) that won the game</param>
     /// <param name="e"></param>
     /// <exception cref="Exception"></exception>
-    private void ComGameEnd(object player, GameEndEventArgs e)
+    private async Task ComGameEnd(object player, GameEndEventArgs e)
     {
-        //Trigger View element
-        throw new Exception(e.Player);
+        string winMessage= string.Empty;
+        if(IsMisterX && e.Player == "MisterX")
+        {
+            winMessage = "You won the game!";
+        }
+        else if(IsMisterX && e.Player == "Detectives")
+        {
+            winMessage = "You lost the game!";
+        }
+        else if(!IsMisterX && e.Player == "MisterX")
+        {
+            winMessage = "You lost the game!";
+        }
+        else if(!IsMisterX && e.Player == "Detectives")
+        {
+            winMessage = "You won the game!";
+        }
+        else
+        {
+            throw new Exception("GameEndEventArgs.Player is not valid");
+        }
+ 
+       await Shell.Current.DisplayAlert(winMessage, "", "OK");   
+
+       PoiButtons = new ObservableCollection<PointOfInterestView>();
+       PoiFrames = new ObservableCollection<PointOfInterestView>();
     }
 
 
@@ -623,7 +651,7 @@ public partial class MainViewModel : ObservableObject
             WidthMap += 100;
             HeightMap = WidthMap / 1.7828;
         }
-        else if (zoomType == "minus" && WidthMap - 100 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 100 >= DeviceDisplay.MainDisplayInfo.Height)
+        else if (zoomType == "minus")//&& WidthMap - 100 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 100 >= DeviceDisplay.MainDisplayInfo.Height
         {
             WidthMap -= 100;
             HeightMap = WidthMap / 1.7828;
@@ -635,6 +663,7 @@ public partial class MainViewModel : ObservableObject
     }
 
 
+    // Tickselection PopUp
    [RelayCommand]
     private void Button_Clicked_Poi(PointOfInterest poi)
     {
@@ -643,29 +672,51 @@ public partial class MainViewModel : ObservableObject
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
-        if (temp.ContainsKey(poi))
-        {
-            foreach (TicketTypeEnum ticket in temp[poi])
-            {
-                TicketSelection tempTicket = new TicketSelection();
-                tempTicket.PointOfInterest = poi;
-                tempTicket.TicketType = ticket;
-                tempTicket.TicketImagePath = "ticket_" + ticket.ToString().ToLower() + ".png";
-                TicketSelection.Add(tempTicket);
-            }
-        }
-        ticketSelectionPage = new TicketSelectionPage();
 
-        Shell.Current.ShowPopup(ticketSelectionPage);
+        foreach (TicketTypeEnum ticket in Enum.GetValues(typeof(TicketTypeEnum)))
+        {
+            if(IsMisterX == false && (ticket == TicketTypeEnum.Black || ticket == TicketTypeEnum.doubleTicket))
+                continue;
+
+            TicketSelection tempTicket = new TicketSelection();
+            tempTicket.PointOfInterest = poi;
+            tempTicket.TicketType = ticket;
+
+            if (temp[poi].Contains(ticket))
+            {
+                tempTicket.IsEnabled = true;
+                tempTicket.TicketImagePath = "ticket_" + ticket.ToString().ToLower() + ".png";
+            }
+            else
+            {
+                tempTicket.IsEnabled = false;
+                tempTicket.TicketImagePath = "ticket_" + ticket.ToString().ToLower() + "_sw.png";
+            }            
+            TicketSelection.Add(tempTicket);
+        }
+
+        if (IsMisterX == false)
+        {
+            ticketSelectionPage = new TicketSelectionPage();
+            Shell.Current.ShowPopup(ticketSelectionPage);
+        }
+        else
+        {
+            ticketSelectionPageMisterX = new TicketSelectionPageMisterX();
+            Shell.Current.ShowPopup(ticketSelectionPageMisterX);
+        }
     }
 
+    // After Click on Ticket
     [RelayCommand]
     private void Button_Clicked_Ticket(TicketSelection ticket)
     {
         movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
 
-        ticketSelectionPage.Close();
+        ticketSelectionPage?.Close();
+        ticketSelectionPageMisterX?.Close();
     }
+
 
     #endregion
 
