@@ -4,7 +4,6 @@
                x:Class="InspectorGoe.AvatarPage"
                Color="Transparent"
                Size="700,500"
-               CanBeDismissedByTappingOutsideOfPopup="False"
                x:Name="ThisPopup">
 
     <Frame BackgroundColor="LightBlue" CornerRadius="10">
@@ -22,7 +21,7 @@
                 <ImageButton x:Name="nietert" Source="hawk_nietert.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_6" Aspect="AspectFill" CornerRadius="10"/>
                 <ImageButton x:Name="wienecke" Source="hawk_wienecke.jpg" WidthRequest="120" HeightRequest="150"  Margin="10" Clicked="ImageButton_Clicked_7" Aspect="AspectFill" CornerRadius="10"/>
             </HorizontalStackLayout>
-            <Button Text="Create Game" Margin="10" Command="{Binding StartCommand}" CommandParameter="{x:Reference ThisPopup}" HorizontalOptions="Center" VerticalOptions="End"/>
+            <Button Text="{Binding AvatarButton}" Margin="10" Command="{Binding StartCommand}" CommandParameter="{x:Reference ThisPopup}" HorizontalOptions="Center" VerticalOptions="End"/>
         </StackLayout>
         
     </Frame>

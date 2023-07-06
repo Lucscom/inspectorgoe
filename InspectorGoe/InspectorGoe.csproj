@@ -83,13 +83,16 @@
 	  <Compile Update="AvatarPage.xaml.cs">
 	    <DependentUpon>AvatarPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Popups\TicketSelectionPageMisterX.xaml.cs">
+	    <DependentUpon>TicketSelectionPageMisterX.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="TutorialPage.xaml.cs">
 	    <DependentUpon>TutorialPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiImage Update="Resources\Images\ticket_2x.png">
+	  <MauiImage Update="Resources\Images\ticket_doubleticket.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </MauiImage>
 	</ItemGroup>
@@ -116,13 +119,16 @@
 	  <MauiXaml Update="Menu.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Popups\TicketSelectionPageMisterX.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="TutorialPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="RegisterPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="TicketSelectionPage.xaml">
+	  <MauiXaml Update="Popups\TicketSelectionPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

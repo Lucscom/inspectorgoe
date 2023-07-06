@@ -9,6 +9,10 @@ namespace InspectorGoe.Model
     /// </summary>
     public class TicketSelection : ObservableObject
     {
+
+        private bool isEnabled;
+        public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
+
         /// <summary>
         /// selected POI
         /// </summary>

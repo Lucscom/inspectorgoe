@@ -68,6 +68,12 @@ namespace GameComponents.Model
             Password = pw;
         }
 
+        public Player(string userName, bool isNpc = false)
+        {
+            UserName = userName;
+            Npc = isNpc;
+        }
+
         /// <summary>
         /// Constructor to init player
         /// </summary>

@@ -10,21 +10,21 @@
             StrokeThickness="{Binding BorderThickness}">
         
         <Frame  CornerRadius="10"
-            WidthRequest="300"
-            HeightRequest="190"
-            BackgroundColor="{StaticResource Gray600}"
-            Opacity="0.9"
-            Padding="5"
-            HasShadow="True">
+                WidthRequest="280"
+                HeightRequest="200"
+                BackgroundColor="{StaticResource Gray600}"
+                Opacity="0.9"
+                Padding="10"
+                HasShadow="True">
 
 
             <!--Inhalt
 
         High level Grid-->
             <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" 
-            AbsoluteLayout.LayoutFlags="All" 
-            RowSpacing="6"
-            ColumnSpacing="6">
+                  AbsoluteLayout.LayoutFlags="All" 
+                  RowSpacing="6"
+                  ColumnSpacing="6">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="9*" />
@@ -38,21 +38,20 @@
 
                 <!--Avatar and Color-->
                 <Grid RowSpacing="6"
-                ColumnSpacing="6">
+                      ColumnSpacing="6">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="5*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
-
                     <Frame BorderColor="DarkGray"
-                    HeightRequest="80"
-                    WidthRequest="80"
-                    CornerRadius="40"
-                    BackgroundColor="White"
-                    Padding="0"
-                    HasShadow="True">
+                           HeightRequest="80"
+                           WidthRequest="80"
+                           CornerRadius="40"
+                           BackgroundColor="White"
+                           Padding="0"
+                           HasShadow="True">
 
                         <Image Source="{Binding AvatarImagePath}" 
                         Aspect="AspectFill"/>
@@ -63,85 +62,96 @@
 
 
                 <!--Tickets Ticketimages-->
-                <Grid 
-            Grid.Column="1"
-            RowSpacing="2"
-            ColumnSpacing="6">
+                <Grid Grid.Column="1"
+                      RowSpacing="2"
+                      ColumnSpacing="6">
 
                     <!--Grid Definition-->
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition Width="2*" />
-                    </Grid.ColumnDefinitions>
 
+                    <!--Black Ticket-->
                     <Frame CornerRadius="5"
-                    BackgroundColor="Transparent"
-                    BorderColor="Transparent"
-                    Padding="0"
-                    HasShadow="True"
-                    HorizontalOptions="End"
-                    WidthRequest="80"
-                    HeightRequest="45">
+                           BackgroundColor="Transparent"
+                           BorderColor="Black"
+                           Padding="0"
+                           HasShadow="True"
+                           HorizontalOptions="End"
+                           WidthRequest="130"
+                           HeightRequest="45">
 
-                        <Image Source="ticket_black.png" Aspect="Fill"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <Image Source="ticket_black.png" 
+                                   Aspect="Fill"
+                                   HeightRequest="45"
+                                   WidthRequest="80"/>
+
+                            <Label Grid.Column="1" 
+                                   Padding="0" 
+                                   TextColor="White" 
+                                   BackgroundColor="{StaticResource Gray600}" 
+                                   FontSize="20"  
+                                   HorizontalOptions="CenterAndExpand" 
+                                   VerticalOptions="CenterAndExpand"
+                                   Text="{Binding BlackTicket}"/>
+                        </Grid>
                     </Frame>
 
+                    
+                    <!--Double Ticket-->
                     <Frame Grid.Row="1"
-                    BackgroundColor="Transparent"
-                    BorderColor="Transparent"
-                    CornerRadius="5"
-                    Padding="0"
-                    HorizontalOptions="End"
-                    WidthRequest="80"
-                    HeightRequest="45">
+                           BackgroundColor="Transparent"
+                           BorderColor="black"
+                           CornerRadius="5"
+                           Padding="0"
+                           HorizontalOptions="End"
+                           WidthRequest="130"
+                           HeightRequest="45">
 
-                        <Image Source="ticket_2x.png" Aspect="Fill"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="ticket_doubleTicket.png" 
+                                   Aspect="Fill"
+                                   HeightRequest="45"
+                                   WidthRequest="80"/>
+
+                            <Label Grid.Column="1"
+                                   Grid.Row="1" 
+                                   TextColor="White"
+                                   Background="{StaticResource Gray600}" 
+                                   FontSize="20" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center"
+                                   Text="{Binding DoubleTicket}"/>
+
+                        </Grid>
                     </Frame>
-
-
-
-                    <!--Tickets-->
-
-                    <Frame Grid.Column="1"
-                    CornerRadius="10"
-                    BackgroundColor="{StaticResource Gray600}"
-                    Padding="0"
-                    HasShadow="True">
-
-                        <Label Text="{Binding BlackTicket}" TextColor="White" FontSize="20"  HorizontalOptions="Center" VerticalOptions="Center"/>
-                    </Frame>
-
-                    <Frame Grid.Column="1"
-                    Grid.Row="1"
-                    CornerRadius="10" 
-                    BackgroundColor="{StaticResource Gray600}"
-                    Padding="0"
-                    HasShadow="True">
-
-                        <Label Text="{Binding DoubleTicket}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center" />
-                    </Frame>
-
                 </Grid>
-
-                <Frame                    
-            Grid.Column="0"
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            CornerRadius="10"
-            BackgroundColor="{StaticResource Blue100Accent}"
-            Padding="0">
-                    <Label Text="{Binding UserName}"
-                    TextColor="Black"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="20"/>
+                
+                
+                <!--UserName-->
+                <Frame Grid.Column="0"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="2"
+                       CornerRadius="10"
+                       BackgroundColor="{StaticResource Blue100Accent}"
+                       Padding="0">
+                    
+                    <Label Text="{Binding UserName}" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
                 </Frame>
 
             </Grid>

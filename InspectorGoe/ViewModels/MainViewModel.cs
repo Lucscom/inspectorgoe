@@ -29,6 +29,7 @@ public partial class MainViewModel : ObservableObject
 
     private Communicator _com;
     private LobbyPage _lobby;
+    private bool _gameInProgress = false;
 
     //Variablen für Login
     [ObservableProperty]
@@ -65,10 +66,16 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string userpasswordregister2 = string.Empty;
 
+    // ########## Variablen für Menu ##########
+    private bool isCreator = false;
+
     // ########## Variablen für AvatarPage ##########
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
     private string avatarImagePath;
+
+    [ObservableProperty]
+    private string avatarButton;
 
 
     // ########## Variablen für MainPage ##########
@@ -110,9 +117,11 @@ public partial class MainViewModel : ObservableObject
 
 
     private TicketSelectionPage ticketSelectionPage;
+    private TicketSelectionPageMisterX ticketSelectionPageMisterX;
 
     [ObservableProperty]
     private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
+
 
     #endregion
 
@@ -121,12 +130,24 @@ public partial class MainViewModel : ObservableObject
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
 
-        _com.GameEndEvent += ComGameEnd;
+        _com.GameEndEvent += async (s, e) => await Shell.Current.Dispatcher.DispatchAsync(async () => await ComGameEnd(s, e));
+
         
         //signalr initiates updates on a seperate thread
         //use the dispatcher to shedule the update on the UI thread instead
         //therefore signalr and ui thread will not access the properties/variables at the same time
         _com.UpdateGameStateEvent += async (s,e) => await Shell.Current.Dispatcher.DispatchAsync(async () => await ComUpdateGameState(s,e));
+        _com.GameStartedEvent += async (s,e) => await Shell.Current.Dispatcher.DispatchAsync(async () => await ComGameStarted(s,e));
+    }
+
+    private async Task ComGameStarted(object s, EventArgs e)
+    {
+        if (!_gameInProgress)
+        {
+            _gameInProgress = true;
+            await Shell.Current.Dispatcher.DispatchAsync(async () => await Shell.Current.Navigation.PushAsync(new MainPage()));
+            _lobby?.Close();
+        }
     }
 
 
@@ -178,6 +199,7 @@ public partial class MainViewModel : ObservableObject
 
                 // Point of Interest Buttons
                 fillPoiObjects();
+
             }
         }
         catch (Exception ex)
@@ -196,10 +218,34 @@ public partial class MainViewModel : ObservableObject
     /// <param name="player">Player(group) that won the game</param>
     /// <param name="e"></param>
     /// <exception cref="Exception"></exception>
-    private void ComGameEnd(object player, GameEndEventArgs e)
+    private async Task ComGameEnd(object player, GameEndEventArgs e)
     {
-        //Trigger View element
-        throw new Exception(e.Player);
+        string winMessage= string.Empty;
+        if(IsMisterX && e.Player == "MisterX")
+        {
+            winMessage = "You won the game!";
+        }
+        else if(IsMisterX && e.Player == "Detectives")
+        {
+            winMessage = "You lost the game!";
+        }
+        else if(!IsMisterX && e.Player == "MisterX")
+        {
+            winMessage = "You lost the game!";
+        }
+        else if(!IsMisterX && e.Player == "Detectives")
+        {
+            winMessage = "You won the game!";
+        }
+        else
+        {
+            throw new Exception("GameEndEventArgs.Player is not valid");
+        }
+ 
+       await Shell.Current.DisplayAlert(winMessage, "", "OK");   
+
+       PoiButtons = new ObservableCollection<PointOfInterestView>();
+       PoiFrames = new ObservableCollection<PointOfInterestView>();
     }
 
 
@@ -497,29 +543,19 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task CreateNewGame()
     {
-        try
-        {
-            await _com.CreateGameAsync();
-        }
-        catch (Exception ex)
-        {
-            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
-            return;
-        }
+        isCreator = true;
+        AvatarButton = "Create Game";
         await Shell.Current.ShowPopupAsync(new AvatarPage());
     }
 
     /// <summary>
-    /// Navigation from MenuPage to MainPage
+    /// Navigation from MenuPage to AvatarPage
     /// </summary>
     [RelayCommand]
     private async Task JoinGame()
     {
+        AvatarButton = "Join Game";
         await Shell.Current.ShowPopupAsync(new AvatarPage());
-
-        await _com.gameStartedEvent.WaitAsync();
-        _lobby?.Close();
-        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
     }
 
     /// <summary>
@@ -550,6 +586,21 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(AvatarIsSelected))]
     private async Task Start(AvatarPage popup) //todo: rename to create game
     {
+        //Spiel erstellen wenn Creator
+        if (isCreator == true)
+        {
+            try
+            {
+                await _com.CreateGameAsync();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+                return;
+            }
+        }
+
+        //Spiel beitreten immer
         try
         {
 
@@ -580,9 +631,9 @@ public partial class MainViewModel : ObservableObject
         await _com.newGameStateEvent.WaitAsync();
         if (CurrentPlayer.UserName != _com.GameState.GameCreator.UserName)
             _lobby.FindByName<Button>("StartGame").IsVisible = false;
-        Shell.Current.ShowPopup(_lobby);
-        popup.Close();
+        await Shell.Current.ShowPopupAsync(_lobby);
     }
+
 
     /// <summary>
     /// Überprüfe ob ein Avatar ausgewählt wurde
@@ -619,12 +670,35 @@ public partial class MainViewModel : ObservableObject
             await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
             return;
         }
-
-        await _com.gameStartedEvent.WaitAsync();
-        popup.Close();
-        await Shell.Current.Dispatcher.DispatchAsync(async () => await Shell.Current.Navigation.PushAsync(new MainPage()));
     }
 
+    [RelayCommand]
+    async Task AddNPC(LobbyPage popup)
+    {
+        try
+        {
+            await _com.AddNpcAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
+    }
+
+    [RelayCommand]
+    async Task RemovePlayer(string player)
+    {
+        try
+        {
+            await _com.RemoveAsync(player);
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
+    }
     #endregion
 
     #region MainPage
@@ -637,7 +711,7 @@ public partial class MainViewModel : ObservableObject
             WidthMap += 100;
             HeightMap = WidthMap / 1.7828;
         }
-        else if (zoomType == "minus" && WidthMap - 100 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 100 >= DeviceDisplay.MainDisplayInfo.Height)
+        else if (zoomType == "minus")//&& WidthMap - 100 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 100 >= DeviceDisplay.MainDisplayInfo.Height
         {
             WidthMap -= 100;
             HeightMap = WidthMap / 1.7828;
@@ -649,6 +723,7 @@ public partial class MainViewModel : ObservableObject
     }
 
 
+    // Tickselection PopUp
    [RelayCommand]
     private void Button_Clicked_Poi(PointOfInterest poi)
     {
@@ -657,29 +732,51 @@ public partial class MainViewModel : ObservableObject
         Dictionary<PointOfInterest, List<TicketTypeEnum>> temp = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
-        if (temp.ContainsKey(poi))
-        {
-            foreach (TicketTypeEnum ticket in temp[poi])
-            {
-                TicketSelection tempTicket = new TicketSelection();
-                tempTicket.PointOfInterest = poi;
-                tempTicket.TicketType = ticket;
-                tempTicket.TicketImagePath = "ticket_" + ticket.ToString().ToLower() + ".png";
-                TicketSelection.Add(tempTicket);
-            }
-        }
-        ticketSelectionPage = new TicketSelectionPage();
 
-        Shell.Current.ShowPopup(ticketSelectionPage);
+        foreach (TicketTypeEnum ticket in Enum.GetValues(typeof(TicketTypeEnum)))
+        {
+            if(IsMisterX == false && (ticket == TicketTypeEnum.Black || ticket == TicketTypeEnum.doubleTicket))
+                continue;
+
+            TicketSelection tempTicket = new TicketSelection();
+            tempTicket.PointOfInterest = poi;
+            tempTicket.TicketType = ticket;
+
+            if (temp[poi].Contains(ticket))
+            {
+                tempTicket.IsEnabled = true;
+                tempTicket.TicketImagePath = "ticket_" + ticket.ToString().ToLower() + ".png";
+            }
+            else
+            {
+                tempTicket.IsEnabled = false;
+                tempTicket.TicketImagePath = "ticket_" + ticket.ToString().ToLower() + "_sw.png";
+            }            
+            TicketSelection.Add(tempTicket);
+        }
+
+        if (IsMisterX == false)
+        {
+            ticketSelectionPage = new TicketSelectionPage();
+            Shell.Current.ShowPopup(ticketSelectionPage);
+        }
+        else
+        {
+            ticketSelectionPageMisterX = new TicketSelectionPageMisterX();
+            Shell.Current.ShowPopup(ticketSelectionPageMisterX);
+        }
     }
 
+    // After Click on Ticket
     [RelayCommand]
     private void Button_Clicked_Ticket(TicketSelection ticket)
     {
         movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
 
-        ticketSelectionPage.Close();
+        ticketSelectionPage?.Close();
+        ticketSelectionPageMisterX?.Close();
     }
+
 
     #endregion
 

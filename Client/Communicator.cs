@@ -37,6 +37,7 @@ namespace Client
         public AsyncAutoResetEvent newGameStateEvent = new AsyncAutoResetEvent(false);
 
         public event EventHandler UpdateGameStateEvent;
+        public event EventHandler GameStartedEvent;
 
         public event EventHandler<GameEndEventArgs> GameEndEvent;
 
@@ -173,6 +174,32 @@ namespace Client
         }
 
         /// <summary>
+        /// Tell the server to add an npc
+        /// (Http Post)
+        /// </summary>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> AddNpcAsync()
+        {
+            HttpResponseMessage response = await _client.PostAsync(
+                "api/Player/addnpc", null);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
+        /// <summary>
+        /// Tell the server to remove a player from the game
+        /// </summary>
+        /// <param name="username">player name</param>
+        /// <returns>StatusCode</returns>
+        public async Task<HttpStatusCode> RemoveAsync(string username)
+        {
+            HttpResponseMessage response = await _client.PutAsJsonAsync(
+                "api/Player/remove", username);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
+        /// <summary>
         /// Initializes hub connection to server with token as authentication
         /// </summary>
         /// <param name="token">Used for authentication</param>
@@ -203,6 +230,7 @@ namespace Client
                 if (GameState.GameStarted)
                 {
                     gameStartedEvent.Set();
+                    GameStartedEvent(this, EventArgs.Empty);
                 }
             });
 
