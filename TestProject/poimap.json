@@ -1,0 +1,2474 @@
+{
+  "Nodes": [
+    {
+      "Name": "Pagoda",
+      "Number": 1,
+      "Location_x": 2683,
+      "Location_y": 316,
+      "Loc_x_0-1": 0.300987211128562,
+      "Loc_y_0-1": 0.0632
+    },
+    {
+      "Name": "Hagenberg",
+      "Number": 2,
+      "Location_x": 3459,
+      "Location_y": 114,
+      "Loc_x_0-1": 0.388041283374467,
+      "Loc_y_0-1": 0.0228
+    },
+    {
+      "Name": "Hagenbergschule",
+      "Number": 3,
+      "Location_x": 3817,
+      "Location_y": 272,
+      "Loc_x_0-1": 0.428202827013686,
+      "Loc_y_0-1": 0.0544
+    },
+    {
+      "Name": "Weststadt",
+      "Number": 4,
+      "Location_x": 3032,
+      "Location_y": 709,
+      "Loc_x_0-1": 0.340139107022661,
+      "Loc_y_0-1": 0.1418
+    },
+    {
+      "Name": "BIG",
+      "Number": 5,
+      "Location_x": 3669,
+      "Location_y": 892,
+      "Loc_x_0-1": 0.411599730760601,
+      "Loc_y_0-1": 0.1784
+    },
+    {
+      "Name": "Hagenweg 20",
+      "Number": 6,
+      "Location_x": 4277,
+      "Location_y": 960,
+      "Loc_x_0-1": 0.479807045097599,
+      "Loc_y_0-1": 0.192
+    },
+    {
+      "Name": "Tierheim",
+      "Number": 7,
+      "Location_x": 4262,
+      "Location_y": 612,
+      "Loc_x_0-1": 0.478124298855733,
+      "Loc_y_0-1": 0.1224
+    },
+    {
+      "Name": "Kläranlage",
+      "Number": 8,
+      "Location_x": 4594,
+      "Location_y": 203,
+      "Loc_x_0-1": 0.515369082342383,
+      "Loc_y_0-1": 0.0406
+    },
+    {
+      "Name": "Maschpark",
+      "Number": 9,
+      "Location_x": 4747,
+      "Location_y": 662,
+      "Loc_x_0-1": 0.532533094009423,
+      "Loc_y_0-1": 0.1324
+    },
+    {
+      "Name": "Schützenplatz",
+      "Number": 10,
+      "Location_x": 4915,
+      "Location_y": 943,
+      "Loc_x_0-1": 0.551379851918331,
+      "Loc_y_0-1": 0.1886
+    },
+    {
+      "Name": "S-Arena",
+      "Number": 11,
+      "Location_x": 4814,
+      "Location_y": 1190,
+      "Loc_x_0-1": 0.540049360556428,
+      "Loc_y_0-1": 0.238
+    },
+    {
+      "Name": "Hampe Recycling",
+      "Number": 12,
+      "Location_x": 2169,
+      "Location_y": 1277,
+      "Loc_x_0-1": 0.243325106573929,
+      "Loc_y_0-1": 0.2554
+    },
+    {
+      "Name": "Sartorius",
+      "Number": 13,
+      "Location_x": 2491,
+      "Location_y": 946,
+      "Loc_x_0-1": 0.279448059232668,
+      "Loc_y_0-1": 0.1892
+    },
+    {
+      "Name": "Industriegebiet",
+      "Number": 14,
+      "Location_x": 3000,
+      "Location_y": 1372,
+      "Loc_x_0-1": 0.336549248373345,
+      "Loc_y_0-1": 0.2744
+    },
+    {
+      "Name": "Levinpark",
+      "Number": 15,
+      "Location_x": 3739,
+      "Location_y": 1337,
+      "Loc_x_0-1": 0.419452546555979,
+      "Loc_y_0-1": 0.2674
+    },
+    {
+      "Name": "Saline",
+      "Number": 16,
+      "Location_x": 3852,
+      "Location_y": 1826,
+      "Loc_x_0-1": 0.432129234911375,
+      "Loc_y_0-1": 0.3652
+    },
+    {
+      "Name": "Zufall Logistik",
+      "Number": 17,
+      "Location_x": 2543,
+      "Location_y": 1556,
+      "Loc_x_0-1": 0.285281579537806,
+      "Loc_y_0-1": 0.3112
+    },
+    {
+      "Name": "Flötegraben",
+      "Number": 18,
+      "Location_x": 2336,
+      "Location_y": 1829,
+      "Loc_x_0-1": 0.262059681400045,
+      "Loc_y_0-1": 0.3658
+    },
+    {
+      "Name": "Reitschule",
+      "Number": 19,
+      "Location_x": 2058,
+      "Location_y": 2241,
+      "Loc_x_0-1": 0.230872784384115,
+      "Loc_y_0-1": 0.4482
+    },
+    {
+      "Name": "Bogensportarena",
+      "Number": 20,
+      "Location_x": 2543,
+      "Location_y": 2409,
+      "Loc_x_0-1": 0.285281579537806,
+      "Loc_y_0-1": 0.4818
+    },
+    {
+      "Name": "Grone",
+      "Number": 21,
+      "Location_x": 3037,
+      "Location_y": 2113,
+      "Loc_x_0-1": 0.340700022436617,
+      "Loc_y_0-1": 0.4226
+    },
+    {
+      "Name": "Lokhalle",
+      "Number": 22,
+      "Location_x": 4834,
+      "Location_y": 1726,
+      "Loc_x_0-1": 0.54229302221225,
+      "Loc_y_0-1": 0.3452
+    },
+    {
+      "Name": "Moschee",
+      "Number": 23,
+      "Location_x": 4084,
+      "Location_y": 2080,
+      "Loc_x_0-1": 0.458155710118914,
+      "Loc_y_0-1": 0.416
+    },
+    {
+      "Name": "Polizei",
+      "Number": 24,
+      "Location_x": 4406,
+      "Location_y": 2197,
+      "Loc_x_0-1": 0.494278662777653,
+      "Loc_y_0-1": 0.4394
+    },
+    {
+      "Name": "Forum Wissen",
+      "Number": 25,
+      "Location_x": 5009,
+      "Location_y": 2207,
+      "Loc_x_0-1": 0.561925061700696,
+      "Loc_y_0-1": 0.4414
+    },
+    {
+      "Name": "CinemaxX",
+      "Number": 26,
+      "Location_x": 4752,
+      "Location_y": 1986,
+      "Loc_x_0-1": 0.533094009423379,
+      "Loc_y_0-1": 0.3972
+    },
+    {
+      "Name": "Idunazentrum",
+      "Number": 27,
+      "Location_x": 5509,
+      "Location_y": 1392,
+      "Loc_x_0-1": 0.618016603096253,
+      "Loc_y_0-1": 0.2784
+    },
+    {
+      "Name": "Hauptbahnhof",
+      "Number": 28,
+      "Location_x": 5035,
+      "Location_y": 1959,
+      "Loc_x_0-1": 0.564841821853265,
+      "Loc_y_0-1": 0.3918
+    },
+    {
+      "Name": "Savoy",
+      "Number": 29,
+      "Location_x": 5514,
+      "Location_y": 1895,
+      "Loc_x_0-1": 0.618577518510209,
+      "Loc_y_0-1": 0.379
+    },
+    {
+      "Name": "Vapiano",
+      "Number": 30,
+      "Location_x": 5795,
+      "Location_y": 1797,
+      "Loc_x_0-1": 0.650100964774512,
+      "Loc_y_0-1": 0.3594
+    },
+    {
+      "Name": "Auditorium",
+      "Number": 31,
+      "Location_x": 6012,
+      "Location_y": 1762,
+      "Loc_x_0-1": 0.674444693740184,
+      "Loc_y_0-1": 0.3524
+    },
+    {
+      "Name": "Alter Botanischer Garten",
+      "Number": 32,
+      "Location_x": 6248,
+      "Location_y": 1679,
+      "Loc_x_0-1": 0.700919901278887,
+      "Loc_y_0-1": 0.3358
+    },
+    {
+      "Name": "Nikolausberger Weg",
+      "Number": 33,
+      "Location_x": 6735,
+      "Location_y": 1191,
+      "Loc_x_0-1": 0.75555306259816,
+      "Loc_y_0-1": 0.2382
+    },
+    {
+      "Name": "Jugendherberge",
+      "Number": 34,
+      "Location_x": 7023,
+      "Location_y": 1274,
+      "Loc_x_0-1": 0.787861790442001,
+      "Loc_y_0-1": 0.2548
+    },
+    {
+      "Name": "Theodor Heuss Gymnasium",
+      "Number": 35,
+      "Location_x": 7267,
+      "Location_y": 1355,
+      "Loc_x_0-1": 0.815234462643034,
+      "Loc_y_0-1": 0.271
+    },
+    {
+      "Name": "Rohns",
+      "Number": 36,
+      "Location_x": 7665,
+      "Location_y": 1585,
+      "Loc_x_0-1": 0.859883329593897,
+      "Loc_y_0-1": 0.317
+    },
+    {
+      "Name": "Streuobstwiesen",
+      "Number": 37,
+      "Location_x": 8116,
+      "Location_y": 1512,
+      "Loc_x_0-1": 0.91047789993269,
+      "Loc_y_0-1": 0.3024
+    },
+    {
+      "Name": "Herberhausen",
+      "Number": 38,
+      "Location_x": 8650,
+      "Location_y": 1627,
+      "Loc_x_0-1": 0.970383666143146,
+      "Loc_y_0-1": 0.3254
+    },
+    {
+      "Name": "Golden Moon",
+      "Number": 39,
+      "Location_x": 7843,
+      "Location_y": 305,
+      "Loc_x_0-1": 0.879851918330716,
+      "Loc_y_0-1": 0.061
+    },
+    {
+      "Name": "Forstbotanischer Garten",
+      "Number": 40,
+      "Location_x": 7587,
+      "Location_y": 99,
+      "Loc_x_0-1": 0.85113304913619,
+      "Loc_y_0-1": 0.0198
+    },
+    {
+      "Name": "HAWK Fak. R",
+      "Number": 41,
+      "Location_x": 7124,
+      "Location_y": 99,
+      "Loc_x_0-1": 0.799192281803904,
+      "Loc_y_0-1": 0.0198
+    },
+    {
+      "Name": "Wohnheim Papenberg",
+      "Number": 42,
+      "Location_x": 6814,
+      "Location_y": 307,
+      "Loc_x_0-1": 0.764415526138658,
+      "Loc_y_0-1": 0.0614
+    },
+    {
+      "Name": "Ev. Krankenhaus",
+      "Number": 43,
+      "Location_x": 6460,
+      "Location_y": 218,
+      "Loc_x_0-1": 0.724702714830604,
+      "Loc_y_0-1": 0.0436
+    },
+    {
+      "Name": "Weende",
+      "Number": 44,
+      "Location_x": 6050,
+      "Location_y": 118,
+      "Loc_x_0-1": 0.678707650886246,
+      "Loc_y_0-1": 0.0236
+    },
+    {
+      "Name": "Bahlsen Outlet",
+      "Number": 45,
+      "Location_x": 5549,
+      "Location_y": 202,
+      "Loc_x_0-1": 0.622503926407898,
+      "Loc_y_0-1": 0.0404
+    },
+    {
+      "Name": "Novelis",
+      "Number": 46,
+      "Location_x": 5197,
+      "Location_y": 290,
+      "Loc_x_0-1": 0.583015481265425,
+      "Loc_y_0-1": 0.058
+    },
+    {
+      "Name": "Güterverkehrszentrum",
+      "Number": 47,
+      "Location_x": 5270,
+      "Location_y": 653,
+      "Loc_x_0-1": 0.591204846309177,
+      "Loc_y_0-1": 0.1306
+    },
+    {
+      "Name": "Gesundheitscampus",
+      "Number": 48,
+      "Location_x": 5824,
+      "Location_y": 482,
+      "Loc_x_0-1": 0.653354274175454,
+      "Loc_y_0-1": 0.0964
+    },
+    {
+      "Name": "Blauer Turm",
+      "Number": 49,
+      "Location_x": 6016,
+      "Location_y": 712,
+      "Loc_x_0-1": 0.674893426071348,
+      "Loc_y_0-1": 0.1424
+    },
+    {
+      "Name": "Uniklinik",
+      "Number": 50,
+      "Location_x": 6435,
+      "Location_y": 523,
+      "Loc_x_0-1": 0.721898137760826,
+      "Loc_y_0-1": 0.1046
+    },
+    {
+      "Name": "Hochschulsport",
+      "Number": 51,
+      "Location_x": 6864,
+      "Location_y": 527,
+      "Loc_x_0-1": 0.770024680278214,
+      "Loc_y_0-1": 0.1054
+    },
+    {
+      "Name": "Studentendorf",
+      "Number": 52,
+      "Location_x": 7115,
+      "Location_y": 677,
+      "Loc_x_0-1": 0.798182634058784,
+      "Loc_y_0-1": 0.1354
+    },
+    {
+      "Name": "Exp. Botanischer Garten",
+      "Number": 53,
+      "Location_x": 7288,
+      "Location_y": 292,
+      "Loc_x_0-1": 0.817590307381647,
+      "Loc_y_0-1": 0.0584
+    },
+    {
+      "Name": "Klausberg",
+      "Number": 54,
+      "Location_x": 7631,
+      "Location_y": 499,
+      "Loc_x_0-1": 0.856069104778999,
+      "Loc_y_0-1": 0.0998
+    },
+    {
+      "Name": "Bismarkstein",
+      "Number": 55,
+      "Location_x": 7844,
+      "Location_y": 815,
+      "Loc_x_0-1": 0.879964101413507,
+      "Loc_y_0-1": 0.163
+    },
+    {
+      "Name": "AlpenMAX",
+      "Number": 56,
+      "Location_x": 5745,
+      "Location_y": 1456,
+      "Loc_x_0-1": 0.644491810634956,
+      "Loc_y_0-1": 0.2912
+    },
+    {
+      "Name": "FREIgeist",
+      "Number": 57,
+      "Location_x": 5636,
+      "Location_y": 859,
+      "Loc_x_0-1": 0.632263854610725,
+      "Loc_y_0-1": 0.1718
+    },
+    {
+      "Name": "Bibliothek",
+      "Number": 58,
+      "Location_x": 6065,
+      "Location_y": 1299,
+      "Loc_x_0-1": 0.680390397128113,
+      "Loc_y_0-1": 0.2598
+    },
+    {
+      "Name": "Z-Campus",
+      "Number": 59,
+      "Location_x": 6050,
+      "Location_y": 968,
+      "Loc_x_0-1": 0.678707650886246,
+      "Loc_y_0-1": 0.1936
+    },
+    {
+      "Name": "Mensa am Turm",
+      "Number": 60,
+      "Location_x": 6408,
+      "Location_y": 922,
+      "Loc_x_0-1": 0.718869194525466,
+      "Loc_y_0-1": 0.1844
+    },
+    {
+      "Name": "Kolosseum",
+      "Number": 61,
+      "Location_x": 6740,
+      "Location_y": 792,
+      "Loc_x_0-1": 0.756113978012116,
+      "Loc_y_0-1": 0.1584
+    },
+    {
+      "Name": "Kaufpark",
+      "Number": 62,
+      "Location_x": 2295,
+      "Location_y": 2900,
+      "Loc_x_0-1": 0.257460175005609,
+      "Loc_y_0-1": 0.58
+    },
+    {
+      "Name": "JVA",
+      "Number": 63,
+      "Location_x": 2580,
+      "Location_y": 3922,
+      "Loc_x_0-1": 0.289432353601077,
+      "Loc_y_0-1": 0.7844
+    },
+    {
+      "Name": "McFit",
+      "Number": 64,
+      "Location_x": 2667,
+      "Location_y": 2945,
+      "Loc_x_0-1": 0.299192281803904,
+      "Loc_y_0-1": 0.589
+    },
+    {
+      "Name": "Grone",
+      "Number": 65,
+      "Location_x": 3063,
+      "Location_y": 3183,
+      "Loc_x_0-1": 0.343616782589186,
+      "Loc_y_0-1": 0.6366
+    },
+    {
+      "Name": "Logistikzentrum",
+      "Number": 66,
+      "Location_x": 3176,
+      "Location_y": 3745,
+      "Loc_x_0-1": 0.356293470944582,
+      "Loc_y_0-1": 0.749
+    },
+    {
+      "Name": "Alter Bahndamm",
+      "Number": 67,
+      "Location_x": 3521,
+      "Location_y": 3184,
+      "Loc_x_0-1": 0.394996634507516,
+      "Loc_y_0-1": 0.6368
+    },
+    {
+      "Name": "Friedhof",
+      "Number": 68,
+      "Location_x": 4006,
+      "Location_y": 2590,
+      "Loc_x_0-1": 0.449405429661207,
+      "Loc_y_0-1": 0.518
+    },
+    {
+      "Name": "Leinewiesen",
+      "Number": 69,
+      "Location_x": 4709,
+      "Location_y": 2797,
+      "Loc_x_0-1": 0.528270136863361,
+      "Loc_y_0-1": 0.5594
+    },
+    {
+      "Name": "Romantikhotel",
+      "Number": 70,
+      "Location_x": 5168,
+      "Location_y": 2368,
+      "Loc_x_0-1": 0.579762171864483,
+      "Loc_y_0-1": 0.4736
+    },
+    {
+      "Name": "Groner Tor",
+      "Number": 71,
+      "Location_x": 5359,
+      "Location_y": 2440,
+      "Loc_x_0-1": 0.601189140677586,
+      "Loc_y_0-1": 0.488
+    },
+    {
+      "Name": "Hans im Glück",
+      "Number": 72,
+      "Location_x": 5489,
+      "Location_y": 2175,
+      "Loc_x_0-1": 0.615772941440431,
+      "Loc_y_0-1": 0.435
+    },
+    {
+      "Name": "City Rewe",
+      "Number": 73,
+      "Location_x": 5713,
+      "Location_y": 2105,
+      "Loc_x_0-1": 0.640901951985641,
+      "Loc_y_0-1": 0.421
+    },
+    {
+      "Name": "Nabel",
+      "Number": 74,
+      "Location_x": 5936,
+      "Location_y": 2122,
+      "Loc_x_0-1": 0.665918779448059,
+      "Loc_y_0-1": 0.4244
+    },
+    {
+      "Name": "Carre",
+      "Number": 75,
+      "Location_x": 5940,
+      "Location_y": 1940,
+      "Loc_x_0-1": 0.666367511779224,
+      "Loc_y_0-1": 0.388
+    },
+    {
+      "Name": "Dönermeile",
+      "Number": 76,
+      "Location_x": 6115,
+      "Location_y": 2042,
+      "Loc_x_0-1": 0.685999551267669,
+      "Loc_y_0-1": 0.4084
+    },
+    {
+      "Name": "Nautibar",
+      "Number": 77,
+      "Location_x": 6254,
+      "Location_y": 1914,
+      "Loc_x_0-1": 0.701592999775634,
+      "Loc_y_0-1": 0.3828
+    },
+    {
+      "Name": "Trou",
+      "Number": 78,
+      "Location_x": 6320,
+      "Location_y": 2089,
+      "Loc_x_0-1": 0.708997083239847,
+      "Loc_y_0-1": 0.4178
+    },
+    {
+      "Name": "Theater",
+      "Number": 79,
+      "Location_x": 6527,
+      "Location_y": 2024,
+      "Loc_x_0-1": 0.732218981377608,
+      "Loc_y_0-1": 0.4048
+    },
+    {
+      "Name": "Max-Planck-Institut",
+      "Number": 80,
+      "Location_x": 6741,
+      "Location_y": 1997,
+      "Loc_x_0-1": 0.756226161094907,
+      "Loc_y_0-1": 0.3994
+    },
+    {
+      "Name": "Stadthalle",
+      "Number": 81,
+      "Location_x": 6959,
+      "Location_y": 2188,
+      "Loc_x_0-1": 0.78068207314337,
+      "Loc_y_0-1": 0.4376
+    },
+    {
+      "Name": "Schillerwiesen",
+      "Number": 82,
+      "Location_x": 7398,
+      "Location_y": 2122,
+      "Loc_x_0-1": 0.82993044648867,
+      "Loc_y_0-1": 0.4244
+    },
+    {
+      "Name": "Junges Theater",
+      "Number": 83,
+      "Location_x": 5447,
+      "Location_y": 2646,
+      "Loc_x_0-1": 0.611061251963204,
+      "Loc_y_0-1": 0.5292
+    },
+    {
+      "Name": "Le&Vi",
+      "Number": 84,
+      "Location_x": 5613,
+      "Location_y": 2449,
+      "Loc_x_0-1": 0.629683643706529,
+      "Loc_y_0-1": 0.4898
+    },
+    {
+      "Name": "Monros Park",
+      "Number": 85,
+      "Location_x": 5756,
+      "Location_y": 2791,
+      "Loc_x_0-1": 0.645725824545659,
+      "Loc_y_0-1": 0.5582
+    },
+    {
+      "Name": "St. Nikolaikirche",
+      "Number": 86,
+      "Location_x": 5805,
+      "Location_y": 2625,
+      "Loc_x_0-1": 0.651222795602423,
+      "Loc_y_0-1": 0.525
+    },
+    {
+      "Name": "Efes Döner",
+      "Number": 87,
+      "Location_x": 5892,
+      "Location_y": 2458,
+      "Loc_x_0-1": 0.66098272380525,
+      "Loc_y_0-1": 0.4916
+    },
+    {
+      "Name": "Gänseliesel",
+      "Number": 88,
+      "Location_x": 5987,
+      "Location_y": 2293,
+      "Loc_x_0-1": 0.671640116670406,
+      "Loc_y_0-1": 0.4586
+    },
+    {
+      "Name": "Weber-Gauss-Denkmal",
+      "Number": 89,
+      "Location_x": 6025,
+      "Location_y": 2862,
+      "Loc_x_0-1": 0.675903073816469,
+      "Loc_y_0-1": 0.5724
+    },
+    {
+      "Name": "Markt",
+      "Number": 90,
+      "Location_x": 6069,
+      "Location_y": 2567,
+      "Loc_x_0-1": 0.680839129459278,
+      "Loc_y_0-1": 0.5134
+    },
+    {
+      "Name": "St. Jacobikirche",
+      "Number": 91,
+      "Location_x": 6166,
+      "Location_y": 2207,
+      "Loc_x_0-1": 0.691720888490016,
+      "Loc_y_0-1": 0.4414
+    },
+    {
+      "Name": "L’Osteria",
+      "Number": 92,
+      "Location_x": 6196,
+      "Location_y": 2720,
+      "Loc_x_0-1": 0.695086380973749,
+      "Loc_y_0-1": 0.544
+    },
+    {
+      "Name": "Willi",
+      "Number": 93,
+      "Location_x": 6307,
+      "Location_y": 2313,
+      "Loc_x_0-1": 0.707538703163563,
+      "Loc_y_0-1": 0.4626
+    },
+    {
+      "Name": "Geismar Tor",
+      "Number": 94,
+      "Location_x": 6297,
+      "Location_y": 2895,
+      "Loc_x_0-1": 0.706416872335652,
+      "Loc_y_0-1": 0.579
+    },
+    {
+      "Name": "Nudelhaus",
+      "Number": 95,
+      "Location_x": 6339,
+      "Location_y": 2484,
+      "Loc_x_0-1": 0.711128561812879,
+      "Loc_y_0-1": 0.4968
+    },
+    {
+      "Name": "St. Albanikirche",
+      "Number": 96,
+      "Location_x": 6485,
+      "Location_y": 2304,
+      "Loc_x_0-1": 0.727507291900381,
+      "Loc_y_0-1": 0.4608
+    },
+    {
+      "Name": "Cheltenham Park",
+      "Number": 97,
+      "Location_x": 6641,
+      "Location_y": 2563,
+      "Loc_x_0-1": 0.745007852815795,
+      "Loc_y_0-1": 0.5126
+    },
+    {
+      "Name": "Wohnheim Schildweg",
+      "Number": 98,
+      "Location_x": 6870,
+      "Location_y": 2474,
+      "Loc_x_0-1": 0.770697778774961,
+      "Loc_y_0-1": 0.4948
+    },
+    {
+      "Name": "Hainberg Gymnasium",
+      "Number": 99,
+      "Location_x": 7108,
+      "Location_y": 2453,
+      "Loc_x_0-1": 0.797397352479246,
+      "Loc_y_0-1": 0.4906
+    },
+    {
+      "Name": "Tennisklub",
+      "Number": 100,
+      "Location_x": 7311,
+      "Location_y": 2664,
+      "Loc_x_0-1": 0.820170518285843,
+      "Loc_y_0-1": 0.5328
+    },
+    {
+      "Name": "Stadtwald",
+      "Number": 101,
+      "Location_x": 8085,
+      "Location_y": 2498,
+      "Loc_x_0-1": 0.907000224366166,
+      "Loc_y_0-1": 0.4996
+    },
+    {
+      "Name": "Bismarkturm",
+      "Number": 102,
+      "Location_x": 7870,
+      "Location_y": 3050,
+      "Loc_x_0-1": 0.882880861566076,
+      "Loc_y_0-1": 0.61
+    },
+    {
+      "Name": "Sternwarte",
+      "Number": 103,
+      "Location_x": 8265,
+      "Location_y": 3328,
+      "Loc_x_0-1": 0.927193179268566,
+      "Loc_y_0-1": 0.6656
+    },
+    {
+      "Name": "Kehr",
+      "Number": 104,
+      "Location_x": 8554,
+      "Location_y": 3204,
+      "Loc_x_0-1": 0.959614090195199,
+      "Loc_y_0-1": 0.6408
+    },
+    {
+      "Name": "Tongrube",
+      "Number": 105,
+      "Location_x": 4006,
+      "Location_y": 3912,
+      "Loc_x_0-1": 0.449405429661207,
+      "Loc_y_0-1": 0.7824
+    },
+    {
+      "Name": "Asklepios",
+      "Number": 106,
+      "Location_x": 4293,
+      "Location_y": 3551,
+      "Loc_x_0-1": 0.481601974422257,
+      "Loc_y_0-1": 0.7102
+    },
+    {
+      "Name": "Leineberg",
+      "Number": 107,
+      "Location_x": 4296,
+      "Location_y": 3156,
+      "Loc_x_0-1": 0.48193852367063,
+      "Loc_y_0-1": 0.6312
+    },
+    {
+      "Name": "Rosdorfer Kreisel",
+      "Number": 108,
+      "Location_x": 4778,
+      "Location_y": 3142,
+      "Loc_x_0-1": 0.536010769575948,
+      "Loc_y_0-1": 0.6284
+    },
+    {
+      "Name": "Kiessee",
+      "Number": 109,
+      "Location_x": 4776,
+      "Location_y": 3770,
+      "Loc_x_0-1": 0.535786403410366,
+      "Loc_y_0-1": 0.754
+    },
+    {
+      "Name": "Jahnstadion",
+      "Number": 110,
+      "Location_x": 5110,
+      "Location_y": 3944,
+      "Loc_x_0-1": 0.573255553062598,
+      "Loc_y_0-1": 0.7888
+    },
+    {
+      "Name": "Freibad Brauweg",
+      "Number": 111,
+      "Location_x": 5171,
+      "Location_y": 3703,
+      "Loc_x_0-1": 0.580098721112856,
+      "Loc_y_0-1": 0.7406
+    },
+    {
+      "Name": "Eiswiese",
+      "Number": 112,
+      "Location_x": 5385,
+      "Location_y": 3467,
+      "Loc_x_0-1": 0.604105900830155,
+      "Loc_y_0-1": 0.6934
+    },
+    {
+      "Name": "DLR",
+      "Number": 113,
+      "Location_x": 5466,
+      "Location_y": 3147,
+      "Loc_x_0-1": 0.613192730536235,
+      "Loc_y_0-1": 0.6294
+    },
+    {
+      "Name": "Mathematisches Institut",
+      "Number": 114,
+      "Location_x": 5632,
+      "Location_y": 3031,
+      "Loc_x_0-1": 0.63181512227956,
+      "Loc_y_0-1": 0.6062
+    },
+    {
+      "Name": "Felix-Klein-Gymnasium",
+      "Number": 115,
+      "Location_x": 5676,
+      "Location_y": 3302,
+      "Loc_x_0-1": 0.636751177922369,
+      "Loc_y_0-1": 0.6604
+    },
+    {
+      "Name": "Südstadt",
+      "Number": 116,
+      "Location_x": 6082,
+      "Location_y": 3321,
+      "Loc_x_0-1": 0.682297509535562,
+      "Loc_y_0-1": 0.6642
+    },
+    {
+      "Name": "Neues Rathaus",
+      "Number": 117,
+      "Location_x": 6454,
+      "Location_y": 3102,
+      "Loc_x_0-1": 0.724029616333857,
+      "Loc_y_0-1": 0.6204
+    },
+    {
+      "Name": "Historische Sternwarte",
+      "Number": 118,
+      "Location_x": 6650,
+      "Location_y": 3307,
+      "Loc_x_0-1": 0.746017500560915,
+      "Loc_y_0-1": 0.6614
+    },
+    {
+      "Name": "Lönsweg",
+      "Number": 119,
+      "Location_x": 7036,
+      "Location_y": 3117,
+      "Loc_x_0-1": 0.789320170518286,
+      "Loc_y_0-1": 0.6234
+    },
+    {
+      "Name": "Lohberg",
+      "Number": 120,
+      "Location_x": 7392,
+      "Location_y": 3476,
+      "Loc_x_0-1": 0.829257347991923,
+      "Loc_y_0-1": 0.6952
+    },
+    {
+      "Name": "HAWK Fak. I",
+      "Number": 121,
+      "Location_x": 7957,
+      "Location_y": 3531,
+      "Loc_x_0-1": 0.892640789768903,
+      "Loc_y_0-1": 0.7062
+    },
+    {
+      "Name": "Zietenterrassen",
+      "Number": 122,
+      "Location_x": 8432,
+      "Location_y": 3702,
+      "Loc_x_0-1": 0.945927754094683,
+      "Loc_y_0-1": 0.7404
+    },
+    {
+      "Name": "Radrennbahn",
+      "Number": 123,
+      "Location_x": 5573,
+      "Location_y": 3914,
+      "Loc_x_0-1": 0.625196320394885,
+      "Loc_y_0-1": 0.7828
+    },
+    {
+      "Name": "ASC Göttingen",
+      "Number": 124,
+      "Location_x": 6154,
+      "Location_y": 3669,
+      "Loc_x_0-1": 0.690374691496522,
+      "Loc_y_0-1": 0.7338
+    },
+    {
+      "Name": "Volkshochschule",
+      "Number": 125,
+      "Location_x": 6488,
+      "Location_y": 3938,
+      "Loc_x_0-1": 0.727843841148755,
+      "Loc_y_0-1": 0.7876
+    },
+    {
+      "Name": "Feuerwehr",
+      "Number": 126,
+      "Location_x": 6794,
+      "Location_y": 3607,
+      "Loc_x_0-1": 0.762171864482836,
+      "Loc_y_0-1": 0.7214
+    },
+    {
+      "Name": "Geismar",
+      "Number": 127,
+      "Location_x": 7104,
+      "Location_y": 3969,
+      "Loc_x_0-1": 0.796948620148082,
+      "Loc_y_0-1": 0.7938
+    },
+    {
+      "Name": "Schöneberger Straße",
+      "Number": 128,
+      "Location_x": 8278,
+      "Location_y": 3949,
+      "Loc_x_0-1": 0.928651559344851,
+      "Loc_y_0-1": 0.7898
+    }
+  ],
+  "Connections": [
+    {
+      "source": "Pagoda",
+      "sourceNo": 1,
+      "targetNo": 2,
+      "type": 2
+    },
+    {
+      "sourceNo": 1,
+      "targetNo": 3,
+      "type": 3
+    },
+    {
+      "sourceNo": 1,
+      "targetNo": 4,
+      "type": 23
+    },
+    {
+      "source": "Hagenberg",
+      "sourceNo": 2,
+      "targetNo": 3,
+      "type": 2
+    },
+    {
+      "sourceNo": 2,
+      "targetNo": 4,
+      "type": 2
+    },
+    {
+      "sourceNo": 2,
+      "targetNo": 13,
+      "type": 1
+    },
+    {
+      "source": "Hagenbergschule",
+      "sourceNo": 3,
+      "targetNo": 5,
+      "type": 23
+    },
+    {
+      "sourceNo": 3,
+      "targetNo": 7,
+      "type": 3
+    },
+    {
+      "source": "Weststadt",
+      "sourceNo": 4,
+      "targetNo": 5,
+      "type": 23
+    },
+    {
+      "sourceNo": 4,
+      "targetNo": 13,
+      "type": 23
+    },
+    {
+      "sourceNo": 4,
+      "targetNo": 14,
+      "type": 3
+    },
+    {
+      "source": "BIG",
+      "sourceNo": 5,
+      "targetNo": 6,
+      "type": 3
+    },
+    {
+      "sourceNo": 5,
+      "targetNo": 7,
+      "type": 3
+    },
+    {
+      "sourceNo": 5,
+      "targetNo": 15,
+      "type": 23
+    },
+    {
+      "source": "Hagenweg 20",
+      "sourceNo": 6,
+      "targetNo": 7,
+      "type": 3
+    },
+    {
+      "sourceNo": 6,
+      "targetNo": 9,
+      "type": 3
+    },
+    {
+      "sourceNo": 6,
+      "targetNo": 15,
+      "type": 3
+    },
+    {
+      "sourceNo": 6,
+      "targetNo": 24,
+      "type": 3
+    },
+    {
+      "source": "Tierheim",
+      "sourceNo": 7,
+      "targetNo": 9,
+      "type": 23
+    },
+    {
+      "sourceNo": 7,
+      "targetNo": 24,
+      "type": 23
+    },
+    {
+      "source": "Kläranlage",
+      "sourceNo": 8,
+      "targetNo": 9,
+      "type": 3
+    },
+    {
+      "source": "Maschpark",
+      "sourceNo": 9,
+      "targetNo": 10,
+      "type": 23
+    },
+    {
+      "sourceNo": 9,
+      "targetNo": 24,
+      "type": 23
+    },
+    {
+      "source": "Schützenplatz",
+      "sourceNo": 10,
+      "targetNo": 11,
+      "type": 23
+    },
+    {
+      "source": "S-Arena",
+      "sourceNo": 11,
+      "targetNo": 22,
+      "type": 23
+    },
+    {
+      "source": "Hampe Recycling",
+      "sourceNo": 12,
+      "targetNo": 13,
+      "type": 1
+    },
+    {
+      "sourceNo": 12,
+      "targetNo": 14,
+      "type": 1
+    },
+    {
+      "sourceNo": 12,
+      "targetNo": 17,
+      "type": 3
+    },
+    {
+      "sourceNo": 12,
+      "targetNo": 62,
+      "type": 1
+    },
+    {
+      "source": "Sartorius",
+      "sourceNo": 13,
+      "targetNo": 14,
+      "type": 1
+    },
+    {
+      "source": "Industriegebiet",
+      "sourceNo": 14,
+      "targetNo": 15,
+      "type": 3
+    },
+    {
+      "sourceNo": 14,
+      "targetNo": 17,
+      "type": 3
+    },
+    {
+      "sourceNo": 14,
+      "targetNo": 21,
+      "type": 3
+    },
+    {
+      "source": "Levinpark",
+      "sourceNo": 15,
+      "targetNo": 16,
+      "type": 23
+    },
+    {
+      "sourceNo": 15,
+      "targetNo": 21,
+      "type": 2
+    },
+    {
+      "sourceNo": 15,
+      "targetNo": 23,
+      "type": 2
+    },
+    {
+      "source": "Saline",
+      "sourceNo": 16,
+      "targetNo": 23,
+      "type": 3
+    },
+    {
+      "source": "Zufall Logistik",
+      "sourceNo": 17,
+      "targetNo": 18,
+      "type": 3
+    },
+    {
+      "source": "Flötegraben",
+      "sourceNo": 18,
+      "targetNo": 19,
+      "type": 3
+    },
+    {
+      "sourceNo": 18,
+      "targetNo": 20,
+      "type": 3
+    },
+    {
+      "sourceNo": 18,
+      "targetNo": 21,
+      "type": 3
+    },
+    {
+      "source": "Reitschule",
+      "sourceNo": 19,
+      "targetNo": 20,
+      "type": 23
+    },
+    {
+      "source": "Bogensportarena",
+      "sourceNo": 20,
+      "targetNo": 21,
+      "type": 23
+    },
+    {
+      "sourceNo": 20,
+      "targetNo": 62,
+      "type": 23
+    },
+    {
+      "source": "Grone",
+      "sourceNo": 21,
+      "targetNo": 23,
+      "type": 23
+    },
+    {
+      "sourceNo": 21,
+      "targetNo": 62,
+      "type": 3
+    },
+    {
+      "sourceNo": 21,
+      "targetNo": 68,
+      "type": 3
+    },
+    {
+      "source": "Lokhalle",
+      "sourceNo": 22,
+      "targetNo": 26,
+      "type": 23
+    },
+    {
+      "sourceNo": 22,
+      "targetNo": 28,
+      "type": 23
+    },
+    {
+      "source": "Moschee",
+      "sourceNo": 23,
+      "targetNo": 24,
+      "type": 23
+    },
+    {
+      "sourceNo": 23,
+      "targetNo": 62,
+      "type": 23
+    },
+    {
+      "sourceNo": 23,
+      "targetNo": 68,
+      "type": 3
+    },
+    {
+      "source": "Polizei",
+      "sourceNo": 24,
+      "targetNo": 25,
+      "type": 23
+    },
+    {
+      "sourceNo": 24,
+      "targetNo": 26,
+      "type": 23
+    },
+    {
+      "sourceNo": 24,
+      "targetNo": 28,
+      "type": 1
+    },
+    {
+      "sourceNo": 24,
+      "targetNo": 62,
+      "type": 1
+    },
+    {
+      "sourceNo": 24,
+      "targetNo": 67,
+      "type": 2
+    },
+    {
+      "sourceNo": 24,
+      "targetNo": 68,
+      "type": 3
+    },
+    {
+      "sourceNo": 24,
+      "targetNo": 71,
+      "type": 1
+    },
+    {
+      "sourceNo": 24,
+      "targetNo": 108,
+      "type": 23
+    },
+    {
+      "sourceNo": 24,
+      "targetNo": 109,
+      "type": 1
+    },
+    {
+      "source": "Forum Wissen",
+      "sourceNo": 25,
+      "targetNo": 26,
+      "type": 23
+    },
+    {
+      "sourceNo": 25,
+      "targetNo": 28,
+      "type": 23
+    },
+    {
+      "sourceNo": 25,
+      "targetNo": 69,
+      "type": 23
+    },
+    {
+      "sourceNo": 25,
+      "targetNo": 70,
+      "type": 23
+    },
+    {
+      "source": "Idunazentrum",
+      "sourceNo": 27,
+      "targetNo": 29,
+      "type": 3
+    },
+    {
+      "sourceNo": 27,
+      "targetNo": 30,
+      "type": 2
+    },
+    {
+      "sourceNo": 27,
+      "targetNo": 47,
+      "type": 23
+    },
+    {
+      "sourceNo": 27,
+      "targetNo": 56,
+      "type": 3
+    },
+    {
+      "sourceNo": 27,
+      "targetNo": 58,
+      "type": 2
+    },
+    {
+      "source": "Hauptbahnhof",
+      "sourceNo": 28,
+      "targetNo": 29,
+      "type": 23
+    },
+    {
+      "sourceNo": 28,
+      "targetNo": 30,
+      "type": 1
+    },
+    {
+      "sourceNo": 28,
+      "targetNo": 71,
+      "type": 1
+    },
+    {
+      "source": "Savoy",
+      "sourceNo": 29,
+      "targetNo": 30,
+      "type": 23
+    },
+    {
+      "sourceNo": 29,
+      "targetNo": 72,
+      "type": 2
+    },
+    {
+      "source": "Vapiano",
+      "sourceNo": 30,
+      "targetNo": 31,
+      "type": 23
+    },
+    {
+      "sourceNo": 30,
+      "targetNo": 33,
+      "type": 1
+    },
+    {
+      "sourceNo": 30,
+      "targetNo": 56,
+      "type": 3
+    },
+    {
+      "sourceNo": 30,
+      "targetNo": 58,
+      "type": 2
+    },
+    {
+      "sourceNo": 30,
+      "targetNo": 73,
+      "type": 23
+    },
+    {
+      "sourceNo": 30,
+      "targetNo": 75,
+      "type": 23
+    },
+    {
+      "sourceNo": 30,
+      "targetNo": 94,
+      "type": 1
+    },
+    {
+      "source": "Auditorium",
+      "sourceNo": 31,
+      "targetNo": 32,
+      "type": 23
+    },
+    {
+      "source": "Alter Botanischer Garten",
+      "sourceNo": 32,
+      "targetNo": 33,
+      "type": 23
+    },
+    {
+      "sourceNo": 32,
+      "targetNo": 77,
+      "type": 3
+    },
+    {
+      "source": "Nikolausberger Weg",
+      "sourceNo": 33,
+      "targetNo": 34,
+      "type": 23
+    },
+    {
+      "sourceNo": 33,
+      "targetNo": 36,
+      "type": 1
+    },
+    {
+      "sourceNo": 33,
+      "targetNo": 44,
+      "type": 1
+    },
+    {
+      "sourceNo": 33,
+      "targetNo": 52,
+      "type": 23
+    },
+    {
+      "sourceNo": 33,
+      "targetNo": 60,
+      "type": 23
+    },
+    {
+      "sourceNo": 33,
+      "targetNo": 61,
+      "type": 3
+    },
+    {
+      "source": "Jugendherberge",
+      "sourceNo": 34,
+      "targetNo": 35,
+      "type": 23
+    },
+    {
+      "source": "Theodor Heuss Gymnasium",
+      "sourceNo": 35,
+      "targetNo": 36,
+      "type": 23
+    },
+    {
+      "sourceNo": 35,
+      "targetNo": 80,
+      "type": 23
+    },
+    {
+      "source": "Rohns",
+      "sourceNo": 36,
+      "targetNo": 37,
+      "type": 23
+    },
+    {
+      "sourceNo": 36,
+      "targetNo": 54,
+      "type": 123
+    },
+    {
+      "sourceNo": 36,
+      "targetNo": 55,
+      "type": 23
+    },
+    {
+      "sourceNo": 36,
+      "targetNo": 82,
+      "type": 23
+    },
+    {
+      "sourceNo": 36,
+      "targetNo": 99,
+      "type": 1
+    },
+    {
+      "sourceNo": 36,
+      "targetNo": 101,
+      "type": 2
+    },
+    {
+      "source": "Streuobstwiesen",
+      "sourceNo": 37,
+      "targetNo": 38,
+      "type": 2
+    },
+    {
+      "source": "Herberhausen",
+      "sourceNo": 38,
+      "targetNo": 39,
+      "type": 23
+    },
+    {
+      "sourceNo": 38,
+      "targetNo": 104,
+      "type": 23
+    },
+    {
+      "sourceNo": 38,
+      "targetNo": 54,
+      "type": 1
+    },
+    {
+      "source": "Golden Moon",
+      "sourceNo": 39,
+      "targetNo": 40,
+      "type": 23
+    },
+    {
+      "sourceNo": 39,
+      "targetNo": 54,
+      "type": 23
+    },
+    {
+      "sourceNo": 39,
+      "targetNo": 55,
+      "type": 23
+    },
+    {
+      "source": "Forstbotanischer Garten",
+      "sourceNo": 40,
+      "targetNo": 41,
+      "type": 2
+    },
+    {
+      "sourceNo": 40,
+      "targetNo": 52,
+      "type": 2
+    },
+    {
+      "sourceNo": 40,
+      "targetNo": 53,
+      "type": 3
+    },
+    {
+      "sourceNo": 40,
+      "targetNo": 54,
+      "type": 2
+    },
+    {
+      "source": "HAWK Fak. R",
+      "sourceNo": 41,
+      "targetNo": 42,
+      "type": 2
+    },
+    {
+      "source": "Wohnheim Papenberg",
+      "sourceNo": 42,
+      "targetNo": 43,
+      "type": 2
+    },
+    {
+      "sourceNo": 42,
+      "targetNo": 51,
+      "type": 2
+    },
+    {
+      "source": "Ev. Krankenhaus",
+      "sourceNo": 43,
+      "targetNo": 44,
+      "type": 23
+    },
+    {
+      "sourceNo": 43,
+      "targetNo": 50,
+      "type": 2
+    },
+    {
+      "sourceNo": 43,
+      "targetNo": 51,
+      "type": 3
+    },
+    {
+      "source": "Weende",
+      "sourceNo": 44,
+      "targetNo": 45,
+      "type": 3
+    },
+    {
+      "sourceNo": 44,
+      "targetNo": 49,
+      "type": 23
+    },
+    {
+      "source": "Bahlsen Outlet",
+      "sourceNo": 45,
+      "targetNo": 46,
+      "type": 3
+    },
+    {
+      "sourceNo": 45,
+      "targetNo": 48,
+      "type": 3
+    },
+    {
+      "source": "Novelis",
+      "sourceNo": 46,
+      "targetNo": 47,
+      "type": 3
+    },
+    {
+      "source": "Güterverkehrszentrum",
+      "sourceNo": 47,
+      "targetNo": 48,
+      "type": 23
+    },
+    {
+      "sourceNo": 47,
+      "targetNo": 49,
+      "type": 2
+    },
+    {
+      "sourceNo": 47,
+      "targetNo": 57,
+      "type": 3
+    },
+    {
+      "source": "Gesundheitscampus",
+      "sourceNo": 48,
+      "targetNo": 49,
+      "type": 23
+    },
+    {
+      "source": "Blauer Turm",
+      "sourceNo": 49,
+      "targetNo": 50,
+      "type": 2
+    },
+    {
+      "sourceNo": 49,
+      "targetNo": 57,
+      "type": 3
+    },
+    {
+      "sourceNo": 49,
+      "targetNo": 59,
+      "type": 23
+    },
+    {
+      "sourceNo": 49,
+      "targetNo": 60,
+      "type": 23
+    },
+    {
+      "source": "Uniklinik",
+      "sourceNo": 50,
+      "targetNo": 51,
+      "type": 2
+    },
+    {
+      "source": "Hochschulsport",
+      "sourceNo": 51,
+      "targetNo": 52,
+      "type": 23
+    },
+    {
+      "sourceNo": 51,
+      "targetNo": 61,
+      "type": 3
+    },
+    {
+      "sourceNo": 51,
+      "targetNo": 60,
+      "type": 2
+    },
+    {
+      "source": "Studentendorf",
+      "sourceNo": 52,
+      "targetNo": 53,
+      "type": 3
+    },
+    {
+      "sourceNo": 52,
+      "targetNo": 54,
+      "type": 2
+    },
+    {
+      "sourceNo": 52,
+      "targetNo": 61,
+      "type": 3
+    },
+    {
+      "source": "Exp. Botanischer Garten",
+      "sourceNo": 53,
+      "targetNo": 54,
+      "type": 3
+    },
+    {
+      "source": "Klausberg",
+      "sourceNo": 54,
+      "targetNo": 55,
+      "type": 23
+    },
+    {
+      "source": "AlpenMAX",
+      "sourceNo": 56,
+      "targetNo": 58,
+      "type": 3
+    },
+    {
+      "source": "Bibliothek",
+      "sourceNo": 58,
+      "targetNo": 59,
+      "type": 23
+    },
+    {
+      "sourceNo": 58,
+      "targetNo": 60,
+      "type": 2
+    },
+    {
+      "source": "Mensa am Turm",
+      "sourceNo": 60,
+      "targetNo": 61,
+      "type": 3
+    },
+    {
+      "source": "Kaufpark",
+      "sourceNo": 62,
+      "targetNo": 63,
+      "type": 12
+    },
+    {
+      "sourceNo": 62,
+      "targetNo": 64,
+      "type": 23
+    },
+    {
+      "sourceNo": 62,
+      "targetNo": 68,
+      "type": 3
+    },
+    {
+      "source": "JVA",
+      "sourceNo": 63,
+      "targetNo": 65,
+      "type": 2
+    },
+    {
+      "sourceNo": 63,
+      "targetNo": 66,
+      "type": 2
+    },
+    {
+      "source": "McFit",
+      "sourceNo": 64,
+      "targetNo": 65,
+      "type": 2
+    },
+    {
+      "source": "Grone",
+      "sourceNo": 65,
+      "targetNo": 67,
+      "type": 2
+    },
+    {
+      "sourceNo": 65,
+      "targetNo": 68,
+      "type": 2
+    },
+    {
+      "source": "Logistikzentrum",
+      "sourceNo": 66,
+      "targetNo": 67,
+      "type": 2
+    },
+    {
+      "source": "Alter Bahndamm",
+      "sourceNo": 67,
+      "targetNo": 108,
+      "type": 2
+    },
+    {
+      "source": "Leinewiesen",
+      "sourceNo": 69,
+      "targetNo": 83,
+      "type": 23
+    },
+    {
+      "sourceNo": 69,
+      "targetNo": 108,
+      "type": 23
+    },
+    {
+      "source": "Romantikhotel",
+      "sourceNo": 70,
+      "targetNo": 71,
+      "type": 23
+    },
+    {
+      "source": "Groner Tor",
+      "sourceNo": 71,
+      "targetNo": 72,
+      "type": 2
+    },
+    {
+      "sourceNo": 71,
+      "targetNo": 83,
+      "type": 23
+    },
+    {
+      "sourceNo": 71,
+      "targetNo": 84,
+      "type": 23
+    },
+    {
+      "sourceNo": 71,
+      "targetNo": 94,
+      "type": 1
+    },
+    {
+      "source": "City Rewe",
+      "sourceNo": 73,
+      "targetNo": 74,
+      "type": 23
+    },
+    {
+      "sourceNo": 73,
+      "targetNo": 84,
+      "type": 23
+    },
+    {
+      "source": "Nabel",
+      "sourceNo": 74,
+      "targetNo": 75,
+      "type": 23
+    },
+    {
+      "sourceNo": 74,
+      "targetNo": 76,
+      "type": 3
+    },
+    {
+      "sourceNo": 74,
+      "targetNo": 78,
+      "type": 2
+    },
+    {
+      "sourceNo": 74,
+      "targetNo": 88,
+      "type": 23
+    },
+    {
+      "source": "Carre",
+      "sourceNo": 75,
+      "targetNo": 76,
+      "type": 3
+    },
+    {
+      "sourceNo": 75,
+      "targetNo": 78,
+      "type": 2
+    },
+    {
+      "source": "Dönermeile",
+      "sourceNo": 76,
+      "targetNo": 77,
+      "type": 3
+    },
+    {
+      "sourceNo": 76,
+      "targetNo": 78,
+      "type": 3
+    },
+    {
+      "sourceNo": 76,
+      "targetNo": 91,
+      "type": 3
+    },
+    {
+      "source": "Nautibar",
+      "sourceNo": 77,
+      "targetNo": 78,
+      "type": 3
+    },
+    {
+      "source": "Trou",
+      "sourceNo": 78,
+      "targetNo": 79,
+      "type": 3
+    },
+    {
+      "sourceNo": 78,
+      "targetNo": 80,
+      "type": 2
+    },
+    {
+      "source": "Theater",
+      "sourceNo": 79,
+      "targetNo": 80,
+      "type": 3
+    },
+    {
+      "sourceNo": 79,
+      "targetNo": 96,
+      "type": 3
+    },
+    {
+      "source": "Max-Planck-Institut",
+      "sourceNo": 80,
+      "targetNo": 81,
+      "type": 23
+    },
+    {
+      "source": "Stadthalle",
+      "sourceNo": 81,
+      "targetNo": 82,
+      "type": 2
+    },
+    {
+      "sourceNo": 81,
+      "targetNo": 98,
+      "type": 3
+    },
+    {
+      "sourceNo": 81,
+      "targetNo": 99,
+      "type": 23
+    },
+    {
+      "source": "Schillerwiesen",
+      "sourceNo": 82,
+      "targetNo": 99,
+      "type": 23
+    },
+    {
+      "source": "Junges Theater",
+      "sourceNo": 83,
+      "targetNo": 85,
+      "type": 23
+    },
+    {
+      "sourceNo": 83,
+      "targetNo": 108,
+      "type": 23
+    },
+    {
+      "source": "Le&Vi",
+      "sourceNo": 84,
+      "targetNo": 86,
+      "type": 23
+    },
+    {
+      "sourceNo": 84,
+      "targetNo": 87,
+      "type": 3
+    },
+    {
+      "source": "Monros Park",
+      "sourceNo": 85,
+      "targetNo": 86,
+      "type": 23
+    },
+    {
+      "sourceNo": 85,
+      "targetNo": 89,
+      "type": 3
+    },
+    {
+      "sourceNo": 85,
+      "targetNo": 94,
+      "type": 2
+    },
+    {
+      "sourceNo": 85,
+      "targetNo": 113,
+      "type": 2
+    },
+    {
+      "sourceNo": 85,
+      "targetNo": 114,
+      "type": 3
+    },
+    {
+      "source": "St. Nikolaikirche",
+      "sourceNo": 86,
+      "targetNo": 87,
+      "type": 3
+    },
+    {
+      "sourceNo": 86,
+      "targetNo": 90,
+      "type": 23
+    },
+    {
+      "source": "Efes Döner",
+      "sourceNo": 87,
+      "targetNo": 88,
+      "type": 3
+    },
+    {
+      "sourceNo": 87,
+      "targetNo": 90,
+      "type": 3
+    },
+    {
+      "source": "Gänseliesel",
+      "sourceNo": 88,
+      "targetNo": 91,
+      "type": 3
+    },
+    {
+      "sourceNo": 88,
+      "targetNo": 95,
+      "type": 23
+    },
+    {
+      "source": "Weber-Gauss-Denkmal",
+      "sourceNo": 89,
+      "targetNo": 92,
+      "type": 3
+    },
+    {
+      "sourceNo": 89,
+      "targetNo": 94,
+      "type": 3
+    },
+    {
+      "sourceNo": 89,
+      "targetNo": 114,
+      "type": 3
+    },
+    {
+      "sourceNo": 89,
+      "targetNo": 116,
+      "type": 3
+    },
+    {
+      "source": "Markt",
+      "sourceNo": 90,
+      "targetNo": 92,
+      "type": 3
+    },
+    {
+      "sourceNo": 90,
+      "targetNo": 95,
+      "type": 23
+    },
+    {
+      "source": "St. Jacobikirche",
+      "sourceNo": 91,
+      "targetNo": 93,
+      "type": 3
+    },
+    {
+      "source": "L’Osteria",
+      "sourceNo": 92,
+      "targetNo": 94,
+      "type": 3
+    },
+    {
+      "source": "Willi",
+      "sourceNo": 93,
+      "targetNo": 95,
+      "type": 3
+    },
+    {
+      "sourceNo": 93,
+      "targetNo": 96,
+      "type": 3
+    },
+    {
+      "source": "Geismar Tor",
+      "sourceNo": 94,
+      "targetNo": 95,
+      "type": 23
+    },
+    {
+      "sourceNo": 94,
+      "targetNo": 117,
+      "type": 23
+    },
+    {
+      "sourceNo": 94,
+      "targetNo": 119,
+      "type": 1
+    },
+    {
+      "sourceNo": 94,
+      "targetNo": 127,
+      "type": 1
+    },
+    {
+      "source": "Nudelhaus",
+      "sourceNo": 95,
+      "targetNo": 97,
+      "type": 23
+    },
+    {
+      "source": "Cheltenham Park",
+      "sourceNo": 97,
+      "targetNo": 98,
+      "type": 23
+    },
+    {
+      "source": "Wohnheim Schildweg",
+      "sourceNo": 98,
+      "targetNo": 99,
+      "type": 23
+    },
+    {
+      "source": "Hainberg Gymnasium",
+      "sourceNo": 99,
+      "targetNo": 100,
+      "type": 23
+    },
+    {
+      "sourceNo": 99,
+      "targetNo": 119,
+      "type": 123
+    },
+    {
+      "source": "Tennisklub",
+      "sourceNo": 100,
+      "targetNo": 102,
+      "type": 2
+    },
+    {
+      "source": "Stadtwald",
+      "sourceNo": 101,
+      "targetNo": 102,
+      "type": 2
+    },
+    {
+      "sourceNo": 101,
+      "targetNo": 104,
+      "type": 2
+    },
+    {
+      "source": "Bismarkturm",
+      "sourceNo": 102,
+      "targetNo": 103,
+      "type": 2
+    },
+    {
+      "source": "Sternwarte",
+      "sourceNo": 103,
+      "targetNo": 104,
+      "type": 2
+    },
+    {
+      "source": "Kehr",
+      "sourceNo": 104,
+      "targetNo": 122,
+      "type": 23
+    },
+    {
+      "source": "Tongrube",
+      "sourceNo": 105,
+      "targetNo": 106,
+      "type": 2
+    },
+    {
+      "sourceNo": 105,
+      "targetNo": 107,
+      "type": 2
+    },
+    {
+      "source": "Asklepios",
+      "sourceNo": 106,
+      "targetNo": 107,
+      "type": 23
+    },
+    {
+      "sourceNo": 106,
+      "targetNo": 109,
+      "type": 23
+    },
+    {
+      "source": "Leineberg",
+      "sourceNo": 107,
+      "targetNo": 108,
+      "type": 23
+    },
+    {
+      "source": "Rosdorfer Kreisel",
+      "sourceNo": 108,
+      "targetNo": 109,
+      "type": 23
+    },
+    {
+      "source": "Kiessee",
+      "sourceNo": 109,
+      "targetNo": 111,
+      "type": 23
+    },
+    {
+      "sourceNo": 109,
+      "targetNo": 112,
+      "type": 1
+    },
+    {
+      "source": "Jahnstadion",
+      "sourceNo": 110,
+      "targetNo": 111,
+      "type": 23
+    },
+    {
+      "sourceNo": 110,
+      "targetNo": 123,
+      "type": 23
+    },
+    {
+      "source": "Freibad Brauweg",
+      "sourceNo": 111,
+      "targetNo": 112,
+      "type": 23
+    },
+    {
+      "source": "Eiswiese",
+      "sourceNo": 112,
+      "targetNo": 113,
+      "type": 23
+    },
+    {
+      "sourceNo": 112,
+      "targetNo": 115,
+      "type": 3
+    },
+    {
+      "sourceNo": 112,
+      "targetNo": 117,
+      "type": 2
+    },
+    {
+      "sourceNo": 112,
+      "targetNo": 123,
+      "type": 23
+    },
+    {
+      "sourceNo": 112,
+      "targetNo": 124,
+      "type": 2
+    },
+    {
+      "sourceNo": 112,
+      "targetNo": 127,
+      "type": 1
+    },
+    {
+      "source": "DLR",
+      "sourceNo": 113,
+      "targetNo": 114,
+      "type": 3
+    },
+    {
+      "source": "Mathematisches Institut",
+      "sourceNo": 114,
+      "targetNo": 115,
+      "type": 3
+    },
+    {
+      "sourceNo": 114,
+      "targetNo": 116,
+      "type": 3
+    },
+    {
+      "source": "Felix-Klein-Gymnasium",
+      "sourceNo": 115,
+      "targetNo": 116,
+      "type": 3
+    },
+    {
+      "sourceNo": 115,
+      "targetNo": 123,
+      "type": 3
+    },
+    {
+      "sourceNo": 115,
+      "targetNo": 124,
+      "type": 3
+    },
+    {
+      "source": "Südstadt",
+      "sourceNo": 116,
+      "targetNo": 117,
+      "type": 3
+    },
+    {
+      "sourceNo": 116,
+      "targetNo": 118,
+      "type": 3
+    },
+    {
+      "sourceNo": 116,
+      "targetNo": 124,
+      "type": 3
+    },
+    {
+      "source": "Neues Rathaus",
+      "sourceNo": 117,
+      "targetNo": 118,
+      "type": 23
+    },
+    {
+      "sourceNo": 117,
+      "targetNo": 119,
+      "type": 23
+    },
+    {
+      "sourceNo": 117,
+      "targetNo": 124,
+      "type": 2
+    },
+    {
+      "source": "Historische Sternwarte",
+      "sourceNo": 118,
+      "targetNo": 126,
+      "type": 23
+    },
+    {
+      "source": "Lönsweg",
+      "sourceNo": 119,
+      "targetNo": 120,
+      "type": 3
+    },
+    {
+      "sourceNo": 119,
+      "targetNo": 121,
+      "type": 1
+    },
+    {
+      "sourceNo": 119,
+      "targetNo": 127,
+      "type": 1
+    },
+    {
+      "source": "Lohberg",
+      "sourceNo": 120,
+      "targetNo": 121,
+      "type": 3
+    },
+    {
+      "sourceNo": 120,
+      "targetNo": 126,
+      "type": 3
+    },
+    {
+      "source": "HAWK Fak. I",
+      "sourceNo": 121,
+      "targetNo": 122,
+      "type": 1
+    },
+    {
+      "source": "Zietenterrassen",
+      "sourceNo": 122,
+      "targetNo": 128,
+      "type": 1
+    },
+    {
+      "source": "Radrennbahn",
+      "sourceNo": 123,
+      "targetNo": 124,
+      "type": 3
+    },
+    {
+      "sourceNo": 123,
+      "targetNo": 125,
+      "type": 23
+    },
+    {
+      "source": "ASC Göttingen",
+      "sourceNo": 124,
+      "targetNo": 125,
+      "type": 23
+    },
+    {
+      "source": "Volkshochschule",
+      "sourceNo": 125,
+      "targetNo": 126,
+      "type": 3
+    },
+    {
+      "sourceNo": 125,
+      "targetNo": 127,
+      "type": 23
+    },
+    {
+      "source": "Feuerwehr",
+      "sourceNo": 126,
+      "targetNo": 127,
+      "type": 23
+    },
+    {
+      "source": "Geismar",
+      "sourceNo": 127,
+      "targetNo": 128,
+      "type": 1
+    }
+  ]
+}

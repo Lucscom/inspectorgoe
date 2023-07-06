@@ -249,10 +249,9 @@ namespace GameComponents
 
                 // execute random move with availible ticketType e.i. out of TestMoves
                 int randomNumber = Random.Shared.Next(0, TestMoves.Count - 1);
-                PointOfInterest newPos = TestMoves.ElementAt(randomNumber).Key;   //choose random (availible) new Position
-                //while
+                int newPos = TestMoves.ElementAt(randomNumber).Key.Number;   //choose random (availible) new Position
                 TicketTypeEnum ticket = TestMoves.ElementAt(randomNumber).Value.ElementAt(Random.Shared.Next(0, TestMoves.ElementAt(randomNumber).Value.Count - 1));  //choose random (availible) ticketType to new Position
-                MovePlayer(player, newPos.Number, ticket);
+                MovePlayer(player, newPos, ticket);
 
                 return true;
 

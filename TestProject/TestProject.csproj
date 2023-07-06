@@ -11,10 +11,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="poimap.json" />
     <None Remove="Testmap.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="poimap.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="Testmap.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
