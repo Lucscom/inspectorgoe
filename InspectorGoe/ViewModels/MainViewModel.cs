@@ -51,11 +51,11 @@ public partial class MainViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
     #if DEBUG
     string userseverip = "https://localhost:5000";
-    #else
+#else
     string userseverip = string.Empty;
-    #endif
+#endif
 
-    //Variablen für Register
+    // ########## Variablen für Register ##########
     [ObservableProperty]
     private string usernameregister = string.Empty;
 
@@ -65,13 +65,14 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string userpasswordregister2 = string.Empty;
 
-    // Variablen für AvatarPage
+    // ########## Variablen für AvatarPage ##########
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
     private ImageButton choice;
 
 
-    // Variablen für MainPage
+    // ########## Variablen für MainPage ##########
+
     [ObservableProperty]
     private double widthMap = 2600;
 
@@ -120,6 +121,7 @@ public partial class MainViewModel : ObservableObject
     {
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
+
         _com.GameEndEvent += ComGameEnd;
         
         //signalr initiates updates on a seperate thread
@@ -135,13 +137,14 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
+            // Fill All player List 
             AllPlayers = new ObservableCollection<Player>();
             foreach (Player detective in _com.GameState.Detectives)
             {
                 AllPlayers.Add(detective);
             }
 
-
+            // Fill 
             if (_com.GameState.MisterX != null)
             {
                 AllPlayers.Add(_com.GameState.MisterX);
@@ -158,7 +161,7 @@ public partial class MainViewModel : ObservableObject
                 }
             }
 
-
+            // Fill all Game Data
             if (_com.GameState.GameStarted == true)
             {
 
@@ -377,9 +380,8 @@ public partial class MainViewModel : ObservableObject
             return temp;
         }
         else
-        {
             return null;
-        }
+        
 
     }
 
