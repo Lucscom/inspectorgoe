@@ -643,6 +643,20 @@ public partial class MainViewModel : ObservableObject
             return;
         }
     }
+
+    [RelayCommand]
+    async Task RemovePlayer(string player)
+    {
+        try
+        {
+            await _com.RemoveAsync(player);
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
+    }
     #endregion
 
     #region MainPage

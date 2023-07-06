@@ -179,14 +179,14 @@ namespace Client
         }
 
         /// <summary>
-        /// Tell the server to remove a player. Permanently deletes the player
+        /// Tell the server to remove a player from the game
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="username">player name</param>
         /// <returns>StatusCode</returns>
         public async Task<HttpStatusCode> RemoveAsync(string username)
         {
-            HttpResponseMessage response = await _client.DeleteAsync(
-                "api/Player/remove");
+            HttpResponseMessage response = await _client.PutAsJsonAsync(
+                "api/Player/remove", username);
             response.EnsureSuccessStatusCode();
             return response.StatusCode;
         }

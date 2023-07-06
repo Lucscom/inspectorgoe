@@ -252,11 +252,11 @@ namespace InspectorGoeServer.Controllers
         }
 
         /// <summary>
-        /// Remove an Npc from the game
+        /// Remove an player from the game
         /// </summary>
-        /// <param name="npcName"></param>
+        /// <param name="name">Name of the player</param>
         /// <returns>Http Action</returns>
-        [HttpDelete("remove")]
+        [HttpPut("remove")]
         [Authorize]
         [ActionName(nameof(Remove))]
         public async Task<IActionResult> Remove([FromBody] string name)
@@ -279,12 +279,6 @@ namespace InspectorGoeServer.Controllers
             {
                 return BadRequest();
             }
-            try
-            {
-                var user = await _userManager.FindByNameAsync(name);
-                await _userManager.DeleteAsync(user);
-            }
-            catch { }
 
             await updateGameComponents(_gameController.GameState);
 
