@@ -115,6 +115,9 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
 
+    [ObservableProperty]
+    private string winMessage = string.Empty;
+
     #endregion
 
     private MainViewModel()
@@ -122,7 +125,8 @@ public partial class MainViewModel : ObservableObject
         // hier startet die connection mit der Logik und dem Server
         _com = new Communicator();
 
-        _com.GameEndEvent += ComGameEnd;
+        _com.GameEndEvent += async (s, e) => await Shell.Current.Dispatcher.DispatchAsync(async () => await ComGameEnd(s, e));
+
         
         //signalr initiates updates on a seperate thread
         //use the dispatcher to shedule the update on the UI thread instead
@@ -179,6 +183,7 @@ public partial class MainViewModel : ObservableObject
 
                 // Point of Interest Buttons
                 fillPoiObjects();
+
             }
         }
         catch (Exception ex)
@@ -197,10 +202,13 @@ public partial class MainViewModel : ObservableObject
     /// <param name="player">Player(group) that won the game</param>
     /// <param name="e"></param>
     /// <exception cref="Exception"></exception>
-    private void ComGameEnd(object player, GameEndEventArgs e)
+    private async Task ComGameEnd(object player, GameEndEventArgs e)
     {
-        //Trigger View element
-        throw new Exception(e.Player);
+        WinMessage = "The winner is: " + e.Player + "!!!";
+
+        await Shell.Current.ShowPopupAsync(new GameEndPage());
+
+        //Shell.Current.ShowPopup(new GameEndPage());
     }
 
 

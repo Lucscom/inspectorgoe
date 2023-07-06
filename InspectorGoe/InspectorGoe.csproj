@@ -83,6 +83,9 @@
 	  <Compile Update="AvatarPage.xaml.cs">
 	    <DependentUpon>AvatarPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Popups\GameEndPage.xaml.cs">
+	    <DependentUpon>GameEndPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Popups\TicketSelectionPageMisterX.xaml.cs">
 	    <DependentUpon>TicketSelectionPageMisterX.xaml</DependentUpon>
 	  </Compile>
@@ -117,6 +120,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Menu.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\GameEndPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\TicketSelectionPageMisterX.xaml">
