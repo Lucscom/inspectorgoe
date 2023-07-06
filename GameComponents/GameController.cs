@@ -100,7 +100,7 @@ namespace GameComponents
 
             GameState.ActivePlayer = GameState.MisterX;
 
-            GameState.Move = 1;
+            GameState.Move = 1;                     
             Console.WriteLine("Game started");
             return true;
         }
@@ -161,9 +161,8 @@ namespace GameComponents
             //exchange player with player from GameState.
             //This is necessary because the position attribute of the incoming player is null. (No valid position)
             //The GameState poi is needed to validate the move because the validator depends on it.
-            //todo: force poi numbers to be unique
-            var gamePlayers = GameState.AllPlayers.Where(p => p.UserName == player.UserName);
-            var gamePois = GameState.PointsOfInterest.Where(p => p.Number == poi);
+            var gamePlayers = GameState.AllPlayers.Where(p => p.UserName == player.UserName).ToList();
+            var gamePois = GameState.PointsOfInterest.Where(p => p.Number == poi).ToList();
             //check if player and poi are found in the game
             if (gamePlayers == null || gamePois == null || !(gamePlayers.Any() && gamePois.Any()))
             {
@@ -177,7 +176,7 @@ namespace GameComponents
                     ticketType, 
                     GameState.Detectives))      
             {
-                switch(ticketType)
+                switch(ticketType)      // reduce ticket number of used ticket type
                 {
                     case TicketTypeEnum.Bus:
                         GameState.ActivePlayer.BusTicket--;
@@ -196,7 +195,7 @@ namespace GameComponents
                         break;
                 }
                 GameState.ActivePlayer.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
-                if (player.UserName == GameState.MisterX.UserName)
+                if (player.UserName == GameState.MisterX.UserName)  // handle MisterX ticket history and last known POI
                 {
                     GameState.TicketHistoryMisterX.Add(ticketType);
                     if (GameState.Round == 2 || GameState.Round == 7 || GameState.Round == 12 || GameState.Round == 17 || GameState.Round == 23)
@@ -208,10 +207,6 @@ namespace GameComponents
                 if (GameState.ActivePlayer != GameState.MisterX && FoundMisterX(GameState.ActivePlayer))
                     throw new Exception("MisterX found!");
 
-                if (GameState.Round > 24)
-                {
-                    throw new Exception("Round limit!");
-                }
                 NextMove();
                 
                 return true;
@@ -268,6 +263,10 @@ namespace GameComponents
         private void NextMove()
         {
             GameState.ActivePlayer = GameState.AllPlayers[GameState.Move++ % GameState.AllPlayers.Count];
+            if (GameState.Round > 24)
+            {
+                throw new Exception("Round limit!");
+            }
             if (GameState.ActivePlayer.Npc)
             {
                 AiMove(GameState.ActivePlayer);
