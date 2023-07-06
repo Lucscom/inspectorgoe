@@ -205,16 +205,16 @@ namespace GameComponents
                     }
                 }
                 Console.WriteLine("Player moved");
+                if (GameState.ActivePlayer != GameState.MisterX && FoundMisterX(GameState.ActivePlayer))
+                    throw new Exception("MisterX found!");
+
+                if (GameState.Round > 24)
+                {
+                    throw new Exception("Round limit!");
+                }
                 NextMove();
+                
                 return true;
-            }
-
-            if (player != GameState.MisterX && FoundMisterX(player))
-                throw new Exception("MisterX found!");
-
-            if(GameState.Round > 24)
-            {
-                throw new Exception("Round limit!");
             }
 
             return false;
