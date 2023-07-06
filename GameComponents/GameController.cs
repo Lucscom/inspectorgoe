@@ -149,6 +149,39 @@ namespace GameComponents
                 return false;
             }
         }
+        
+        /// <summary>
+        /// Remove player from game. If game was started, player cannot be removed.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns>bool</returns>
+        public bool RemovePlayer(Player player)
+        {
+            if (GameState.GameStarted)
+            {
+                Console.WriteLine("Player not removed since game already started");
+                return false;
+            }
+            else if (GameState.MisterX.UserName == player.UserName)
+            {
+                GameState.MisterX = null;
+                Console.WriteLine("MisterX removed");
+                return true;
+            }
+            else if (GameState.Detectives.Where(p => p.UserName == player.UserName).Any())
+            {
+                GameState.Detectives.Remove(GameState.Detectives.Where(p => p.UserName == player.UserName).First());
+                Console.WriteLine("Detective removed");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Player not added");
+                return false;
+            }
+        }
+
+
         /// <summary>
         /// Moves the player after validating the move. Also increments the round counter.
         /// </summary>

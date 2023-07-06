@@ -1,6 +1,7 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
                x:Class="InspectorGoe.LobbyPage"
                Color="Transparent"
                Size="500,350"
@@ -8,60 +9,21 @@
                x:Name="ThisPopup">
 
 
-    <Frame BackgroundColor="LightBlue" CornerRadius="10">
-
-        <StackLayout Padding="10">
-            <Label Text="Lobby" FontSize="20" HorizontalOptions="Center" Margin="0,0,0,10"/>
-            <ListView ItemsSource="{Binding AllPlayers}">
-                <ListView.ItemTemplate>
+    <Frame BackgroundColor="LightBlue" CornerRadius="10" Padding="5">
+        <StackLayout>
+            <Label Text="Lobby" FontSize="20" HorizontalOptions="Center"/>
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding AllPlayers}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10">
+                <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <!--    Show avatar if we have one
-                                    <Image Grid.RowSpan="2"
-                                       Source="{Binding ImageUrl}"
-                                       Aspect="AspectFill"
-                                       HeightRequest="60"
-                                       WidthRequest="60" />-->
-                                <Label Grid.Column="1"
-                                       Text="{Binding UserName}"
-                                       FontAttributes="Bold" />
-                                <StackLayout Grid.Row="1"
-                                       Grid.Column="1"
-                                       Orientation="Horizontal"
-                                       VerticalOptions="End">
-                                    <Label Text="MisterX"
-                                           VerticalOptions="Center"/>
-                                    <CheckBox IsEnabled="False"
-                                           IsChecked="{Binding Source={x:Reference ThisPopup}, Path=BindingContext.IsMisterX}" 
-                                           VerticalOptions="Center"/>
-                                </StackLayout>
-                                <StackLayout Grid.Row="1"
-                                       Grid.Column="2"
-                                       Padding="10,0,0,0"
-                                       Orientation="Horizontal"
-                                       VerticalOptions="End">
-                                    <Label Text="NPC"
-                                           VerticalOptions="Center"/>
-                                    <CheckBox IsEnabled="False"
-                                           IsChecked="{Binding Npc}"
-                                           VerticalOptions="Center"/>
-                                </StackLayout>
-                            </Grid>
-                        </ViewCell>
+                        <contentviews:PlayerListElement/>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}"/>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Button x:Name="AddNPC" Text="Add NPC" Margin="10" Command="{Binding AddNPCCommand}" WidthRequest="100"/>
+                <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}" WidthRequest="300"/>
+            </HorizontalStackLayout>
+            
         </StackLayout>
     </Frame>
 

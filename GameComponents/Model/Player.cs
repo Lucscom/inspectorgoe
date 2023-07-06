@@ -73,6 +73,16 @@ namespace GameComponents.Model
             Password = pw;
         }
 
+        public Player(string userName, bool isNpc = false)
+        {
+            UserName = userName;
+            Npc = isNpc;
+            if (Npc)
+            {
+                AvatarImagePath = "dotnet_bot.png";
+            }
+        }
+
         /// <summary>
         /// Constructor to init player
         /// </summary>
