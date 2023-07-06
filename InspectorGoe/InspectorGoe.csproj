@@ -103,6 +103,9 @@
 	  <MauiXaml Update="AvatarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="ContentViews\PlayerListElement.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="LobbyPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
