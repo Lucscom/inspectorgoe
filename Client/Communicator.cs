@@ -166,6 +166,19 @@ namespace Client
         }
 
         /// <summary>
+        /// Tell the server to add an npc
+        /// (Http Post)
+        /// </summary>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> AddNpcAsync()
+        {
+            HttpResponseMessage response = await _client.PostAsync(
+                "api/Player/addnpc", null);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
+        /// <summary>
         /// Initializes hub connection to server with token as authentication
         /// </summary>
         /// <param name="token">Used for authentication</param>

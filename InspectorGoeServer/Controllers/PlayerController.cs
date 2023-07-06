@@ -215,6 +215,38 @@ namespace InspectorGoeServer.Controllers
             return Ok();
         }
 
+        [HttpPost("addnpc")]
+        [Authorize]
+        [ActionName(nameof(AddNpc))]
+        public async Task<IActionResult> AddNpc()
+        {
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
+
+            if (_gameController.GameState?.GameCreator.UserName != currentUser.UserName)
+            {
+                return BadRequest();
+            }
+
+            string npcName = $"NPC {_gameController.GameState.AllPlayers.Where(p => p.Npc).Count() + 1}";
+            int counter = 0;
+            while (_gameController.GameState.AllPlayers.Where(p => p.UserName == npcName).Any())
+            {
+                npcName = $"NPC {_gameController.GameState.AllPlayers.Where(p => p.Npc).Count() + ++counter}";
+            }
+            var npc = new Player(npcName, true);
+
+            if (!_gameController.AddPlayer(npc))
+            {
+                return BadRequest();
+            }
+
+            await updateGameComponents(_gameController.GameState);
+
+            return Created("", npc);
+        }
+
         /// <summary>
         /// Send gameState to all clients
         /// </summary>
