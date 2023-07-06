@@ -552,6 +552,7 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
+
             await _com.JoinGameAsync();
         }
         catch (Exception ex)
@@ -561,7 +562,17 @@ public partial class MainViewModel : ObservableObject
         }
 
         //senden des ausgewälten Avatars an den Server
-
+        try
+        {
+            var filePath = Choice.Source;
+            
+            //_com.UpdateAvatar(test);
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
         _lobby = new LobbyPage();
         await _com.newGameStateEvent.WaitAsync();
         if (CurrentPlayer.UserName != _com.GameState.GameCreator.UserName)
