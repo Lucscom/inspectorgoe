@@ -109,8 +109,8 @@ namespace Client
                 "api/Player/login", player);
             response.EnsureSuccessStatusCode();
             String tokenJson = await response.Content.ReadAsStringAsync();
-            _token = System.Text.Json.JsonSerializer.Deserialize<Token>(
-                tokenJson).token;
+            var tokenObj = JsonConvert.DeserializeObject<StringDto>(tokenJson);
+            _token = tokenObj.token;
             setToken();
             return response.StatusCode;
         }
@@ -160,6 +160,14 @@ namespace Client
         {
             HttpResponseMessage response = await _client.PutAsJsonAsync(
                 "api/Player/move", move);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
+        public async Task<HttpStatusCode> UpdateAvatar(StringDto path)
+        {
+            HttpResponseMessage response = await _client.PutAsJsonAsync(
+                "api/Player/avatar", path);
             response.EnsureSuccessStatusCode();
             return response.StatusCode;
         }

@@ -68,7 +68,7 @@ public partial class MainViewModel : ObservableObject
     // ########## Variablen für AvatarPage ##########
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
-    private ImageButton choice;
+    private string avatarImagePath;
 
 
     // ########## Variablen für MainPage ##########
@@ -580,6 +580,7 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
+
             await _com.JoinGameAsync();
         }
         catch (Exception ex)
@@ -589,7 +590,19 @@ public partial class MainViewModel : ObservableObject
         }
 
         //senden des ausgewälten Avatars an den Server
+        try
+        {
+            var avatarPathObj = new StringDto();
+            avatarPathObj.token = avatarImagePath;
+            await _com.UpdateAvatar(avatarPathObj);
+            var player = await _com.GetPlayerAsync();
 
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
         _lobby = new LobbyPage();
         await _com.newGameStateEvent.WaitAsync();
         if (CurrentPlayer.UserName != _com.GameState.GameCreator.UserName)
@@ -606,7 +619,7 @@ public partial class MainViewModel : ObservableObject
     private bool AvatarIsSelected()
     {
 
-        if (Choice!= null)
+        if (AvatarImagePath != "")
         {
             return true;
         }
