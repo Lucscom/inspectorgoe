@@ -204,11 +204,31 @@ public partial class MainViewModel : ObservableObject
     /// <exception cref="Exception"></exception>
     private async Task ComGameEnd(object player, GameEndEventArgs e)
     {
-        WinMessage = "The winner is: " + e.Player + "!!!";
+        if(IsMisterX && e.Player == "MisterX")
+        {
+            WinMessage = "You won the game!";
+        }
+        else if(IsMisterX && e.Player == "Detectives")
+        {
+            WinMessage = "You lost the game!";
+        }
+        else if(!IsMisterX && e.Player == "MisterX")
+        {
+            WinMessage = "You lost the game!";
+        }
+        else if(!IsMisterX && e.Player == "Detectives")
+        {
+            WinMessage = "You won the game!";
+        }
+        else
+        {
+            throw new Exception("GameEndEventArgs.Player is not valid");
+        }
+ 
+       await Shell.Current.DisplayAlert("Game Result", WinMessage, "OK");   
 
-        await Shell.Current.ShowPopupAsync(new GameEndPage());
-
-        //Shell.Current.ShowPopup(new GameEndPage());
+       PoiButtons = new ObservableCollection<PointOfInterestView>();
+       PoiFrames = new ObservableCollection<PointOfInterestView>();
     }
 
 
