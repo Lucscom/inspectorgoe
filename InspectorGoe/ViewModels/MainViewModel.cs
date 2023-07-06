@@ -65,6 +65,9 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string userpasswordregister2 = string.Empty;
 
+    // ########## Variablen für Menu ##########
+    private bool isCreator = false;
+
     // ########## Variablen für AvatarPage ##########
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
@@ -497,15 +500,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task CreateNewGame()
     {
-        try
-        {
-            await _com.CreateGameAsync();
-        }
-        catch (Exception ex)
-        {
-            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
-            return;
-        }
+        isCreator = true;
         await Shell.Current.ShowPopupAsync(new AvatarPage());
     }
 
@@ -550,6 +545,21 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(AvatarIsSelected))]
     private async Task Start(AvatarPage popup) //todo: rename to create game
     {
+        //Spiel erstellen wenn Creator
+        if (isCreator == true)
+        {
+            try
+            {
+                await _com.CreateGameAsync();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+                return;
+            }
+        }
+
+        //Spiel beitreten immer
         try
         {
             await _com.JoinGameAsync();
