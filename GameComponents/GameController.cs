@@ -156,7 +156,7 @@ namespace GameComponents
         /// <param name="poi">Point Of Interes</param>
         /// <param name="ticketType">Ticket that will be used</param>
         /// <returns>True if player was moved</returns>
-        public bool MovePlayer(Player player, int poi, TicketTypeEnum ticketType)
+        public bool MovePlayer(Player player, int poi, TicketTypeEnum ticketType, bool isDoubleTicket)
         { 
             //exchange player with player from GameState.
             //This is necessary because the position attribute of the incoming player is null. (No valid position)
@@ -209,10 +209,12 @@ namespace GameComponents
                     throw new Exception("MisterX found!");
 
                 if (GameState.Round > 24)
-                {
                     throw new Exception("Round limit!");
-                }
-                NextMove();
+
+                if (isDoubleTicket)
+                    GameState.Move += GameState.AllPlayers.Count;
+                else
+                    NextMove();
                 
                 return true;
             }
@@ -252,7 +254,7 @@ namespace GameComponents
                 PointOfInterest newPos = TestMoves.ElementAt(randomNumber).Key;   //choose random (availible) new Position
                 //while
                 TicketTypeEnum ticket = TestMoves.ElementAt(randomNumber).Value.ElementAt(Random.Shared.Next(0, TestMoves.ElementAt(randomNumber).Value.Count - 1));  //choose random (availible) ticketType to new Position
-                MovePlayer(player, newPos.Number, ticket);
+                MovePlayer(player, newPos.Number, ticket, false);
 
                 return true;
 

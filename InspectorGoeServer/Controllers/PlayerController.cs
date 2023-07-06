@@ -133,7 +133,7 @@ namespace InspectorGoeServer.Controllers
 
             try
             {
-                if (_gameController.MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType))
+                if (_gameController.MovePlayer(currentUser, movement.PointOfInterest, movement.TicketType, movement.IsDoubleTicket))
                 {
                     await updateGameComponents(_gameController.GameState);
                     return Ok();
