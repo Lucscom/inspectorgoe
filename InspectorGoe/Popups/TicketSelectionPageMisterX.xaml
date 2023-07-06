@@ -28,20 +28,22 @@
                                  Padding="5" 
                                  BindableLayout.ItemsSource="{Binding TicketSelection}" 
                                  HorizontalOptions="Center"
-                                 VerticalOptions="FillAndExpand">
+                                 VerticalOptions="Center">
 
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         
                         <Border Stroke="{Binding BorderColor}"
                                 StrokeShape="RoundRectangle 20,20,20,20"
-                                Padding="10"
+                                Padding="0"
                                 StrokeThickness="4">
                             
                             <ImageButton Padding="0"
                                          BackgroundColor="Transparent"
                                          BorderColor="Transparent"
-                                         Aspect="AspectFit"
+                                         Aspect="AspectFill"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center"
                                          IsEnabled="{Binding IsEnabled}"
                                          Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=Button_Clicked_TicketCommand}"
                                          CommandParameter="{Binding .}"
