@@ -191,10 +191,20 @@ namespace GameComponents
                     case TicketTypeEnum.Black:
                         GameState.ActivePlayer.BlackTicket--;
                         break;
-                    case TicketTypeEnum.doubleTicket: 
-                        GameState.ActivePlayer.DoubleTicket--;
-                        break;
                 }
+                if(isDoubleTicket)
+                {
+                    if (GameState.ActivePlayer.UserName == GameState.MisterX.UserName && GameState.ActivePlayer.DoubleTicket > 0)
+                    {
+                        GameState.ActivePlayer.DoubleTicket--;
+                    } 
+                    else
+                    {
+                        Console.WriteLine("Player not moved! No Double Ticket");
+                        return false;
+                    }
+                }
+                
                 GameState.ActivePlayer.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
                 if (player.UserName == GameState.MisterX.UserName)
                 {

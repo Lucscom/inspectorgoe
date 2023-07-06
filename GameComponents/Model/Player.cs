@@ -59,6 +59,11 @@ namespace GameComponents.Model
         /// </summary>
         public bool Npc { get; set; } = false;
 
+        /// <summary>
+        /// True if MisterX is using double ticket
+        /// </summary>
+        public bool usingDoubleTicket { get; set; } = false;
+
         [JsonConstructor]
         public Player() { }
 
