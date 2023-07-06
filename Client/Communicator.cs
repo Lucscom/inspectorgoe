@@ -37,6 +37,7 @@ namespace Client
         public AsyncAutoResetEvent newGameStateEvent = new AsyncAutoResetEvent(false);
 
         public event EventHandler UpdateGameStateEvent;
+        public event EventHandler GameStartedEvent;
 
         public event EventHandler<GameEndEventArgs> GameEndEvent;
 
@@ -109,8 +110,8 @@ namespace Client
                 "api/Player/login", player);
             response.EnsureSuccessStatusCode();
             String tokenJson = await response.Content.ReadAsStringAsync();
-            _token = System.Text.Json.JsonSerializer.Deserialize<Token>(
-                tokenJson).token;
+            var tokenObj = JsonConvert.DeserializeObject<StringDto>(tokenJson);
+            _token = tokenObj.token;
             setToken();
             return response.StatusCode;
         }
@@ -164,6 +165,40 @@ namespace Client
             return response.StatusCode;
         }
 
+        public async Task<HttpStatusCode> UpdateAvatar(StringDto path)
+        {
+            HttpResponseMessage response = await _client.PutAsJsonAsync(
+                "api/Player/avatar", path);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
+        /// <summary>
+        /// Tell the server to add an npc
+        /// (Http Post)
+        /// </summary>
+        /// <returns>Http Status Code</returns>
+        public async Task<HttpStatusCode> AddNpcAsync()
+        {
+            HttpResponseMessage response = await _client.PostAsync(
+                "api/Player/addnpc", null);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
+        /// <summary>
+        /// Tell the server to remove a player from the game
+        /// </summary>
+        /// <param name="username">player name</param>
+        /// <returns>StatusCode</returns>
+        public async Task<HttpStatusCode> RemoveAsync(string username)
+        {
+            HttpResponseMessage response = await _client.PutAsJsonAsync(
+                "api/Player/remove", username);
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
         /// <summary>
         /// Initializes hub connection to server with token as authentication
         /// </summary>
@@ -195,6 +230,7 @@ namespace Client
                 if (GameState.GameStarted)
                 {
                     gameStartedEvent.Set();
+                    GameStartedEvent(this, EventArgs.Empty);
                 }
             });
 

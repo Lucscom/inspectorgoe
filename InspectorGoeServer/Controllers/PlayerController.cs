@@ -216,6 +216,93 @@ namespace InspectorGoeServer.Controllers
             return Ok();
         }
 
+        [HttpPut("avatar")]
+        [Authorize]
+        [ActionName(nameof(UpdateAvatar))]
+        public async Task<IActionResult> UpdateAvatar([FromBody] StringDto path)
+        {
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
+            currentUser.AvatarImagePath = path.token;
+            _context.Update(currentUser);
+            _context.SaveChanges();
+            return Ok();
+
+        }
+
+
+
+        /// <summary>
+        /// Add an Npc to the game
+        /// </summary>
+        /// <returns>Http Action</returns>
+        [HttpPost("addnpc")]
+        [Authorize]
+        [ActionName(nameof(AddNpc))]
+        public async Task<IActionResult> AddNpc()
+        {
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
+
+            if (_gameController.GameState?.GameCreator.UserName != currentUser.UserName)
+            {
+                return BadRequest();
+            }
+
+            string npcName = $"NPC {_gameController.GameState.AllPlayers.Where(p => p.Npc).Count() + 1}";
+            int counter = 0;
+            while (_gameController.GameState.AllPlayers.Where(p => p.UserName == npcName).Any())
+            {
+                npcName = $"NPC {_gameController.GameState.AllPlayers.Where(p => p.Npc).Count() + ++counter}";
+            }
+            var npc = new Player(npcName, true);
+
+            if (!_gameController.AddPlayer(npc))
+            {
+                return BadRequest();
+            }
+
+            await updateGameComponents(_gameController.GameState);
+
+            return Created("", npc);
+        }
+
+        /// <summary>
+        /// Remove an player from the game
+        /// </summary>
+        /// <param name="name">Name of the player</param>
+        /// <returns>Http Action</returns>
+        [HttpPut("remove")]
+        [Authorize]
+        [ActionName(nameof(Remove))]
+        public async Task<IActionResult> Remove([FromBody] string name)
+        {
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
+
+            if (_gameController.GameState?.GameCreator.UserName != currentUser.UserName)
+            {
+                return BadRequest();
+            }
+            var player = _gameController.GameState?.AllPlayers.Where(p => p.UserName == name);
+            if (player == null || !player.Any())
+            {
+                return NotFound();
+            }
+
+            if (!_gameController.RemovePlayer(player.First()))
+            {
+                return BadRequest();
+            }
+
+            await updateGameComponents(_gameController.GameState);
+
+            return Ok();
+        }
+
         /// <summary>
         /// Send gameState to all clients
         /// </summary>

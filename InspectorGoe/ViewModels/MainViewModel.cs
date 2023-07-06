@@ -30,6 +30,7 @@ public partial class MainViewModel : ObservableObject
 
     private Communicator _com;
     private LobbyPage _lobby;
+    private bool _gameInProgress = false;
 
     //Variablen für Login
     [ObservableProperty]
@@ -66,10 +67,16 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string userpasswordregister2 = string.Empty;
 
+    // ########## Variablen für Menu ##########
+    private bool isCreator = false;
+
     // ########## Variablen für AvatarPage ##########
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(StartCommand))]
-    private ImageButton choice;
+    private string avatarImagePath;
+
+    [ObservableProperty]
+    private string avatarButton;
 
 
     // ########## Variablen für MainPage ##########
@@ -133,6 +140,17 @@ public partial class MainViewModel : ObservableObject
         //use the dispatcher to shedule the update on the UI thread instead
         //therefore signalr and ui thread will not access the properties/variables at the same time
         _com.UpdateGameStateEvent += async (s,e) => await Shell.Current.Dispatcher.DispatchAsync(async () => await ComUpdateGameState(s,e));
+        _com.GameStartedEvent += async (s,e) => await Shell.Current.Dispatcher.DispatchAsync(async () => await ComGameStarted(s,e));
+    }
+
+    private async Task ComGameStarted(object s, EventArgs e)
+    {
+        if (!_gameInProgress)
+        {
+            _gameInProgress = true;
+            await Shell.Current.Dispatcher.DispatchAsync(async () => await Shell.Current.Navigation.PushAsync(new MainPage()));
+            _lobby?.Close();
+        }
     }
 
 
@@ -532,29 +550,19 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task CreateNewGame()
     {
-        try
-        {
-            await _com.CreateGameAsync();
-        }
-        catch (Exception ex)
-        {
-            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
-            return;
-        }
+        isCreator = true;
+        AvatarButton = "Create Game";
         await Shell.Current.ShowPopupAsync(new AvatarPage());
     }
 
     /// <summary>
-    /// Navigation from MenuPage to MainPage
+    /// Navigation from MenuPage to AvatarPage
     /// </summary>
     [RelayCommand]
     private async Task JoinGame()
     {
+        AvatarButton = "Join Game";
         await Shell.Current.ShowPopupAsync(new AvatarPage());
-
-        await _com.gameStartedEvent.WaitAsync();
-        _lobby?.Close();
-        await App.Current.MainPage.Navigation.PushAsync(new MainPage());
     }
 
     /// <summary>
@@ -585,8 +593,24 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(AvatarIsSelected))]
     private async Task Start(AvatarPage popup) //todo: rename to create game
     {
+        //Spiel erstellen wenn Creator
+        if (isCreator == true)
+        {
+            try
+            {
+                await _com.CreateGameAsync();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+                return;
+            }
+        }
+
+        //Spiel beitreten immer
         try
         {
+
             await _com.JoinGameAsync();
         }
         catch (Exception ex)
@@ -596,14 +620,26 @@ public partial class MainViewModel : ObservableObject
         }
 
         //senden des ausgewälten Avatars an den Server
+        try
+        {
+            var avatarPathObj = new StringDto();
+            avatarPathObj.token = avatarImagePath;
+            await _com.UpdateAvatar(avatarPathObj);
+            var player = await _com.GetPlayerAsync();
 
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
         _lobby = new LobbyPage();
         await _com.newGameStateEvent.WaitAsync();
         if (CurrentPlayer.UserName != _com.GameState.GameCreator.UserName)
             _lobby.FindByName<Button>("StartGame").IsVisible = false;
-        Shell.Current.ShowPopup(_lobby);
-        popup.Close();
+        await Shell.Current.ShowPopupAsync(_lobby);
     }
+
 
     /// <summary>
     /// Überprüfe ob ein Avatar ausgewählt wurde
@@ -613,7 +649,7 @@ public partial class MainViewModel : ObservableObject
     private bool AvatarIsSelected()
     {
 
-        if (Choice!= null)
+        if (AvatarImagePath != "")
         {
             return true;
         }
@@ -640,12 +676,35 @@ public partial class MainViewModel : ObservableObject
             await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
             return;
         }
-
-        await _com.gameStartedEvent.WaitAsync();
-        popup.Close();
-        await Shell.Current.Dispatcher.DispatchAsync(async () => await Shell.Current.Navigation.PushAsync(new MainPage()));
     }
 
+    [RelayCommand]
+    async Task AddNPC(LobbyPage popup)
+    {
+        try
+        {
+            await _com.AddNpcAsync();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
+    }
+
+    [RelayCommand]
+    async Task RemovePlayer(string player)
+    {
+        try
+        {
+            await _com.RemoveAsync(player);
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            return;
+        }
+    }
     #endregion
 
     #region MainPage

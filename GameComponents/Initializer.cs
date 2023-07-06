@@ -11,13 +11,19 @@ namespace GameComponents
 {
     public static class Initializer
     {
-        /// <summary>
-        /// Initializes points of interest from game config
-        /// </summary>
-        public static GameState InitPois(GameState GameState)
+        public static GameState InitPois(GameState GameState, bool isTest)
         {
+            string jsonContent;
+            if (isTest)
+            {
+                jsonContent = new StreamReader(File.OpenRead("Testmap.json")).ReadToEnd();     // use Testmap for Unit tests
+
+            }
+            else
+            {       
+                jsonContent = new StreamReader(File.OpenRead("poimap.json")).ReadToEnd();      // use complete map for Game (default)
+            }
             //read POIs from JSON file Testmap in project folder 
-            string jsonContent = new StreamReader(File.OpenRead("poimap.json")).ReadToEnd();
             dynamic json = JsonConvert.DeserializeObject(jsonContent);  //read JSON to dynamic variable
 
             // generate POIs 
@@ -75,6 +81,14 @@ namespace GameComponents
                 }
             }
             return GameState;
+        }
+
+        /// <summary>
+        /// Initializes points of interest from game config
+        /// </summary>
+        public static GameState InitPois(GameState GameState)
+        {
+           return InitPois(GameState, false);       // default initilization with complete map
         }
 
         /// <summary>

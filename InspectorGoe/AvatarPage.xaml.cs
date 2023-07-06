@@ -6,6 +6,8 @@ public partial class AvatarPage : Popup
 {
     MainViewModel MVM = MainViewModel.GetInstance();
 
+    ImageButton Choice;
+
     public AvatarPage()
     {
         InitializeComponent();
@@ -14,56 +16,56 @@ public partial class AvatarPage : Popup
 
     private void ImageButton_Clicked(object sender, EventArgs e)
     {
-        if (MVM.Choice == grothausmann) { MVM.Choice = null; } else { MVM.Choice = grothausmann; }
+        if (Choice == grothausmann) { Choice = null; MVM.AvatarImagePath = ""; } else { Choice = grothausmann; MVM.AvatarImagePath = "hawk_grothausmann.jpg"; }
         Choosing();
     }
 
     private void ImageButton_Clicked_1(object sender, EventArgs e)
     {
-        if (MVM.Choice == hadeler) { MVM.Choice = null; } else { MVM.Choice = hadeler; }
+        if (Choice == hadeler) { Choice = null; MVM.AvatarImagePath = ""; } else { Choice = hadeler; MVM.AvatarImagePath = "hawk_hadeler.jpg"; }
         Choosing();
     }
 
     private void ImageButton_Clicked_2(object sender, EventArgs e)
     {
-        if (MVM.Choice == hirsch) { MVM.Choice = null; } else { MVM.Choice = hirsch; }
+        if (Choice == hirsch) { Choice = null; MVM.AvatarImagePath = ""; } else { Choice = hirsch; MVM.AvatarImagePath = "hawk_hirsch.jpg"; }
         Choosing();
     }
 
     private void ImageButton_Clicked_3(object sender, EventArgs e)
     {
-        if (MVM.Choice == ibental) { MVM.Choice = null; } else { MVM.Choice = ibental; }
+        if (Choice == ibental) { Choice = null; MVM.AvatarImagePath = ""; } else { Choice = ibental; MVM.AvatarImagePath = "hawk_ibental.jpg"; }
         Choosing();
     }
 
     private void ImageButton_Clicked_4(object sender, EventArgs e)
     {
-        if (MVM.Choice == koch) { MVM.Choice = null; } else { MVM.Choice = koch; }
+        if (Choice == koch) { Choice = null; MVM.AvatarImagePath = ""; } else { Choice = koch; MVM.AvatarImagePath = "hawk_koch.jpg"; }
         Choosing();
     }
 
     private void ImageButton_Clicked_5(object sender, EventArgs e)
     {
-        if (MVM.Choice == neunheuser) { MVM.Choice = null; } else { MVM.Choice = neunheuser; }
+        if (Choice == neunheuser) { Choice = null; MVM.AvatarImagePath = ""; } else { Choice = neunheuser; MVM.AvatarImagePath = "hawk_neunheuser.jpg"; }
         Choosing();
     }
 
     private void ImageButton_Clicked_6(object sender, EventArgs e)
     {
-        if (MVM.Choice == nietert) { MVM.Choice = null; } else { MVM.Choice = nietert; }
+        if (Choice == nietert) { Choice = null; MVM.AvatarImagePath = ""; } else { Choice = nietert; MVM.AvatarImagePath = "hawk_nietert.jpg"; }
         Choosing();
     }
 
     private void ImageButton_Clicked_7(object sender, EventArgs e)
     {
-        if (MVM.Choice == wienecke) { MVM.Choice = null; } else { MVM.Choice = wienecke; }
+        if (Choice == wienecke) { Choice = null; MVM.AvatarImagePath = ""; } else { Choice = wienecke; MVM.AvatarImagePath = "hawk_wienecke.jpg"; }
         Choosing();
     }
 
     private void Choosing()
     { 
         
-        if (MVM.Choice != null)
+        if (Choice != null)
         {
             grothausmann.Opacity = 0.5;
             hadeler.Opacity = 0.5;
@@ -73,7 +75,7 @@ public partial class AvatarPage : Popup
             neunheuser.Opacity = 0.5;
             nietert.Opacity = 0.5;
             wienecke.Opacity = 0.5;
-            MVM.Choice.Opacity = 1;
+            Choice.Opacity = 1;
         }
         
         else

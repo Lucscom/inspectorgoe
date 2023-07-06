@@ -1,10 +1,10 @@
 ﻿using System;
 namespace GameComponents.Model
 {
-	public class Token
+	public class StringDto
 	{
 		public String token { get; set; }
-		public Token()
+		public StringDto()
 		{
 		}
 	}
