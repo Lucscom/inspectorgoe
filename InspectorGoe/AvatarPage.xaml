@@ -4,7 +4,6 @@
                x:Class="InspectorGoe.AvatarPage"
                Color="Transparent"
                Size="700,500"
-               CanBeDismissedByTappingOutsideOfPopup="False"
                x:Name="ThisPopup">
 
     <Frame BackgroundColor="LightBlue" CornerRadius="10">
