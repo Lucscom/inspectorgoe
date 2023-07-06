@@ -37,6 +37,7 @@ namespace Client
         public AsyncAutoResetEvent newGameStateEvent = new AsyncAutoResetEvent(false);
 
         public event EventHandler UpdateGameStateEvent;
+        public event EventHandler GameStartedEvent;
 
         public event EventHandler<GameEndEventArgs> GameEndEvent;
 
@@ -195,6 +196,7 @@ namespace Client
                 if (GameState.GameStarted)
                 {
                     gameStartedEvent.Set();
+                    GameStartedEvent(this, EventArgs.Empty);
                 }
             });
 
