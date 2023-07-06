@@ -215,6 +215,10 @@ namespace InspectorGoeServer.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Add an Npc to the game
+        /// </summary>
+        /// <returns>Http Action</returns>
         [HttpPost("addnpc")]
         [Authorize]
         [ActionName(nameof(AddNpc))]
@@ -245,6 +249,46 @@ namespace InspectorGoeServer.Controllers
             await updateGameComponents(_gameController.GameState);
 
             return Created("", npc);
+        }
+
+        /// <summary>
+        /// Remove an Npc from the game
+        /// </summary>
+        /// <param name="npcName"></param>
+        /// <returns>Http Action</returns>
+        [HttpDelete("remove")]
+        [Authorize]
+        [ActionName(nameof(Remove))]
+        public async Task<IActionResult> Remove([FromBody] string name)
+        {
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
+
+            if (_gameController.GameState?.GameCreator.UserName != currentUser.UserName)
+            {
+                return BadRequest();
+            }
+            var player = _gameController.GameState?.AllPlayers.Where(p => p.UserName == name);
+            if (player == null || !player.Any())
+            {
+                return NotFound();
+            }
+
+            if (!_gameController.RemovePlayer(player.First()))
+            {
+                return BadRequest();
+            }
+            try
+            {
+                var user = await _userManager.FindByNameAsync(name);
+                await _userManager.DeleteAsync(user);
+            }
+            catch { }
+
+            await updateGameComponents(_gameController.GameState);
+
+            return Ok();
         }
 
         /// <summary>

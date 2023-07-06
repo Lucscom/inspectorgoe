@@ -179,6 +179,19 @@ namespace Client
         }
 
         /// <summary>
+        /// Tell the server to remove a player. Permanently deletes the player
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>StatusCode</returns>
+        public async Task<HttpStatusCode> RemoveAsync(string username)
+        {
+            HttpResponseMessage response = await _client.DeleteAsync(
+                "api/Player/remove");
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
+        }
+
+        /// <summary>
         /// Initializes hub connection to server with token as authentication
         /// </summary>
         /// <param name="token">Used for authentication</param>
