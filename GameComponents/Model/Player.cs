@@ -72,6 +72,10 @@ namespace GameComponents.Model
         {
             UserName = userName;
             Npc = isNpc;
+            if (Npc)
+            {
+                AvatarImagePath = "dotnet_bot.png";
+            }
         }
 
         /// <summary>
