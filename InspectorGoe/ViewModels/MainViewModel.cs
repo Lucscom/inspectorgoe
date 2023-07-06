@@ -115,8 +115,6 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
 
-    [ObservableProperty]
-    private string winMessage = string.Empty;
 
     #endregion
 
@@ -204,28 +202,29 @@ public partial class MainViewModel : ObservableObject
     /// <exception cref="Exception"></exception>
     private async Task ComGameEnd(object player, GameEndEventArgs e)
     {
+        string winMessage= string.Empty;
         if(IsMisterX && e.Player == "MisterX")
         {
-            WinMessage = "You won the game!";
+            winMessage = "You won the game!";
         }
         else if(IsMisterX && e.Player == "Detectives")
         {
-            WinMessage = "You lost the game!";
+            winMessage = "You lost the game!";
         }
         else if(!IsMisterX && e.Player == "MisterX")
         {
-            WinMessage = "You lost the game!";
+            winMessage = "You lost the game!";
         }
         else if(!IsMisterX && e.Player == "Detectives")
         {
-            WinMessage = "You won the game!";
+            winMessage = "You won the game!";
         }
         else
         {
             throw new Exception("GameEndEventArgs.Player is not valid");
         }
  
-       await Shell.Current.DisplayAlert("Game Result", WinMessage, "OK");   
+       await Shell.Current.DisplayAlert(winMessage, "", "OK");   
 
        PoiButtons = new ObservableCollection<PointOfInterestView>();
        PoiFrames = new ObservableCollection<PointOfInterestView>();
