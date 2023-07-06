@@ -54,7 +54,7 @@
                            HasShadow="True">
 
                         <Image Source="{Binding AvatarImagePath}" 
-                        Aspect="AspectFill"/>
+                               Aspect="AspectFill"/>
                     </Frame>
 
                     <Frame Grid.Row="1" CornerRadius="10" BackgroundColor="{Binding PlayerColor}" BorderColor="{Binding PlayerColor}" Padding="2"/>

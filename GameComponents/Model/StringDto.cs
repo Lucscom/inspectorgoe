@@ -7,6 +7,11 @@ namespace GameComponents.Model
 		public StringDto()
 		{
 		}
+		public StringDto(String value)
+		{
+			token = value;
+		}
+
 	}
 }
 
