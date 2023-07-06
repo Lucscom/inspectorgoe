@@ -157,7 +157,7 @@ namespace GameComponents
 
                 if(player.BlackTicket > 0)
                     moves = AddValidMovesForTicket(moves, TicketTypeEnum.Black, pois, gameState.Detectives);
-                if(player.DoubleTicket > 0)
+                if(player.DoubleTicket > 0 && !player.usingDoubleTicket)
                     moves = AddValidMovesForTicket(moves, TicketTypeEnum.doubleTicket, pois, gameState.Detectives);
             }
 
