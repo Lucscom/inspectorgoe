@@ -101,7 +101,7 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<TicketsView> mrXticketHistory = new ObservableCollection<TicketsView>();
 
-    private bool doubleTicketSelected = false;
+
 
 
     // POIS
@@ -111,13 +111,17 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<PointOfInterestView> poiFrames = new ObservableCollection<PointOfInterestView>();
 
-
     private TicketSelectionPage ticketSelectionPage;
     private TicketSelectionPageMisterX ticketSelectionPageMisterX;
 
     [ObservableProperty]
     private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
 
+    [ObservableProperty]
+    private bool isDoubleTicketPossible = false;
+
+    [ObservableProperty]
+    private bool doubleTicketSelected = false;
 
     #endregion
 
@@ -693,10 +697,21 @@ public partial class MainViewModel : ObservableObject
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
 
+        if (temp[poi].Contains(TicketTypeEnum.doubleTicket))
+            IsDoubleTicketPossible = true;
+        
+        else
+            IsDoubleTicketPossible = false;
+        
+
         foreach (TicketTypeEnum ticket in Enum.GetValues(typeof(TicketTypeEnum)))
         {
             if(IsMisterX == false && (ticket == TicketTypeEnum.Black || ticket == TicketTypeEnum.doubleTicket))
                 continue;
+
+            if (ticket == TicketTypeEnum.doubleTicket)
+                continue;
+
 
             TicketSelection tempTicket = new TicketSelection();
             tempTicket.PointOfInterest = poi;
@@ -715,6 +730,7 @@ public partial class MainViewModel : ObservableObject
             TicketSelection.Add(tempTicket);
         }
 
+        DoubleTicketSelected = false;
         if (IsMisterX == false)
         {
             ticketSelectionPage = new TicketSelectionPage();
@@ -731,32 +747,12 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Button_Clicked_Ticket(TicketSelection ticket)
     {
-        if (ticket.TicketType == TicketTypeEnum.doubleTicket)
-        {
 
-            foreach (TicketSelection tempTicket in TicketSelection)
-            {
-                if (tempTicket.TicketType == TicketTypeEnum.doubleTicket)
-                {
-                    if (doubleTicketSelected == true)
-                    {
-                        doubleTicketSelected = false;
-                    }
-                    else
-                    {
-                        doubleTicketSelected = true;
-                    }
-                }
-            }
-        }
+        movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
 
-        else
-        {
-            movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
-
-            ticketSelectionPage?.Close();
-            ticketSelectionPageMisterX?.Close();
-        }
+        ticketSelectionPage?.Close();
+        ticketSelectionPageMisterX?.Close();
+        
     }
 
 
