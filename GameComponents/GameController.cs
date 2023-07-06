@@ -189,7 +189,7 @@ namespace GameComponents
         /// <param name="poi">Point Of Interes</param>
         /// <param name="ticketType">Ticket that will be used</param>
         /// <returns>True if player was moved</returns>
-        public bool MovePlayer(Player player, int poi, TicketTypeEnum ticketType)
+        public bool MovePlayer(Player player, int poi, TicketTypeEnum ticketType, bool isDoubleTicket)
         { 
             //exchange player with player from GameState.
             //This is necessary because the position attribute of the incoming player is null. (No valid position)
@@ -224,10 +224,20 @@ namespace GameComponents
                     case TicketTypeEnum.Black:
                         GameState.ActivePlayer.BlackTicket--;
                         break;
-                    case TicketTypeEnum.doubleTicket: 
-                        GameState.ActivePlayer.DoubleTicket--;
-                        break;
                 }
+                if(isDoubleTicket)
+                {
+                    if (GameState.ActivePlayer.UserName == GameState.MisterX.UserName && GameState.ActivePlayer.DoubleTicket > 0)
+                    {
+                        GameState.ActivePlayer.DoubleTicket--;
+                    } 
+                    else
+                    {
+                        Console.WriteLine("Player not moved! No Double Ticket");
+                        return false;
+                    }
+                }
+                
                 GameState.ActivePlayer.Position = GameState.PointsOfInterest.First(p => p.Number == poi);
                 if (player.UserName == GameState.MisterX.UserName)
                 {
@@ -242,10 +252,12 @@ namespace GameComponents
                     throw new Exception("MisterX found!");
 
                 if (GameState.Round > 24)
-                {
                     throw new Exception("Round limit!");
-                }
-                NextMove();
+
+                if (isDoubleTicket)
+                    GameState.Move += GameState.AllPlayers.Count;
+                else
+                    NextMove();
                 
                 return true;
             }
@@ -284,7 +296,7 @@ namespace GameComponents
                 int randomNumber = Random.Shared.Next(0, TestMoves.Count - 1);
                 int newPos = TestMoves.ElementAt(randomNumber).Key.Number;   //choose random (availible) new Position
                 TicketTypeEnum ticket = TestMoves.ElementAt(randomNumber).Value.ElementAt(Random.Shared.Next(0, TestMoves.ElementAt(randomNumber).Value.Count - 1));  //choose random (availible) ticketType to new Position
-                MovePlayer(player, newPos, ticket);
+                MovePlayer(player, newPos, ticket, false);
 
                 return true;
 

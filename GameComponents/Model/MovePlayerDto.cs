@@ -12,6 +12,8 @@ namespace GameComponents.Model
         public int PointOfInterest { get; set; }
         public TicketTypeEnum TicketType { get; set; }
 
+        public bool IsDoubleTicket { get; set; }
+
         [JsonConstructor]
         public MovePlayerDto() { 
         }
@@ -19,6 +21,14 @@ namespace GameComponents.Model
         {
             PointOfInterest = poi;
             TicketType = ticket;
+            IsDoubleTicket = false;
+        }
+
+        public MovePlayerDto(int pointOfInterest, TicketTypeEnum ticket, bool isDoubleTicket)
+        {
+            PointOfInterest = pointOfInterest;
+            TicketType = ticket;
+            IsDoubleTicket = isDoubleTicket;
         }
     }
 }

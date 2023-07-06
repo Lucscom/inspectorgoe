@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Image Grid.RowSpan="2" Source="hawk_grothausmann.jpg" Aspect="AspectFill" HeightRequest="60" WidthRequest="60" VerticalOptions="Start" HorizontalOptions="Start"/>
+            <Image Grid.RowSpan="2" Source="{Binding AvatarImagePath}" Aspect="AspectFill" HeightRequest="60" WidthRequest="60" VerticalOptions="Start" HorizontalOptions="Start"/>
 
             <Label Grid.Column="1" Text="{Binding UserName}" FontAttributes="Bold" FontSize="20" TextColor="Black" HorizontalOptions="Start"/>
 

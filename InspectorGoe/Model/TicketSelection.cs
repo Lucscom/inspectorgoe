@@ -1,6 +1,7 @@
 ﻿using GameComponents;
 using CommunityToolkit.Mvvm.ComponentModel;
 using GameComponents.Model;
+using Microsoft.Maui.Graphics;
 
 namespace InspectorGoe.Model
 {
@@ -9,7 +10,9 @@ namespace InspectorGoe.Model
     /// </summary>
     public class TicketSelection : ObservableObject
     {
-
+        /// <summary>
+        /// Set Ticket enabled or disabled
+        /// </summary>
         private bool isEnabled;
         public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
 
