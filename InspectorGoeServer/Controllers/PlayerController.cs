@@ -216,6 +216,11 @@ namespace InspectorGoeServer.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Set avatar image path of the player object
+        /// </summary>
+        /// <param name="path">image path on client</param>
+        /// <returns>Http Action</returns>
         [HttpPut("avatar")]
         [Authorize]
         [ActionName(nameof(UpdateAvatar))]
@@ -224,11 +229,14 @@ namespace InspectorGoeServer.Controllers
             var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
             if (currentUser == null)
                 return StatusCode(500);
+
             currentUser.AvatarImagePath = path.token;
             _context.Update(currentUser);
             _context.SaveChanges();
-            return Ok();
 
+            var gamePlayer = (_gameController.GameState.AllPlayers.Where(p => p.UserName == currentUser.UserName)).First();
+            gamePlayer.AvatarImagePath = path.token;
+            return Ok();
         }
 
 

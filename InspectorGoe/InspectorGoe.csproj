@@ -57,10 +57,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiImage Remove="Resources\Images\dotnet_bot.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Remove="Resources\Images\Ticket_Bus.png" />
 	</ItemGroup>
 
@@ -76,10 +72,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Resource Include="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="AvatarPage.xaml.cs">
 	    <DependentUpon>AvatarPage.xaml</DependentUpon>
 	  </Compile>
@@ -92,6 +84,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 	  <MauiImage Update="Resources\Images\ticket_doubleticket.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </MauiImage>
