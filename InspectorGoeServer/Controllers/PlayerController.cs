@@ -141,7 +141,8 @@ namespace InspectorGoeServer.Controllers
             } catch (Exception ex)
             {
                 Console.WriteLine("Game End Winner Team: " + ex.Message);
-                if(ex.Message.Equals("MisterX found!"))
+                await updateGameComponents(_gameController.GameState);
+                if (ex.Message.Equals("MisterX found!"))
                 {
                     await _hubContext.Clients.All.SendAsync("GameEnd", "Detectives");
                 } else if (ex.Message.Equals("Round limit!"))
