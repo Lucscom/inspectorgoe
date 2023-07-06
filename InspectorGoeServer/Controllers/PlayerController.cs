@@ -215,15 +215,6 @@ namespace InspectorGoeServer.Controllers
             return Ok();
         }
 
-        [HttpGet("EndGame")]
-        [AllowAnonymous]
-        [ActionName(nameof(GetGameEnd))]
-        public async Task<ActionResult> GetGameEnd()
-        {
-            await _hubContext.Clients.All.SendAsync("GameEnd", "MisterX");
-            return Ok();
-        }
-
         /// <summary>
         /// Send gameState to all clients
         /// </summary>
