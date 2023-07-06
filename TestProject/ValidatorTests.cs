@@ -23,7 +23,7 @@ namespace TestProject
         {
             GameState TestGameState = new GameState();      // GameState constructor
     
-            Initializer.InitPois(TestGameState);        // generate POIs and Connections according to Testmap.JSON
+            Initializer.InitPois(TestGameState, true);        // generate POIs and Connections from Testmap 
 
             Assert.Equal(12, TestGameState.PointsOfInterest.Count);      // check if right number of POIs was created
 
@@ -43,7 +43,7 @@ namespace TestProject
         {
             GameState TestGameState = new GameState();      // GameState constructor
 
-            Initializer.InitPois(TestGameState);        // generate POIs and Connections
+            Initializer.InitPois(TestGameState, true);        // generate POIs and Connections from Testmap 
 
             TestGameState.MisterX = new Player("TestPlayer", "TestPassword");   // generate TestPlayer
             TestGameState.MisterX.Position = TestGameState.PointsOfInterest.First(); // assign Startposition for TestPlayer (here 1, Gänseliesel)
@@ -51,6 +51,8 @@ namespace TestProject
             TestGameState.MisterX.BikeTicket = 0;     // assign no bike tickets
             TestGameState.MisterX.ScooterTicket = 2;  // assign scooter tickets
             
+
+
 
             Dictionary<PointOfInterest, List<TicketTypeEnum>> TestMoves = new Dictionary<PointOfInterest, List<TicketTypeEnum>>();      // create dictonary for valid moves 
             TestMoves = Validator.GetValidMoves(TestGameState, TestGameState.MisterX);      // test method getValidMoves for MisterX in generated TestGameState

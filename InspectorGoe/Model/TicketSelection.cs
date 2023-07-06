@@ -16,13 +16,6 @@ namespace InspectorGoe.Model
         public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
 
         /// <summary>
-        /// Set Border Color of the Ticket Selection
-        /// </summary>
-        private Color borderColor;
-        public Color BorderColor { get => borderColor; set => SetProperty(ref borderColor, value); }
-
-
-        /// <summary>
         /// selected POI
         /// </summary>
         private PointOfInterest pointOfInterest;

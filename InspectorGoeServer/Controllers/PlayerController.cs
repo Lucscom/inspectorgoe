@@ -216,6 +216,23 @@ namespace InspectorGoeServer.Controllers
             return Ok();
         }
 
+        [HttpPut("avatar")]
+        [Authorize]
+        [ActionName(nameof(UpdateAvatar))]
+        public async Task<IActionResult> UpdateAvatar([FromBody] StringDto path)
+        {
+            var currentUser = (await _context.Players.ToListAsync()).Where(p => p.UserName == User.Identity.Name).First(); //todo: clean this up
+            if (currentUser == null)
+                return StatusCode(500);
+            currentUser.AvatarImagePath = path.token;
+            _context.Update(currentUser);
+            _context.SaveChanges();
+            return Ok();
+
+        }
+
+
+
         /// <summary>
         /// Send gameState to all clients
         /// </summary>

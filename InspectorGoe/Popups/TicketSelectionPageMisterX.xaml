@@ -32,24 +32,18 @@
 
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        
-                        <Border Stroke="{Binding BorderColor}"
-                                StrokeShape="RoundRectangle 20,20,20,20"
-                                Padding="0"
-                                StrokeThickness="4">
-                            
-                            <ImageButton Padding="0"
-                                         BackgroundColor="Transparent"
-                                         BorderColor="Transparent"
-                                         Aspect="AspectFill"
-                                         HorizontalOptions="Center"
-                                         VerticalOptions="Center"
-                                         IsEnabled="{Binding IsEnabled}"
-                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=Button_Clicked_TicketCommand}"
-                                         CommandParameter="{Binding .}"
-                                         Source="{Binding TicketImagePath}"/>
 
-                        </Border>
+
+                        <ImageButton Padding="10"
+                                     BackgroundColor="Transparent"
+                                     BorderColor="Transparent"
+                                     Aspect="AspectFill"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     IsEnabled="{Binding IsEnabled}"
+                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=Button_Clicked_TicketCommand}"
+                                     CommandParameter="{Binding .}"
+                                     Source="{Binding TicketImagePath}"/>
 
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
