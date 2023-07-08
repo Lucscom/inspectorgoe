@@ -7,6 +7,7 @@ using GameComponents;
 using GameComponents.Model;
 using InspectorGoe.Model;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Maui.Layouts;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -108,6 +109,8 @@ public partial class MainViewModel : ObservableObject
     private ObservableCollection<TicketsView> mrXticketHistory = new ObservableCollection<TicketsView>();
 
 
+
+
     // POIS
     [ObservableProperty]
     private ObservableCollection<PointOfInterestView> poiButtons = new ObservableCollection<PointOfInterestView>();
@@ -115,13 +118,17 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<PointOfInterestView> poiFrames = new ObservableCollection<PointOfInterestView>();
 
-
     private TicketSelectionPage ticketSelectionPage;
     private TicketSelectionPageMisterX ticketSelectionPageMisterX;
 
     [ObservableProperty]
     private ObservableCollection<TicketSelection> ticketSelection = new ObservableCollection<TicketSelection>();
 
+    [ObservableProperty]
+    private bool isDoubleTicketPossible = false;
+
+    [ObservableProperty]
+    private bool doubleTicketSelected = false;
 
     #endregion
 
@@ -200,6 +207,12 @@ public partial class MainViewModel : ObservableObject
 
                 // Point of Interest Buttons
                 fillPoiObjects();
+
+                if (doubleTicketSelected)
+                {
+                    _com.GameState.ActivePlayer.usingDoubleTicket = true;
+                    doubleTicketSelected = false;
+                }
 
             }
         }
@@ -439,7 +452,7 @@ public partial class MainViewModel : ObservableObject
     /// <param name="ticket">ticket Type</param>
     public void movePlayer(int poi, TicketTypeEnum ticket)
     {
-        var move = new MovePlayerDto(poi, ticket);
+        var move = new MovePlayerDto(poi, ticket, doubleTicketSelected);
         try
         {
             var moveStatus = _com.MovePlayerAsync(move);
@@ -448,8 +461,6 @@ public partial class MainViewModel : ObservableObject
         {
             // bei fail gamestate neu bekommen und wiederholen
         }
-
-
     }
 
     /// <summary>
@@ -734,10 +745,21 @@ public partial class MainViewModel : ObservableObject
         temp = Validator.GetValidMoves(_com.GameState, _com.GameState.ActivePlayer);
 
 
+        if (temp[poi].Contains(TicketTypeEnum.doubleTicket))
+            IsDoubleTicketPossible = true;
+        
+        else
+            IsDoubleTicketPossible = false;
+        
+
         foreach (TicketTypeEnum ticket in Enum.GetValues(typeof(TicketTypeEnum)))
         {
             if(IsMisterX == false && (ticket == TicketTypeEnum.Black || ticket == TicketTypeEnum.doubleTicket))
                 continue;
+
+            if (ticket == TicketTypeEnum.doubleTicket)
+                continue;
+
 
             TicketSelection tempTicket = new TicketSelection();
             tempTicket.PointOfInterest = poi;
@@ -756,6 +778,7 @@ public partial class MainViewModel : ObservableObject
             TicketSelection.Add(tempTicket);
         }
 
+        DoubleTicketSelected = false;
         if (IsMisterX == false)
         {
             ticketSelectionPage = new TicketSelectionPage();
@@ -772,10 +795,12 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void Button_Clicked_Ticket(TicketSelection ticket)
     {
+
         movePlayer(ticket.PointOfInterest.Number, ticket.TicketType);
 
         ticketSelectionPage?.Close();
         ticketSelectionPageMisterX?.Close();
+        
     }
 
 

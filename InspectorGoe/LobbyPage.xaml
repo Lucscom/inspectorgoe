@@ -10,16 +10,9 @@
 
 
     <Frame BackgroundColor="LightBlue" CornerRadius="10" Padding="5">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="350"/>
-                <RowDefinition Height="60"/>
-            </Grid.RowDefinitions>
-            
-            <Label Grid.Row="0" Text ="Lobby" FontSize="20" HorizontalOptions="Center"/>
-                   
-            <ScrollView Grid.Row="1">
+        <StackLayout>
+            <Label Text ="Lobby" FontSize="20" HorizontalOptions="Center"/>
+            <ScrollView HeightRequest="350">
                 <VerticalStackLayout BindableLayout.ItemsSource="{Binding AllPlayers}" Padding="10">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -29,16 +22,11 @@
                 </VerticalStackLayout>
             </ScrollView>
 
-            <HorizontalStackLayout Grid.Row="2">
+            <HorizontalStackLayout >
                 <Button x:Name="AddNPC" Text="Add NPC" Margin="10" Command="{Binding AddNPCCommand}" WidthRequest="100"/>
                 <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}" WidthRequest="300"/>
             </HorizontalStackLayout>
-
-        </Grid>
-
-            
-
+        </StackLayout>
     </Frame>
-
 
 </toolkit:Popup>

@@ -40,7 +40,7 @@ namespace TestProject
             // choose random destination, which has a connection of type scooter
             int newPos = TestGameState.Detectives[0].Position.ConnectionScooter[Random.Shared.Next(0, TestGameState.Detectives[0].Position.ConnectionScooter.Count - 1)];
 
-            TestGameController.MovePlayer(TestGameState.Detectives[0], newPos, TicketTypeEnum.Scooter);     // execute MovePlayer
+            TestGameController.MovePlayer(TestGameState.Detectives[0], newPos, TicketTypeEnum.Scooter, false);     // execute MovePlayer
             
             Assert.NotEqual(TestGameState.Detectives[0].Position.Number, newPos);
 
@@ -69,7 +69,7 @@ namespace TestProject
             // choose random destination, which has a connection of type scooter
             int newPos = TestGameController.GameState.Detectives[0].Position.ConnectionScooter[Random.Shared.Next(0, TestGameController.GameState.Detectives[0].Position.ConnectionScooter.Count - 1)];
             TestGameController.GameState.ActivePlayer = TestGameController.GameState.Detectives[0];     // assign Detective[0] as active Player
-            TestGameController.MovePlayer(TestGameController.GameState.Detectives[0], newPos, TicketTypeEnum.Scooter);     // execute MovePlayer
+            TestGameController.MovePlayer(TestGameController.GameState.Detectives[0], newPos, TicketTypeEnum.Scooter, false);     // execute MovePlayer
 
             Assert.Equal(TestGameController.GameState.Detectives[0].Position.Number, newPos);
         }
@@ -98,7 +98,7 @@ namespace TestProject
             int newPos = TestGameController.GameState.Detectives[0].Position.ConnectionScooter[Random.Shared.Next(0, TestGameController.GameState.Detectives[0].Position.ConnectionScooter.Count - 1)];
             TestGameController.GameState.ActivePlayer = TestGameController.GameState.MisterX;   // assign MisterX (not Detective[0]) as active Player
 
-            TestGameController.MovePlayer(TestGameController.GameState.Detectives[0], newPos, TicketTypeEnum.Scooter);     // execute MovePlayer
+            TestGameController.MovePlayer(TestGameController.GameState.Detectives[0], newPos, TicketTypeEnum.Scooter, false);     // execute MovePlayer
 
             Assert.NotEqual(TestGameController.GameState.Detectives[0].Position.Number, newPos);
         }
@@ -159,7 +159,7 @@ namespace TestProject
             int randomNumber = Random.Shared.Next(0, TestMoves.Count - 1);
             int newPos = TestMoves.ElementAt(randomNumber).Key.Number;   //choose random (availible) new Position for MisterX
             TicketTypeEnum ticket = TestMoves.ElementAt(randomNumber).Value.ElementAt(Random.Shared.Next(0, TestMoves.ElementAt(randomNumber).Value.Count - 1));  //choose random (availible) ticketType to new Position
-            TestGameController.MovePlayer(TestGameController.GameState.MisterX, newPos, ticket);    // execute move
+            TestGameController.MovePlayer(TestGameController.GameState.MisterX, newPos, ticket, false);    // execute move
             
             Assert.NotEqual(TestGameController.GameState.Detectives[0].Position.Number, oldPosAi);
         }
