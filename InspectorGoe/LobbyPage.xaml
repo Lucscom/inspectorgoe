@@ -4,27 +4,40 @@
                xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
                x:Class="InspectorGoe.LobbyPage"
                Color="Transparent"
-               Size="500,350"
+               Size="500,450"
                CanBeDismissedByTappingOutsideOfPopup="False"
                x:Name="ThisPopup">
 
 
     <Frame BackgroundColor="LightBlue" CornerRadius="10" Padding="5">
-        <StackLayout>
-            <Label Text="Lobby" FontSize="20" HorizontalOptions="Center"/>
-            <VerticalStackLayout BindableLayout.ItemsSource="{Binding AllPlayers}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <contentviews:PlayerListElement/>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </VerticalStackLayout>
-            <HorizontalStackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="350"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0" Text ="Lobby" FontSize="20" HorizontalOptions="Center"/>
+                   
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding AllPlayers}" Padding="10">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <contentviews:PlayerListElement/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <HorizontalStackLayout Grid.Row="2">
                 <Button x:Name="AddNPC" Text="Add NPC" Margin="10" Command="{Binding AddNPCCommand}" WidthRequest="100"/>
                 <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}" WidthRequest="300"/>
             </HorizontalStackLayout>
+
+        </Grid>
+
             
-        </StackLayout>
+
     </Frame>
 
 

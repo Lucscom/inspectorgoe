@@ -5,12 +5,12 @@
              HeightRequest="100"
              HorizontalOptions="FillAndExpand">
 
-    <Frame BackgroundColor="#80FFFFFF" CornerRadius="10" BorderColor="Transparent">
+    <Frame BackgroundColor="#80FFFFFF" CornerRadius="10" BorderColor="Transparent" VerticalOptions="Center" Padding="5">
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -19,7 +19,10 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Image Grid.RowSpan="2" Source="{Binding AvatarImagePath}" Aspect="AspectFill" HeightRequest="60" WidthRequest="60" VerticalOptions="Start" HorizontalOptions="Start"/>
+            <Frame Grid.RowSpan="2" HeightRequest="80" WidthRequest="80" CornerRadius=" 40" Padding="0" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" BorderColor="Transparent">
+                <Image Source="{Binding AvatarImagePath}" Aspect="AspectFill"/>
+            </Frame>
+            
 
             <Label Grid.Column="1" Text="{Binding UserName}" FontAttributes="Bold" FontSize="20" TextColor="Black" HorizontalOptions="Start"/>
 
@@ -31,14 +34,14 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label  Text="MisterX" TextColor="Black" VerticalOptions="Start"/>
-                <CheckBox Grid.Column="1" IsEnabled="False" IsChecked="{Binding }" VerticalOptions="Start"/>
-                <Label Grid.Column="2" Text="NPC" TextColor="Black" VerticalOptions="Start"/>
-                <CheckBox Grid.Column="3" IsEnabled="False" IsChecked="{Binding Npc}" VerticalOptions="Start"/>
+                <Label  Text="MisterX" TextColor="Black" VerticalOptions="Center" HorizontalOptions="End"/>
+                <CheckBox Grid.Column="1" IsEnabled="False" IsChecked="{Binding }" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Label Grid.Column="2" Text="NPC" TextColor="Black" VerticalOptions="Center" HorizontalOptions="End"/>
+                <CheckBox Grid.Column="3" IsEnabled="False" IsChecked="{Binding Npc}" VerticalOptions="Center" HorizontalOptions="Start"/>
 
             </Grid>
 
-            <ImageButton Grid.RowSpan="2" Grid.Column="3" HeightRequest="60" WidthRequest="60" Source="minus.png" VerticalOptions="Start" HorizontalOptions="End"/>
+            <ImageButton Grid.RowSpan="2" Grid.Column="3" HeightRequest="60" WidthRequest="60" Source="minus.png" VerticalOptions="Center" HorizontalOptions="Center"/>
             
         </Grid>
     </Frame>

@@ -180,6 +180,7 @@ public partial class MainViewModel : ObservableObject
                     CurrentPlayer = currPlayer;
                 }
             }
+            AllPlayers.Reverse();
 
             // Fill all Game Data
             if (_com.GameState.GameStarted == true)
