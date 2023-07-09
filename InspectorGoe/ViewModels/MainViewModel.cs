@@ -273,7 +273,7 @@ public partial class MainViewModel : ObservableObject
 
         List<Color> colorList = new List<Color>
             {
-                Colors.Navy,
+                Colors.Aqua,
                 Colors.LimeGreen,
                 Colors.Turquoise,
                 Colors.Orange,
@@ -285,7 +285,7 @@ public partial class MainViewModel : ObservableObject
         {
             PlayerView temp = new();
             temp.AvatarImagePath = detective.AvatarImagePath;
-            temp.UserName = detective.UserName;
+            if(CurrentPlayer.UserName == detective.UserName) temp.UserName = detective.UserName + " (You)"; else temp.UserName = detective.UserName;
             temp.BikeTicket = detective.BikeTicket;
             temp.ScooterTicket = detective.ScooterTicket;
             temp.BusTicket = detective.BusTicket;
@@ -307,7 +307,7 @@ public partial class MainViewModel : ObservableObject
 
         // MisterX
         MisterX.AvatarImagePath = _com.GameState.MisterX.AvatarImagePath;
-        MisterX.UserName = _com.GameState.MisterX.UserName;
+        if(CurrentPlayer.UserName == _com.GameState.MisterX.UserName) MisterX.UserName = _com.GameState.MisterX.UserName + " (You)"; else MisterX.UserName = _com.GameState.MisterX.UserName;
         MisterX.BikeTicket = _com.GameState.MisterX.BikeTicket;
         MisterX.ScooterTicket = _com.GameState.MisterX.ScooterTicket;
         MisterX.BusTicket = _com.GameState.MisterX.BusTicket;
@@ -335,11 +335,9 @@ public partial class MainViewModel : ObservableObject
         }
 
         if(IsMisterX == true)
-        // Abfrage ob dieser Client misterX ist wenn ja dann wird die Position angezeigt
             PlayerLocation.Add(PoiConverter(_com.GameState.MisterX?.Position, 210, MisterX.PlayerColor, _com.GameState.MisterX.Position.Name));
 
         else if(_com.GameState.MisterXLastKnownPOI != null)
-        // Wenn nicht dann wird die letzte bekannte Position angezeigt
             PlayerLocation.Add(PoiConverter(_com.GameState.MisterXLastKnownPOI, 210, MisterX.PlayerColor, _com.GameState.MisterX.Position.Name));
     }
 
@@ -358,7 +356,7 @@ public partial class MainViewModel : ObservableObject
 
         foreach (PointOfInterest poi in temp.Keys)
         {
-            PointOfInterestView tempPOIV = PoiConverter(poi, 200);
+            PointOfInterestView tempPOIV = PoiConverter(poi, 220);
             tempPOIV.PointOfInterest = poi;
             tempPOIV.Name = poi.Name;
 
@@ -401,19 +399,19 @@ public partial class MainViewModel : ObservableObject
             if (number < _com.GameState.TicketHistoryMisterX.Count)
             {
                 ticket.NumberColor = Colors.Transparent;
-                ticket.NumberFrameColor = Colors.Transparent;
             }
             else
             {
                 ticket.NumberColor = Colors.White;
-                ticket.NumberFrameColor = Colors.Gray;
             }
 
             // setting up MisterX discover round
             if (number == 2 || number == 7 || number == 12 || number == 17 || number == 23)
-                ticket.BorderThickness = 4;
+                //ticket.BorderThickness = 4;
+                ticket.BorderColor = new Color (247, 181, 72 );
             else
-                ticket.BorderThickness = 0;
+                //ticket.BorderThickness = 0;
+                ticket.BorderColor = Colors.Transparent;
 
             number++;
         }

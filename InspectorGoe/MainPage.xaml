@@ -89,6 +89,8 @@
                                                       Offset="0.60" />
                                         <GradientStop Color="Yellow"
                                                       Offset="0.62" />
+                                        <GradientStop Color="Yellow"
+                                                      Offset="0.73" />
                                         <GradientStop Color="Transparent"
                                                       Offset="1"/>
                                     </RadialGradientBrush>
@@ -121,6 +123,8 @@
                                                       Offset="0.60" />
                                         <GradientStop Color="white"
                                                       Offset="0.62" />
+                                        <GradientStop Color="white"
+                                                      Offset="0.73" />
                                         <GradientStop Color="Transparent"
                                                       Offset="1"/>
                                     </RadialGradientBrush>
