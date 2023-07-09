@@ -6,8 +6,8 @@
 
 
 
-    <Border StrokeThickness="{Binding BorderThickness}"
-            Stroke="{StaticResource Yellow100Accent}"
+    <Border StrokeThickness="4"
+            Stroke="{Binding BorderColor}"
             StrokeShape="RoundRectangle 20,20,20,20"
             Padding="0">
         
@@ -24,11 +24,6 @@
                        Source="{Binding ImagePath}" 
                        Aspect="Fill"/>
 
-                <Frame AbsoluteLayout.LayoutBounds="0,0,1,1"
-                       AbsoluteLayout.LayoutFlags="All"
-                       Opacity="0.8"
-                       BackgroundColor="{Binding NumberFrameColor}"/>
-
                 <Label AbsoluteLayout.LayoutBounds="0,0,1,1"
                        AbsoluteLayout.LayoutFlags="All"
                        Text="{Binding NumberRound}"
@@ -36,8 +31,6 @@
                        FontSize="40"
                        HorizontalTextAlignment="Center"
                        VerticalTextAlignment="Center"/>
-              
-
             </AbsoluteLayout>
 
     </Frame>

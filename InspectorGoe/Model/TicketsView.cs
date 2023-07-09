@@ -24,14 +24,11 @@ namespace GameComponents.Model
         /// Borderthickness for the border of the ticket if Misterx Position is discovered
         /// </summary>
 
+        private Color borderColor;
+        public Color BorderColor { get => borderColor; set => SetProperty(ref borderColor, value); }
+
         private int borderThickness;
         public int BorderThickness { get => borderThickness; set => SetProperty(ref borderThickness, value); }
-
-        /// <summary>
-        /// Color for the Frame behind the Roundnumber (only if ther is no ticket)
-        /// </summary>
-        private Color numberFrameColor;
-        public Color NumberFrameColor { get => numberFrameColor; set => SetProperty(ref numberFrameColor, value); }
 
         /// <summary>
         /// Color of the Roundnumber
