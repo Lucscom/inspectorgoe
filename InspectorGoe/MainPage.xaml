@@ -50,7 +50,7 @@
                                 <Frame.Background>
                                     <RadialGradientBrush Center="0.5,0.5">
                                         <GradientStop Color="Transparent"
-                                                      Offset="0.65" />
+                                                      Offset="0.6" />
                                         <GradientStop Color="{Binding ObjectColor}"
                                                       Offset="0.705" />
                                         <GradientStop Color="{Binding ObjectColor}"

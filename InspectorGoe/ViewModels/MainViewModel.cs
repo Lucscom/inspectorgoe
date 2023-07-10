@@ -292,11 +292,11 @@ public partial class MainViewModel : ObservableObject
 
         List<Color> colorList = new List<Color>
             {
-                Colors.Aqua,
-                Colors.LimeGreen,
-                Colors.Turquoise,
+                Colors.Purple,
                 Colors.Orange,
-                Colors.Purple
+                Colors.CornflowerBlue,
+                Colors.Green,
+                Colors.DarkTurquoise
             };
         int colorCounter = 0;
 
@@ -350,14 +350,14 @@ public partial class MainViewModel : ObservableObject
         PlayerLocation = new ObservableCollection<PointOfInterestView>();
         foreach (PlayerView detective in Detectives)
         {
-            PlayerLocation.Add(PoiConverter(detective.Position, 210, detective.PlayerColor, detective.Position.Name));
+            PlayerLocation.Add(PoiConverter(detective.Position, 220, detective.PlayerColor, detective.Position.Name));
         }
 
         if(IsMisterX)
-            PlayerLocation.Add(PoiConverter(_com.GameState.MisterX?.Position, 210, MisterX.PlayerColor, _com.GameState.MisterX.Position.Name));
+            PlayerLocation.Add(PoiConverter(_com.GameState.MisterX?.Position, 220, MisterX.PlayerColor, _com.GameState.MisterX.Position.Name));
 
         else if(_com.GameState.MisterXLastKnownPOI != null)
-            PlayerLocation.Add(PoiConverter(_com.GameState.MisterXLastKnownPOI, 210, MisterX.PlayerColor, _com.GameState.MisterX.Position.Name));
+            PlayerLocation.Add(PoiConverter(_com.GameState.MisterXLastKnownPOI, 220, MisterX.PlayerColor, _com.GameState.MisterX.Position.Name));
     }
 
 
@@ -381,13 +381,10 @@ public partial class MainViewModel : ObservableObject
 
             if (_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
                 PoiButtons.Add(tempPOIV);
-            else if(_com.GameState.ActivePlayer.UserName != _com.GameState.MisterX.UserName)
-                PoiFrames.Add(tempPOIV);    
+            else if (_com.GameState.ActivePlayer.UserName != _com.GameState.MisterX.UserName)
+                PoiFrames.Add(tempPOIV);
         }
-
-
     }
-
 
     /// <summary>
     /// Fill up the ticket history list from MisterX
@@ -458,7 +455,6 @@ public partial class MainViewModel : ObservableObject
         else
             return null;
         
-
     }
 
 
@@ -740,7 +736,7 @@ public partial class MainViewModel : ObservableObject
             WidthMap += 100;
             HeightMap = WidthMap / 1.7828;
         }
-        else if (zoomType == "minus")//&& WidthMap - 100 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 100 >= DeviceDisplay.MainDisplayInfo.Height
+        else if (zoomType == "minus" && WidthMap >= 1800)//&& WidthMap - 100 >= DeviceDisplay.MainDisplayInfo.Width && HeightMap - 100 >= DeviceDisplay.MainDisplayInfo.Height
         {
             WidthMap -= 100;
             HeightMap = WidthMap / 1.7828;
@@ -748,7 +744,6 @@ public partial class MainViewModel : ObservableObject
 
         fillPoiObjects();
         fillPlayerLocation();
-
     }
 
 

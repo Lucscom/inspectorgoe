@@ -2,6 +2,7 @@
 using InspectorGoe.ViewModels;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using Microsoft.Maui.Layouts;
 
 namespace InspectorGoe;
@@ -14,6 +15,7 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 
         BindingContext = ViewModels.MainViewModel.GetInstance();
+
     }
 }
 
