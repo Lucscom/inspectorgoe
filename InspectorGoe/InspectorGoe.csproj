@@ -15,7 +15,7 @@
 		<ApplicationTitle>InspectorGoe</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.inspectorgoe</ApplicationId>
+		<ApplicationId>com.hawk.inspectorgoe</ApplicationId>
 		<ApplicationIdGuid>4591bcea-1ef9-4a62-b63e-b9ccade5fe8f</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -40,7 +40,7 @@
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
 	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 	<ItemGroup>
