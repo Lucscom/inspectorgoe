@@ -4,61 +4,65 @@
                xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels"
                x:Class="InspectorGoe.TicketSelectionPageMisterX"
                Color="Transparent"
-               Size="260,700">
+               Size="{OnPlatform '260,700', Android='200,340'}">
 
     <Frame BackgroundColor="{StaticResource Gray600}" 
            CornerRadius="10">
 
-        <VerticalStackLayout>
+        <VerticalStackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <Label Text="Select Ticket"
                    TextColor="white"
-                   FontSize="30"
-                   Padding="10"
+                   FontSize="{OnPlatform 30, Android=15}"
+                   Padding="{OnPlatform 10, Android=5}"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Start"/>
 
+            <ScrollView Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                <VerticalStackLayout Padding="{OnPlatform 5, Android=0}" 
+                                    BindableLayout.ItemsSource="{Binding TicketSelection}" 
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="StartAndExpand"
+                                    Spacing="{OnPlatform 10, Android=0}">
 
-            <VerticalStackLayout Padding="5" 
-                                 BindableLayout.ItemsSource="{Binding TicketSelection}" 
-                                 HorizontalOptions="Center"
-                                 VerticalOptions="Center"
-                                 Spacing="10">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
 
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                           
-                        <ImageButton Padding="0"
-                                     BackgroundColor="Transparent"
-                                     BorderColor="Transparent"
-                                     CornerRadius="25"
-                                     Aspect="AspectFill"
-                                     HorizontalOptions="Center"
-                                     VerticalOptions="Center"
-                                     IsEnabled="{Binding IsEnabled}"
-                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=Button_Clicked_TicketCommand}"
-                                     CommandParameter="{Binding .}"
-                                     Source="{Binding TicketImagePath}"/>
+                            <ImageButton Padding="{OnPlatform 0, Android=2}"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        CornerRadius="{OnPlatform 25, Android=13}"
+                                        Aspect="AspectFill"
+                                        WidthRequest="{OnPlatform 256, Android=128}"
+                                        HeightRequest="{OnPlatform 144, Android=72}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        IsEnabled="{Binding IsEnabled}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainViewModel}}, Path=Button_Clicked_TicketCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Source="{Binding TicketImagePath}"/>
 
 
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </VerticalStackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </ScrollView>
 
             <Frame BackgroundColor="Transparent"
-                   BorderColor="Transparent">
+                   BorderColor="Transparent"
+                   VerticalOptions="EndAndExpand">
 
-                <Grid>
+                <Grid VerticalOptions="FillAndExpand">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0"
-                           Text="Double Ticket"
-                           TextColor="White"
-                           FontSize="15"
-                           HorizontalTextAlignment="Start"
-                           VerticalTextAlignment="Center"/>
+                            Text="Double Ticket"
+                            TextColor="White"
+                            FontSize="{OnPlatform 15, Android=10}"
+                            HorizontalTextAlignment="Start"
+                            VerticalTextAlignment="Center"/>
 
                     <Switch Grid.Column="1"
                             IsEnabled="{Binding IsDoubleTicketPossible}"
@@ -66,12 +70,8 @@
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
                             ThumbColor="White"/>
-
-
                 </Grid>
-
             </Frame>
-
         </VerticalStackLayout>
 
     </Frame>

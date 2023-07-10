@@ -4,7 +4,7 @@
             xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels"
             x:Class="InspectorGoe.TicketSelectionPage"
             Color="Transparent"
-            Size="260,495">
+            Size="{OnPlatform '260,495', Android='260,300'}">
 
     <Frame BackgroundColor="{StaticResource Gray600}" 
            CornerRadius="10">
@@ -12,24 +12,24 @@
         <VerticalStackLayout>
             <Label Text="Select Ticket"
                    TextColor="white"
-                   FontSize="30"
-                   Padding="10"
+                   FontSize="{OnPlatform 30, Android=10}"
+                   Padding="{OnPlatform 10, Android=0}"
                    HorizontalTextAlignment="Center"
                    VerticalTextAlignment="Start"/>
 
 
-            <VerticalStackLayout Padding="5" 
+            <VerticalStackLayout Padding="{OnPlatform 5, Android=0}" 
                                  BindableLayout.ItemsSource="{Binding TicketSelection}" 
                                  HorizontalOptions="Center"
                                  VerticalOptions="FillAndExpand"
-                                 Spacing="10">
+                                 Spacing="{OnPlatform 10, Android=0}">
 
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
 
                         <ImageButton BackgroundColor="Transparent"
                                      BorderColor="Transparent"
-                                     CornerRadius="25"
+                                     CornerRadius="{OnPlatform 25, Android=13}"
                                      BorderWidth="0"
                                      Aspect="AspectFill"
                                      HorizontalOptions="Center"

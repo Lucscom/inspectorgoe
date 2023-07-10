@@ -4,7 +4,7 @@
                xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
                x:Class="InspectorGoe.LobbyPage"
                Color="Transparent"
-               Size="500,450"
+               Size="{OnPlatform '500,450', Android='500,320'}"
                CanBeDismissedByTappingOutsideOfPopup="False"
                x:Name="ThisPopup">
 
@@ -18,8 +18,8 @@
                    Text ="Lobby" 
                    FontSize="20" 
                    HorizontalOptions="Center"/>
-            
-            <ScrollView HeightRequest="350">
+
+            <ScrollView Orientation="Vertical" HeightRequest="{OnPlatform 350, Android=240}">
                 <VerticalStackLayout BindableLayout.ItemsSource="{Binding AllPlayers}" Padding="10">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -31,7 +31,7 @@
 
             <HorizontalStackLayout HeightRequest="70"
                                    HorizontalOptions="Center"
-                                   VerticalOptions="Center"
+                                   VerticalOptions="End"
                                    Padding="5">
                 
                 <Button x:Name="AddNPC" 

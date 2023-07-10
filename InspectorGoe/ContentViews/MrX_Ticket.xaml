@@ -2,18 +2,18 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InspectorGoe.ContentViews.MrX_Ticket"
-             Padding="5">
+             Padding="{OnPlatform 5, Android=0}">
 
-
+    
 
     <Border StrokeThickness="4"
             Stroke="{Binding BorderColor}"
-            StrokeShape="RoundRectangle 20,20,20,20"
+            StrokeShape="{OnPlatform Default='RoundRectangle 20,20,20,20', Android='RoundRectangle 10,10,10,10'}"
             Padding="0">
-        
-        
-        <Frame HeightRequest="110" 
-               WidthRequest="200"
+
+
+        <Frame HeightRequest="{OnPlatform 110, Android=55}" 
+               WidthRequest="{OnPlatform 200, Android=100}"
                BackgroundColor="white"
                Padding="0">
 
@@ -28,7 +28,7 @@
                        AbsoluteLayout.LayoutFlags="All"
                        Text="{Binding NumberRound}"
                        TextColor="{Binding NumberColor}"
-                       FontSize="40"
+                       FontSize="{OnPlatform 40, Android=20}"
                        HorizontalTextAlignment="Center"
                        VerticalTextAlignment="Center"/>
             </AbsoluteLayout>

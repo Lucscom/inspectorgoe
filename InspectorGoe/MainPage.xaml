@@ -4,7 +4,12 @@
              x:Class="InspectorGoe.MainPage"
              xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
              xmlns:viewModel="clr-namespace:InspectorGoe.ViewModels"
-             xmlns:container="clr-namespace:InspectorGoe.Container">
+             xmlns:container="clr-namespace:InspectorGoe.Container"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.BackButtonTitle=""
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False">
 
 
     <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -149,6 +154,7 @@
                 BackgroundColor="{StaticResource Gray600}"
                 TextColor="white"
                 Text="+"
+                FontSize="{OnPlatform 20, Android=10}"
                 Command="{Binding Button_Clicked_ZoomCommand}"
                 CommandParameter="plus"/>
 
@@ -161,6 +167,7 @@
                 BackgroundColor="{StaticResource Gray600}"
                 TextColor="white"
                 Text="-"
+                FontSize="{OnPlatform 20, Android=10}"
                 Command="{Binding Button_Clicked_ZoomCommand}"
                 CommandParameter="minus"/>
         
@@ -170,7 +177,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="220" />
+                <RowDefinition Height="{OnPlatform 220, Android=120}" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -180,7 +187,7 @@
 
 
             <!--Ticket History MisterX-->
-            <Grid >
+            <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
@@ -188,7 +195,7 @@
 
                 <ScrollView VerticalScrollBarVisibility="Never">
 
-                    <VerticalStackLayout Padding="5" 
+                    <VerticalStackLayout Padding="{OnPlatform 5, Android=0}" 
                                          BindableLayout.ItemsSource="{Binding MrXticketHistory}" 
                                          HorizontalOptions="Start"
                                          VerticalOptions="End">
@@ -211,8 +218,8 @@
                         Orientation="Horizontal">
 
                 <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Detectives}"
-                                       HorizontalOptions="Center"
-                                       Padding="5">
+                                       HorizontalOptions="StartAndExpand"
+                                       Padding="{OnPlatform 5, Android=0}">
 
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -224,8 +231,8 @@
 
             
             <!--MrX Card-->
-            <StackLayout Grid.Row="1" 
-                         Padding="5">
+            <StackLayout Grid.Column="0" Grid.Row="1" 
+                         Padding="{OnPlatform 5, Android=0}">
                 
                 <contentviews:MrXCard BindingContext="{Binding MisterX}"/>
 

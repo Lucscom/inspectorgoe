@@ -5,17 +5,17 @@
              Padding="5">
 
     <Border Stroke="{StaticResource Yellow100Accent}"
-            StrokeShape="RoundRectangle 20,20,20,20"
+            StrokeShape="{OnPlatform Default='RoundRectangle 20,20,20,20', Android='RoundRectangle 10,10,10,10'}"
             Padding="0"
             StrokeThickness="{Binding BorderThickness}">
-        
-        <Frame  CornerRadius="10"
-                WidthRequest="280"
-                HeightRequest="200"
+
+        <Frame  CornerRadius="{OnPlatform 10, Android=5}"
+                WidthRequest="{OnPlatform 280, Android=140}"
+                HeightRequest="{OnPlatform 200, Android=110}"
                 BackgroundColor="{StaticResource Gray600}"
                 BorderColor="{StaticResource Gray600}"
                 Opacity="0.9"
-                Padding="10"
+                Padding="{OnPlatform 10, Android=5}"
                 HasShadow="True">
 
 
@@ -47,9 +47,9 @@
                     </Grid.RowDefinitions>
 
                     <Frame BorderColor="DarkGray"
-                           HeightRequest="80"
-                           WidthRequest="80"
-                           CornerRadius="40"
+                           HeightRequest="{OnPlatform 80, Android=40}"
+                           WidthRequest="{OnPlatform 80, Android=40}"
+                           CornerRadius="{OnPlatform 40, Android=20}"
                            BackgroundColor="White"
                            Padding="0"
                            HasShadow="True">
@@ -58,7 +58,7 @@
                                Aspect="AspectFill"/>
                     </Frame>
 
-                    <Frame Grid.Row="1" CornerRadius="10" BackgroundColor="{Binding PlayerColor}" BorderColor="{Binding PlayerColor}" Padding="2"/>
+                    <Frame Grid.Row="1" CornerRadius="{OnPlatform 10, Android=5}" BackgroundColor="{Binding PlayerColor}" BorderColor="{Binding PlayerColor}" Padding="2"/>
                 </Grid>
 
 
@@ -76,14 +76,14 @@
 
 
                     <!--Black Ticket-->
-                    <Frame CornerRadius="5"
+                    <Frame CornerRadius="{OnPlatform 5, Android=3}"
                            BackgroundColor="Transparent"
                            BorderColor="Black"
                            Padding="0"
                            HasShadow="True"
                            HorizontalOptions="End"
-                           WidthRequest="130"
-                           HeightRequest="45">
+                           WidthRequest="{OnPlatform 130, Android=65}"
+                           HeightRequest="{OnPlatform 45, Android=23}">
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -94,14 +94,14 @@
 
                             <Image Source="ticket_black.png" 
                                    Aspect="Fill"
-                                   HeightRequest="45"
-                                   WidthRequest="80"/>
+                                   HeightRequest="{OnPlatform 45, Android=23}"
+                                   WidthRequest="{OnPlatform 80, Android=40}"/>
 
                             <Label Grid.Column="1" 
                                    Padding="0" 
                                    TextColor="White" 
                                    BackgroundColor="{StaticResource Gray600}" 
-                                   FontSize="20"  
+                                   FontSize="{OnPlatform 20, Android=10}"  
                                    HorizontalOptions="CenterAndExpand" 
                                    VerticalOptions="CenterAndExpand"
                                    Text="{Binding BlackTicket}"/>
@@ -113,11 +113,11 @@
                     <Frame Grid.Row="1"
                            BackgroundColor="Transparent"
                            BorderColor="black"
-                           CornerRadius="5"
+                           CornerRadius="{OnPlatform 5, Android=3}"
                            Padding="0"
                            HorizontalOptions="End"
-                           WidthRequest="130"
-                           HeightRequest="45">
+                           WidthRequest="{OnPlatform 130, Android=65}"
+                           HeightRequest="{OnPlatform 45, Android=23}">
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -127,14 +127,14 @@
 
                             <Image Source="ticket_doubleTicket.png" 
                                    Aspect="Fill"
-                                   HeightRequest="45"
-                                   WidthRequest="80"/>
+                                   HeightRequest="{OnPlatform 45, Android=23}"
+                                   WidthRequest="{OnPlatform 80, Android=40}"/>
 
                             <Label Grid.Column="1"
                                    Grid.Row="1" 
                                    TextColor="White"
                                    Background="{StaticResource Gray600}" 
-                                   FontSize="20" 
+                                   FontSize="{OnPlatform 20, Android=10}" 
                                    HorizontalOptions="Center" 
                                    VerticalOptions="Center"
                                    Text="{Binding DoubleTicket}"/>
@@ -148,11 +148,11 @@
                 <Frame Grid.Column="0"
                        Grid.Row="1"
                        Grid.ColumnSpan="2"
-                       CornerRadius="10"
+                       CornerRadius="{OnPlatform 10, Android=5}"
                        BackgroundColor="{StaticResource Blue100Accent}"
                        Padding="0">
-                    
-                    <Label Text="{Binding UserName}" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20"/>
+
+                    <Label Text="{Binding UserName}" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" FontSize="{OnPlatform 20, Android=10}"/>
                 </Frame>
 
             </Grid>
