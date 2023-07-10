@@ -4,28 +4,56 @@
                xmlns:contentviews="clr-namespace:InspectorGoe.ContentViews"
                x:Class="InspectorGoe.LobbyPage"
                Color="Transparent"
-               Size="500,350"
+               Size="500,450"
                CanBeDismissedByTappingOutsideOfPopup="False"
                x:Name="ThisPopup">
 
 
-    <Frame BackgroundColor="LightBlue" CornerRadius="10" Padding="5">
+    <Frame BackgroundColor="LightBlue" 
+           CornerRadius="10" 
+           Padding="5">
+        
         <StackLayout>
-            <Label Text="Lobby" FontSize="20" HorizontalOptions="Center"/>
-            <VerticalStackLayout BindableLayout.ItemsSource="{Binding AllPlayers}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="10">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <contentviews:PlayerListElement/>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </VerticalStackLayout>
-            <HorizontalStackLayout>
-                <Button x:Name="AddNPC" Text="Add NPC" Margin="10" Command="{Binding AddNPCCommand}" WidthRequest="100"/>
-                <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}" WidthRequest="300"/>
-            </HorizontalStackLayout>
+            <Label HeightRequest="30" 
+                   Text ="Lobby" 
+                   FontSize="20" 
+                   HorizontalOptions="Center"/>
             
+            <ScrollView HeightRequest="350">
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding AllPlayers}" Padding="10">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <contentviews:PlayerListElement/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <HorizontalStackLayout HeightRequest="70"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Padding="5">
+                
+                <Button x:Name="AddNPC" 
+                        IsVisible="{Binding IsCreator}"
+                        Text="Add NPC" 
+                        Margin="15,0,0,0" 
+                        Command="{Binding AddNPCCommand}" 
+                        WidthRequest="100" 
+                        VerticalOptions="Center"/>
+                
+                
+                <Button x:Name="StartGame" 
+                        IsVisible="{Binding IsCreator}"
+                        Text="Start Game" 
+                        Margin="15,0,15,0"
+                        Command="{Binding StartGameCommand}" 
+                        CommandParameter="{x:Reference ThisPopup}" 
+                        VerticalOptions="Center" 
+                        WidthRequest="345"/>
+                
+            </HorizontalStackLayout>
         </StackLayout>
     </Frame>
-
 
 </toolkit:Popup>
