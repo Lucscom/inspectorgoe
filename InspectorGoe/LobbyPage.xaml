@@ -23,8 +23,8 @@
             </ScrollView>
 
             <HorizontalStackLayout >
-                <Button x:Name="AddNPC" Text="Add NPC" Margin="10" Command="{Binding AddNPCCommand}" WidthRequest="100"/>
-                <Button x:Name="StartGame" Text="Start Game" Margin="10" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}" WidthRequest="300"/>
+                <Button x:Name="AddNPC" Text="Add NPC" Margin="15,0,0,0" Command="{Binding AddNPCCommand}" WidthRequest="100" HeightRequest="35" VerticalOptions="End"/>
+                <Button x:Name="StartGame" Text="Start Game" Margin="15,0,15,0" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}" VerticalOptions="End" HeightRequest="35" WidthRequest="345"/>
             </HorizontalStackLayout>
         </StackLayout>
     </Frame>
