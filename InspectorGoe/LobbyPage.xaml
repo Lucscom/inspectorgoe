@@ -9,9 +9,16 @@
                x:Name="ThisPopup">
 
 
-    <Frame BackgroundColor="LightBlue" CornerRadius="10" Padding="5">
+    <Frame BackgroundColor="LightBlue" 
+           CornerRadius="10" 
+           Padding="5">
+        
         <StackLayout>
-            <Label Text ="Lobby" FontSize="20" HorizontalOptions="Center"/>
+            <Label HeightRequest="30" 
+                   Text ="Lobby" 
+                   FontSize="20" 
+                   HorizontalOptions="Center"/>
+            
             <ScrollView HeightRequest="350">
                 <VerticalStackLayout BindableLayout.ItemsSource="{Binding AllPlayers}" Padding="10">
                     <BindableLayout.ItemTemplate>
@@ -22,9 +29,29 @@
                 </VerticalStackLayout>
             </ScrollView>
 
-            <HorizontalStackLayout >
-                <Button x:Name="AddNPC" Text="Add NPC" Margin="15,0,0,0" Command="{Binding AddNPCCommand}" WidthRequest="100" HeightRequest="35" VerticalOptions="End"/>
-                <Button x:Name="StartGame" Text="Start Game" Margin="15,0,15,0" Command="{Binding StartGameCommand}" CommandParameter="{x:Reference ThisPopup}" VerticalOptions="End" HeightRequest="35" WidthRequest="345"/>
+            <HorizontalStackLayout HeightRequest="70"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Padding="5">
+                
+                <Button x:Name="AddNPC" 
+                        IsVisible="{Binding IsCreator}"
+                        Text="Add NPC" 
+                        Margin="15,0,0,0" 
+                        Command="{Binding AddNPCCommand}" 
+                        WidthRequest="100" 
+                        VerticalOptions="Center"/>
+                
+                
+                <Button x:Name="StartGame" 
+                        IsVisible="{Binding IsCreator}"
+                        Text="Start Game" 
+                        Margin="15,0,15,0"
+                        Command="{Binding StartGameCommand}" 
+                        CommandParameter="{x:Reference ThisPopup}" 
+                        VerticalOptions="Center" 
+                        WidthRequest="345"/>
+                
             </HorizontalStackLayout>
         </StackLayout>
     </Frame>

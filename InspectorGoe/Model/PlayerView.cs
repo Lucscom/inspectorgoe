@@ -63,6 +63,18 @@ namespace InspectorGoe.Model
         public bool Npc { get => npc; set => SetProperty(ref npc, value); }
 
         /// <summary>
+        /// True if this player is Mister X
+        /// </summary>
+        private bool isMisterX;
+        public bool IsMisterX { get => isMisterX; set => SetProperty(ref isMisterX, value); }
+
+        /// <summary>
+        /// True if this player is the creator of the game
+        /// </summary>
+        private bool isRemovable;
+        public bool IsRemovable { get => isRemovable; set => SetProperty(ref isRemovable, value); }
+
+        /// <summary>
         /// The current position as point of interest
         /// </summary>
         private PointOfInterest position;

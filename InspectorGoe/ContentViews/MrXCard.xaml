@@ -13,6 +13,7 @@
                 WidthRequest="280"
                 HeightRequest="200"
                 BackgroundColor="{StaticResource Gray600}"
+                BorderColor="{StaticResource Gray600}"
                 Opacity="0.9"
                 Padding="10"
                 HasShadow="True">

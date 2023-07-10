@@ -57,6 +57,9 @@ public partial class MainViewModel : ObservableObject
     string userseverip = string.Empty;
 #endif
 
+    [ObservableProperty]
+    private bool isCreator = false;
+
     // ########## Variablen für Register ##########
     [ObservableProperty]
     private string usernameregister = string.Empty;
@@ -67,8 +70,6 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string userpasswordregister2 = string.Empty;
 
-    // ########## Variablen für Menu ##########
-    private bool isCreator = false;
 
     // ########## Variablen für AvatarPage ##########
     [ObservableProperty]
@@ -91,9 +92,6 @@ public partial class MainViewModel : ObservableObject
     private ObservableCollection<PointOfInterestView> playerLocation = new ObservableCollection<PointOfInterestView>();
 
     [ObservableProperty]
-    private Player currentPlayer = new Player();
-
-    [ObservableProperty]
     private ObservableCollection<PlayerView> detectives = new ObservableCollection<PlayerView>();
 
     [ObservableProperty]
@@ -102,13 +100,13 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private bool isMisterX = false;
 
+    private Player ownPlayer = new Player();
+
     [ObservableProperty]
-    private ObservableCollection<Player> allPlayers = new ObservableCollection<Player>();
+    private ObservableCollection<PlayerView> allPlayers = new ObservableCollection<PlayerView>();
 
     [ObservableProperty]
     private ObservableCollection<TicketsView> mrXticketHistory = new ObservableCollection<TicketsView>();
-
-
 
 
     // POIS
@@ -164,34 +162,17 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
-            // Fill All player List 
-            AllPlayers = new ObservableCollection<Player>();
-            foreach (Player detective in _com.GameState.Detectives)
+            // Fill Lobby Playerlist
+            if (!_com.GameState.GameStarted)
             {
-                AllPlayers.Add(detective);
+                fillPlayerLobby();
             }
-
-            // Fill 
-            if (_com.GameState.MisterX != null)
-            {
-                AllPlayers.Add(_com.GameState.MisterX);
-                IsMisterX = CurrentPlayer?.UserName == _com.GameState.MisterX?.UserName;
-            }
-
-
-            if (AllPlayers.Any())
-            {
-                var currPlayer = AllPlayers.FirstOrDefault(p => p.UserName == CurrentPlayer?.UserName);
-                if (currPlayer != null)
-                {
-                    CurrentPlayer = currPlayer;
-                }
-            }
-            AllPlayers.Reverse();
 
             // Fill all Game Data
-            if (_com.GameState.GameStarted == true)
+            else
             {
+
+                if (ownPlayer.UserName == _com.GameState.MisterX.UserName) IsMisterX = true; else IsMisterX = false;
 
                 // Set Player Card
                 fillPlayerCards();
@@ -208,10 +189,10 @@ public partial class MainViewModel : ObservableObject
                 // Point of Interest Buttons
                 fillPoiObjects();
 
-                if (doubleTicketSelected)
+                if (DoubleTicketSelected)
                 {
                     _com.GameState.ActivePlayer.usingDoubleTicket = true;
-                    doubleTicketSelected = false;
+                    DoubleTicketSelected = false;
                 }
 
             }
@@ -264,6 +245,44 @@ public partial class MainViewModel : ObservableObject
 
 
     /// <summary>
+    /// Fill all Player List for Lobby
+    /// </summary>
+    private void fillPlayerLobby()
+    {
+
+        // Add Detectives
+        AllPlayers = new ObservableCollection<PlayerView>();
+        foreach (Player detective in _com.GameState.Detectives)
+        {
+            PlayerView temp = new PlayerView();
+            temp.UserName = detective.UserName;
+            temp.AvatarImagePath = detective.AvatarImagePath;
+            temp.IsMisterX = false;
+            temp.Npc = detective.Npc;
+            if(IsCreator && temp.Npc) temp.IsRemovable = true;
+            else temp.IsRemovable = false;
+
+            AllPlayers.Add(temp);
+        }
+
+        // Add MisterX
+        if (_com.GameState.MisterX != null)
+        {
+            PlayerView temp = new PlayerView();
+            temp.UserName = _com.GameState.MisterX.UserName;
+            temp.AvatarImagePath = _com.GameState.MisterX.AvatarImagePath;
+            temp.IsMisterX = true;
+            temp.Npc = _com.GameState.MisterX.Npc;
+            if (IsCreator && temp.Npc) temp.IsRemovable = true;
+            else temp.IsRemovable = false;
+
+            AllPlayers.Add(temp);
+        }
+
+    }
+
+
+    /// <summary>
     /// Fill the Player Cards from detectives and MisterX
     /// </summary>
     private void fillPlayerCards()
@@ -285,7 +304,7 @@ public partial class MainViewModel : ObservableObject
         {
             PlayerView temp = new();
             temp.AvatarImagePath = detective.AvatarImagePath;
-            if(CurrentPlayer.UserName == detective.UserName) temp.UserName = detective.UserName + " (You)"; else temp.UserName = detective.UserName;
+            if(ownPlayer.UserName == detective.UserName) temp.UserName = detective.UserName + " (You)"; else temp.UserName = detective.UserName;
             temp.BikeTicket = detective.BikeTicket;
             temp.ScooterTicket = detective.ScooterTicket;
             temp.BusTicket = detective.BusTicket;
@@ -307,7 +326,7 @@ public partial class MainViewModel : ObservableObject
 
         // MisterX
         MisterX.AvatarImagePath = _com.GameState.MisterX.AvatarImagePath;
-        if(CurrentPlayer.UserName == _com.GameState.MisterX.UserName) MisterX.UserName = _com.GameState.MisterX.UserName + " (You)"; else MisterX.UserName = _com.GameState.MisterX.UserName;
+        if(IsMisterX) MisterX.UserName = _com.GameState.MisterX.UserName + " (You)"; else MisterX.UserName = _com.GameState.MisterX.UserName;
         MisterX.BikeTicket = _com.GameState.MisterX.BikeTicket;
         MisterX.ScooterTicket = _com.GameState.MisterX.ScooterTicket;
         MisterX.BusTicket = _com.GameState.MisterX.BusTicket;
@@ -334,7 +353,7 @@ public partial class MainViewModel : ObservableObject
             PlayerLocation.Add(PoiConverter(detective.Position, 210, detective.PlayerColor, detective.Position.Name));
         }
 
-        if(IsMisterX == true)
+        if(IsMisterX)
             PlayerLocation.Add(PoiConverter(_com.GameState.MisterX?.Position, 210, MisterX.PlayerColor, _com.GameState.MisterX.Position.Name));
 
         else if(_com.GameState.MisterXLastKnownPOI != null)
@@ -360,7 +379,7 @@ public partial class MainViewModel : ObservableObject
             tempPOIV.PointOfInterest = poi;
             tempPOIV.Name = poi.Name;
 
-            if (_com.GameState.ActivePlayer.UserName == CurrentPlayer.UserName)
+            if (_com.GameState.ActivePlayer.UserName == ownPlayer.UserName)
                 PoiButtons.Add(tempPOIV);
             else if(_com.GameState.ActivePlayer.UserName != _com.GameState.MisterX.UserName)
                 PoiFrames.Add(tempPOIV);    
@@ -512,7 +531,7 @@ public partial class MainViewModel : ObservableObject
         try
         {
             await _com.LoginAsync(player);
-            CurrentPlayer = await GetOwnPlayer();
+            ownPlayer = await GetOwnPlayer();
         }
         catch (Exception ex)
         {
@@ -553,7 +572,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task CreateNewGame()
     {
-        isCreator = true;
+        IsCreator = true;
         AvatarButton = "Create Game";
         await Shell.Current.ShowPopupAsync(new AvatarPage());
     }
@@ -564,6 +583,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task JoinGame()
     {
+        IsCreator = false;
         AvatarButton = "Join Game";
         await Shell.Current.ShowPopupAsync(new AvatarPage());
     }
@@ -597,7 +617,7 @@ public partial class MainViewModel : ObservableObject
     private async Task Start(AvatarPage popup) //todo: rename to create game
     {
         //Spiel erstellen wenn Creator
-        if (isCreator == true)
+        if (IsCreator == true)
         {
             try
             {
@@ -639,8 +659,7 @@ public partial class MainViewModel : ObservableObject
         }
         _lobby = new LobbyPage();
         await _com.newGameStateEvent.WaitAsync();
-        if (CurrentPlayer.UserName != _com.GameState.GameCreator.UserName)
-            _lobby.FindByName<Button>("StartGame").IsVisible = false;
+
         await Shell.Current.ShowPopupAsync(_lobby);
     }
 
@@ -777,7 +796,7 @@ public partial class MainViewModel : ObservableObject
         }
 
         DoubleTicketSelected = false;
-        if (IsMisterX == false)
+        if (!IsMisterX)
         {
             ticketSelectionPage = new TicketSelectionPage();
             Shell.Current.ShowPopup(ticketSelectionPage);
