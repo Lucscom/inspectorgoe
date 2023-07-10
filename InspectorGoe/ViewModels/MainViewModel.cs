@@ -519,8 +519,16 @@ public partial class MainViewModel : ObservableObject
         }
         catch (Exception ex)
         {
+            try
+            {
             var content = JsonConvert.DeserializeObject<List<IdentityError>>(await response.Content.ReadAsStringAsync());
             await Shell.Current.DisplayAlert($"{content?.First()?.Code}", $"{content?.First()?.Description}", "OK");
+            return;
+        }
+            catch
+            {
+                await Shell.Current.DisplayAlert("Error", $"{ex.Message}", "OK");
+            }
             return;
         }
 

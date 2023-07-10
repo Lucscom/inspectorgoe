@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<network-security-config>
+	<!--allow http traffic-->
+	<!--todo: add and trust server certificate here!!!-->
+	<base-config cleartextTrafficPermitted="true">
+		<!--add trusted certficates (trust anchors) here-->
+		<!--https://developer.android.com/training/articles/security-config-->
+	</base-config>
+</network-security-config>

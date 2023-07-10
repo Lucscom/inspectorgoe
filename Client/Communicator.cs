@@ -46,7 +46,6 @@ namespace Client
         /// </summary>
         public Communicator()
         {
-            _client = new HttpClient();
         }
 
         /// <summary>
@@ -57,6 +56,7 @@ namespace Client
 
         {
             _url = url;
+            _client = new HttpClient();
             _client.BaseAddress = new Uri(url);
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(
