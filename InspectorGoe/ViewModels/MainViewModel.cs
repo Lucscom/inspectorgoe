@@ -54,7 +54,7 @@ public partial class MainViewModel : ObservableObject
     #if DEBUG
     string userseverip = "http://localhost:5000";
 #else
-    string userseverip = string.Empty;
+    string userseverip = "http://localhost:5000";
 #endif
 
     [ObservableProperty]
