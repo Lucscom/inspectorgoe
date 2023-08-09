@@ -11,6 +11,8 @@ using System.Text;
 using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using Client.Events;
+using Microsoft.Extensions.DependencyInjection;
+using GameState = GameComponents.Model.GameState;
 
 namespace Client
 {
