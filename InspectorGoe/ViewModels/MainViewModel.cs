@@ -52,7 +52,7 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(Button_Clicked_LogInCommand))]
     #if DEBUG
-    string userseverip = "https://localhost:5000";
+    string userseverip = "http://localhost:5000";
 #else
     string userseverip = string.Empty;
 #endif
@@ -519,8 +519,16 @@ public partial class MainViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            var content = JsonConvert.DeserializeObject<List<IdentityError>>(await response.Content.ReadAsStringAsync());
-            await Shell.Current.DisplayAlert($"{content?.First()?.Code}", $"{content?.First()?.Description}", "OK");
+            try
+            {
+                var content = JsonConvert.DeserializeObject<List<IdentityError>>(await response.Content.ReadAsStringAsync());
+                await Shell.Current.DisplayAlert($"{content?.First()?.Code}", $"{content?.First()?.Description}", "OK");
+            }
+            catch (Exception)
+            {
+                await Shell.Current.DisplayAlert($"{ex}", $"{ex.Message}", "OK");
+            }
+            
             return;
         }
 
