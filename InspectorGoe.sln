@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject", "TestProject\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InspectorGoeServer", "InspectorGoeServer\InspectorGoeServer.csproj", "{E5E5B33B-815D-452A-9C79-DBEDAF0AC299}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{E7CB480A-5491-4775-B90D-F6B24F419693}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{E7CB480A-5491-4775-B90D-F6B24F419693}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
